@@ -21,9 +21,10 @@
 
         <v-list>
             <v-list-item
-            v-for="item in items"
-            :key="item.title"
-            link
+                v-for="item in items"
+                :key="item.title"
+                link
+                :to ="item.link"
             >
             <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
@@ -50,9 +51,9 @@
     data () {
       return {
         items: [
-          { title: 'Dashboard', icon: 'mdi-view-dashboard'},
-          { title: 'Account', icon: 'mdi-account-box' },
-          { title: 'Admin', icon: 'mdi-gavel' },
+          { title: 'Dashboard', icon: 'mdi-view-dashboard', link:'home'},
+          { title: 'Account', icon: 'mdi-account-box', link:'account' },
+          { title: 'Admin', icon: 'mdi-gavel', link:'home' },
         ],
       }
     },
