@@ -53,7 +53,9 @@
         items: [
           { title: 'Dashboard', icon: 'mdi-view-dashboard', link:'home'},
           { title: 'Account', icon: 'mdi-account-box', link:'account' },
-          { title: 'Admin', icon: 'mdi-gavel', link:'home' },
+          { title: 'tree', icon: 'mdi-gavel', link:'tree' },
+          { title: 'menu', icon: 'mdi-gavel', link:'menu' },
+          { title: 'list', icon: 'mdi-gavel', link:'list' },
         ],
       }
     },

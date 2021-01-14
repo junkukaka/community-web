@@ -1,0 +1,387 @@
+<template>
+
+  <!-- Firset  Menu Start -->
+  <v-card>
+    <v-card
+      id = "FirsetMenu"
+      width="300"
+      class="float-left ma-3"
+      tile
+    >
+      <v-list flat>
+        <v-subheader class="title">
+          <v-list-item-title>
+            First Menu
+          </v-list-item-title>
+            <v-btn depressed class="ma-2" @click="addFirstMenu(1)">
+              New<v-icon>mdi-plus-circle</v-icon>
+            </v-btn>
+        </v-subheader>
+        <v-list-item-group
+          color="primary"
+        >
+          <v-list-item
+            v-for="(item, id) in menus"
+            :key="id"
+          >
+            <v-list-item-content @click="selectMenus(item)">
+              <v-list-item-title v-text="item.name" :class="{MyGrey: item.useYn == 'N'}"></v-list-item-title>
+            </v-list-item-content>
+
+            <v-list-item-icon @click="addChildren(item)">
+              <v-icon>mdi-plus-circle</v-icon>
+            </v-list-item-icon>
+            
+            <v-list-item-icon @click="editMenu(item)" style="margin-left:16px">
+              <v-icon>mdi-wrench</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-icon @click="deleteMenu(item)">
+              <v-icon>mdi-minus-circle</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-card>
+    <!-- Firset Menu End -->
+
+
+    <!-- SecondMenu  Menu Start -->
+    <v-card
+      id = "SecondMenu"
+      width="300"
+      class="float-left ma-3"
+      tile
+    >
+      <v-list flat>
+        <v-subheader class="title">
+          <v-list-item-title>
+            Second Menu
+          </v-list-item-title>
+        </v-subheader>
+        <v-list-item-group
+          color="primary"
+        >
+          <v-list-item
+            v-for="(item, id) in menus2"
+            :key="id"
+          >
+            <v-list-item-content @click="selectMenus(item)">
+              <v-list-item-title v-text="item.name" :class="{MyGrey: item.useYn == 'N'}"></v-list-item-title>
+            </v-list-item-content>
+
+            <v-list-item-icon @click="addChildren(item)">
+              <v-icon>mdi-plus-circle</v-icon>
+            </v-list-item-icon>
+            
+            <v-list-item-icon @click="editMenu(item)" style="margin-left:16px">
+              <v-icon>mdi-wrench</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-icon @click="deleteMenu(item)">
+              <v-icon>mdi-minus-circle</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-card>
+    <!-- SecondMenu Menu End -->
+
+    <!-- Third  Menu Start -->
+    <v-card
+      id = "ThirdMenu"
+      width="300"
+      class="float-left ma-3"
+      tile
+    >
+      <v-list flat>
+        <v-subheader class="title">
+          <v-list-item-title>
+            Second Menu
+          </v-list-item-title>
+        </v-subheader>
+        <v-list-item-group
+          color="primary"
+        >
+          <v-list-item
+            v-for="(item, id) in menus3"
+            :key="id"
+          >
+            <v-list-item-content @click="selectMenus(item)">
+              <v-list-item-title v-text="item.name" :class="{MyGrey: item.useYn == 'N'}"></v-list-item-title>
+            </v-list-item-content>
+            
+            <v-list-item-icon @click="editMenu(item)" style="margin-left:16px">
+              <v-icon>mdi-wrench</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-icon @click="deleteMenu(item)">
+              <v-icon>mdi-minus-circle</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-card>
+    <!-- Third Menu End -->
+
+    <!-- 修改或者添加弹窗 -->
+    <v-dialog
+      v-model="dialog"
+      max-width="500px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="headline">{{ formTitle }}</span>
+        </v-card-title>
+
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="6" md="6">
+                <div class="subtitle-1">菜单名称</div>
+                <v-text-field v-model="editedItem.name" required></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="46">
+                <div class="subtitle-1">使用与否</div>
+                <v-radio-group v-model="editedItem.useYn">
+                  <v-radio label="使用" value="Y"></v-radio>
+                  <v-radio label="停用" value="N"></v-radio>
+                </v-radio-group>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="close"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="save"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+
+    <!-- 删除确定弹窗 -->
+    <v-dialog v-model="dialogDelete" max-width="500px">
+      <v-card>
+        <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+          <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+  </v-card>
+   
+</template>
+
+
+
+<script>
+  export default {
+    data: () => ({
+      dialog: false,
+      dialogDelete: false,
+      menus: [],
+      menus2: [], //二级菜单
+      menus3: [], //三季菜单
+      editedIndex: -1,
+      editedItem: {
+        id: null,
+        name: null,
+        tier: null,
+        useYn: null,
+        father: null,
+      },
+      defaultItem: {
+        id: null,
+        name: null,
+        tier: null,
+        useYn: null,
+        father: null,
+      },
+      formTitle: ""
+    }),
+    
+    created: function(){
+      this.initialize();
+    },
+
+    methods: {
+      //初始化方法
+      initialize: function(){
+        let data = this.$data;
+        let request = {
+            tier : 1
+        }
+        this.$nextTick(function(){
+          this.$http.post("/menu/menus/condition",request).then(function(response){
+            data.menus = response.data.data
+          })
+        })
+      },
+
+      //添加主菜单
+      addFirstMenu: function(tier){
+        this.editedIndex = -1;
+        this.editedItem.useYn = 'Y';
+        this.editedItem.tier = tier;
+        this.dialog = true;
+        this.formTitle = "Add First Menu"
+      },
+
+      //添加下级菜单
+      addChildren: function(item){
+        if(item.tier === 1){
+          this.formTitle = "Add fisrt menu Children Menu: " + item.name 
+        }else{
+          this.formTitle = "Add second menu Children Menu: " + item.name 
+        }
+        this.editedInde = -1;
+        //设置父目录
+        this.editedItem.father = item.id;
+        //设置菜单等级
+        this.editedItem.tier = item.tier + 1;
+        this.editedItem.useYn = 'Y';
+        this.editedItem.id = null;
+        this.dialog = true;
+      },
+
+      //查看下级菜单
+      selectMenus : function (item){
+        let data = this.$data;
+        let request = {
+          father: item.id,
+          tier : item.tier + 1
+        }
+        let t = item.tier;
+        this.$nextTick(function(){
+          this.$http.post("/menu/menus/condition",request).then(function(response){
+            if(t === 1){
+              data.menus2 = response.data.data
+              data.menus3 = [];
+            }else{
+              data.menus3 = response.data.data
+            }
+          })
+        })
+      },
+
+      //修改菜单
+      editMenu : function(item){
+
+        if(item.tier === 1){
+          this.formTitle = "Edit fisrt menu Children Menu: " + item.name 
+        }else if(item.tier === 2){
+          this.formTitle = "Edit second menu Children Menu: " + item.name 
+        }else{
+          this.formTitle = "Edit third menu Children Menu: " + item.name 
+        }
+
+        if(item.tier === 1){
+          this.editedIndex = this.menus.indexOf(item)
+        }else if(item.tier === 2){
+          this.editedIndex = this.menus2.indexOf(item)
+        }else{
+          this.editedIndex = this.menus3.indexOf(item)
+        }
+        this.editedItem = Object.assign({}, item)
+        this.dialog = true;
+      },
+
+      
+      close: function(){
+        this.dialog = false
+      },
+
+      save : function(){
+         //updata function
+        if (this.editedIndex > -1) {
+          let data = this.editedItem;
+          this.$nextTick(function(){
+            this.$http.put("/menu/menus",data);
+          });
+          this.$router.go(0);
+        //Insert function  
+        } else {
+          let data = this.editedItem;
+          this.$nextTick(function(){
+            this.$http.post("/menu/menus",data)
+              .then(function(response){
+                 
+              });
+          })
+          this.$router.go(0);
+        }
+        this.close();
+      },
+
+      //删除以及菜单
+      deleteMenu : function(item){
+        if(item.tier === 1){
+          this.editedIndex = this.menus.indexOf(item);
+        }else if(item.tier === 2){
+          this.editedIndex = this.menus2.indexOf(item);
+        }else{
+          this.editedIndex = this.menus3.indexOf(item);
+        }
+       
+        this.editedItem.id = item.id;
+        this.editedItem.tier = item.tier;
+        this.editedItem = Object.assign({},item);
+        this.dialogDelete = true;
+      },
+
+      //输出菜单
+      deleteItemConfirm () {
+        let index = this.editedIndex;
+        let id = this.editedItem.id;
+        if(this.editedItem.tier === 1){
+          this.menus.splice(this.editedIndex, 1);
+        }else if(this.editedItem.tier ===2){
+          this.menus2.splice(this.editedIndex, 1);
+        }else{
+          this.menus3.splice(this.editedIndex, 1);
+        }
+
+        this.$nextTick(function(){
+          this.$http.delete("/menu/menus/"+ id)
+          .then(function(response){
+            
+          });
+        })
+        
+        this.closeDelete()
+      },
+      //关闭删除弹窗
+      closeDelete () {
+        this.dialogDelete = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      }
+
+    }
+  }
+</script>
+
+
+<style scoped>
+.MyGrey{color: rgb(255, 142, 142);}
+</style>
