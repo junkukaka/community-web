@@ -3,6 +3,7 @@
         app
         class="deep-purple accent-4"
         dark
+        width = "300"
         v-model="drawer"
     >
 
