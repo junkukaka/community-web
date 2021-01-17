@@ -107,7 +107,7 @@
             v-for="(item, id) in menus3"
             :key="id"
           >
-            <v-list-item-content @click="selectMenus(item)">
+            <v-list-item-content>
               <v-list-item-title v-text="item.name" :class="{MyGrey: item.useYn == 'N'}"></v-list-item-title>
             </v-list-item-content>
             
