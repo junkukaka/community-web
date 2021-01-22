@@ -22,17 +22,19 @@ const routes = [
             },
             {
                 path: '/tree',
-                name: 'Tree',
                 component: () => import('@/views/admin/Tree')
             },
             {
-                path: '/list',
-                name: 'List',
+                path: '/communityList/:id',
                 component: () => import('@/components/community/List')
-            }
-        ]
-    },
-    
+            },
+            {
+                path: '/communityEdit',
+                component: () => import('@/components/community/Edit')
+            },
+
+        ],
+    }
 ]
 
 //3.vuerouter 对象

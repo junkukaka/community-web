@@ -20,22 +20,19 @@
 
         <v-divider></v-divider>
 
-        <v-list>
-            <v-list-item
-                v-for="item in items"
-                :key="item.title"
-                link
-                :to ="item.link"
-            >
-            <v-list-item-icon>
-                <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-            </v-list-item>
-        </v-list>
+        <v-treeview
+            activatable
+            color="warning"
+            :items="menu"
+            open-on-click
+            class="my-3"
+        >
+            <template slot="label" slot-scope="props">
+                <router-link :to="'/communityList/'+ props.item.id" class="v-list-item theme--dark">
+                    {{props.item.name}} --- {{props.item.id}}
+                </router-link>
+            </template>
+        </v-treeview>
 
         <template v-slot:append>
             <div class="pa-2">
@@ -49,16 +46,27 @@
 
 <script>
   export default {
-    data () {
-      return {
-        items: [
-          { title: 'Dashboard', icon: 'mdi-view-dashboard', link:'home'},
-          { title: 'Account', icon: 'mdi-account-box', link:'account' },
-          { title: 'tree', icon: 'mdi-gavel', link:'tree' },
-          { title: 'menu', icon: 'mdi-gavel', link:'menu' },
-          { title: 'list', icon: 'mdi-gavel', link:'list' },
-        ],
-      }
+    data: () => ({
+      menu: [],
+    }),
+
+    created: function(){
+      this.initialize();
+    },
+
+    methods: {
+      //初始化方法
+      initialize: function(){
+        let data = this.$data;
+        let request = {
+            tier : 1
+        }
+        this.$nextTick(function(){
+          this.$http.get("/menu/menus/tree").then(function(response){
+            data.menu = response.data.data
+          })
+        })
+      },
     },
 
     computed :{

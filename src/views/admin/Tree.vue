@@ -2,13 +2,13 @@
   <v-treeview
     activatable
     color="warning"
-    :items="items"
+    :items="menu"
     open-on-click
     :open="initiallyOpen"
   >
     <template slot="label" slot-scope="props">
-        <router-link :to="props.item.menu" class="v-list-item v-list-item--link">
-            {{props.item.name}}
+        <router-link :to="'/community/'+ props.item.id" class="v-list-item v-list-item--link">
+            {{props.item.name}} --- {{props.item.id}}
         </router-link>
     </template>
   </v-treeview>
@@ -18,92 +18,27 @@
 <script>
   export default {
     data: () => ({
-      items: [
-        {
-          id: 1,
-          name: 'Applications :',
-          menu: 'home',
-          icon: 'fal',
-          children: [
-            {
-                 id: 2, 
-                 name: 'Calendar : app',
-                 menu: 'home' ,
-                 children: [
-                     {
-                        id: 1, 
-                        name: 'Calendar : app',
-                        menu: 'home' 
-                    }
-                ]
-
-            },
-            { id: 3, name: 'Chrome : app' },
-            { id: 4, name: 'Webstorm : app' },
-          ],
-        },
-        {
-          id: 5,
-          name: 'Documents :',
-          children: [
-            {
-              id: 6,
-              name: 'vuetify :',
-              children: [
-                {
-                  id: 7,
-                  name: 'src :',
-                  children: [
-                    { id: 8, name: 'index : ts' },
-                    { id: 9, name: 'bootstrap : ts' },
-                  ],
-                },
-              ],
-            },
-            {
-              id: 10,
-              name: 'material2 :',
-              children: [
-                {
-                  id: 11,
-                  name: 'src :',
-                  children: [
-                    { id: 12, name: 'v-btn : ts' },
-                    { id: 13, name: 'v-card : ts' },
-                    { id: 14, name: 'v-window : ts' },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 15,
-          name: 'Downloads :',
-          children: [
-            { id: 16, name: 'October : pdf' },
-            { id: 17, name: 'November : pdf' },
-            { id: 18, name: 'Tutorial : html' },
-          ],
-        },
-        {
-          id: 19,
-          name: 'Videos :',
-          children: [
-            {
-              id: 20,
-              name: 'Tutorials :',
-              children: [
-                { id: 21, name: 'Basic layouts : mp4' },
-                { id: 22, name: 'Advanced techniques : mp4' },
-                { id: 23, name: 'All about app : dir' },
-              ],
-            },
-            { id: 24, name: 'Intro : mov' },
-            { id: 25, name: 'Conference introduction : avi' },
-          ],
-        },
-      ],
+      menu: [],
     }),
+
+    created: function(){
+      this.initialize();
+    },
+
+    methods: {
+      //初始化方法
+      initialize: function(){
+        let data = this.$data;
+        let request = {
+            tier : 1
+        }
+        this.$nextTick(function(){
+          this.$http.get("/menu/menus/tree").then(function(response){
+            data.menu = response.data.data
+          })
+        })
+      },
+    }
+    
   }
 </script>

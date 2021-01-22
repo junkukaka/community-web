@@ -1,138 +1,121 @@
 <template>
-  <v-card
-    class="mx-auto"
-    max-width="500"
-  >
-    <v-toolbar
-      color="teal"
-      dark
-    >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-toolbar-title>Topics</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-    </v-toolbar>
+    <v-card flat>
+      <v-card flat>
+        <v-list>
+          <template v-for="(item, index) in items">
+            <v-divider
+              v-if="item.divider"
+              :key="index"
+              :inset="item.inset"
+            ></v-divider>
+            <v-list-item
+              v-else
+              :key="item.title"
+              link
+            >
+              <v-list-item-avatar>
+                <v-img :src="item.avatar"></v-img>
+              </v-list-item-avatar>
 
-    <v-list>
-      <v-list-group
-        v-for="item in menu"
-        :key="item.id"
-        no-action
-      >
-        <template v-slot:activator>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.name"></v-list-item-title>
-          </v-list-item-content>
+              <v-list-item-content>
+                <v-list-item-title v-html="item.title"></v-list-item-title>
+                <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+              </v-list-item-content>
+
+              <v-list-item-action>
+                <v-list-item-subtitle v-text="'2021.01.20'"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="99"></v-list-item-subtitle>
+              </v-list-item-action>
+              
+            </v-list-item>
+          </template>
+        </v-list>
+
+        <v-fab-transition>
+          <router-link to="/communityEdit">
+            <v-btn
+              color="indigo"
+              dark
+              fixed
+              bottom
+              right
+              fab
+              style="right:50px;bottom:50px"
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </router-link>
+        </v-fab-transition>
+      </v-card>
+
+      <v-card flat>
+        <template>
+          <div class="text-center">
+            <v-pagination
+              v-model="page"
+              :length="15"
+              :total-visible="7"
+            ></v-pagination>
+          </div>
         </template>
-
-        <v-list-item
-          v-for="c in item.child"
-          :key="c.name"
-        >
-          <v-list-item-content>
-            <v-list-item-title v-text="c.name"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-group>
-    </v-list>
-  </v-card>
+      </v-card>
+    </v-card>
 </template>
 
 
 <script>
   export default {
     data: () => ({
-      selectedItem: 1,
-      menu: [
-          {
-              "tier": 1,
-              "name": "3",
-              "id": 148,
-              "child": [
-                  {
-                      "id": 153,
-                      "name": "bb",
-                      "tier": 2,
-                      "father": 148,
-                      "useYn": "Y",
-                      "registerId": null,
-                      "registerTime": "2021-01-14T06:52:00.000+00:00",
-                      "updateId": null,
-                      "updateTime": "2021-01-17T13:07:26.000+00:00"
-                  },
-                  {
-                      "id": 154,
-                      "name": "ab",
-                      "tier": 2,
-                      "father": 148,
-                      "useYn": "Y",
-                      "registerId": null,
-                      "registerTime": "2021-01-14T06:52:06.000+00:00",
-                      "updateId": null,
-                      "updateTime": null
-                  }
-              ]
-          },
-          {
-              "tier": 1,
-              "name": "2",
-              "id": 150,
-              "child": [
-                  {
-                      "id": 161,
-                      "name": "sd",
-                      "tier": 2,
-                      "father": 150,
-                      "useYn": "Y",
-                      "registerId": null,
-                      "registerTime": "2021-01-14T06:57:35.000+00:00",
-                      "updateId": null,
-                      "updateTime": null
-                  },
-                  {
-                      "id": 164,
-                      "name": "bb2",
-                      "tier": 2,
-                      "father": 150,
-                      "useYn": "Y",
-                      "registerId": null,
-                      "registerTime": "2021-01-14T06:58:16.000+00:00",
-                      "updateId": null,
-                      "updateTime": "2021-01-14T06:58:38.000+00:00"
-                  }
-              ]
-          },
-          {
-              "tier": 1,
-              "name": "6",
-              "id": 167
-          }
+      page: 1,
+      links: [
+        {
+          text: 'Dashboard',
+          disabled: false,
+          href: 'breadcrumbs_dashboard',
+        },
+        {
+          text: 'Link 1',
+          disabled: false,
+          href: 'breadcrumbs_link_1',
+        },
+        {
+          text: 'Link 2',
+          disabled: true,
+          href: 'breadcrumbs_link_2',
+        },
+      ],
+
+      items: [
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+          title: 'Brunch this weekend?',
+          subtitle: `<span class="text--primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
+        },
+        { divider: true, inset: true },
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+          title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
+          subtitle: `<span class="text--primary">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.`,
+        },
+        { divider: true, inset: true },
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+          title: 'Oui oui',
+          subtitle: '<span class="text--primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?',
+        },
+        { divider: true, inset: true },
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+          title: 'Birthday gift',
+          subtitle: '<span class="text--primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
+        },
+        { divider: true, inset: true },
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
+          title: 'Recipe to try',
+          subtitle: '<span class="text--primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
+        },
       ],
     }),
-
-    created: function(){
-      this.initialize();
-    },
-
-    methods: {
-      //初始化方法
-      initialize: function(){
-        let data = this.$data;
-        let request = {
-            tier : 1
-        }
-        this.$nextTick(function(){
-          this.$http.post("/menu/menus/condition",request).then(function(response){
-            data.menu = response.data.data
-            console.log(response.data.data);
-          })
-        })
-      },
-
-    }
-
-
   }
 </script>
