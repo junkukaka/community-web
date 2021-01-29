@@ -6,15 +6,16 @@
             persistent-hint
             outlined
             style="border-radius:0"
+            v-model="community.title"
           ></v-text-field>
-        <vue-editor v-model="content"/>
+        <vue-editor v-model="community.content"/>
 
          <v-btn
             large
             depressed
             color="primary"
             class="ma-2 white--text float-sm-right"
-            @click="show"
+            @click="insert"
             >
             등록
             <v-icon
@@ -36,13 +37,32 @@ export default {
   components: { VueEditor },
 
   data: () => ({
-    content: "<h1>내용</h1>"
+    community: {
+      id:'',
+      userId: 1,
+      menuId: null,
+      title: "제목",
+      content: "내용"
+    }
   }),
 
+  created: function(){
+    this.community.menuId = this.$route.query.menuId;
+  },
+
   methods: {
-      show: function(){
-          console.log(this.content)
+      //增加内容
+      insert: function(){
+        let router = this.$router;
+        let data = this.community
+        this.$nextTick(function(){
+          this.$http.post("/community/communitys",data)
+            .then(function(response){
+              router.push("/communityList?menuId="+ data.menuId);
+            });
+        });
       }
+      
   }
 };
 </script>

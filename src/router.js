@@ -25,12 +25,16 @@ const routes = [
                 component: () => import('@/views/admin/Tree')
             },
             {
-                path: '/communityList/:id',
+                path: '/communityList',
                 component: () => import('@/components/community/List')
             },
             {
                 path: '/communityEdit',
                 component: () => import('@/components/community/Edit')
+            },
+            {
+                path: '/communityDetail',
+                component: () => import('@/components/community/Detail')
             },
 
         ],

@@ -1,6 +1,8 @@
 <template>
     <v-card flat>
       <v-card flat>
+        <div class="transition-swing text-h5 mb-1 ml-3">{{menuName}}</div>
+        <v-divider class="ml-3"></v-divider>
         <v-list>
           <template v-for="(item, index) in items">
             <v-divider
@@ -9,22 +11,27 @@
               :inset="item.inset"
             ></v-divider>
             <v-list-item
-              v-else
-              :key="item.title"
+               v-else
+              :key="index"
               link
+              :to ="'/communityDetail?id=' + item.id"
             >
               <v-list-item-avatar>
-                <v-img :src="item.avatar"></v-img>
+                <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title v-html="item.title"></v-list-item-title>
-                <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+                <v-list-item-title>{{item.title}}</v-list-item-title>
+                <!-- <v-list-item-subtitle v-html="item.content"></v-list-item-subtitle> -->
               </v-list-item-content>
 
               <v-list-item-action>
-                <v-list-item-subtitle v-text="'2021.01.20'"></v-list-item-subtitle>
-                <v-list-item-subtitle v-text="99"></v-list-item-subtitle>
+                <v-list-item-subtitle>
+                  {{item.registerTime|date-format('yyyy-mm-dd')}}
+                </v-list-item-subtitle>
+                <v-list-item-subtitle>
+               
+                </v-list-item-subtitle>
               </v-list-item-action>
               
             </v-list-item>
@@ -32,7 +39,7 @@
         </v-list>
 
         <v-fab-transition>
-          <router-link to="/communityEdit">
+          <router-link :to="'/communityEdit?menuId=' + menuId">
             <v-btn
               color="indigo"
               dark
@@ -48,12 +55,14 @@
         </v-fab-transition>
       </v-card>
 
-      <v-card flat>
+    
+
+      <v-card flat class="mt-5">
         <template>
           <div class="text-center">
             <v-pagination
               v-model="page"
-              :length="15"
+              :length="pages"
               :total-visible="7"
             ></v-pagination>
           </div>
@@ -67,55 +76,64 @@
   export default {
     data: () => ({
       page: 1,
-      links: [
-        {
-          text: 'Dashboard',
-          disabled: false,
-          href: 'breadcrumbs_dashboard',
-        },
-        {
-          text: 'Link 1',
-          disabled: false,
-          href: 'breadcrumbs_link_1',
-        },
-        {
-          text: 'Link 2',
-          disabled: true,
-          href: 'breadcrumbs_link_2',
-        },
-      ],
-
-      items: [
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Brunch this weekend?',
-          subtitle: `<span class="text--primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-          title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
-          subtitle: `<span class="text--primary">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-          title: 'Oui oui',
-          subtitle: '<span class="text--primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?',
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-          title: 'Birthday gift',
-          subtitle: '<span class="text--primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-          title: 'Recipe to try',
-          subtitle: '<span class="text--primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-        },
-      ],
+      pages: 1,
+      menuId: null,
+      menuName: "",
+      items: []
     }),
+
+    created: function(){
+      this.menuId = this.$route.query.menuId;
+    },
+
+    watch: {
+      //使用监听跳转页面
+      $route(){
+        this.menuId = this.$route.query.menuId;
+      },
+
+      menuId: function(){
+        this.initialize();
+      },
+      
+      page: function(){
+        this.initialize();
+      }
+    },
+
+
+
+    methods: {
+      //初始化方法
+      initialize: function(){
+        let data  = this.$data
+        data.items = [] //清空
+        //请求参数
+        let request = {
+          params: {
+            menuId: data.menuId,
+            page: data.page
+          } 
+        }
+        this.$nextTick(function(){
+          this.$http.get("/community/communitys/pageList",request)
+            .then(function(response){
+              let newCommunitys = response.data.data.communitys;
+              data.page = response.data.data.page; //当前页面
+              data.pages = response.data.data.pages; //页数
+              data.menuName = response.data.data.menuName; //当前页面标题
+              //console.log(communitys);
+              //添加下划线
+              for(let i = 0; i < newCommunitys.length ; i++){
+                  data.items.push(newCommunitys[i])
+                  data.items.push({divider: true, inset: true })
+              }
+            })
+        });
+      },
+    }
+
+
+   
   }
 </script>

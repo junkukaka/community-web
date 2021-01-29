@@ -17,6 +17,7 @@
         label="Search"
         single-line
         hide-details
+        class="mr-1"
       ></v-text-field>
       <v-menu
         right

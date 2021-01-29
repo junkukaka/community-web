@@ -22,13 +22,13 @@
 
         <v-treeview
             activatable
-            color="warning"
             :items="menu"
-            open-on-click
+            shaped
+            hoverable
             class="my-3"
         >
             <template slot="label" slot-scope="props">
-                <router-link :to="'/communityList/'+ props.item.id" class="v-list-item theme--dark">
+                <router-link :to="'/communityList?menuId='+ props.item.id" class="v-list-item theme--dark">
                     {{props.item.name}} --- {{props.item.id}}
                 </router-link>
             </template>
