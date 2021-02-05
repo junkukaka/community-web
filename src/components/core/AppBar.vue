@@ -58,7 +58,7 @@ export default {
     options: [
       {title: "menu", link:"menu"},
       {title: "tree", link:"tree"},
-      {title: "list", link:"list"}
+      {title: "sigIn", link:"sigIn"}
     ],
     search : "" 
   }),

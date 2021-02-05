@@ -36,9 +36,13 @@ const routes = [
                 path: '/communityDetail',
                 component: () => import('@/components/community/Detail')
             },
-
+            {
+                path: '/sigIn',
+                component: () => import('@/views/user/signIn')
+            }
         ],
-    }
+    },
+    
 ]
 
 //3.vuerouter 对象
