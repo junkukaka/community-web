@@ -14,7 +14,7 @@
                v-else
               :key="index"
               link
-              :to ="'/communityDetail?id=' + item.id"
+              :to ="`/communityDetail?id=${item.id}`" 
             >
               <v-list-item-avatar>
                 <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
@@ -39,7 +39,7 @@
         </v-list>
 
         <v-fab-transition>
-          <router-link :to="'/communityEdit?menuId=' + menuId">
+          <router-link :to="`/communityEdit?menuId=${menuId}`">
             <v-btn
               color="indigo"
               dark
@@ -82,7 +82,7 @@
       items: []
     }),
 
-    created: function(){
+    created(){
       this.menuId = this.$route.query.menuId;
     },
 
@@ -105,7 +105,7 @@
 
     methods: {
       //初始化方法
-      initialize: function(){
+      initialize(){
         let data  = this.$data
         data.items = [] //清空
         //请求参数

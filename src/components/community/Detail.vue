@@ -42,7 +42,7 @@
         </v-card-actions>
 
         <v-fab-transition>
-          <router-link :to="'/communityEdit?id=' + community.id">
+          <router-link :to="`/communityEdit?id=${community.id}`">
             <v-btn
               color="indigo"
               dark
@@ -77,16 +77,16 @@ export default {
         },
     }),
 
-    created: function(){
+    created(){
         this.community.id = this.$route.query.id;
         this.initialize();
     },
 
     methods: {
-        initialize: function(){
+        initialize () {
             let data = this.$data
             this.$nextTick(function(){
-                this.$http.get("/community/communitys/" + data.community.id)
+                this.$http.get(`/community/communitys/${data.community.id}`) 
                 .then(function(response){
                     data.community = response.data.data
                 });

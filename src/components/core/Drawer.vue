@@ -1,7 +1,7 @@
 <template>
     <v-navigation-drawer
         app
-        class="deep-purple accent-4"
+        class="indigo darken-2"
         dark
         width = "300"
         v-model="drawer"
@@ -36,7 +36,13 @@
 
         <template v-slot:append>
             <div class="pa-2">
-            <v-btn block>
+            <v-btn block depressed class="mt-2" color="success">
+                SigIn
+            </v-btn>
+            <v-btn block depressed class="mt-2" color="blue darken-2">
+                Login
+            </v-btn>
+            <v-btn block depressed class="mt-2">  
                 Logout
             </v-btn>
             </div>

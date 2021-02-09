@@ -81,7 +81,7 @@ export default {
       this.$nextTick(function(){
         this.$http.post("/community/communitys",data)
           .then(function(response){
-            router.push("/communityList?menuId="+ data.menuId);
+            router.push(`/communityList?menuId=${data.menuId}`);
           });
       });
     },
