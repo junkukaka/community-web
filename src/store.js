@@ -7,7 +7,12 @@ Vue.use(Vuex)
 //注意这里创建的是store对象，不是vuex对象
 const store = new Vuex.Store({
   state:{
-    drawer: true
+    drawer: true,
+    window: {
+      rightDrawerTop : 64,
+      mainPaddingLeft : 256,
+      mainPaddingRight: 300
+    }
   },
   mutations:{
     SET_DRAWER (state, payload){

@@ -41,13 +41,11 @@
         <v-fab-transition>
           <router-link :to="`/communityEdit?menuId=${menuId}`">
             <v-btn
-              color="indigo"
-              dark
-              fixed
-              bottom
-              right
+              color="primary"
+              large
               fab
-              style="right:50px;bottom:50px"
+              fixed
+              style="right:350px;bottom:50px"
             >
               <v-icon>mdi-pencil</v-icon>
             </v-btn>

@@ -1,52 +1,54 @@
 <template>
     <v-navigation-drawer
         app
-        class="indigo darken-2"
-        dark
+        class=""
         width = "300"
+        fixed
         v-model="drawer"
     >
-
-        <v-list-item class="pt-3 ml-1">
-            <v-list-item-content>
-            <v-list-item-title class="title">
-                ASPN
-            </v-list-item-title>
-            <v-list-item-subtitle>
-                Patrick
-            </v-list-item-subtitle>
-            </v-list-item-content>
-        </v-list-item>
-
-        <v-divider></v-divider>
-
+        <template v-slot:prepend>
+            <div style="padding:12px 0 12px 19px;border-bottom:1px solid rgba(0, 0, 0, 0.12) !important">
+                <v-img height="39" width="109"
+                src="../../assets/aspn_logo01.png"></v-img>
+            </div>
+        </template>
+        
         <v-treeview
             activatable
             :items="menu"
             shaped
+            open-all.lazy="!drawer"
             hoverable
             class="my-3"
         >
             <template slot="label" slot-scope="props">
-                <router-link :to="'/communityList?menuId='+ props.item.id" class="v-list-item theme--dark">
+                <router-link :to="'/communityList?menuId='+ props.item.id" class="v-list-item">
+                    <span style="color: #212121">
                     {{props.item.name}} --- {{props.item.id}}
+                    </span>
                 </router-link>
             </template>
         </v-treeview>
 
+        <!-- 用户登录部分 -->
         <template v-slot:append>
-            <div class="pa-2">
-            <v-btn block depressed class="mt-2" color="success">
-                SigIn
-            </v-btn>
-            <v-btn block depressed class="mt-2" color="blue darken-2">
-                Login
-            </v-btn>
-            <v-btn block depressed class="mt-2">  
-                Logout
-            </v-btn>
-            </div>
+            <v-list width="260" style="padding:13px 0">
+                <v-list-item>
+                    <v-list-item-avatar>
+                        <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
+                    </v-list-item-avatar>
+                    <v-list-item-content>
+                        <v-list-item-title>남광준</v-list-item-title>
+                        <v-list-item-subtitle>nanguangjun</v-list-item-subtitle>
+                    </v-list-item-content>
+                    <v-list-item-action>
+                        <v-icon>mdi-account-multiple-outline</v-icon>
+                    </v-list-item-action>
+                </v-list-item>
+            </v-list>
         </template>
+
+      
     </v-navigation-drawer>
 </template>
 

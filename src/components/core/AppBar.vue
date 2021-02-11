@@ -1,9 +1,11 @@
 <template>
     <v-app-bar
       app
-      absolute
-      color="white"
+      fixed
+      flat
       elevate-on-scroll
+      class="white"
+      style="border-bottom:1px solid rgba(0, 0, 0, 0.12) !important"
     >
       <v-app-bar-nav-icon @click="setDrawer(!drawer)"></v-app-bar-nav-icon>
 
@@ -45,8 +47,7 @@
             </v-list-item>
         </v-list>
       </v-menu>
-
-
+      
     </v-app-bar>
 </template>
 
@@ -74,3 +75,5 @@ export default {
   }, 
 }
 </script>
+
+
