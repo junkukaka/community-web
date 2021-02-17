@@ -37,8 +37,12 @@ const routes = [
                 component: () => import('@/components/community/Detail')
             },
             {
+                path: '/sigUp',
+                component: () => import('@/views/user/signUp')
+            },
+            {
                 path: '/sigIn',
-                component: () => import('@/views/user/signIn')
+                component: () => import('@/views/user/sigIn')
             }
         ],
     },

@@ -59,6 +59,7 @@ export default {
     options: [
       {title: "menu", link:"menu"},
       {title: "tree", link:"tree"},
+      {title: "sigUp", link:"sigUp"},
       {title: "sigIn", link:"sigIn"}
     ],
     search : "" 

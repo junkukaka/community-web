@@ -1,5 +1,5 @@
 <template>
-    <v-card flat>
+    <v-card flat class="mt--2">
         <v-list-item three-line>
             <v-list-item-content>
                 <div class="overline mb-2" style="color: rgba(0,0,0,.6)">

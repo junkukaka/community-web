@@ -2,7 +2,7 @@
   <v-card class="pa-5" flat>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
-        v-model="user.nameName"
+        v-model="user.userName"
         :counter="10"
         :rules="nameRules"
         label="Name"
@@ -40,7 +40,7 @@
         label="Department"
         required
       ></v-select>
-      <v-btn block large color="success" class="mt-3" @click="validate">ASPN 회원가입</v-btn>
+      <v-btn block large color="success" class="mt-5" @click="validate" depressed>ASPN 회원가입</v-btn>
     </v-form>
 
 
@@ -80,7 +80,7 @@
 export default {
   data: () => ({
     user: {
-        nameName: "",
+        userName: "",
         password: "",
         email: "",
         phone: null,
@@ -146,12 +146,6 @@ export default {
         this.$router.push('/')
       }
     },
-
-    reset() {
-      this.$refs.form.reset();
-      this.dialog = true
-      this.dialogMsg = "ASPN 커뮤니티 가입 하신거를 축합니다"
-    }
     
   },
 };

@@ -7,9 +7,10 @@ Vue.use(Vuex)
 //注意这里创建的是store对象，不是vuex对象
 const store = new Vuex.Store({
   state:{
+    user: null,
     drawer: true,
     window: {
-      rightDrawerTop : 64,
+      rightDrawerTop : 72,
       mainPaddingLeft : 256,
       mainPaddingRight: 300
     }

@@ -6,9 +6,13 @@
         <!-- Sizes your content based upon application components -->
         <v-main :style="{padding: `64px ${this.$store.state.window.mainPaddingLeft}px 0px ${this.$store.state.window.mainPaddingRight}px !important`}">
             <!-- Provides the application the proper gutter -->
-            <v-container fluid class="pa-4 pa-sm-6 pa-md-8"  color="grey lighten-4">
+            <v-container fluid  color="grey lighten-4">
                 <!-- If using vue-router -->
-                <router-view></router-view>
+
+                    <div style="margin:0 auto; max-width: 868px">
+                        <router-view></router-view>
+                    </div>
+
             </v-container>
         </v-main>
         <RightDrawer/>
