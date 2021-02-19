@@ -35,6 +35,7 @@
 
         <!-- 用户登录部分 -->
         <template v-slot:append>
+            
             <v-list width="260" style="padding:13px 0">
                 <v-list-item    
                     @click="dialog = !dialog"
@@ -52,6 +53,14 @@
                     </v-list-item-action>
                 </v-list-item>
             </v-list>
+            <div class="pa-5" :style="{display: `${$store.state.user== null ? '' : 'none'}`}">
+                <v-btn block outlined color="primary" depressed  to="/signIn">
+                    Sign in
+                </v-btn>
+                <v-btn block  outlined color="grey darken-2" depressed class="mt-3" to="/signUp">
+                    Sign up
+                </v-btn>
+            </div>
         </template>
 
         <div class="text-center">
@@ -65,8 +74,8 @@
                 </v-card-title>
                 <v-card-text>
                     <v-row align="center" justify="space-around">
-                        <v-btn color="primary" dark depressed>My Info</v-btn>
-                        <v-btn color="grey darken-3" dark depressed>Sign out</v-btn>
+                        <v-btn color="primary" dark depresse @click="userInfo">My Info</v-btn>
+                        <v-btn color="grey darken-3" dark depressed @click="signOut">Sign out</v-btn>
                         <v-btn color="primary" text @click="dialog = false">Close</v-btn>
                     </v-row>
                 </v-card-text>
@@ -101,6 +110,18 @@
           })
         })
       },
+
+      signOut (){
+          this.$store.state.user = null
+          this.dialog = false;
+      },
+
+      userInfo(){
+          this.$router.push('/userInfo');
+          this.dialog = false;
+      }
+
+
     },
 
     computed :{

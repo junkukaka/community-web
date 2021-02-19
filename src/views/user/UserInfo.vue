@@ -33,6 +33,13 @@
         required
       ></v-text-field>
 
+      <v-select
+        v-model="user.department"
+        :items="departments"
+        :rules="[(v) => !!v || 'Item is required']"
+        label="Department"
+        required
+      ></v-select>
       <v-btn
         block
         large
@@ -40,7 +47,7 @@
         class="mt-5"
         @click="validate"
         depressed
-        >ASPN 회원가입</v-btn
+        >Update profile</v-btn
       >
     </v-form>
 
@@ -75,6 +82,7 @@ export default {
       password: "",
       email: "",
       phone: null,
+      department: null,
     },
     dialog: false,
     dialogMsg: "",
@@ -93,6 +101,7 @@ export default {
       (v) => !!v || "E-mail is required",
       (v) => /^[1][3,4,5,7,8,9][0-9]{9}$/.test(v) || "Phone must be valid",
     ],
+    departments: [],
   }),
 
   created: function () {
@@ -101,11 +110,19 @@ export default {
 
   methods: {
     initialize() {
+      let that = this;
+      //获取用户信息
       this.$nextTick(function () {
         this.$http
-          .get(`/user/department`)
-          .then((response) => (this.departments = response.data.data));
+          .get(`/user/users/${this.$store.state.user.id}`)
+          .then((response) => (that.user = response.data.data));
       });
+
+      this.$nextTick(function(){
+          this.$http
+            .get('/user/users/department')
+            .then(response => that.departments = response.data.data )
+      })
     },
 
     validate() {
@@ -120,7 +137,7 @@ export default {
             data.dialog = true;
             data.dialogMsg = response.data.data.msg;
             if (response.data.data.code == "1") {
-              data.dialogTitle = "Welcome to the ASPN community";
+              data.dialogTitle = "Successfully changed";
             } else {
               data.dialogTitle = "Application failed";
             }
@@ -132,7 +149,7 @@ export default {
     //关闭弹窗
     closeDialogMsg() {
       this.dialog = false;
-      if (this.dialogTitle == "Welcome to the ASPN community") {
+      if (this.dialogTitle == "Successfully changed") {
         this.$router.push("/");
       }
     },

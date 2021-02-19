@@ -19,7 +19,7 @@
         @click:append="showPassword = !showPassword"
       ></v-text-field>
 
-      <v-btn block large color="success" class="mt-5" @click="validate" depressed>Sign In</v-btn>
+      <v-btn block large color="primary" class="mt-5" @click="validate" depressed>Sign In</v-btn>
     </v-form>
 
 
