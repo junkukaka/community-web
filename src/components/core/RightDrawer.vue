@@ -33,7 +33,7 @@
         items: [
           { title: 'Home', icon: 'mdi-home-city',link: 'Home' },
           { title: 'Profile', icon: 'mdi-account',link: 'UserInfo' },
-          { title: 'Users', icon: 'mdi-account-group-outline',link: 'Home' },
+          { title: 'Users', icon: 'mdi-account-group-outline',link: 'UserList' }
         ],
       }
     },

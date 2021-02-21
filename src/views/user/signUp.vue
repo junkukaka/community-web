@@ -100,14 +100,6 @@ export default {
   },
 
   methods: {
-    initialize() {
-      this.$nextTick(function () {
-        this.$http
-          .get(`/user/department`)
-          .then((response) => (this.departments = response.data.data));
-      });
-    },
-
     validate() {
       const val = this.$refs.form.validate(); //是否填满表单
       let data = this.$data;

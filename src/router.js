@@ -8,7 +8,7 @@ const routes = [
     {
         path: '/',
         component: () => import('@/views/Index'),
-        redirect : "/home",
+        redirect: "/home",
         children: [
             {
                 path: '/home',
@@ -50,17 +50,40 @@ const routes = [
                 path: '/userInfo',
                 name: 'UserInfo',
                 component: () => import('@/views/user/UserInfo')
+            },
+            {
+                path: '/userList',
+                name: 'UserList',
+                component: () => import('@/views/user/UserList')
             }
         ],
     },
-    
+
 ]
+
 
 //3.vuerouter 对象
 const router = new VueRouter({
     routes,
     mode: "history"
-})
+});
+
+router.beforeEach((to, from, next) => {
+
+    if (to.path === '/signIn') {
+        next();
+    } else {
+        let token = localStorage.getItem('Authorization');
+        if (token === null || token === '') {
+            next('/signIn');
+        } else {
+            next();
+        }
+    }
+});
+
+
+
 
 //4.导出vuerouter 对象
 export default router;
