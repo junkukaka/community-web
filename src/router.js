@@ -69,12 +69,14 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-
-    if (to.path === '/signIn') {
+    //允许访问的路径
+    const arrJPath = ['/signIn','/communityList','/signUp']
+    if (arrJPath.find(element => element == to.path)) {
         next();
     } else {
         let token = localStorage.getItem('Authorization');
         if (token === null || token === '') {
+            //console.log(`token is ${token}`);
             next('/signIn');
         } else {
             next();

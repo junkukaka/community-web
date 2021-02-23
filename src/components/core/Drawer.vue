@@ -124,11 +124,11 @@ export default {
       let request = {
         tier: 1,
       };
-      this.$nextTick(function () {
+      if(this.menu.length === 0){
         this.$http.get("/menu/menus/tree").then(function (response) {
           data.menu = response.data.data;
         });
-      });
+      }
     },
 
     signOut() {

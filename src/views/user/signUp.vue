@@ -96,7 +96,7 @@ export default {
   }),
 
   created: function () {
-    this.initialize();
+
   },
 
   methods: {
