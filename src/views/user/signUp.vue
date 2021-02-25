@@ -10,6 +10,14 @@
       ></v-text-field>
 
       <v-text-field
+        v-model="user.loginId"
+        :counter="10"
+        :rules="loginRules"
+        label="LogIn ID"
+        required
+      ></v-text-field>
+
+      <v-text-field
         v-model="user.password"
         :counter="10"
         label="Password"
@@ -83,11 +91,17 @@ export default {
     valid: true,
     nameRules: [
       (v) => !!v || "Name is required",
-      (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      (v) => (v && v.length <= 50) || "Name must be less than 50 characters",
+    ],
+    loginRules: [
+      (v) => !!v || "login id is required",
+      (v) => (v && v.length <= 11) || "Name must be less than 11 characters",
+      (v) => /^[A-Za-z0-9]+$/.test(v) || "login id must be number or English alphabet",
     ],
     emailRules: [
       (v) => !!v || "E-mail is required",
       (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      (v) => (v && v.length <= 32) || "Name must be less than 32 characters",
     ],
     phoneRules: [
       (v) => !!v || "E-mail is required",

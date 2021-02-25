@@ -12,7 +12,7 @@
       <v-container fluid color="grey lighten-4">
         <!-- If using vue-router -->
 
-        <div style="margin: 0 auto; max-width: 868px">
+        <div style="margin: 0 auto; max-width: 900px">
           <router-view></router-view>
         </div>
       </v-container>
@@ -38,14 +38,11 @@ export default {
   },
 
   beforeCreate() {
-    console.log(`sssssss ${this.$store.state.user}`);
-    console.log(localStorage.getItem("Authorization"));
     if (this.$store.state.user == null) {   
       this.$http
         .get(`/user/users/token/${localStorage.getItem("Authorization")}`)
         .then((response) => {
-          console.log(response.data.data.user);
-          this.$store.state.user = response.data.data.user;
+          this.$store.state.user = response.data.data;
         });
     }
   },

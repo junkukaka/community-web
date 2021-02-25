@@ -2,9 +2,8 @@
   <v-card class="pa-5" flat>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
-        v-model="user.email"
-        :rules="emailRules"
-        label="E-mail"
+        v-model="user.loginId"
+        label="Login ID"
         required
       ></v-text-field>
 
@@ -53,17 +52,13 @@ export default {
   data: () => ({
     user: {
       password: "",
-      email: "",
+      loginId: "",
     },
     userToken: "",
     dialog: false,
     dialogTitle: "",
     showPassword: false,
-    valid: true,
-    emailRules: [
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-    ],
+    valid: true
   }),
 
   created: function () {
@@ -94,7 +89,7 @@ export default {
               that.changeLogin({ Authorization: that.userToken });
    
             } else {
-              data.dialogTitle = "email or password is fail";
+              data.dialogTitle = "login ID or password is fail";
             }
           })
           .catch((err) => console.log(err));

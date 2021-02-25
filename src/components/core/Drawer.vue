@@ -45,7 +45,7 @@
           :style="{ display: `${$store.state.user == null ? 'none' : ''}` }"
         >
           <v-list-item-avatar>
-            <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
+            <v-img :src="`${$store.state.user.picture}`"></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
             <!-- this.$store.state.user.userName -->
@@ -91,7 +91,7 @@
           <v-card-title> About My account </v-card-title>
           <v-card-text>
             <v-row align="center" justify="space-around">
-              <v-btn color="primary" dark depresse @click="userInfo"
+              <v-btn color="primary" dark depresse :to="`/userInfo?id=${$store.state.user.id}`" @click="dialog = false"
                 >My Info</v-btn
               >
               <v-btn color="grey darken-3" dark depressed @click="signOut"
@@ -137,11 +137,6 @@ export default {
       this.dialog = false;
       localStorage.removeItem("Authorization");
       this.$router.push('/signIn');
-    },
-
-    userInfo() {
-      this.$router.push("/userInfo");
-      this.dialog = false;
     },
   },
 

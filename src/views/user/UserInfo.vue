@@ -1,12 +1,37 @@
 <template>
   <v-card class="pa-5" flat>
     <v-form ref="form" v-model="valid" lazy-validation>
+      <v-row no-gutters>
+        <v-col cols="12" sm="3" md="2" lg="1">
+          <v-avatar size="62">
+            <img :src="user.picture" />
+          </v-avatar>
+        </v-col>
+        <v-col cols="12" sm="9" md="10" lg="11" class="pl-2 pt-2">
+          <v-file-input
+            :rules="imgRules"
+            accept="image/png, image/jpeg, image/bmp"
+            placeholder="Pick an avatar"
+            label="Avatar"
+            v-model="avatar"
+          ></v-file-input>
+        </v-col>
+      </v-row>
+
       <v-text-field
         v-model="user.userName"
         :counter="10"
         :rules="nameRules"
         label="Name"
         required
+      ></v-text-field>
+
+      <v-text-field
+        v-model="user.loginId"
+        :counter="10"
+        :rules="nameRules"
+        label="Login ID"
+        disabled
       ></v-text-field>
 
       <v-text-field
@@ -77,13 +102,8 @@
 <script>
 export default {
   data: () => ({
-    user: {
-      userName: "",
-      password: "",
-      email: "",
-      phone: null,
-      department: null,
-    },
+    user: {},
+    avatar: null,
     dialog: false,
     dialogMsg: "",
     dialogTitle: "",
@@ -101,10 +121,33 @@ export default {
       (v) => !!v || "E-mail is required",
       (v) => /^[1][3,4,5,7,8,9][0-9]{9}$/.test(v) || "Phone must be valid",
     ],
+    imgRules: [
+      (value) =>
+        !value ||
+        value.size < 2000000 ||
+        "Avatar size should be less than 2 MB!",
+    ],
     departments: [],
   }),
 
+  watch: {
+    //图片上传
+    avatar: {
+      handler(newVal) {
+        const formData = new FormData();
+        formData.append("image", newVal);
+        this.$http
+          .post("/minio/upload", formData)
+          .then((result) => {
+            this.user.picture = result.data.data;
+          })
+          .catch((e) => console.log(e));
+      },
+    },
+  },
+
   created: function () {
+    this.user.id = this.$route.query.id;
     this.initialize();
   },
 
@@ -114,15 +157,15 @@ export default {
       //获取用户信息
       this.$nextTick(function () {
         this.$http
-          .get(`/user/users/${this.$store.state.user.id}`)
+          .get(`/user/users/${that.user.id}`)
           .then((response) => (that.user = response.data.data));
       });
 
-      this.$nextTick(function(){
-          this.$http
-            .get('/user/users/department')
-            .then(response => that.departments = response.data.data )
-      })
+      this.$nextTick(function () {
+        this.$http
+          .get("/user/users/department")
+          .then((response) => (that.departments = response.data.data));
+      });
     },
 
     validate() {
@@ -130,7 +173,7 @@ export default {
       let data = this.$data;
       if (val) {
         this.$http
-          .post("/user/users", data.user)
+          .put("/user/users", data.user)
           .then((response) => {
             console.log(response.data);
             //设置弹窗
