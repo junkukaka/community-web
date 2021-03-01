@@ -4,7 +4,7 @@
         <v-list-item three-line>
             <v-list-item-content>
                 <div class="overline mb-2" style="color: rgba(0, 0, 0, 0.6)">
-                {{community.registerTime|date-format('yyyy-mm-dd hh:mi:ss')}}
+                {{community.registerTime | date-format('yyyy-mm-dd hh:mi:ss')}}
                 </div>
                 <v-list-item-title class="headline mb-3 text-h4">
                 {{ community.title }}
@@ -59,9 +59,10 @@
             outlined
             label="Add a Comment"
             value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+            v-model="comment.content"
         ></v-textarea>
         
-        <v-btn color="primary" depressed 
+        <v-btn color="primary" depressed  @click="commentSave"
           dark >
           <v-icon>mdi-pencil</v-icon>
           댓글
@@ -77,25 +78,38 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data: () => ({
     community: {
       id: "",
       title: "",
       content: "",
-      registerTime: "",
       menuId: "",
+    },
+    comment: {
+      userId: null,
+      communityId: null,
+      content: "",
+      reply_user_id: null
     }
   }),
 
   created() {
     this.community.id = this.$route.query.id;
+    this.comment.communityId = this.$route.query.id;
+    this.comment.userId = this.getUser().id; //用户ID 赋值
     this.initialize();
   },
 
   methods: {
+    ...mapGetters(["getUser"]),
+
     initialize() {
       let data = this.$data;
+
+      //community select 
       this.$nextTick(function () {
         this.$http
           .get(`/community/communitys/${data.community.id}`)
@@ -103,7 +117,21 @@ export default {
             data.community = response.data.data;
           });
       });
+
     },
+
+    //comment save
+    commentSave(){
+      this.$nextTick(function(){
+        this.$http
+          .post("/comment/comments",this.comment)
+          .then(response => {
+            //请求成功
+            if(response.data.data === 1){
+            }
+          });
+      });
+    }
   },
 };
 </script>

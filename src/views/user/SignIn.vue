@@ -84,7 +84,7 @@ export default {
               //给store user 赋值
               that.$store.state.user = response.data.data.user;
               that.userToken = response.data.data.token;
-              console.log(that.userToken)
+
               //将用户token保存到vuex中
               that.changeLogin({ Authorization: that.userToken });
    

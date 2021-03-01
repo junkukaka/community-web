@@ -45,7 +45,8 @@
           :style="{ display: `${$store.state.user == null ? 'none' : ''}` }"
         >
           <v-list-item-avatar>
-            <v-img :src="`${$store.state.user.picture}`"></v-img>
+            <!-- https://cdn.vuetifyjs.com/images/john.png -->
+            <v-img :src="`${$store.state.user == null ? `https://cdn.vuetifyjs.com/images/john.png` : $store.state.user.picture}`"></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
             <!-- this.$store.state.user.userName -->
@@ -91,7 +92,7 @@
           <v-card-title> About My account </v-card-title>
           <v-card-text>
             <v-row align="center" justify="space-around">
-              <v-btn color="primary" dark depresse :to="`/userInfo?id=${$store.state.user.id}`" @click="dialog = false"
+              <v-btn color="primary" dark depresse :to="`/userInfo?id=${$store.state.user == null ? 1000 : $store.state.user.id}`" @click="dialog = false"
                 >My Info</v-btn
               >
               <v-btn color="grey darken-3" dark depressed @click="signOut"

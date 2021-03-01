@@ -12,6 +12,7 @@ http.interceptors.request.use(
     config => {
         if (localStorage.getItem('Authorization')) {
             config.headers.Authorization = localStorage.getItem('Authorization');
+            config.headers.token = localStorage.getItem('Authorization');
         }
         return config;
     },

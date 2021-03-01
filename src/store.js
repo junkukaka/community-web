@@ -25,10 +25,15 @@ const store = new Vuex.Store({
     changeLogin(state, user) {
       state.Authorization = user.Authorization;
       localStorage.setItem('Authorization', user.Authorization);
+      localStorage.setItem('token', user.Authorization);
     }
   },
   actions: {},
-  getters: {},
+  getters: {
+    getUser(state){
+      return state.user;
+    }
+  },
   modules: {}
 })
 //导出对象
