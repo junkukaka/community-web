@@ -137,6 +137,7 @@ export default {
       //退出登录，清空token
       this.dialog = false;
       localStorage.removeItem("Authorization");
+      localStorage.removeItem("store");
       this.$router.push('/signIn');
     },
   },

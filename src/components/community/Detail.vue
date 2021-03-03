@@ -12,7 +12,7 @@
                 <v-list-item-subtitle>
                 <span class="mr-3"> 100 liks</span>
                 <span class="mr-3"> 648 Views</span>
-                <span class="mr-3"> 28 Comments</span>
+                <span class="mr-3"> {{commentCount}} Comments</span>
                 </v-list-item-subtitle>
             </v-list-item-content>
         </v-list-item>
@@ -53,26 +53,74 @@
         <v-divider></v-divider>
     </v-card>
 
+    <!-- comment write area  -->
     <v-card flat>
       <v-card flat class="mt-5">
+        <v-form ref="form" v-model="valid" lazy-validation>
           <v-textarea
             outlined
             label="Add a Comment"
             value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
             v-model="comment.content"
-        ></v-textarea>
-        
+            :rules="commentRules"
+            @blur="reset"
+          ></v-textarea>
+        </v-form>
         <v-btn color="primary" depressed  @click="commentSave"
           dark >
           <v-icon>mdi-pencil</v-icon>
           댓글
         </v-btn>
-      </v-card>  
+      </v-card>
+
+      <!-- pop -->
+      <v-dialog v-model="dialog" width="360">
+        <v-card>
+          <v-card-title style="">댓글등록</v-card-title>
+          <v-card-actions>
+            <v-btn color="primary" text @click="dialog = false">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
     </v-card>
 
-    <v-card>
+    <!-- comment list area -->
+    <v-card flat>
+      <div class="transition-swing text-h5 mb-1 mt-10 ml-3">Comments list</div>
+      <v-divider class="ml-3"></v-divider>
+      <v-list>
+          <template v-for="(item, index) in commentList">
+            <v-divider
+              v-if="item.divider"
+              :key="index"
+              :inset="item.inset"
+            ></v-divider>
+            <v-list-item
+               v-else
+              :key="index"
+            >
+              <v-list-item-avatar>
+                <v-img :src="item.picture"></v-img>
+              </v-list-item-avatar>
 
+              <v-list-item-content>
+                <v-list-item-title>{{item.user_name}}</v-list-item-title>
+                <v-list-item-subtitle>{{item.content}}</v-list-item-subtitle>
+              </v-list-item-content>
+
+              <v-list-item-action>
+                <v-list-item-subtitle>
+                  {{item.register_time|date-format('yyyy-mm-dd')}}
+                </v-list-item-subtitle>
+                <v-list-item-subtitle>
+               
+                </v-list-item-subtitle>
+              </v-list-item-action>
+              
+            </v-list-item>
+          </template>
+        </v-list>
     </v-card>
   </v-card>
 </template>
@@ -88,50 +136,82 @@ export default {
       content: "",
       menuId: "",
     },
+    dialog: false,
+    valid: true,
     comment: {
       userId: null,
       communityId: null,
       content: "",
       reply_user_id: null
-    }
+    },
+    commentRules: [
+      (v) => !!v || "comment is required",
+      (v) => (v && v.length <= 200) || "comment must be less than 200 characters",
+    ],
+    commentList: [],
+    commentCount: null,
   }),
 
   created() {
     this.community.id = this.$route.query.id;
     this.comment.communityId = this.$route.query.id;
     this.comment.userId = this.getUser().id; //用户ID 赋值
-    this.initialize();
+    this.getCommunity();
+    this.getComments();
   },
 
   methods: {
     ...mapGetters(["getUser"]),
 
-    initialize() {
-      let data = this.$data;
-
+    getCommunity() {
       //community select 
       this.$nextTick(function () {
         this.$http
-          .get(`/community/communitys/${data.community.id}`)
-          .then(function (response) {
-            data.community = response.data.data;
+          .get(`/community/communitys/${this.community.id}`)
+          .then((response) => {
+            this.community = response.data.data;
           });
       });
+    },
 
+    //댓글 조회
+    getComments() {
+      this.$nextTick(function () {
+        this.$http
+          .get(`/comment/comments/${this.community.id}`)
+          .then((response) => {
+            const comments = response.data.data.list;
+            this.commentCount = response.data.data.count;
+            //下划线处理
+            for(let i = 0; i < comments.length ; i++){
+              this.commentList.push(comments[i])
+              this.commentList.push({divider: true, inset: true })
+            }
+          });
+      });
     },
 
     //comment save
     commentSave(){
-      this.$nextTick(function(){
+      const val = this.$refs.form.validate(); // 验证
+      if(val){
         this.$http
           .post("/comment/comments",this.comment)
           .then(response => {
             //请求成功
             if(response.data.data === 1){
+              //comment reset
+              this.comment.content = "";
+              this.dialog = true;
             }
           });
-      });
-    }
+      }
+    },
+
+    //comment 
+    reset () {
+        this.$refs.form.reset()
+    },
   },
 };
 </script>

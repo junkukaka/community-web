@@ -22,6 +22,9 @@
 </template>
 
 <script>
+
+import { mapMutations } from "vuex";
+
 export default {
   name: "Index",
   components: {
@@ -38,16 +41,28 @@ export default {
   },
 
   beforeCreate() {
-    if (this.$store.state.user == null) {   
+     //如果用户改变了密码就推出登录
+    if (this.$store.state.user != null) {  
+      const u = this.$store.state.user;
       this.$http
-        .get(`/user/users/token/${localStorage.getItem("Authorization")}`)
+        .post("/user/users/login",u)
         .then((response) => {
-          this.$store.state.user = response.data.data;
+            if (response.data.data.user == 0) {
+               this.$store.state.user = null;
+                //退出登录，清空token
+                this.dialog = false;
+                localStorage.removeItem("Authorization");
+                localStorage.removeItem("store");
+                this.$router.push('/signIn');
+            }
         });
     }
   },
 
+
   methods: {
+    ...mapMutations(["changeLogin"]),
+
     pageResize() {
       let screenWidth = document.body.clientWidth;
       if (screenWidth < 1264) {
