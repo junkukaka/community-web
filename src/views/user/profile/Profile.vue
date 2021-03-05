@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card flat>
     <v-toolbar flat>
       <template v-slot:extension>
         <v-tabs fixed-tabs v-model="tabs">
@@ -11,34 +11,46 @@
     </v-toolbar>
 
     <v-tabs-items v-model="tabs">
+      
       <!-- community -->
       <v-tab-item>
-        <v-card flat> community </v-card>
+        <profile-community/>
       </v-tab-item>
     
       <!-- comment -->
       <v-tab-item>
-        <v-card flat> comment </v-card>
+        <profile-comment v-bind:parent="msg"/>
       </v-tab-item>
       
       <!-- liks -->
       <v-tab-item>
-        <v-card flat> liks </v-card>
+        <profile-likes/>
       </v-tab-item>
 
       <!-- liks -->
       <v-tab-item>
-        <v-card flat> collect </v-card>
+        <profile-collect/>
       </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
-
 <script>
+import ProfileCollect from './ProfileCollect.vue';
+import ProfileComment from './ProfileComment.vue';
+import ProfileCommunity from './ProfileCommunity.vue';
+import ProfileLikes from './ProfileLikes.vue';
 export default {
+  components:{
+    ProfileCommunity,
+    ProfileComment,
+    ProfileLikes,
+    ProfileCollect
+  },
+
   data() {
     return {
       tabs: null,
+      msg: "ads",
       tabItems: ["community", "comment", "liks", "collect"],
     };
   },
