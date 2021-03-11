@@ -42,13 +42,13 @@ export default {
 
   beforeCreate() {
      //如果用户改变了密码就推出登录
-    if (this.$store.state.user != null) {  
-      const u = this.$store.state.user;
+    if (this.$store.state.member != null) {  
+      const u = this.$store.state.member;
       this.$http
-        .post("/user/users/login",u)
+        .post("/member/members/login",u)
         .then((response) => {
-            if (response.data.data.user == 0) {
-               this.$store.state.user = null;
+            if (response.data.data.member == 0) {
+               this.$store.state.member = null;
                 //退出登录，清空token
                 this.dialog = false;
                 localStorage.removeItem("Authorization");

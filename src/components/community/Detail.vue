@@ -103,7 +103,7 @@
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>{{ item.user_name }}</v-list-item-title>
+              <v-list-item-title>{{ item.member_name }}</v-list-item-title>
               <v-list-item-subtitle>{{ item.content }}</v-list-item-subtitle>
             </v-list-item-content>
 
@@ -175,7 +175,7 @@ export default {
     commentCount: null,
     comInfo:{
       communityId: null,
-      userId: null
+      memberId: null
     },
     comInfoCount:{
       hitsCount: 0,
@@ -189,10 +189,10 @@ export default {
     this.community.id = this.$route.query.id;
     //comment
     this.comment.communityId = this.$route.query.id;
-    this.comment.userId = this.getUser().id; //用户ID 赋值
+    this.comment.userId = this.getMember().id; //用户ID 赋值
     //comInfo
     this.comInfo.communityId = this.$route.query.id;
-    this.comInfo.userId = this.getUser().id; //用户ID 赋值
+    this.comInfo.memberId = this.getMember().id; //用户ID 赋值
     this.scrollTop = document.documentElement.scrollTop;
     this.getCommunity(); 
     this.getComments();
@@ -207,7 +207,7 @@ export default {
   },
 
   methods: {
-    ...mapGetters(["getUser"]),
+    ...mapGetters(["getMember"]),
 
     scrollHandle(e) {
       this.scrollTop = e.srcElement.scrollingElement.scrollTop; // 获取页面滚动高度

@@ -4,7 +4,7 @@
       <v-row no-gutters>
         <v-col cols="12" sm="3" md="2" lg="1">
           <v-avatar size="62">
-            <img :src="user.picture" />
+            <img :src="member.picture" />
           </v-avatar>
         </v-col>
         <v-col cols="12" sm="9" md="10" lg="11" class="pl-2 pt-2">
@@ -19,7 +19,7 @@
       </v-row>
 
       <v-text-field
-        v-model="user.userName"
+        v-model="member.memberName"
         :counter="10"
         :rules="nameRules"
         label="Name"
@@ -27,7 +27,7 @@
       ></v-text-field>
 
       <v-text-field
-        v-model="user.loginId"
+        v-model="member.loginId"
         :counter="10"
         :rules="nameRules"
         label="Login ID"
@@ -35,7 +35,7 @@
       ></v-text-field>
 
       <v-text-field
-        v-model="user.password"
+        v-model="member.password"
         :counter="10"
         label="Password"
         :type="showPassword ? 'text' : 'password'"
@@ -45,21 +45,21 @@
       ></v-text-field>
 
       <v-text-field
-        v-model="user.email"
+        v-model="member.email"
         :rules="emailRules"
         label="E-mail"
         required
       ></v-text-field>
 
       <v-text-field
-        v-model="user.phone"
+        v-model="member.phone"
         :rules="phoneRules"
         label="Phone"
         required
       ></v-text-field>
 
       <v-select
-        v-model="user.department"
+        v-model="member.department"
         :items="departments"
         :rules="[(v) => !!v || 'Item is required']"
         label="Department"
@@ -102,7 +102,7 @@
 <script>
 export default {
   data: () => ({
-    user: {},
+    member: {},
     avatar: null,
     dialog: false,
     dialogMsg: "",
@@ -139,7 +139,7 @@ export default {
         this.$http
           .post("/minio/upload", formData)
           .then((result) => {
-            this.user.picture = result.data.data;
+            this.member.picture = result.data.data;
           })
           .catch((e) => console.log(e));
       },
@@ -147,7 +147,7 @@ export default {
   },
 
   created: function () {
-    this.user.id = this.$route.query.id;
+    this.member.id = this.$route.query.id;
     this.initialize();
   },
 
@@ -157,13 +157,13 @@ export default {
       //获取用户信息
       this.$nextTick(function () {
         this.$http
-          .get(`/user/users/${that.user.id}`)
-          .then((response) => (that.user = response.data.data));
+          .get(`/member/members/${that.member.id}`)
+          .then((response) => (that.member = response.data.data));
       });
 
       this.$nextTick(function () {
         this.$http
-          .get("/user/users/department")
+          .get("/member/members/department")
           .then((response) => (that.departments = response.data.data));
       });
     },
@@ -173,7 +173,7 @@ export default {
       let data = this.$data;
       if (val) {
         this.$http
-          .put("/user/users", data.user)
+          .put("/member/members", data.member)
           .then((response) => {
             console.log(response.data);
             //设置弹窗

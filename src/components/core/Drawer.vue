@@ -42,23 +42,23 @@
       <v-list width="260" style="padding: 13px 0">
         <v-list-item
           @click="dialog = !dialog"
-          :style="{ display: `${$store.state.user == null ? 'none' : ''}` }"
+          :style="{ display: `${$store.state.member == null ? 'none' : ''}` }"
         >
           <v-list-item-avatar>
             <!-- https://cdn.vuetifyjs.com/images/john.png -->
-            <v-img :src="`${$store.state.user == null ? `https://cdn.vuetifyjs.com/images/john.png` : $store.state.user.picture}`"></v-img>
+            <v-img :src="`${$store.state.member == null ? `https://cdn.vuetifyjs.com/images/john.png` : $store.state.member.picture}`"></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
-            <!-- this.$store.state.user.userName -->
+            <!-- this.$store.state.member.memberName -->
             <v-list-item-title>{{
               `${
-                $store.state.user == null
-                  ? "username"
-                  : $store.state.user.userName
+                $store.state.member == null
+                  ? "memberName"
+                  : $store.state.member.memberName
               }`
             }}</v-list-item-title>
             <v-list-item-subtitle>{{
-              `${$store.state.user == null ? "email" : $store.state.user.email}`
+              `${$store.state.member == null ? "email" : $store.state.member.email}`
             }}</v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
@@ -68,7 +68,7 @@
       </v-list>
       <div
         class="pa-5"
-        :style="{ display: `${$store.state.user == null ? '' : 'none'}` }"
+        :style="{ display: `${$store.state.member == null ? '' : 'none'}` }"
       >
         <v-btn block outlined color="primary" depressed to="/signIn">
           Sign in
@@ -92,7 +92,7 @@
           <v-card-title> About My account </v-card-title>
           <v-card-text>
             <v-row align="center" justify="space-around">
-              <v-btn color="primary" dark depresse :to="`/userInfo?id=${$store.state.user == null ? 1000 : $store.state.user.id}`" @click="dialog = false"
+              <v-btn color="primary" dark depresse :to="`/memberInfo?id=${$store.state.member == null ? 1000 : $store.state.member.id}`" @click="dialog = false"
                 >My Info</v-btn
               >
               <v-btn color="grey darken-3" dark depressed @click="signOut"
@@ -133,7 +133,7 @@ export default {
     },
 
     signOut() {
-      this.$store.state.user = null;
+      this.$store.state.member = null;
       //退出登录，清空token
       this.dialog = false;
       localStorage.removeItem("Authorization");

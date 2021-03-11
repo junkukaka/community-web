@@ -39,27 +39,27 @@ const routes = [
             {
                 path: '/signUp',
                 name: 'SignUp',
-                component: () => import('@/views/user/SignUp')
+                component: () => import('@/views/member/SignUp')
             },
             {
                 path: '/signIn',
                 name: 'SignIn',
-                component: () => import('@/views/user/SignIn')
+                component: () => import('@/views/member/SignIn')
             },
             {
-                path: '/userInfo',
-                name: 'UserInfo',
-                component: () => import('@/views/user/UserInfo')
+                path: '/memberInfo',
+                name: 'memberInfo',
+                component: () => import('@/views/member/MemberInfo')
             },
             {
-                path: '/userList',
-                name: 'UserList',
-                component: () => import('@/views/user/UserList')
+                path: '/memberList',
+                name: 'MemberList',
+                component: () => import('@/views/member/MemberList')
             },
             {
                 path: '/profile',
                 name: 'Profile',
-                component: () => import('@/views/user/profile/Profile')
+                component: () => import('@/views/member/profile/Profile')
             }
         ],
     },

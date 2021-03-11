@@ -1,6 +1,6 @@
 <template>
     <v-card flat>
-        <div class="transition-swing text-h5 mb-1 ml-3">Users list</div>
+        <div class="transition-swing text-h5 mb-1 ml-3">members list</div>
         <v-divider class="ml-3"></v-divider>
         <v-list>
           <template v-for="(item, index) in items">
@@ -13,14 +13,14 @@
                v-else
               :key="index"
               link
-              :to ="`/user/users?id=${item.id}`" 
+              :to ="`/member/members?id=${item.id}`" 
             >
               <v-list-item-avatar>
                 <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title>{{item.userName}}</v-list-item-title>
+                <v-list-item-title>{{item.memberName}}</v-list-item-title>
                 <!-- <v-list-item-subtitle v-html="item.content"></v-list-item-subtitle> -->
               </v-list-item-content>
 
@@ -58,13 +58,13 @@
         let data  = this.$data
         data.items = [] //清空
         this.$nextTick(function(){
-          this.$http.get("/user/users/getAll","")
+          this.$http.get("/member/members/getAll","")
             .then(function(response){
-              let users = response.data.data;
+              let members = response.data.data;
               //console.log(communitys);
               //添加下划线
-              for(let i = 0; i < users.length ; i++){
-                  data.items.push(users[i])
+              for(let i = 0; i < members.length ; i++){
+                  data.items.push(members[i])
                   data.items.push({divider: true, inset: true })
               }
             })

@@ -7,7 +7,7 @@ Vue.use(Vuex)
 //注意这里创建的是store对象，不是vuex对象
 const store = new Vuex.Store({
   state: {
-    user: null,
+    member: null,
     drawer: true,
     window: {
       rightDrawerTop: 72,
@@ -22,16 +22,16 @@ const store = new Vuex.Store({
       state.drawer = payload
     },
     // 修改token，并将token存入localStorage
-    changeLogin(state, user) {
-      state.Authorization = user.Authorization;
-      localStorage.setItem('Authorization', user.Authorization);
-      localStorage.setItem('token', user.Authorization);
+    changeLogin(state, member) {
+      state.Authorization = member.Authorization;
+      localStorage.setItem('Authorization', member.Authorization);
+      localStorage.setItem('token', member.Authorization);
     }
   },
   actions: {},
   getters: {
-    getUser(state){
-      return state.user;
+    getMember(state){
+      return state.member;
     }
   },
   modules: {}

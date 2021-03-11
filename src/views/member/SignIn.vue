@@ -2,13 +2,13 @@
   <v-card class="pa-5" flat>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
-        v-model="user.loginId"
+        v-model="member.loginId"
         label="Login ID"
         required
       ></v-text-field>
 
       <v-text-field
-        v-model="user.password"
+        v-model="member.password"
         :counter="10"
         label="Password"
         :type="showPassword ? 'text' : 'password'"
@@ -50,11 +50,11 @@ import { mapMutations } from "vuex";
 
 export default {
   data: () => ({
-    user: {
+    member: {
       password: "",
       loginId: "",
     },
-    userToken: "",
+    memberToken: "",
     dialog: false,
     dialogTitle: "",
     showPassword: false,
@@ -76,17 +76,17 @@ export default {
       let that = this;
       if (val) {
         this.$http
-          .post("/user/users/login", data.user)
+          .post("/member/members/login", data.member)
           .then((response) => {
             that.dialog = true;
-            if (response.data.data.user != "0") {
-              data.dialogTitle = `Hello ${response.data.data.user.userName} Welcome to ASPN`;
-              //给store user 赋值
-              that.$store.state.user = response.data.data.user;
-              that.userToken = response.data.data.token;
+            if (response.data.data.member != "0") {
+              data.dialogTitle = `Hello ${response.data.data.member.memberName} Welcome to ASPN`;
+              //给store member 赋值
+              that.$store.state.member = response.data.data.member;
+              that.memberToken = response.data.data.token;
 
               //将用户token保存到vuex中
-              that.changeLogin({ Authorization: that.userToken });
+              that.changeLogin({ Authorization: that.memberToken });
    
             } else {
               data.dialogTitle = "login ID or password is fail";
@@ -99,7 +99,7 @@ export default {
     //关闭弹窗
     closeDialogMsg() {
       this.dialog = false;
-      if (this.userToken != "") {
+      if (this.memberToken != "") {
         this.$router.push("/");
       }
     },

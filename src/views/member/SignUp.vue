@@ -2,7 +2,7 @@
   <v-card class="pa-5" flat>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
-        v-model="user.userName"
+        v-model="member.memberName"
         :counter="10"
         :rules="nameRules"
         label="Name"
@@ -10,7 +10,7 @@
       ></v-text-field>
 
       <v-text-field
-        v-model="user.loginId"
+        v-model="member.loginId"
         :counter="10"
         :rules="loginRules"
         label="LogIn ID"
@@ -18,7 +18,7 @@
       ></v-text-field>
 
       <v-text-field
-        v-model="user.password"
+        v-model="member.password"
         :counter="10"
         label="Password"
         :type="showPassword ? 'text' : 'password'"
@@ -28,14 +28,14 @@
       ></v-text-field>
 
       <v-text-field
-        v-model="user.email"
+        v-model="member.email"
         :rules="emailRules"
         label="E-mail"
         required
       ></v-text-field>
 
       <v-text-field
-        v-model="user.phone"
+        v-model="member.phone"
         :rules="phoneRules"
         label="Phone"
         required
@@ -78,8 +78,8 @@
 <script>
 export default {
   data: () => ({
-    user: {
-      userName: "",
+    member: {
+      memberName: "",
       password: "",
       email: "",
       phone: null,
@@ -119,7 +119,7 @@ export default {
       let data = this.$data;
       if (val) {
         this.$http
-          .post("/user/users", data.user)
+          .post("/member/members", data.member)
           .then((response) => {
             console.log(response.data);
             //设置弹窗

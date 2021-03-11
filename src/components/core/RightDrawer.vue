@@ -26,12 +26,13 @@
       </v-list>
 
       <v-list dense>
+           <!-- :to = "`${item.link}?id=${$store.state.user.id}`" -->
           <v-list-item
             v-for="item in items"
             color="primary"
             :key="item.title"
             link
-            :to = "`${item.link}?id=${$store.state.user.id}`"
+         
           >
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
