@@ -41,7 +41,7 @@ export default {
   data: () => ({
     community: {
       id: null,
-      userId: null,
+      memberId: null,
       menuId: null,
       title: "제목",
       content: "내용"
@@ -51,7 +51,7 @@ export default {
 
   created: function(){
     this.community.menuId = this.$route.query.menuId;
-    this.community.userId = this.$store.state.user.id;
+    this.community.memberId = this.$store.state.user.id;
     this.community.id = this.$route.query.id;
     if(this.community.id != null){
       this.initialize();

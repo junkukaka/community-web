@@ -20,22 +20,22 @@
 
       <v-card-actions style="padding: 0px">
         <v-list-item class="grow">
-          <v-list-item-avatar color="grey darken-3">
+          <v-list-item-avatar>
             <v-img
               class="elevation-6"
               alt=""
-              src="https://cdn.vuetifyjs.com/images/lists/1.jpg"
+              :src="community.picture"
             ></v-img>
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title> 남광준 </v-list-item-title>
+            <v-list-item-title> {{community.memberName}} </v-list-item-title>
           </v-list-item-content>
 
           <v-row align="center" justify="end">
             <span>
               <v-icon class="mr-2"> mdi-domain </v-icon>
-              <span class="subheading mr-2">: 운영팀</span>
+              <span class="subheading mr-2">: {{community.department}}</span>
             </span>
           </v-row>
         </v-list-item>
@@ -133,10 +133,14 @@
           <v-icon v-else> mdi-account-circle </v-icon>
         </v-btn>
       </template>
-      <v-btn fab dark small color="green" @click="saveCollect">
+      <v-btn fab dark small 
+        :color="`${this.memberLikesAndCollect.memberCollectYn == 1 ? 'grey' : 'green'}`" 
+        @click="saveCollect">
         <v-icon>mdi-star</v-icon>
       </v-btn>
-      <v-btn fab dark small color="red" @click="saveLikes">
+      <v-btn fab dark small 
+        :color="`${this.memberLikesAndCollect.memberLikesYn == 1 ? 'grey' : 'red'}`"
+      @click="saveLikes">
         <v-icon>mdi-thumb-up</v-icon>
       </v-btn>
     </v-speed-dial>
@@ -151,12 +155,7 @@ import { mapGetters } from "vuex";
 
 export default {
   data: () => ({
-    community: {
-      id: "",
-      title: "",
-      content: "",
-      menuId: "",
-    },
+    community: {},
     dialog: false,
     valid: true,
     fab: false,
@@ -177,6 +176,7 @@ export default {
       communityId: null,
       memberId: null
     },
+    memberLikesAndCollect:{},
     comInfoCount:{
       hitsCount: 0,
       likesCount: 0,
@@ -189,7 +189,7 @@ export default {
     this.community.id = this.$route.query.id;
     //comment
     this.comment.communityId = this.$route.query.id;
-    this.comment.userId = this.getMember().id; //用户ID 赋值
+    this.comment.memberId = this.getMember().id; //用户ID 赋值
     //comInfo
     this.comInfo.communityId = this.$route.query.id;
     this.comInfo.memberId = this.getMember().id; //用户ID 赋值
@@ -197,7 +197,8 @@ export default {
     this.getCommunity(); 
     this.getComments();
     this.saveHits(); 
-    this.getInfoCount(); 
+    this.getInfoCount();
+    this.getMemberLikeAndCollect(); //member like or collected this community
   },
 
   
@@ -223,6 +224,16 @@ export default {
             this.community = response.data.data;
           });
       });
+    },
+
+    getMemberLikeAndCollect(){
+      this.$nextTick(function(){
+        this.$http
+          .post("/comInfo/selectLikeAndCollectByMember",this.comInfo)
+          .then((response) => {
+            this.memberLikesAndCollect = response.data.data
+          })
+      })
     },
 
     //comment select
@@ -275,13 +286,17 @@ export default {
 
     saveLikes(){
       this.$nextTick(function(){
-        this.$http.post("/comInfo/save/likes",this.comInfo)
+        this.$http.post("/comInfo/save/likes",this.comInfo).then(
+          (response) => {this.getMemberLikeAndCollect();}
+        )
       })
     },
 
     saveCollect(){
       this.$nextTick(function(){
-        this.$http.post("/comInfo/save/collect",this.comInfo)
+        this.$http.post("/comInfo/save/collect",this.comInfo).then(
+          (response) => {this.getMemberLikeAndCollect();}
+        )
       })
     },
 
@@ -291,6 +306,7 @@ export default {
       this.getComments();
       this.reset();
       this.dialog = false;
+      this.getComments();
     },
     //comment
     reset() {

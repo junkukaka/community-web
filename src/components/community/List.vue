@@ -17,20 +17,20 @@
               :to ="`/communityDetail?id=${item.id}`" 
             >
               <v-list-item-avatar>
-                <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
+                <v-img :src="item.picture"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
                 <v-list-item-title>{{item.title}}</v-list-item-title>
-                <!-- <v-list-item-subtitle v-html="item.content"></v-list-item-subtitle> -->
+                <v-list-item-subtitle>{{item.memberName}}</v-list-item-subtitle>
               </v-list-item-content>
 
               <v-list-item-action>
                 <v-list-item-subtitle>
-                  {{item.registerTime|date-format('yyyy-mm-dd')}}
+                  {{item.registerTime|date-format('yyyy-mm-dd hh:mi:ss')}}
                 </v-list-item-subtitle>
                 <v-list-item-subtitle>
-               
+                  hits:{{item.hitsCount}} ; likes: {{item.likesCount}} ; comments: {{item.commentCount}}
                 </v-list-item-subtitle>
               </v-list-item-action>
               

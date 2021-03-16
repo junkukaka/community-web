@@ -32,7 +32,7 @@
             color="primary"
             :key="item.title"
             link
-         
+            :to = "`${item.link}?id=${$store.state.user.id}`"
           >
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
@@ -52,6 +52,7 @@
       return {
         linksNoArg:[
            { title: 'Home', icon: 'mdi-home-city',link: 'Home' },
+           
         ],
         items: [
           { title: 'Profile', icon: 'mdi-account',link: 'Profile' },
