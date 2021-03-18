@@ -51,40 +51,31 @@
     </v-card>
 
     <!-- comment write area  -->
-    <v-card flat>
-      <v-card flat class="mt-5">
-        <v-form ref="form" v-model="valid" lazy-validation>
-          <v-textarea
-            outlined
-            label="Add a Comment"
-            value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
-            v-model="comment.content"
-            :rules="commentRules"
-          ></v-textarea>
-        </v-form>
-        <div class="clearfix">
-          <v-btn
-            color="primary"
-            depressed
-            @click="commentSave"
-            class="float-right"
-            dark
-          >
-            <v-icon>mdi-pencil</v-icon> 댓글</v-btn
-          >
-        </div>
-      </v-card>
-
-      <!-- pop -->
-      <v-dialog v-model="dialog" width="360">
-        <v-card>
-          <v-card-title style="">댓글등록</v-card-title>
+    <v-dialog v-model="dialog" width="700">
+      <v-card>
+        <v-card-title>댓글등록</v-card-title>
+          <v-card-text style="padding-bottom:0px">
+            <v-form ref="form" v-model="valid" lazy-validation>
+              <v-textarea
+                outlined
+                label="Add a Comment"
+                value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+                v-model="comment.content"
+                :rules="commentRules"
+              ></v-textarea>
+            </v-form>
+          </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" text @click="closeCommentAlert">Close</v-btn>
+              <v-btn color="primary" text @click="commentSave">
+                <v-icon>mdi-pencil</v-icon> Write 
+              </v-btn>
+              <v-btn color="orange" text @click="commentDialog">
+                Close 
+              </v-btn>
           </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-card>
+      </v-card>
+    </v-dialog>
+    <!-- comment write area  end-->
 
     <!-- comment list area -->
     <v-card flat>
@@ -133,8 +124,12 @@
           <v-icon v-else> mdi-account-circle </v-icon>
         </v-btn>
       </template>
+      <v-btn fab dark small color="green"
+        @click="commentDialog">
+        <v-icon>mdi-pencil</v-icon>
+      </v-btn>
       <v-btn fab dark small 
-        :color="`${this.memberLikesAndCollect.memberCollectYn == 1 ? 'grey' : 'green'}`" 
+        :color="`${this.memberLikesAndCollect.memberCollectYn == 1 ? 'grey' : 'orange'}`" 
         @click="saveCollect">
         <v-icon>mdi-star</v-icon>
       </v-btn>
@@ -238,6 +233,7 @@ export default {
 
     //comment select
     getComments() {
+      this.commentList = [];
       this.$nextTick(function () {
         this.$http
           .get(`/comment/comments/${this.community.id}`)
@@ -270,9 +266,7 @@ export default {
         this.$http.post("/comment/comments", this.comment).then((response) => {
           //请求成功
           if (response.data.data === 1) {
-            //comment reset
-            this.comment.content = "";
-            this.dialog = true;
+            this.commentDialog();
           }
         });
       }
@@ -300,18 +294,12 @@ export default {
       })
     },
 
-    //close comment alert 
-    closeCommentAlert(){
-      this.commentList = []
+    //comment dialog switch
+    commentDialog(){
+      this.dialog = !this.dialog;
       this.getComments();
-      this.reset();
-      this.dialog = false;
-      this.getComments();
-    },
-    //comment
-    reset() {
-      this.$refs.form.reset();
-    },
+    }
+
   },
 };
 </script>

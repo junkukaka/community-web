@@ -14,12 +14,12 @@
       
       <!-- community -->
       <v-tab-item>
-        <profile-community/>
+        <profile-community v-bind:parent="member"/>
       </v-tab-item>
     
       <!-- comment -->
       <v-tab-item>
-        <profile-comment v-bind:parent="msg"/>
+        <profile-comment v-bind:parent="member"/>
       </v-tab-item>
       
       <!-- liks -->
@@ -50,9 +50,14 @@ export default {
   data() {
     return {
       tabs: null,
-      msg: "ads",
+      member:{},
       tabItems: ["community", "comment", "liks", "collect"],
     };
   },
+
+  created(){
+    this.member = this.$store.state.member;
+  }
+
 };
 </script>

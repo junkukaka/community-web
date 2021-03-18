@@ -11,8 +11,7 @@
       <!-- Provides the application the proper gutter -->
       <v-container fluid color="grey lighten-4">
         <!-- If using vue-router -->
-
-        <div style="margin: 0 auto; max-width: 900px">
+        <div style="margin: 0 auto; max-width: 1200px">
           <router-view></router-view>
         </div>
       </v-container>

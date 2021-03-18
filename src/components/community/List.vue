@@ -30,7 +30,7 @@
                   {{item.registerTime|date-format('yyyy-mm-dd hh:mi:ss')}}
                 </v-list-item-subtitle>
                 <v-list-item-subtitle>
-                  hits:{{item.hitsCount}} ; likes: {{item.likesCount}} ; comments: {{item.commentCount}}
+                  hits : {{item.hitsCount}} ; likes : {{item.likesCount}} ; comments : {{item.commentCount}}
                 </v-list-item-subtitle>
               </v-list-item-action>
               

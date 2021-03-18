@@ -33,12 +33,12 @@
   export default {
     props:['parent'],
     created(){
-      console.log(this.$props.parent)
-      console.log(this.$store.state.user.id)
+      this.member = this.$props.parent;
     },
 
     data () {
       return {
+        member:{},
         expanded: [],
         singleExpand: false,
         dessertHeaders: [
