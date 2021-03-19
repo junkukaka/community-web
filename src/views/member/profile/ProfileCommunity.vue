@@ -34,11 +34,23 @@
       </template>
 
  
+    <template v-slot:[`item.title`]="{ item }">
+      <v-btn text :to="`/communityDetail?id=${item.id}`">
+        {{ item.title }}
+      </v-btn>
+    </template>
 
-      <template v-slot:[`item.actions`]="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+    <template v-slot:[`item.actions`]="{ item }">
+      <v-btn text :to="`/communityEdit?&menuId=${item.menuId}&id=${item.id}`">
+        <v-icon small class="mr-2"  > mdi-pencil </v-icon>
+        Edit
+      </v-btn>
+      <v-btn text>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-      </template>
+        Delete
+      </v-btn>
+      
+    </template>
 
     </v-data-table>
     <v-card flat class="mt-5">
@@ -61,7 +73,7 @@ export default {
   data: () => ({
     member: {},
     page: 1,
-    itemsPerPage: 10,
+    itemsPerPage: 20,
     pages: 1,
     communitys: [],
     dialogDelete: false,
@@ -89,12 +101,6 @@ export default {
       protein: 0,
     },
   }),
-
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    },
-  },
 
   watch: {
     dialog(val) {
@@ -138,11 +144,10 @@ export default {
       });
     },
 
+
     editItem(item) {
       console.log(item);
-      // this.editedIndex = this.desserts.indexOf(item);
-      // this.editedItem = Object.assign({}, item);
-      // this.dialog = true;
+
     },
 
     deleteItem(item) {
