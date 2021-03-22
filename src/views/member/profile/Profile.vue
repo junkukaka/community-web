@@ -12,6 +12,7 @@
 
     <v-tabs-items v-model="tabs">
       
+      
       <!-- community -->
       <v-tab-item>
         <profile-community v-bind:parent="member"/>

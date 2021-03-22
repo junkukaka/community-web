@@ -52,9 +52,7 @@
           </router-link>
         </v-fab-transition>
       </v-card>
-
-    
-
+      
       <v-card flat class="mt-5">
         <template>
           <div class="text-center">

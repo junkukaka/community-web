@@ -52,7 +52,6 @@
       return {
         linksNoArg:[
            { title: 'Home', icon: 'mdi-home-city',link: 'Home' },
-           
         ],
         items: [
           { title: 'Profile', icon: 'mdi-account',link: 'Profile' },

@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <v-text-field
-      label="제목"
+      label="Title"
       hint="www.example.com/page"
       persistent-hint
       outlined
@@ -9,7 +9,16 @@
       v-model.lazy="community.title"
     ></v-text-field>
 
-    <vue-editor id="Editor" v-model.lazy="community.content"> </vue-editor>
+    <v-md-editor
+      @upload-image="handleUploadImage"
+      :disabled-menus="[]"
+      @save="saveMdEditor"
+      :include-level="[3, 4]"
+      left-toolbar="undo redo clear | h bold italic strikethrough quote | ul ol todo-list table hr | link image code | save | tip emoji "
+      v-model="community.content"
+      height="600px"
+    >
+    </v-md-editor>
 
     <v-btn
       large
@@ -34,14 +43,14 @@ export default {
       id: null,
       memberId: null,
       menuId: null,
-      title: "제목",
-      content: "내용",
+      title: "Title...",
+      content: "",
     },
   }),
 
   created: function () {
     this.community.menuId = this.$route.query.menuId;
-    this.community.memberId = this.$store.state.user.id;
+    this.community.memberId = this.$store.state.member.id;
     this.community.id = this.$route.query.id;
     if (this.community.id != null) {
       this.initialize();
@@ -70,6 +79,47 @@ export default {
         });
       });
     },
+
+    saveMdEditor(){
+
+    },
+
+    // getBase64(file) {
+    //   return new Promise((resolve, reject) => {
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = () => resolve(reader.result);
+    //     reader.onerror = error => reject(error);
+    //   });
+    // },
+
+
+    //v-md-edtor upload image
+    handleUploadImage(event, insertImage, files) {
+      // Get the files and upload them to the file server, then insert the corresponding content into the editor
+      // debugger
+      let formData = new FormData();
+      formData.append("file", files[0]);
+      let imgUrl = "";
+      this.$nextTick(function () {
+        this.$http.post("/minio/vue_md_Editor",formData)
+          .then((response) => {
+          console.log(response.data.data)
+          imgUrl = response.data.data
+          //添加图片
+          insertImage({
+            url: imgUrl,
+            desc: 'desc',
+            width: 'auto',
+            height: 'auto',
+          });
+        });
+      });  
+ 
+      // Here is just an example
+      
+    },
+
   },
 };
 </script>

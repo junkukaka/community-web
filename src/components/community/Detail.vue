@@ -42,11 +42,9 @@
       </v-card-actions>
 
       <v-divider class="mb-7 ml-3"></v-divider>
-      <div
-        id="read"
-        class="text-justify mb-3 ml-3"
-        v-html="community.content"
-      ></div>
+      <div>
+        <v-md-editor v-model="community.content" mode="preview" ref="editor" />
+      </div>
       <v-divider></v-divider>
     </v-card>
 

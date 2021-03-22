@@ -127,7 +127,7 @@ export default {
         value.size < 2000000 ||
         "Avatar size should be less than 2 MB!",
     ],
-    departments: [],
+    departments: [], 
   }),
 
   watch: {
