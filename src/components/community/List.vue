@@ -73,6 +73,7 @@
     data: () => ({
       page: 1,
       pages: 1,
+      itemsPerPage: 5,
       menuId: null,
       menuName: "",
       items: []
@@ -108,7 +109,8 @@
         let request = {
           params: {
             menuId: data.menuId,
-            page: data.page
+            page: data.page,
+            itemsPerPage: data.itemsPerPage
           } 
         }
         this.$nextTick(function(){

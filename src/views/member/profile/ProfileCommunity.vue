@@ -1,6 +1,6 @@
 <template>
   <v-card flat class="pa-2">
-    <v-data-table 
+    <v-data-table
       flat
       :headers="headers"
       :items="communitys"
@@ -33,25 +33,22 @@
         </v-toolbar>
       </template>
 
- 
-    <template v-slot:[`item.title`]="{ item }">
-      <v-btn text :to="`/communityDetail?id=${item.id}`">
-        {{ item.title }}
-      </v-btn>
-    </template>
+      <template v-slot:[`item.title`]="{ item }">
+        <v-btn text :to="`/communityDetail?id=${item.id}`">
+          {{ item.title }}
+        </v-btn>
+      </template>
 
-    <template v-slot:[`item.actions`]="{ item }">
-      <v-btn text :to="`/communityEdit?&menuId=${item.menuId}&id=${item.id}`">
-        <v-icon small class="mr-2"  > mdi-pencil </v-icon>
-        Edit
-      </v-btn>
-      <v-btn text>
-        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-        Delete
-      </v-btn>
-      
-    </template>
-
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-btn text :to="`/communityEdit?&menuId=${item.menuId}&id=${item.id}`">
+          <v-icon small class="mr-2"> mdi-pencil </v-icon>
+          Edit
+        </v-btn>
+        <v-btn text @click="deleteItem(item.id)">
+          <v-icon small> mdi-delete </v-icon>
+          Delete
+        </v-btn>
+      </template>
     </v-data-table>
     <v-card flat class="mt-5">
       <template>
@@ -73,33 +70,19 @@ export default {
   data: () => ({
     member: {},
     page: 1,
-    itemsPerPage: 20,
+    itemsPerPage: 5,
     pages: 1,
     communitys: [],
     dialogDelete: false,
     headers: [
-      { text: "Title", align: "start", value: "title",},
+      { text: "Title", align: "start", value: "title" },
       { text: "Likes", value: "likesCount" },
       { text: "Hits", value: "hitsCount" },
-      { text: "comment", value: "commentCount" },
+      { text: "Comment", value: "commentCount" },
       { text: "Date", value: "registerTime" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
-    defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
+    deletedId: -1,
   }),
 
   watch: {
@@ -117,9 +100,9 @@ export default {
   },
 
   watch: {
-    page: function(){
-        this.initialize();
-      }
+    page: function () {
+      this.initialize();
+    },
   },
 
   methods: {
@@ -144,21 +127,20 @@ export default {
       });
     },
 
-
-    editItem(item) {
-      console.log(item);
-
-    },
-
-    deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+    deleteItem(id) {
+      this.deletedId = id;
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
-      this.closeDelete();
+      this.$http
+        .delete(`/community/communitys/${this.deletedId}`)
+        .then((response) => {
+          console.log(response);
+          if (response.data.code == 200) {
+            this.closeDelete();
+          }
+        });
     },
 
     close() {
@@ -171,10 +153,7 @@ export default {
 
     closeDelete() {
       this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
+      this.initialize();
     },
   },
 };
@@ -182,7 +161,7 @@ export default {
 
 <style scoped>
 .v-application .elevation-1 {
-    box-shadow:none !important
+  box-shadow: none !important;
 }
 </style>
 

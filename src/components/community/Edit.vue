@@ -13,12 +13,16 @@
       @upload-image="handleUploadImage"
       :disabled-menus="[]"
       @save="saveMdEditor"
-      :include-level="[3, 4]"
+      :include-level="[1,2,3,4,5]"
       left-toolbar="undo redo clear | h bold italic strikethrough quote | ul ol todo-list table hr | link image code | save | tip emoji "
       v-model="community.content"
       height="600px"
     >
     </v-md-editor>
+
+    <!-- <div>
+       <vue-editor v-model="community.content" />
+    </div> -->
 
     <v-btn
       large
