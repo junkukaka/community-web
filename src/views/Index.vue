@@ -11,12 +11,11 @@
       <!-- Provides the application the proper gutter -->
       <v-container fluid color="grey lighten-4">
         <!-- If using vue-router -->
-        <div style="margin: 0 auto; max-width: 1200px">
+        <div style="margin: 0 auto; max-width: 1100px">
           <router-view></router-view>
         </div>
       </v-container>
     </v-main>
-    <RightDrawer />
   </v-app>
 </template>
 
@@ -29,7 +28,6 @@ export default {
   components: {
     AppBar: () => import("@/components/core/AppBar"),
     Drawer: () => import("@/components/core/Drawer"),
-    RightDrawer: () => import("@/components/core/RightDrawer"),
   },
 
   data() {
