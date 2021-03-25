@@ -8,12 +8,12 @@ const routes = [
     {
         path: '/',
         component: () => import('@/views/Index'),
-        redirect: "/home",
+        redirect: "/main",
         children: [
             {
-                path: '/home',
-                name: 'Home',
-                component: () => import('@/views/Home')
+                path: '/main',
+                name: 'Main',
+                component: () => import('@/views/main/Main')
             },
             {
                 path: '/menu',

@@ -25,12 +25,12 @@
       
       <!-- liks -->
       <v-tab-item>
-        <profile-likes/>
+        <profile-likes v-bind:parent="member"/>
       </v-tab-item>
 
-      <!-- liks -->
+      <!-- collect -->
       <v-tab-item>
-        <profile-collect/>
+        <profile-collect v-bind:parent="member"/>
       </v-tab-item>
     </v-tabs-items>
   </v-card>

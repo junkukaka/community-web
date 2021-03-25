@@ -45,7 +45,7 @@
               large
               fab
               fixed
-              style="right:350px;bottom:50px"
+              style="right:70px;bottom:70px"
             >
               <v-icon>mdi-pencil</v-icon>
             </v-btn>

@@ -14,8 +14,10 @@
         <div style="margin: 0 auto; max-width: 1100px">
           <router-view></router-view>
         </div>
+       
       </v-container>
     </v-main>
+     <Footer />
   </v-app>
 </template>
 
@@ -28,6 +30,7 @@ export default {
   components: {
     AppBar: () => import("@/components/core/AppBar"),
     Drawer: () => import("@/components/core/Drawer"),
+    Footer: () => import("@/components/core/Footer"),
   },
 
   data() {

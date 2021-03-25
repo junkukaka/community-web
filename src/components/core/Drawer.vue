@@ -7,7 +7,7 @@
           border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
         "
       >
-        <router-link to="/Home">
+        <router-link to="/Main">
           <v-img
             height="39"
             width="109"
@@ -20,7 +20,7 @@
     <v-treeview
       activatable
       :items="menu"
-      shaped
+      
       open-all.lazy="!drawer"
       hoverable
       class="my-3"

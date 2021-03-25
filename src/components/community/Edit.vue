@@ -32,7 +32,7 @@
       @click="save"
     >
       등록
-      <v-icon right dark> mdi-pencil </v-icon>
+      <v-icon right dark> mdi-content-save </v-icon>
     </v-btn>
   </v-card>
 </template>
