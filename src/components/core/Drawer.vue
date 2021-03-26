@@ -62,7 +62,7 @@
             }}</v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
-            <v-icon>mdi-account-multiple-outline</v-icon>
+            <v-icon>mdi-account-outline</v-icon>
           </v-list-item-action>
         </v-list-item>
       </v-list>

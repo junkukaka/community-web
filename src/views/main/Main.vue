@@ -1,17 +1,18 @@
 <template>
   <v-card flat>
     <carousel/>
-    <new-community/>
+    <!-- new community -->
+    <community-template/>
   </v-card>
 </template>
 
 <script>
 import Carousel from "./Carousel";
-import NewCommunity from './NewCommunity';
+import CommunityTemplate from './CommunityTemplate';
 export default {
   components: {
     Carousel,
-    NewCommunity
+    CommunityTemplate
   },
   data() {
     return {

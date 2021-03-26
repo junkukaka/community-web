@@ -9,18 +9,23 @@
   >
     <v-app-bar-nav-icon @click="setDrawer(!drawer)"></v-app-bar-nav-icon>
 
-    <v-toolbar-title v-text="$route.name"></v-toolbar-title>
+    <v-toolbar-title>
+      <v-btn to= "/" text>
+        <v-icon>mdi-school</v-icon>
+        <span style="padding-left:7px">Wiki</span>
+      </v-btn>
+    </v-toolbar-title>
 
     <v-spacer></v-spacer>
 
-    <v-text-field
+    <!-- <v-text-field
       v-model="search"
       append-icon="mdi-magnify"
       label="Search"
       single-line
       hide-details
       class="mr-1"
-    ></v-text-field>
+    ></v-text-field> -->
     <v-menu right bottom offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on">

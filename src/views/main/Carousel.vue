@@ -1,8 +1,7 @@
 <template>
-
     <v-carousel 
     cycle show-arrows-on-hover
-    height="350"
+    height="300"
     >
     <v-carousel-item
       v-for="(item,i) in items"
@@ -10,7 +9,6 @@
       :src="item.src"
     ></v-carousel-item>
    </v-carousel>
-
 </template>
 
 <script>
