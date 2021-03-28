@@ -1,6 +1,8 @@
 import axios from 'axios'
+// http://192.168.142.128:8080
+// http://localhost:8090
 const http = axios.create({
-    baseURL: 'http://localhost:8090'
+    baseURL: 'http://192.168.142.128:8080'
 })
 
 //让请求自带token
