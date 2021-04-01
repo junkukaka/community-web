@@ -19,6 +19,12 @@ import createTodoListPlugin from '@kangc/v-md-editor/lib/plugins/todo-list/index
 import '@kangc/v-md-editor/lib/plugins/todo-list/todo-list.css';
 import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index';
 import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css';
+import './components/language/prism-abap.min.js'
+import './components/language/prism-bash.min.js'
+import './components/language/prism-java.min.js'
+import './components/language/prism-json.min.js'
+import './components/language/prism-scss.min.js'
+import './components/language/prism-sql.min.js'
 // import createHighlightLinesPlugin from '@kangc/v-md-editor/lib/plugins/highlight-lines/index';
 // import '@kangc/v-md-editor/lib/plugins/highlight-lines/highlight-lines.css';
 // import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/cdn';
