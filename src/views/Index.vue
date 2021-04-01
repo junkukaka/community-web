@@ -11,7 +11,7 @@
       <!-- Provides the application the proper gutter -->
       <v-container fluid color="grey lighten-4">
         <!-- If using vue-router -->
-        <div style="margin: 0 auto; max-width: 1100px">
+        <div style="margin: 0 auto; max-width: 1300px">
           <router-view></router-view>
         </div>
        
@@ -37,6 +37,7 @@ export default {
     return {
       paddingLeft: 256,
       paddingRight: 300,
+      memberToken: ""
     };
   },
 
@@ -54,6 +55,10 @@ export default {
                 localStorage.removeItem("Authorization");
                 localStorage.removeItem("store");
                 this.$router.push('/signIn');
+            }else{
+              this.$store.state.member = response.data.data.member;
+              this.memberToken = response.data.data.token;
+              this.changeLogin({ Authorization: this.memberToken });
             }
         });
     }
@@ -72,7 +77,7 @@ export default {
       } else {
         this.$store.state.window.rightDrawerTop = 64;
         this.$store.state.window.mainPaddingLeft = 256;
-        this.$store.state.window.mainPaddingRight = 300;
+        this.$store.state.window.mainPaddingRight = 270;
       }
     },
   },

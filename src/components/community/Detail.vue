@@ -55,7 +55,7 @@
         
         <v-card
           flat
-          style="position: fixed; right: 0px; top: 100px; width: 256px; border-left:3px solid #e0e0e0;"
+          style="position: fixed; right: 0px; top: 100px; width: 250px; border-left:3px solid #e0e0e0;"
           class="pa-3 d-none d-lg-block"
         >
           <div
@@ -64,7 +64,7 @@
             :style="{ padding: `7px 0 7px ${anchor.indent * 19}px` }"
             @click="handleAnchorClick(anchor)"
           >
-            <a style="cursor: pointer">{{ anchor.title }}</a>
+            <a style="cursor: pointer;color:#4a4a4ade" >{{ anchor.title }}</a>
           </div>
         </v-card>
       

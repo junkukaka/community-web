@@ -1,8 +1,9 @@
 import axios from 'axios'
-// http://192.168.142.128:8080
-// http://localhost:8090
+const appDev = 'http://localhost:8090';
+const appTest = 'http://192.168.0.134:9999'
+const appProd = 'http://192.168.0.134:9999'
 const http = axios.create({
-    baseURL: 'http://192.168.142.128:8080'
+    baseURL: appDev
 })
 
 //让请求自带token

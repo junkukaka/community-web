@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app class="" width="300" fixed v-model="drawer">
+  <v-navigation-drawer app class="" width="270" fixed v-model="drawer">
     <template v-slot:prepend>
       <div
         style="
@@ -31,7 +31,7 @@
           class="v-list-item"
         >
           <span style="color: #212121">
-            {{ props.item.name }} --- {{ props.item.id }}
+            {{ props.item.name }} 
           </span>
         </router-link>
       </template>

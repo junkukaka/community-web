@@ -28,18 +28,28 @@
       ></v-text-field>
 
       <v-text-field
+        v-model="confirmPassord"
+        :counter="10"
+        label="confirm Password"
+        :type="showPassword ? 'text' : 'password'"
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        required
+        @click:append="showPassword = !showPassword"
+      ></v-text-field>
+
+      <v-text-field
         v-model="member.email"
         :rules="emailRules"
         label="E-mail"
         required
       ></v-text-field>
 
-      <v-text-field
+      <!-- <v-text-field
         v-model="member.phone"
         :rules="phoneRules"
         label="Phone"
         required
-      ></v-text-field>
+      ></v-text-field> -->
 
       <v-btn
         block
@@ -84,6 +94,7 @@ export default {
       email: "",
       phone: null,
     },
+    confirmPassord: "",
     dialog: false,
     dialogMsg: "",
     dialogTitle: "",
@@ -116,6 +127,12 @@ export default {
   methods: {
     validate() {
       const val = this.$refs.form.validate(); //是否填满表单
+      if(this.member.password !== this.confirmPassord){
+        this.dialog = true;
+        this.dialogTitle = "Password error"
+        this.dialogMsg = "please check your password and confirm password";
+        return false;
+      }
       let data = this.$data;
       if (val) {
         this.$http
@@ -139,7 +156,7 @@ export default {
     closeDialogMsg() {
       this.dialog = false;
       if (this.dialogTitle == "Welcome to the ASPN community") {
-        this.$router.push("/");
+        this.$router.push("/signIn");
       }
     },
   },

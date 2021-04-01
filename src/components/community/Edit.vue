@@ -108,7 +108,7 @@ export default {
       this.$nextTick(function () {
         this.$http.post("/minio/vue_md_Editor",formData)
           .then((response) => {
-          console.log(response.data.data)
+          // console.log(response.data.data)
           imgUrl = response.data.data
           //添加图片
           insertImage({

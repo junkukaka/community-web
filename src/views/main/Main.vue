@@ -1,7 +1,8 @@
 <template>
   <v-card flat>
-    <carousel/>
+    <!-- <carousel/> -->
     <!-- new community -->
+    <br />
     <community-template/>
   </v-card>
 </template>

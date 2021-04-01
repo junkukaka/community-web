@@ -14,6 +14,7 @@
             placeholder="Pick an avatar"
             label="Avatar"
             v-model="avatar"
+            style="cursor: pointer;"
           ></v-file-input>
         </v-col>
       </v-row>
@@ -51,12 +52,12 @@
         required
       ></v-text-field>
 
-      <v-text-field
+      <!-- <v-text-field
         v-model="member.phone"
         :rules="phoneRules"
         label="Phone"
         required
-      ></v-text-field>
+      ></v-text-field> -->
 
       <v-select
         v-model="member.department"
@@ -137,7 +138,7 @@ export default {
         const formData = new FormData();
         formData.append("image", newVal);
         this.$http
-          .post("/minio/upload", formData)
+          .post("/minio/user", formData)
           .then((result) => {
             this.member.picture = result.data.data;
           })
