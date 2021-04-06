@@ -27,7 +27,7 @@
     >
       <template slot="label" slot-scope="props">
         <router-link
-          :to="'/communityList?menuId=' + props.item.id"
+          :to="'/community/communityList?menuId=' + props.item.id"
           class="v-list-item"
         >
           <span style="color: #212121">
@@ -126,7 +126,7 @@ export default {
         tier: 1,
       };
       if(this.menu.length === 0){
-        this.$http.get("/menu/menus/tree").then(function (response) {
+        this.$http.get("/communityMenu/menus/tree").then(function (response) {
           data.menu = response.data.data;
         });
       }

@@ -52,7 +52,7 @@ import { mapState, mapMutations } from "vuex";
 export default {
   data: () => ({
     options: [
-      { title: "Profile", link: "Profile" }
+      { title: "Profile", link: "/community/profile" }
     ],
     search: "",
   }),

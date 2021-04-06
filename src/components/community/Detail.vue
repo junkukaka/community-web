@@ -55,7 +55,7 @@
         
         <v-card
           flat
-          style="position: fixed; right: 0px; top: 100px; width: 250px; border-left:3px solid #e0e0e0;"
+          style="position: fixed; right: 0px; top: 100px; width: 280px; border-left:3px solid #e0e0e0;"
           class="pa-3 d-none d-lg-block"
         >
           <div

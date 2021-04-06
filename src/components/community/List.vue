@@ -14,7 +14,7 @@
                v-else
               :key="index"
               link
-              :to ="`/communityDetail?id=${item.id}`" 
+              :to ="`/community/communityDetail?id=${item.id}`" 
             >
               <v-list-item-avatar>
                 <v-img :src="item.picture"></v-img>
@@ -39,7 +39,7 @@
         </v-list>
 
         <v-fab-transition>
-          <router-link :to="`/communityEdit?menuId=${menuId}`">
+          <router-link :to="`/community/communityEdit?menuId=${menuId}`">
             <v-btn
               color="primary"
               large

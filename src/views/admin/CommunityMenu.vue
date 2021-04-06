@@ -230,7 +230,7 @@
             tier : 1
         }
         this.$nextTick(function(){
-          this.$http.post("/menu/menus/condition",request).then(function(response){
+          this.$http.post("/communityMenu/menus/condition",request).then(function(response){
             data.menus = response.data.data
           })
         })
@@ -271,7 +271,7 @@
         }
         let t = item.tier;
         this.$nextTick(function(){
-          this.$http.post("/menu/menus/condition",request).then(function(response){
+          this.$http.post("/communityMenu/menus/condition",request).then(function(response){
             if(t === 1){
               data.menus2 = response.data.data
               data.menus3 = [];
@@ -314,14 +314,14 @@
         if (this.editedIndex > -1) {
           let data = this.editedItem;
           this.$nextTick(function(){
-            this.$http.put("/menu/menus",data);
+            this.$http.put("/communityMenu/menus",data);
           });
           this.$router.go(0);
         //Insert function  
         } else {
           let data = this.editedItem;
           this.$nextTick(function(){
-            this.$http.post("/menu/menus",data)
+            this.$http.post("/communityMenu/menus",data)
               .then(function(response){
                  
               });
@@ -360,7 +360,7 @@
         }
 
         this.$nextTick(function(){
-          this.$http.delete("/menu/menus/"+ id)
+          this.$http.delete("/communityMenu/menus/"+ id)
           .then(function(response){
             
           });

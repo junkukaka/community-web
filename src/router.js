@@ -11,58 +11,75 @@ const routes = [
         redirect: "/main",
         children: [
             {
-                path: '/main',
+                path: 'main',
                 name: 'Main',
-                component: () => import('@/views/main/Main')
+                component: () => import('@/views/main/community/Main')
             },
             {
-                path: '/menu',
-                name: 'Menu',
-                component: () => import('@/views/admin/Menu')
+                path: 'communityMenu',
+                name: 'CommunityMenu',
+                component: () => import('@/views/admin/CommunityMenu')
             },
             {
-                path: '/tree',
+                path: 'tree',
                 component: () => import('@/views/admin/Tree')
             },
             {
-                path: '/communityList',
-                component: () => import('@/components/community/List')
-            },
-            {
-                path: '/communityEdit',
-                component: () => import('@/components/community/Edit')
-            },
-            {
-                path: '/communityDetail',
-                component: () => import('@/components/community/Detail')
-            },
-            {
-                path: '/signUp',
+                path: 'signUp',
                 name: 'SignUp',
-                component: () => import('@/views/member/SignUp')
+                component: () => import('@/views/member/user/SignUp')
             },
             {
-                path: '/signIn',
+                path: 'signIn',
                 name: 'SignIn',
-                component: () => import('@/views/member/SignIn')
+                component: () => import('@/views/member/user/SignIn')
             },
             {
-                path: '/memberInfo',
+                path: 'memberInfo',
                 name: 'memberInfo',
-                component: () => import('@/views/member/MemberInfo')
+                component: () => import('@/views/member/user/MemberInfo')
             },
             {
-                path: '/memberList',
-                name: 'MemberList',
-                component: () => import('@/views/member/MemberList')
-            },
-            {
-                path: '/profile',
+                path: 'profile',
                 name: 'Profile',
                 component: () => import('@/views/member/profile/Profile')
+            },
+            {
+                path: 'memberList',
+                name: 'MemberList',
+                component: () => import('@/views/admin/MemberList')
             }
         ],
     },
+    {
+        path: '/community',
+        component: () => import('@/views/IndexCommunity'),
+        redirect: "/community/communityMain",  
+        children: [
+            {
+                path: 'communityMain',
+                name: 'communityMain',
+                component: () => import('@/views/main/community/Main')
+            },
+            {
+                path: 'communityList',
+                component: () => import('@/components/community/List')
+            },
+            {
+                path: 'communityEdit',
+                component: () => import('@/components/community/Edit')
+            },
+            {
+                path: 'communityDetail',
+                component: () => import('@/components/community/Detail')
+            },
+            {
+                path: 'profile',
+                name: 'Profile',
+                component: () => import('@/views/member/profile/Profile')
+            }
+        ]
+    }
 
 ]
 
@@ -75,7 +92,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     //允许访问的路径
-    const arrJPath = ['/signIn','/communityList','/signUp']
+    const arrJPath = ['/signIn','/community/communityList','/signUp']
     if (arrJPath.find(element => element == to.path)) {
         next();
     } else {
