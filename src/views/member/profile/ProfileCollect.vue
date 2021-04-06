@@ -40,6 +40,10 @@
       </v-btn>
     </template>
 
+     <template v-slot:[`item.date`]="{ item }">
+        {{ item.date |date-format('yyyy-mm-dd hh:mi:ss') }}
+    </template>
+
     <template v-slot:[`item.actions`]="{ item }">
       <v-btn text @click="deleteItem(item)">
         <v-icon small> mdi-delete </v-icon>
@@ -68,7 +72,7 @@ export default {
   data: () => ({
     member: {},
     page: 1,
-    itemsPerPage: 5,
+    itemsPerPage: 20,
     pages: 1,
     collect: [],
     dialogDelete: false,

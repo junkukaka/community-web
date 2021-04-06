@@ -70,7 +70,7 @@ export default {
   data: () => ({
     member: {},
     page: 1,
-    itemsPerPage: 5,
+    itemsPerPage: 20,
     pages: 1,
     communitys: [],
     dialogDelete: false,

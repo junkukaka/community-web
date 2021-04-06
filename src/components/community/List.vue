@@ -73,7 +73,7 @@
     data: () => ({
       page: 1,
       pages: 1,
-      itemsPerPage: 5,
+      itemsPerPage: 20,
       menuId: null,
       menuName: "",
       items: []
