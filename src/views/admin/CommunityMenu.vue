@@ -215,7 +215,9 @@
         useYn: null,
         father: null,
       },
-      formTitle: ""
+      formTitle: "",
+      selectedTier2: null,
+      selectedTier3: null
     }),
     
     created: function(){
@@ -225,6 +227,18 @@
     methods: {
       //初始化方法
       initialize: function(){
+        this.selectFirstMenu();
+        if(this.selectedTier2 != null){
+          this.selectMenus(this.selectedTier2);
+        }
+        
+        if(this.selectedTier3 != null){
+          this.selectMenus(this.selectedTier3);
+        }
+      },
+
+      //一级菜单查询
+      selectFirstMenu: function(){
         let data = this.$data;
         let request = {
             tier : 1
@@ -233,7 +247,7 @@
           this.$http.post("/communityMenu/menus/condition",request).then(function(response){
             data.menus = response.data.data
           })
-        })
+        });
       },
 
       //添加主菜单
@@ -264,21 +278,24 @@
 
       //查看下级菜单
       selectMenus : function (item){
-        let data = this.$data;
         let request = {
           father: item.id,
           tier : item.tier + 1
         }
+
+        if(request.tier == 2){
+          this.selectedTier2 = item;
+        }else if (request.tier == 3){
+          this.selectedTier3 = item;
+        }
         let t = item.tier;
-        this.$nextTick(function(){
-          this.$http.post("/communityMenu/menus/condition",request).then(function(response){
-            if(t === 1){
-              data.menus2 = response.data.data
-              data.menus3 = [];
-            }else{
-              data.menus3 = response.data.data
-            }
-          })
+        this.$http.post("/communityMenu/menus/condition",request).then((response) => {
+          if(t == 1){
+            this.menus2 = response.data.data
+            this.menus3 = [];
+          }else{
+            this.menus3 = response.data.data
+          }
         })
       },
 
@@ -313,20 +330,18 @@
          //updata function
         if (this.editedIndex > -1) {
           let data = this.editedItem;
-          this.$nextTick(function(){
-            this.$http.put("/communityMenu/menus",data);
+          this.$http.put("/communityMenu/menus",data).then(response => {
+            this.initialize();
           });
-          this.$router.go(0);
+          // this.$router.go(0);
         //Insert function  
         } else {
           let data = this.editedItem;
-          this.$nextTick(function(){
-            this.$http.post("/communityMenu/menus",data)
-              .then(function(response){
-                 
-              });
-          })
-          this.$router.go(0);
+          this.$http.post("/communityMenu/menus",data).then((response) => {
+                this.initialize();
+          });
+        
+          // this.$router.go(0);
         }
         this.close();
       },
@@ -361,8 +376,8 @@
 
         this.$nextTick(function(){
           this.$http.delete("/communityMenu/menus/"+ id)
-          .then(function(response){
-            
+          .then((response) => {
+            this.initialize();
           });
         })
         

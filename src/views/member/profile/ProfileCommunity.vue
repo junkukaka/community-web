@@ -34,13 +34,13 @@
       </template>
 
       <template v-slot:[`item.title`]="{ item }">
-        <v-btn text :to="`/communityDetail?id=${item.id}`" color="primary">
+        <v-btn text :to="`/community/communityDetail?id=${item.id}`" color="primary">
           {{ item.title }}
         </v-btn>
       </template>
 
       <template v-slot:[`item.actions`]="{ item }">
-        <v-btn text :to="`/communityEdit?&menuId=${item.menuId}&id=${item.id}`">
+        <v-btn text :to="`/community/communityEdit?&menuId=${item.menuId}&id=${item.id}`">
           <v-icon small class="mr-2"> mdi-pencil </v-icon>
           Edit
         </v-btn>

@@ -314,6 +314,7 @@ export default {
         .get(`/community/communitys/${this.community.id}`)
         .then((response) => {
           this.community = response.data.data;
+          //console.log(response.data.data.content);
         });
     },
 
