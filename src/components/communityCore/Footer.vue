@@ -18,6 +18,7 @@
       <span>Wike</span>
       <v-icon>mdi-school</v-icon>
     </v-btn>
+    
   </v-bottom-navigation>
 </template>
 

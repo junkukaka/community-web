@@ -5,6 +5,7 @@
       :headers="headers"
       :items="likes"
       class="elevation-1 mytable"
+      disable-pagination="true"
       hide-default-footer
     >
       <template v-slot:top>

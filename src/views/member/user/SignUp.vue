@@ -133,6 +133,7 @@ export default {
         this.dialogMsg = "please check your password and confirm password";
         return false;
       }
+      console.log(this.member);
       let data = this.$data;
       if (val) {
         this.$http

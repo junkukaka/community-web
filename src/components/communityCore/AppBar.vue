@@ -43,6 +43,19 @@
           <v-list-item-title v-text="item.title"></v-list-item-title>
         </v-list-item>
       </v-list>
+
+      <v-list>
+        <v-list-item
+          v-for="item in admins"
+          :key="item.title"
+          @click="() => {}"
+          :to="item.link"
+        >
+          <v-list-item-title v-text="item.title"
+            v-if="`${$store.state.member == null ? false : $store.state.member.authority == 0 }`"
+          ></v-list-item-title>
+        </v-list-item>
+      </v-list>
     </v-menu>
   </v-app-bar>
 </template>
@@ -53,6 +66,9 @@ export default {
   data: () => ({
     options: [
       { title: "Profile", link: "/community/profile" }
+    ],
+    admins: [
+      {title: "Community Menu", link: "/communityMenu"}
     ],
     search: "",
   }),

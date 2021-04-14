@@ -2,7 +2,7 @@
   <v-card flat>
     <v-text-field
       label="Title"
-      hint="www.example.com/page"
+      hint="this is community title area"
       persistent-hint
       outlined
       style="border-radius: 0"
@@ -47,7 +47,7 @@ export default {
       id: null,
       memberId: null,
       menuId: null,
-      title: "Title...",
+      title: "",
       content: "",
     },
   }),

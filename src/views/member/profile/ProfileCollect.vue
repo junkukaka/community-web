@@ -4,6 +4,7 @@
       flat
       :headers="headers"
       :items="collect"
+      disable-pagination="true"
       class="elevation-1 mytable"
       hide-default-footer
     >

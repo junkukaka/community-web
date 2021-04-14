@@ -79,6 +79,35 @@ const routes = [
                 component: () => import('@/views/member/profile/Profile')
             }
         ]
+    },
+    {
+        path: '/wiki',
+        component: () => import('@/views/IndexCommunity'),
+        redirect: "/community/communityMain",  
+        children: [
+            {
+                path: 'communityMain',
+                name: 'communityMain',
+                component: () => import('@/views/main/community/Main')
+            },
+            {
+                path: 'communityList',
+                component: () => import('@/components/community/List')
+            },
+            {
+                path: 'communityEdit',
+                component: () => import('@/components/community/Edit')
+            },
+            {
+                path: 'communityDetail',
+                component: () => import('@/components/community/Detail')
+            },
+            {
+                path: 'profile',
+                name: 'Profile',
+                component: () => import('@/views/member/profile/Profile')
+            }
+        ]
     }
 
 ]

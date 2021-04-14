@@ -4,6 +4,7 @@
       flat
       :headers="headers"
       :items="communitys"
+      disable-pagination="true"
       class="elevation-1 mytable"
       hide-default-footer
     >
@@ -123,6 +124,7 @@ export default {
             this.communitys = response.data.data.communitys;
             this.page = response.data.data.page; //当前页面
             this.pages = response.data.data.pages; //页数
+            console.log(this.communitys)
           });
       });
     },

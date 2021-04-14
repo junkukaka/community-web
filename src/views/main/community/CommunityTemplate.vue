@@ -14,7 +14,7 @@
                v-else
               :key="index"
               link
-              :to ="`/communityDetail?id=${item.id}`" 
+              :to ="`/community/communityDetail?id=${item.id}`" 
             >
               <v-list-item-avatar>
                 <v-img :src="item.picture"></v-img>
