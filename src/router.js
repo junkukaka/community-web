@@ -72,40 +72,33 @@ const routes = [
             {
                 path: 'communityDetail',
                 component: () => import('@/components/community/Detail')
-            },
-            {
-                path: 'profile',
-                name: 'Profile',
-                component: () => import('@/views/member/profile/Profile')
             }
         ]
     },
     {
         path: '/wiki',
-        component: () => import('@/views/IndexCommunity'),
-        redirect: "/community/communityMain",  
+        component: () => import('@/views/IndexWiki'),
+        redirect: "/wiki/wikiMain",  
         children: [
             {
-                path: 'communityMain',
-                name: 'communityMain',
-                component: () => import('@/views/main/community/Main')
+                path: 'wikiMain',
+                name: 'wikiMain',
+                component: () => import('@/views/main/wiki/Main')
             },
             {
-                path: 'communityList',
-                component: () => import('@/components/community/List')
+                path: 'wikiList',
+                name: 'wikiList',
+                component: () => import('@/components/wiki/List')
             },
             {
-                path: 'communityEdit',
-                component: () => import('@/components/community/Edit')
+                path: 'wikiDetail',
+                name: 'wikiDetail',
+                component: () => import('@/components/wiki/Detail')
             },
             {
-                path: 'communityDetail',
-                component: () => import('@/components/community/Detail')
-            },
-            {
-                path: 'profile',
-                name: 'Profile',
-                component: () => import('@/views/member/profile/Profile')
+                path: 'edit',
+                name: 'edit',
+                component: () => import('@/components/wiki/Edit')
             }
         ]
     }

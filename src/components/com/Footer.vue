@@ -14,7 +14,7 @@
       <v-icon>mdi-account-multiple</v-icon>
     </v-btn>
 
-    <v-btn>
+    <v-btn to="/wiki/wikiMain">
       <span>Wike</span>
       <v-icon>mdi-school</v-icon>
     </v-btn>

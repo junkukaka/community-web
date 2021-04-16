@@ -30,7 +30,7 @@ export default {
   components: {
     AppBar: () => import("@/components/communityCore/AppBar"),
     Drawer: () => import("@/components/communityCore/Drawer"),
-    Footer: () => import("@/components/communityCore/Footer"),
+    Footer: () => import("@/components/com/Footer"),
   },
 
   data() {

@@ -28,9 +28,9 @@ import { mapMutations } from "vuex";
 export default {
   name: "Index",
   components: {
-    AppBar: () => import("@/components/communityCore/AppBar"),
-    Drawer: () => import("@/components/communityCore/Drawer"),
-    Footer: () => import("@/components/communityCore/Footer"),
+    AppBar: () => import("@/components/wikiCore/AppBar"),
+    Drawer: () => import("@/components/wikiCore/Drawer"),
+    Footer: () => import("@/components/com/Footer"),
   },
 
   data() {
