@@ -23,6 +23,7 @@
               </div>
               <v-avatar class="ma-4" size="80" tile>
                 <v-img :src="item.src"></v-img>
+            
               </v-avatar>
             </div>
           </v-card>
@@ -39,7 +40,7 @@ export default {
     items: [
       {
         color: "#FAFAFA",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
+        src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
         title: "Supermodel",
         artist: "Foster the People",
       },

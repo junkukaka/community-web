@@ -68,7 +68,8 @@ export default {
       { title: "Profile", link: "/community/profile" }
     ],
     admins: [
-      {title: "Community Menu", link: "/communityMenu"}
+      {title: "Community Menu", link: "/community/communityMenu"},
+      {title: "Wiki Menu", link: "/wiki/wikiMenu"}
     ],
     search: "",
   }),

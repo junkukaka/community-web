@@ -30,7 +30,7 @@
           :to="'/community/communityList?menuId=' + props.item.id"
           class="v-list-item"
         >
-          <span style="color: #212121">
+          <span style="color: #000000">
             {{ props.item.name }} 
           </span>
         </router-link>

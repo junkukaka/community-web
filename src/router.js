@@ -16,11 +16,6 @@ const routes = [
                 component: () => import('@/views/main/community/Main')
             },
             {
-                path: 'communityMenu',
-                name: 'CommunityMenu',
-                component: () => import('@/views/admin/CommunityMenu')
-            },
-            {
                 path: 'tree',
                 component: () => import('@/views/admin/Tree')
             },
@@ -58,8 +53,13 @@ const routes = [
         children: [
             {
                 path: 'communityMain',
-                name: 'communityMain',
+                name: 'CommunityMain',
                 component: () => import('@/views/main/community/Main')
+            },
+            {
+                path: 'communityMenu',
+                name: 'CommunityMenu',
+                component: () => import('@/views/admin/CommunityMenu')
             },
             {
                 path: 'communityList',
@@ -86,18 +86,23 @@ const routes = [
                 component: () => import('@/views/main/wiki/Main')
             },
             {
+                path: 'wikiMenu',
+                name: 'WikiMenu',
+                component: () => import('@/views/admin/WikiMenu')
+            },
+            {
                 path: 'wikiList',
                 name: 'wikiList',
                 component: () => import('@/components/wiki/List')
             },
             {
                 path: 'wikiDetail',
-                name: 'wikiDetail',
+                name: 'WikiDetail',
                 component: () => import('@/components/wiki/Detail')
             },
             {
-                path: 'edit',
-                name: 'edit',
+                path: 'wikiEdit',
+                name: 'WikiEdit',
                 component: () => import('@/components/wiki/Edit')
             }
         ]

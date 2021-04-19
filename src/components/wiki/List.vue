@@ -29,6 +29,20 @@
         </v-col>
       </v-row>
     </v-container>
+
+    <v-fab-transition>
+      <router-link :to="`/wiki/wikiEdit?menuId=${menuId}`">
+        <v-btn
+          color="primary"
+          large
+          fab
+          fixed
+          style="right:70px;bottom:70px"
+        >
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+      </router-link>
+    </v-fab-transition>
   </v-card>
 </template>
 
@@ -36,10 +50,11 @@
 <script>
 export default {
   data: () => ({
+    menuId: 1,
     items: [
       {
         color: "#FAFAFA",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
+        src: "",
         title: "Supermodel",
         artist: "Foster the People",
       },
