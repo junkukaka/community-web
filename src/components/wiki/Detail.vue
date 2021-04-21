@@ -1,20 +1,21 @@
 <template>
   <v-card flat>
-    <v-card flat>
-      <v-card flat>
-        <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" />
-      </v-card>
+    <v-alert
+      flat
+      class="ml-5 mr-5"
+      border="left"
+      colored-border
+      elevation="1"
+    >
+      {{wikiHis.title}}
+    </v-alert>
 
+    <v-card flat class="mt-n3">
+      <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" />
       <!-- anchor -->
       <v-card
         flat
-        style="
-          position: fixed;
-          right: 0px;
-          top: 100px;
-          width: 280px;
-          border-left: 3px solid #e0e0e0;
-        "
+        style="position: fixed; right: 0px; top: 77px; width: 280px; border-left:3px solid #616161;"
         class="pa-3 d-none d-lg-block"
       >
         <div
@@ -23,16 +24,11 @@
           :style="{ padding: `7px 0 7px ${anchor.indent * 19}px` }"
           @click="handleAnchorClick(anchor)"
         >
-          <a style="cursor: pointer; color: #4a4a4ade">{{ anchor.title }}</a>
+          <a style="cursor: pointer;color:#4a4a4ade" >{{ anchor.title }}</a>
         </div>
       </v-card>
+      <!-- anchor  end -->
     </v-card>
-
-    <!-- comment write area  -->
-    <v-dialog v-model="dialog" width="700">
-      <v-card> </v-card>
-    </v-dialog>
-    <!-- comment write area  end-->
 
     <!-- icon dial -->
     <v-speed-dial
@@ -41,7 +37,8 @@
       direction="top"
       open-on-hover
       transition="slide-y-reverse-transition"
-      :style="{ position: 'absolute', top: `${scrollTop + 200}px` }"
+      fixed
+      style="right:30px;bottom:30px"
     >
       <template v-slot:activator>
         <v-btn v-model="fab" color="blue darken-2" dark fab>
@@ -49,36 +46,17 @@
           <v-icon v-else> mdi-account-circle </v-icon>
         </v-btn>
       </template>
-      <v-btn fab dark small color="green" @click="commentDialog">
+      <v-btn fab dark small color="green" >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
-      <v-btn
-        fab
-        dark
-        small
-        :color="`${
-          this.memberLikesAndCollect.memberCollectYn == 1 ? 'grey' : 'orange'
-        }`"
-        @click="saveCollect"
-      >
-        <v-icon>mdi-star</v-icon>
-      </v-btn>
-      <v-btn
-        fab
-        dark
-        small
-        :color="`${
-          this.memberLikesAndCollect.memberLikesYn == 1 ? 'grey' : 'red'
-        }`"
-        @click="saveLikes"
-      >
-        <v-icon>mdi-thumb-up</v-icon>
+      <v-btn fab dark small color="orange" >
+        <v-icon>mdi-history</v-icon>
       </v-btn>
     </v-speed-dial>
+    <!-- icon dial -->
+    
   </v-card>
 </template>
-
-
 
 <script>
 export default {
@@ -87,17 +65,15 @@ export default {
     wikiHis: {},
     titles: [],
     dialog: false,
-    valid: true,
     fab: false,
-    scrollTop: 0,
   }),
 
   created(){
-      this.wikiId = this.$route.query.id;
+      this.wikiId = this.$route.query.wikiId;
+      this.getWikiHisDetail();
   },
 
   mounted() {
-    window.addEventListener("scroll", this.scrollHandle); //绑定页面滚动事件
     let br;
     let i = 0;
     //try 10s
@@ -160,11 +136,6 @@ export default {
           top: 60,
         });
       }
-    },
-
-    scrollHandle(e) {
-      this.scrollTop = e.srcElement.scrollingElement.scrollTop; // 获取页面滚动高度
-      //console.log(this.scrollTop);
     },
 
     getWikiHisDetail() {

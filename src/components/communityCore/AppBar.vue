@@ -65,7 +65,7 @@ import { mapState, mapMutations } from "vuex";
 export default {
   data: () => ({
     options: [
-      { title: "Profile", link: "/community/profile" }
+      { title: "Profile", link: "/profile" }
     ],
     admins: [
       {title: "Community Menu", link: "/community/communityMenu"},

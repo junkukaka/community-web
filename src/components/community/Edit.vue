@@ -5,6 +5,7 @@
       hint="this is community title area"
       persistent-hint
       outlined
+      :rules="titleRules"
       style="border-radius: 0"
       v-model.lazy="community.title"
     ></v-text-field>
@@ -12,8 +13,8 @@
     <v-md-editor
       @upload-image="handleUploadImage"
       :disabled-menus="[]"
-      @save="saveMdEditor"
-      :include-level="[1,2,3,4]"
+      @save="saveDialog = true"
+      :include-level="[1, 2, 3, 4]"
       left-toolbar="undo redo clear | h bold italic strikethrough quote | ul ol todo-list table hr | link image code | save | tip emoji "
       v-model="community.content"
       height="600px"
@@ -29,19 +30,47 @@
       depressed
       color="primary"
       class="ma-2 white--text float-sm-right"
-      @click="save"
+      @click="saveDialog = true"
     >
       등록
       <v-icon right dark> mdi-content-save </v-icon>
     </v-btn>
+
+
+    <!-- save message dialog area -->
+    <v-dialog v-model="saveDialog" max-width="290">
+      <v-card>
+        <v-card-title class="headline">Are you sure you want to publish ?</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red darken-1" text @click="saveDialog = false">
+            cancle
+          </v-btn>
+          <v-btn color="green darken-1" text @click="save">
+            save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- warning message dialog area -->
+    <v-dialog v-model="warningDialog" max-width="290">
+      <v-card>
+        <v-card-title class="headline"> Warning message </v-card-title>
+        <v-card-subtitle>{{ warningMsg }}</v-card-subtitle>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text @click="warningDialog = false">
+            Get it
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
 <script>
-import { VueEditor, Quill } from "vue2-editor";
 export default {
-  components: { VueEditor, Quill },
-
   data: () => ({
     community: {
       id: null,
@@ -50,6 +79,13 @@ export default {
       title: "",
       content: "",
     },
+    warningDialog: false,
+    warningMsg: null,
+    saveDialog: false,
+    titleRules: [
+      (v) => !!v || "title is required",
+      (v) => (v && v.length <= 100) || "Name must be less than 100 characters",
+    ],
   }),
 
   created: function () {
@@ -73,8 +109,23 @@ export default {
           });
       });
     },
+
     //增加内容
     save: function () {
+      if (this.community.content.trim().length === 0) {
+        this.warningDialog = true;
+        this.warningMsg = "Please check content ";
+        return false;
+      }
+      if (this.community.title.trim().length === 0) {
+        this.warningDialog = true;
+        this.warningMsg = "Please check title ";
+        return false;
+      }
+      this.afterSave();
+    },
+
+    afterSave() {
       let router = this.$router;
       let data = this.community;
       this.$nextTick(function () {
@@ -84,9 +135,6 @@ export default {
       });
     },
 
-    saveMdEditor(){
-
-    },
 
     // getBase64(file) {
     //   return new Promise((resolve, reject) => {
@@ -97,7 +145,6 @@ export default {
     //   });
     // },
 
-
     //v-md-edtor upload image
     handleUploadImage(event, insertImage, files) {
       // Get the files and upload them to the file server, then insert the corresponding content into the editor
@@ -106,24 +153,19 @@ export default {
       formData.append("file", files[0]);
       let imgUrl = "";
       this.$nextTick(function () {
-        this.$http.post("/minio/vue_md_Editor",formData)
-          .then((response) => {
+        this.$http.post("/minio/vue_md_Editor", formData).then((response) => {
           // console.log(response.data.data)
-          imgUrl = response.data.data
+          imgUrl = response.data.data;
           //添加图片
           insertImage({
             url: imgUrl,
-            desc: 'desc',
-            width: 'auto',
-            height: 'auto',
+            desc: "desc",
+            width: "auto",
+            height: "auto",
           });
         });
-      });  
- 
-      // Here is just an example
-      
+      });
     },
-
   },
 };
 </script>

@@ -136,7 +136,8 @@
       direction="top"
       open-on-hover
       transition="slide-y-reverse-transition"
-      :style="{ position: 'absolute', top: `${scrollTop + 200}px` }"
+      fixed
+      style="right:30px;bottom:30px"
     >
       <template v-slot:activator>
         <v-btn v-model="fab" color="blue darken-2" dark fab>
@@ -185,7 +186,6 @@ export default {
     dialog: false,
     valid: true,
     fab: false,
-    scrollTop: 0,
     comment: {
       userId: null,
       communityId: null,
@@ -231,8 +231,6 @@ export default {
 
   
   mounted() {
-    window.addEventListener("scroll", this.scrollHandle); //绑定页面滚动事件
-
     let br; 
     let i = 0;
     //try 10s
@@ -301,11 +299,6 @@ export default {
           top: 60,
         });
       }
-    },
-
-    scrollHandle(e) {
-      this.scrollTop = e.srcElement.scrollingElement.scrollTop; // 获取页面滚动高度
-      //console.log(this.scrollTop);
     },
 
     getCommunity() {

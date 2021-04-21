@@ -7,7 +7,7 @@
           :key="i"
           cols="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"
         >
-          <v-card color="#FAFAFA" flat>
+          <v-card color="#FAFAFA" flat :to="'/wiki/wikiDetail?wikiId=' + item.id">
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
                 <v-card-title
@@ -24,7 +24,8 @@
                 </v-card-actions>
               </div>
               <v-avatar class="ma-4" size="78" tile>
-                <v-img :src="item.picture"></v-img>
+                <v-img :src="item.picture" v-show="item.picture!= null"></v-img>
+                <v-img src="../../assets/wiki.jpg" v-show="item.picture == null"></v-img>
               </v-avatar>
             </div>
           </v-card>
@@ -39,7 +40,7 @@
           large
           fab
           fixed
-          style="right:70px;bottom:70px"
+          style="right:30px;bottom:30px"
         >
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
@@ -52,7 +53,7 @@
 <script>
 export default {
   data: () => ({
-    menuId: 1,
+    menuId: null,
     wikis:[]
   }),
 
@@ -61,8 +62,21 @@ export default {
     this.initialize();
   },
 
+  watch: {
+    //使用监听跳转页面
+      $route(){
+        this.menuId = this.$route.query.menuId;
+      },
+      
+      menuId: function(){
+        this.initialize();
+      },
+  },
+
   methods: {
+    
     initialize(){
+     this.wikis = [];
      this.$nextTick(function () {
         this.$http
           .get(`/wiki/wikis/${this.menuId}`)

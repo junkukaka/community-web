@@ -124,7 +124,6 @@ export default {
             this.communitys = response.data.data.communitys;
             this.page = response.data.data.page; //当前页面
             this.pages = response.data.data.pages; //页数
-            console.log(this.communitys)
           });
       });
     },
