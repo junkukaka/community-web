@@ -33,7 +33,7 @@
       </v-row>
     </v-container>
 
-    <v-fab-transition>
+    <!-- <v-fab-transition>
       <router-link :to="`/wiki/wikiEdit?menuId=${menuId}`">
         <v-btn
           color="primary"
@@ -45,7 +45,7 @@
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </router-link>
-    </v-fab-transition>
+    </v-fab-transition> -->
   </v-card>
 </template>
 

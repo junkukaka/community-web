@@ -4,7 +4,7 @@
       flat
       :headers="headers"
       :items="comments"
-      disable-pagination="true"
+      :disable-pagination="disablePagination"
       class="elevation-1 mytable"
       hide-default-footer
     >
@@ -73,9 +73,10 @@ export default {
   data: () => ({
     member: {},
     page: 1,
-    itemsPerPage: 20,
+    itemsPerPage: 30,
     pages: 1,
     comments: [],
+    disablePagination: true,
     dialogDelete: false,
     headers: [
       { text: "Title", align: "start", value: "title",},

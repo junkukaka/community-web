@@ -104,7 +104,12 @@ const routes = [
                 path: 'wikiEdit',
                 name: 'WikiEdit',
                 component: () => import('@/components/wiki/Edit')
-            }
+            },
+            {
+                path: 'profile',
+                name: 'Profile',
+                component: () => import('@/views/member/profile/Profile')
+            },
         ]
     }
 

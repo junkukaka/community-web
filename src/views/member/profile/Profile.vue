@@ -32,6 +32,12 @@
       <v-tab-item>
         <profile-collect v-bind:parent="member"/>
       </v-tab-item>
+
+      <!-- wiki -->
+      <v-tab-item>
+        <profile-wiki v-bind:parent="member"/>
+      </v-tab-item>
+
     </v-tabs-items>
   </v-card>
 </template>
@@ -40,19 +46,21 @@ import ProfileCollect from './ProfileCollect.vue';
 import ProfileComment from './ProfileComment.vue';
 import ProfileCommunity from './ProfileCommunity.vue';
 import ProfileLikes from './ProfileLikes.vue';
+import ProfileWiki from './ProfileWiki.vue';
 export default {
   components:{
     ProfileCommunity,
     ProfileComment,
     ProfileLikes,
-    ProfileCollect
+    ProfileCollect,
+    ProfileWiki
   },
 
   data() {
     return {
       tabs: null,
       member:{},
-      tabItems: ["community", "comment", "liks", "collect"],
+      tabItems: ["community", "comment", "liks", "Collection","wiki"],
     };
   },
 

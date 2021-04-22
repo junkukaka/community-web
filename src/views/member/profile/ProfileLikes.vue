@@ -5,7 +5,7 @@
       :headers="headers"
       :items="likes"
       class="elevation-1 mytable"
-      disable-pagination="true"
+      :disable-pagination="disablePagination"
       hide-default-footer
     >
       <template v-slot:top>
@@ -73,10 +73,11 @@ export default {
   data: () => ({
     member: {},
     page: 1,
-    itemsPerPage: 20,
+    itemsPerPage: 30,
     pages: 1,
     likes: [],
     dialogDelete: false,
+    disablePagination: true,
     headers: [
       { text: "Title", align: "start", value: "title",},
       { text: "Menu Name", value: "menuName" },

@@ -46,7 +46,7 @@
           <v-icon v-else> mdi-account-circle </v-icon>
         </v-btn>
       </template>
-      <v-btn fab dark small color="green" >
+      <v-btn fab dark small color="green" :to="`/wiki/wikiEdit?&menuId=${wikiHis.menuId}&id=${wikiHis.id}`" >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
       <v-btn fab dark small color="orange" >

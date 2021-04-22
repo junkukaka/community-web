@@ -109,6 +109,7 @@ export default {
       information: "",
       active: false,
     },
+    memberId : null,
     avatar: null,
     imgRules: [
       (value) =>
@@ -147,7 +148,7 @@ export default {
 
   created: function () {
     this.wikiHis.menuId = this.$route.query.menuId;
-    this.wikiHis.memberId = this.$store.state.member.id;
+    this.memberId = this.$store.state.member.id;
     this.wikiHis.id = this.$route.query.id;
     if (this.wikiHis.id != null) {
       this.initialize();
@@ -158,8 +159,9 @@ export default {
     //初始化
     initialize: function () {
       this.$nextTick(function () {
-        this.$http.get(`/wiki/wikis/${this.wikiHis.id}`).then((response) => {
-          this.wiki = response.data.data;
+        this.$http.get(`/wiki/wikiHis/${this.wikiHis.id}`).then((response) => {
+          this.wikiHis = response.data.data;
+          this.wikiHis.active = false;
         });
       });
     },
@@ -186,6 +188,7 @@ export default {
 
     afterSave() {
       let router = this.$router;
+      this.wikiHis.memberId = this.memberId; 
       let data = this.wikiHis;
       this.$nextTick(function () {
         this.$http.post("/wiki/wikiHis", data).then((response) => {
