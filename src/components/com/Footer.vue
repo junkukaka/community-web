@@ -9,7 +9,7 @@
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
-    <v-btn to= "/Main">
+    <v-btn to= "/community/communityMain">
       <span>Community</span>
       <v-icon>mdi-account-multiple</v-icon>
     </v-btn>

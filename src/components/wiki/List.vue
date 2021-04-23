@@ -12,7 +12,7 @@
               <div>
                 <v-card-title
                   class="text-h6"
-                  v-text="`${item.title.length < 47 ? item.title : (item.title.substring(0,47) + '...') }`"
+                  v-text="`${item.title.length < 27 ? item.title : (item.title.substring(0,27) + '...') }`"
                 ></v-card-title>
                 <v-card-subtitle>
                   Founder: {{item.registerName}} | Last Review: {{item.updateName}}

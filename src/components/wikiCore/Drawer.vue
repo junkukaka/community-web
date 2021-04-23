@@ -7,7 +7,7 @@
           border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
         "
       >
-        <router-link to="/Main">
+        <router-link to="/wiki/wikiMain">
           <v-img
             height="39"
             width="109"
