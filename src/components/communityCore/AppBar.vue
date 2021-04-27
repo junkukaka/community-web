@@ -10,9 +10,9 @@
     <v-app-bar-nav-icon @click="setDrawer(!drawer)"></v-app-bar-nav-icon>
 
     <v-toolbar-title>
-      <v-btn to= "/wiki/wikiMain" text>
+      <v-btn to="/wiki/wikiMain" text>
         <v-icon>mdi-school</v-icon>
-        <span style="padding-left:7px">Wiki</span>
+        <span style="padding-left: 7px">Wiki</span>
       </v-btn>
     </v-toolbar-title>
 
@@ -26,34 +26,54 @@
       hide-details
       class="mr-1"
     ></v-text-field> -->
+    <span class="pr-3">
+      {{
+        `${$store.state.member == null ? "" : $store.state.member.memberName}`
+      }}
+    </span>
     <v-menu right bottom offset-y>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on">
-          <v-icon>mdi-dots-vertical</v-icon>
+        <v-btn icon v-bind="attrs" v-on="on" class="mr-1">
+          <v-avatar size="43" v-if="$store.state.member != null">
+            <img :src="`${$store.state.member.picture}`" alt="John" />
+          </v-avatar>
+          <v-avatar color="#EEEEEE" v-if="$store.state.member == null">
+            <v-icon dark> mdi-account-circle </v-icon>
+          </v-avatar>
         </v-btn>
       </template>
 
       <v-list>
-        <v-list-item
-          v-for="item in options"
-          :key="item.title"
-          @click="() => {}"
-          :to="item.link"
-        >
-          <v-list-item-title v-text="item.title"></v-list-item-title>
+        <v-list-item to="/community/profile" v-if="$store.state.member != null">
+          <v-list-item-title>Profile</v-list-item-title>
         </v-list-item>
-      </v-list>
-
-      <v-list>
+        <v-list-item @click="myInfo" v-if="$store.state.member != null">
+          <v-list-item-title>My Info</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="signOut" v-if="$store.state.member != null">
+          <v-list-item-title>Logout</v-list-item-title>
+        </v-list-item>
+        <v-list-item to="/signIn" v-if="$store.state.member == null">
+          <v-list-item-title>Sign In</v-list-item-title>
+        </v-list-item>
+        <v-list-item to="/signUp" v-if="$store.state.member == null">
+          <v-list-item-title>Sign Up</v-list-item-title>
+        </v-list-item>
         <v-list-item
-          v-for="item in admins"
-          :key="item.title"
-          @click="() => {}"
-          :to="item.link"
+          to="/community/communityMenu"
+          v-if="
+            $store.state.member != null && $store.state.member.authority === 0
+          "
         >
-          <v-list-item-title v-text="item.title"
-            v-if="`${$store.state.member == null ? false : $store.state.member.authority == 0 }`"
-          ></v-list-item-title>
+          <v-list-item-title>Community Menu</v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          to="/wiki/wikiMenu"
+          v-if="
+            $store.state.member != null && $store.state.member.authority === 0
+          "
+        >
+          <v-list-item-title>Wiki Menu</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -64,12 +84,9 @@
 import { mapState, mapMutations } from "vuex";
 export default {
   data: () => ({
-    options: [
-      { title: "Profile", link: "/profile" }
-    ],
     admins: [
-      {title: "Community Menu", link: "/community/communityMenu"},
-      {title: "Wiki Menu", link: "/wiki/wikiMenu"}
+      { title: "Community Menu", link: "/community/communityMenu" },
+      { title: "Wiki Menu", link: "/wiki/wikiMenu" },
     ],
     search: "",
   }),
@@ -82,6 +99,19 @@ export default {
     ...mapMutations({
       setDrawer: "SET_DRAWER",
     }),
+
+    signOut() {
+      this.$store.state.member = null;
+      //退出登录，清空token
+      localStorage.removeItem("Authorization");
+      localStorage.removeItem("store");
+      this.$router.push("/signIn");
+    },
+
+    myInfo() {
+      let id = this.$store.state.member.id;
+      this.$router.push(`memberInfo?id=${id}`);
+    },
   },
 };
 </script>

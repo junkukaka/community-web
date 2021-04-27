@@ -1,10 +1,11 @@
 <template>
+
   <v-bottom-navigation
-    :value="value"
     color="primary"
+    :v-mode="activeBtn"
     horizontal
   >
-    <v-btn to= "/">
+    <v-btn to= "/main">
       <span>Home</span>
       <v-icon>mdi-home</v-icon>
     </v-btn>
@@ -24,6 +25,6 @@
 
 <script>
   export default {
-    data: () => ({ value: 1 }),
+    data: () => ({ activeBtn:null}),
   }
 </script>

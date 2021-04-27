@@ -49,22 +49,39 @@
       <v-btn fab dark small color="green" :to="`/wiki/wikiEdit?&menuId=${wikiHis.menuId}&id=${wikiHis.id}`" >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
-      <v-btn fab dark small color="orange" >
+      <v-btn fab dark small color="orange" @click="timeLineDialog = true">
         <v-icon>mdi-history</v-icon>
       </v-btn>
     </v-speed-dial>
     <!-- icon dial -->
+
+    <v-row justify="center">
+      <v-dialog
+        v-model="timeLineDialog"
+        width="600px" >
+        <v-card class="pa-3">
+          <HisTimeLine v-bind:parent="wikiId"/>
+        </v-card>
+      </v-dialog>
+    </v-row>
     
   </v-card>
 </template>
 
 <script>
+import  HisTimeLine  from "./HisTimeLine";
+
 export default {
+  components:{
+    HisTimeLine
+  },
+
   data: () => ({
     wikiId: null,
     wikiHis: {},
     titles: [],
     dialog: false,
+    timeLineDialog: false,
     fab: false,
   }),
 

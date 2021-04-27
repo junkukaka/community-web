@@ -71,7 +71,7 @@
           <v-btn color="red darken-1" text @click="saveDialog = false">
             cancle
           </v-btn>
-          <v-btn color="green darken-1" text @click="save"> save </v-btn>
+          <v-btn color="green darken-1" text @click="save(); wikiHis.active = false"> save </v-btn>
           <v-btn color="primary darken-1" text @click="save(); wikiHis.active = true">
             Active
           </v-btn>

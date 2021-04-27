@@ -72,7 +72,12 @@ const routes = [
             {
                 path: 'communityDetail',
                 component: () => import('@/components/community/Detail')
-            }
+            },
+            {
+                path: 'profile',
+                name: 'Profile',
+                component: () => import('@/views/member/profile/Profile')
+            },
         ]
     },
     {

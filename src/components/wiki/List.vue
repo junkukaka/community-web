@@ -11,10 +11,10 @@
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
                 <v-card-title
-                  class="text-h6"
+                  class="text-subtitle-1"
                   v-text="`${item.title.length < 27 ? item.title : (item.title.substring(0,27) + '...') }`"
                 ></v-card-title>
-                <v-card-subtitle>
+                <v-card-subtitle class="text-subtitle-2">
                   Founder: {{item.registerName}} | Last Review: {{item.updateName}}
                 </v-card-subtitle>
                 <v-card-actions style="margin-top:-16px !important">
