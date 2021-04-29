@@ -111,6 +111,11 @@ const routes = [
                 component: () => import('@/components/wiki/Edit')
             },
             {
+                path: 'hisReview',
+                name: 'HisReview',
+                component: () => import('@/components/wiki/HisReview')
+            },
+            {
                 path: 'profile',
                 name: 'Profile',
                 component: () => import('@/views/member/profile/Profile')

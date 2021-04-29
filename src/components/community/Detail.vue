@@ -51,22 +51,26 @@
           />
         </v-card>
 
-        <!-- anchor -->
-        
-        <v-card
-          flat
-          style="position: fixed; right: 0px; top: 100px; width: 280px; border-left:3px solid #616161;"
-          class="pa-3 d-none d-lg-block"
-        >
-          <div
-            v-for="(anchor, i) in titles"
-            :key="i"
-            :style="{ padding: `7px 0 7px ${anchor.indent * 19}px` }"
-            @click="handleAnchorClick(anchor)"
-          >
-            <a style="cursor: pointer;color:#4a4a4ade" >{{ anchor.title }}</a>
+       <!-- anchor -->
+        <div style="position: fixed; right: 0px; top: 77px; width: 280px">
+          <h6 class="text-h6 pb-1">Contents</h6>
+          <div style="" class="d-none ml-5 d-lg-block">
+            <div
+              v-for="(anchor, i) in titles"
+              :key="i"
+              :style="{ padding: `0 0 0 ${anchor.indent * 17 + 10}px` }"
+              @click="handleAnchorClick(anchor)"
+              :class="{
+                contentsBorder: anchor.lineIndex == contentsTitle,
+                normalBorder: anchor.lineIndex != contentsTitle,
+              }"
+            >
+              <a> {{ anchor.title }} {{anchor.top}} </a>
+            </div>
           </div>
-        </v-card>
+        </div>
+        <!-- anchor  end -->
+      
       
       <v-divider></v-divider>
       <!-- v-mditor end  -->
@@ -209,6 +213,7 @@ export default {
       collectCount: 0,
       commentCount: 0,
     },
+    contentsTitle: 0,
   }),
 
   created() {
@@ -287,7 +292,7 @@ export default {
     handleAnchorClick(anchor) {
       const { editor } = this.$refs;
       const { lineIndex } = anchor;
-
+      this.contentsTitle = lineIndex;
       const heading = editor.$el.querySelector(
         `.v-md-editor-preview [data-v-md-line="${lineIndex}"]`
       );
@@ -408,5 +413,26 @@ export default {
 }
 .v-application a {
   text-decoration: none;
+}
+
+.contentsBorder {
+  border-left: 1px solid black;
+  color: black !important;
+}
+
+.contentsBorder a {
+  cursor: pointer;
+  font-size: 12px;
+  color: #0091ea;
+}
+
+.normalBorder {
+  border-left: 1px solid #e0e0e0;
+}
+
+.normalBorder a {
+  cursor: pointer;
+  font-size: 12px;
+  color: #757575;
 }
 </style>

@@ -1,33 +1,32 @@
 <template>
   <v-card flat>
-    <v-alert
-      flat
-      class="ml-5 mr-5"
-      border="left"
-      colored-border
-      elevation="1"
-    >
-      {{wikiHis.title}}
-    </v-alert>
-
     <v-card flat class="mt-n3">
+      <v-card-title>
+        <v-icon> mdi-format-title </v-icon>
+        : {{ wikiHis.title }}
+      </v-card-title>
+      <v-divider></v-divider>
       <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" />
       <!-- anchor -->
-      <v-card
-        flat
-        style="position: fixed; right: 0px; top: 77px; width: 280px; border-left:3px solid #616161;"
-        class="pa-3 d-none d-lg-block"
-      >
-        <div
-          v-for="(anchor, i) in titles"
-          :key="i"
-          :style="{ padding: `7px 0 7px ${anchor.indent * 19}px` }"
-          @click="handleAnchorClick(anchor)"
-        >
-          <a style="cursor: pointer;color:#4a4a4ade" >{{ anchor.title }}</a>
+      <div style="position: fixed; right: 0px; top: 77px; width: 280px">
+        <h6 class="text-h6 pb-1">Contents</h6>
+        <div style="" class="d-none ml-5 d-lg-block">
+          <div
+            v-for="(anchor, i) in titles"
+            :key="i"
+            :style="{ padding: `0 0 0 ${anchor.indent * 17 + 10}px` }"
+            @click="handleAnchorClick(anchor)"
+            :class="{
+              contentsBorder: anchor.lineIndex == contentsTitle,
+              normalBorder: anchor.lineIndex != contentsTitle,
+            }"
+          >
+            <a> {{ anchor.title }} {{anchor.top}} </a>
+          </div>
         </div>
-      </v-card>
+      </div>
       <!-- anchor  end -->
+      
     </v-card>
 
     <!-- icon dial -->
@@ -38,15 +37,21 @@
       open-on-hover
       transition="slide-y-reverse-transition"
       fixed
-      style="right:30px;bottom:30px"
+      style="right: 30px; bottom: 30px"
     >
       <template v-slot:activator>
         <v-btn v-model="fab" color="blue darken-2" dark fab>
           <v-icon v-if="fab"> mdi-close </v-icon>
-          <v-icon v-else> mdi-account-circle </v-icon>
+          <v-icon v-else> mdi-format-list-bulleted-square </v-icon>
         </v-btn>
       </template>
-      <v-btn fab dark small color="green" :to="`/wiki/wikiEdit?&menuId=${wikiHis.menuId}&id=${wikiHis.id}`" >
+      <v-btn
+        fab
+        dark
+        small
+        color="green"
+        :to="`/wiki/wikiEdit?&menuId=${wikiHis.menuId}&id=${wikiHis.id}`"
+      >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
       <v-btn fab dark small color="orange" @click="timeLineDialog = true">
@@ -56,24 +61,21 @@
     <!-- icon dial -->
 
     <v-row justify="center">
-      <v-dialog
-        v-model="timeLineDialog"
-        width="600px" >
+      <v-dialog v-model="timeLineDialog" width="700px">
         <v-card class="pa-3">
-          <HisTimeLine v-bind:parent="wikiId"/>
+          <HisTimeLine v-bind:parent="wikiId" />
         </v-card>
       </v-dialog>
     </v-row>
-    
   </v-card>
 </template>
 
 <script>
-import  HisTimeLine  from "./HisTimeLine";
+import HisTimeLine from "./HisTimeLine";
 
 export default {
-  components:{
-    HisTimeLine
+  components: {
+    HisTimeLine,
   },
 
   data: () => ({
@@ -83,11 +85,12 @@ export default {
     dialog: false,
     timeLineDialog: false,
     fab: false,
+    contentsTitle: 0,
   }),
 
-  created(){
-      this.wikiId = this.$route.query.wikiId;
-      this.getWikiHisDetail();
+  created() {
+    this.wikiId = this.$route.query.wikiId;
+    this.getWikiHisDetail();
   },
 
   mounted() {
@@ -120,13 +123,13 @@ export default {
         this.titles = titles.map((el) => ({
           title: el.innerText,
           lineIndex: el.getAttribute("data-v-md-line"),
-          indent: hTags.indexOf(el.tagName),
+          indent: hTags.indexOf(el.tagName)
         }));
       });
 
       //由于网页加载可能有延迟，导航加载时间会出现延迟。
       if (br.length > 0) {
-        console.log(`${i} ---- ${br.length}`);
+        // console.log(`${i} ---- ${br.length}`);
         break;
       }
 
@@ -142,6 +145,7 @@ export default {
     handleAnchorClick(anchor) {
       const { editor } = this.$refs;
       const { lineIndex } = anchor;
+      this.contentsTitle = lineIndex;
       const heading = editor.$el.querySelector(
         `.v-md-editor-preview [data-v-md-line="${lineIndex}"]`
       );
@@ -150,7 +154,7 @@ export default {
         editor.previewScrollToTarget({
           target: heading,
           scrollContainer: window,
-          top: 60,
+          top: 70,
         });
       }
     },
@@ -176,5 +180,26 @@ export default {
 }
 .v-application a {
   text-decoration: none;
+}
+
+.contentsBorder {
+  border-left: 1px solid black;
+  color: black !important;
+}
+
+.contentsBorder a {
+  cursor: pointer;
+  font-size: 12px;
+  color: #0091ea;
+}
+
+.normalBorder {
+  border-left: 1px solid #e0e0e0;
+}
+
+.normalBorder a {
+  cursor: pointer;
+  font-size: 12px;
+  color: #757575;
 }
 </style>

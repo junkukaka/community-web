@@ -11,10 +11,23 @@
         </v-avatar>
       </template>
       <template v-slot:opposite>
-        <div>{{item.memberName}}</div>
+        <div> 
+          <v-chip v-if="item.hisId == item.wikiHisId"
+            class="mr-3"
+            color="green"
+            label
+            text-color="white"
+          >
+            <v-icon left>
+              mdi-label
+            </v-icon>
+            Active
+          </v-chip>
+          <span>{{item.memberName}} </span>
+        </div>
         <div>{{ item.updateTime | date-format('yyyy-mm-dd hh:mi:ss') }}</div>
       </template>
-      <v-card class="elevation-2">
+      <v-card class="elevation-2" @click="hisReview(item.wikiHisId)">
         <v-card-title class="text-subtitle-1">
           {{item.title}}
         </v-card-title>
@@ -29,6 +42,7 @@ export default {
   props: ["parent"],
   data: () => ({
     wikiId: null,
+    hisReviewDialog: false,
     wikiHis: []
   }),
 
@@ -49,6 +63,10 @@ export default {
           });
       });
     },
+
+    hisReview(wikiHisId){
+      this.$router.push(`/wiki/hisReview?wikiHisId=${wikiHisId}`);
+    }
   },
 
 };
