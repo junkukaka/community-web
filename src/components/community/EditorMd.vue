@@ -92,13 +92,12 @@ export default {
   }),
 
   created: function () {
-    this.community = this.$props.parent;
-    // this.community.menuId = this.$route.query.menuId;
-    // this.community.memberId = this.$store.state.member.id;
-    // this.community.id = this.$route.query.id;
-    // if (this.community.id != null) {
-    //   this.initialize();
-    // }
+    this.community.menuId = this.$route.query.menuId;
+    this.community.memberId = this.$store.state.member.id;
+    this.community.id = this.$route.query.id;
+    if (this.community.id != null) {
+      this.initialize();
+    }
   },
 
   methods: {

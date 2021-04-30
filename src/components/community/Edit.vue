@@ -3,19 +3,19 @@
     <v-toolbar flat>
       <template>
         <v-tabs v-model="tabs" class="pl-3">
-          <v-tab>Normal Editor</v-tab>
-          <v-tab>makedowm Editor</v-tab>
+          <v-tab href="#normalEditor">Normal Editor</v-tab>
+          <v-tab href="#makedowmEditor">makedowm Editor</v-tab>
         </v-tabs>
       </template>
     </v-toolbar>
 
     <v-tabs-items v-model="tabs" class="pa-3 pt-5" >
       <!-- vue2Editor -->
-      <v-tab-item>
+      <v-tab-item value="normalEditor">
         <editor-vue v-bind:parent="community"/>
       </v-tab-item>
       <!-- MdEditor -->
-      <v-tab-item>
+      <v-tab-item value="makedowmEditor">
         <editor-md v-bind:parent="community"/>
       </v-tab-item>
     </v-tabs-items>
@@ -33,7 +33,7 @@ export default {
   },
 
   data: () => ({
-    tabs: null,
+    tabs: "",
     community: {
       id: null,
       userId: null,
@@ -63,6 +63,12 @@ export default {
           .get(`/community/communitys/${data.community.id}`)
           .then(function (response) {
             data.community = response.data.data;
+            console.log(data.community.mdYn)
+            if(data.community.mdYn == 1){
+              data.tabs = "makedowmEditor"
+            }else{
+              data.tabs = "normalEditor"
+            }
           });
       });
     },

@@ -46,7 +46,7 @@
           </v-toolbar-items>
         </v-toolbar>
 
-        <v-row> 
+        <v-row class="mt-1"> 
             <!-- history -->
             <v-col cols="12" md="6">
                 <v-card flat style="background-color: #F5F5F5" >
@@ -124,7 +124,6 @@ export default {
             .get(`/wiki/wikiHis/${this.wikiHisId}`)
             .then((response) => {
                 this.wikiHis = response.data.data;
-                console.log(this.wikiHis);
             });
         });
       },
