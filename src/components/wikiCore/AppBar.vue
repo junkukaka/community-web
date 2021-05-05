@@ -17,20 +17,11 @@
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
-
-    <!-- <v-text-field
-      v-model="search"
-      append-icon="mdi-magnify"
-      label="Search"
-      single-line
-      hide-details
-      class="mr-1"
-    ></v-text-field> -->
-    <span class="pr-3">
-      {{
-        `${$store.state.member == null ? "" : $store.state.member.memberName}`
-      }}
-    </span>
+    <!-- search icon -->
+    <v-btn icon class="mr-3" @click="searchDialog = true">
+      <v-icon class="mdi-36px">mdi-magnify</v-icon>
+    </v-btn>
+    
     <v-menu right bottom offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" class="mr-1">
@@ -77,19 +68,34 @@
         </v-list-item>
       </v-list>
     </v-menu>
+
+    <!-- search pop dialog -->
+    <v-dialog
+      v-model="searchDialog"
+      max-width="600">
+      <search-dialog v-bind:parent="searchFlag"/>
+    </v-dialog>
+
   </v-app-bar>
 </template>
 
 <script>
 import { mapState, mapMutations } from "vuex";
+import SearchDialog from '../com/SearchDialog.vue';
+
 export default {
+  components:{
+    SearchDialog
+  },
+
   data: () => ({
     options: [{ title: "Profile", link: "/wiki/profile" }],
     admins: [
       { title: "Community Menu", link: "/community/communityMenu" },
       { title: "Wiki Menu", link: "/wiki/wikiMenu" },
     ],
-    search: "",
+    searchDialog : false,
+    searchFlag: "WIKI"
   }),
 
   computed: {
@@ -100,6 +106,10 @@ export default {
     ...mapMutations({
       setDrawer: "SET_DRAWER",
     }),
+
+    search(){
+
+    },
 
     signOut() {
       this.$store.state.member = null;

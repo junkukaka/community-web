@@ -26,11 +26,6 @@
       hide-details
       class="mr-1"
     ></v-text-field> -->
-    <span class="pr-3">
-      {{
-        `${$store.state.member == null ? "" : $store.state.member.memberName}`
-      }}
-    </span>
     <v-menu right bottom offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" class="mr-1">

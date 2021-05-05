@@ -5,6 +5,7 @@
         v-model="member.loginId"
         label="Login ID"
         required
+        @keyup.native.enter="validate"
       ></v-text-field>
 
       <v-text-field
@@ -15,6 +16,7 @@
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         required
         @click:append="showPassword = !showPassword"
+        @keyup.native.enter="validate"
       ></v-text-field>
 
       <v-btn
@@ -84,12 +86,12 @@ export default {
               //给store member 赋值
               that.$store.state.member = response.data.data.member;
               that.memberToken = response.data.data.token;
-
               //将用户token保存到vuex中
               that.changeLogin({ Authorization: that.memberToken });
    
             } else {
               data.dialogTitle = "login ID or password is fail";
+              data.dialog = true;
             }
           })
           .catch((err) => console.log(err));

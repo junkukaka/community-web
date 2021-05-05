@@ -109,6 +109,7 @@ export default {
       information: "",
       active: false,
     },
+    oldContent:"",
     memberId : null,
     avatar: null,
     imgRules: [
@@ -161,6 +162,7 @@ export default {
       this.$nextTick(function () {
         this.$http.get(`/wiki/wikiHis/${this.wikiHis.id}`).then((response) => {
           this.wikiHis = response.data.data;
+          this.oldContent = response.data.data.content;
           this.wikiHis.active = false;
         });
       });
@@ -173,6 +175,13 @@ export default {
         this.warningMsg = "Please check content ";
         return false;
       }
+
+      if (this.wikiHis.content === this.oldContent) {
+        this.warningDialog = true;
+        this.warningMsg = "Nothing has been modified";
+        return false;
+      }
+
       if (this.wikiHis.title.trim().length === 0) {
         this.warningDialog = true;
         this.warningMsg = "Please check title ";

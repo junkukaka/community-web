@@ -52,7 +52,7 @@
         </v-card>
 
        <!-- anchor -->
-        <div style="position: fixed; right: 0px; top: 77px; width: 280px">
+        <div class="anchorArea">
           <h6 class="text-h6 pb-1">Contents</h6>
           <div style="" class="d-none ml-5 d-lg-block">
             <div
@@ -141,7 +141,7 @@
       open-on-hover
       transition="slide-y-reverse-transition"
       fixed
-      style="right:30px;bottom:30px"
+      class="rightBottomArea"
     >
       <template v-slot:activator>
         <v-btn v-model="fab" color="blue darken-2" dark fab>
@@ -404,35 +404,4 @@ export default {
 </script>
 
 <style>
-#read .ql-syntax {
-  background-color: rgb(236, 236, 236);
-  padding: 10px;
-}
-#read p img {
-  max-width: 100%;
-}
-.v-application a {
-  text-decoration: none;
-}
-
-.contentsBorder {
-  border-left: 1px solid black;
-  color: black !important;
-}
-
-.contentsBorder a {
-  cursor: pointer;
-  font-size: 12px;
-  color: #0091ea;
-}
-
-.normalBorder {
-  border-left: 1px solid #e0e0e0;
-}
-
-.normalBorder a {
-  cursor: pointer;
-  font-size: 12px;
-  color: #757575;
-}
 </style>

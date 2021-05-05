@@ -9,6 +9,27 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" style="background-color: #F5F5F5"/>
+
+         <!-- anchor -->
+        <div class="anchorArea">
+          <h6 class="text-h6 pb-1">Contents</h6>
+          <div style="" class="d-none ml-5 d-lg-block">
+            <div
+              v-for="(anchor, i) in titles"
+              :key="i"
+              :style="{ padding: `0 0 0 ${anchor.indent * 17 + 10}px` }"
+              @click="handleAnchorClick(anchor)"
+              :class="{
+                contentsBorder: anchor.lineIndex == contentsTitle,
+                normalBorder: anchor.lineIndex != contentsTitle,
+              }"
+            >
+              <a> {{ anchor.title }} {{anchor.top}} </a>
+            </div>
+          </div>
+        </div>
+        <!-- anchor  end -->
+
     </v-card>
 
     <v-fab-transition>
@@ -107,9 +128,55 @@ export default {
       dialog: false,
       confrimDialog: false,
       wikiHisId: null,
+      contentsTitle: 0,
+      titles: [],
       wikiHis:{},
       wikiNow:{}
     };
+  },
+
+  mounted() {
+    let br;
+    let i = 0;
+    //try 10s
+    while (i < 7) {
+      br = this.$refs.editor.$el.querySelectorAll(
+        ".v-md-editor-preview h1,h2,h3,h4"
+      );
+      //加载导航
+      this.sleep(1000).then(() => {
+        // 这里写sleep之后需要去做的事情
+        const anchors = this.$refs.editor.$el.querySelectorAll(
+          ".v-md-editor-preview h1,h2,h3,h4,h5,h6"
+        );
+        const titles = Array.from(anchors).filter(
+          (title) => !!title.innerText.trim()
+        );
+
+        if (!titles.length) {
+          this.titles = [];
+          return;
+        }
+
+        const hTags = Array.from(
+          new Set(titles.map((title) => title.tagName))
+        ).sort();
+
+        this.titles = titles.map((el) => ({
+          title: el.innerText,
+          lineIndex: el.getAttribute("data-v-md-line"),
+          indent: hTags.indexOf(el.tagName)
+        }));
+      });
+
+      //由于网页加载可能有延迟，导航加载时间会出现延迟。
+      if (br.length > 0) {
+        // console.log(`${i} ---- ${br.length}`);
+        break;
+      }
+
+      i++;
+    }
   },
 
   created: function () {
@@ -126,6 +193,27 @@ export default {
                 this.wikiHis = response.data.data;
             });
         });
+      },
+
+      sleep(time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+      },
+      //v-md-editor nav
+      handleAnchorClick(anchor) {
+        const { editor } = this.$refs;
+        const { lineIndex } = anchor;
+        this.contentsTitle = lineIndex;
+        const heading = editor.$el.querySelector(
+          `.v-md-editor-preview [data-v-md-line="${lineIndex}"]`
+        );
+
+        if (heading) {
+          editor.previewScrollToTarget({
+            target: heading,
+            scrollContainer: window,
+            top: 70,
+          });
+        }
       },
 
       compareHis(){
