@@ -120,6 +120,11 @@ const routes = [
                 name: 'Profile',
                 component: () => import('@/views/member/profile/Profile')
             },
+            {
+                path: 'wikiSearch',
+                name: 'WikiSearch',
+                component: () => import('@/components/com/Search')
+            },
         ]
     }
 
