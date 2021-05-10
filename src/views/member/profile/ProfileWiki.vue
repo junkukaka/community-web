@@ -43,7 +43,7 @@
       </template>
 
       <template v-slot:[`item.actions`]="{ item }">
-        <v-btn text :to="`/wiki/wikiEdit?&menuId=${item.menuId}&id=${item.id}`">
+        <v-btn text :to="`/wiki/wikiEdit?&menuId=${item.menuId}&id=${item.id}&fromProfile=1`">
           <v-icon small class="mr-2"> mdi-pencil </v-icon>
           Edit
         </v-btn>

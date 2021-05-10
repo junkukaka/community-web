@@ -78,6 +78,11 @@ const routes = [
                 name: 'Profile',
                 component: () => import('@/views/member/profile/Profile')
             },
+            {
+                path: 'communitySearch',
+                name: 'CommunitySearch',
+                component: () => import('@/components/com/Search')
+            },
         ]
     },
     {
@@ -145,7 +150,7 @@ router.beforeEach((to, from, next) => {
     } else {
         let token = localStorage.getItem('Authorization');
         if (token === null || token === '') {
-            //console.log(`token is ${token}`);
+            // console.log(`token is ${token}`);
             next('/signIn');
         } else {
             next();

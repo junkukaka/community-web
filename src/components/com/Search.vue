@@ -22,6 +22,7 @@
           item-value="abbr"
           v-model="searchObj.ty"
           outlined
+          @change="searching"
         ></v-select>
 
       <v-text-field
@@ -43,10 +44,11 @@
         <v-list-item
           v-for="(item, i) in results"
           :key="i"
-          :to="'/wiki/wikiDetail?wikiId=' + item.id"
+          :to="`${searchObj.ty === 'WIKI' ? '/wiki/wikiDetail?wikiId=' + item.id : '/community/communityDetail?id='  + item.id }`"
         >
           <v-list-item-content>
             <v-list-item-title v-text="item.title"></v-list-item-title>
+            <v-list-item-subtitle v-text="item.menuName"></v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -54,9 +56,9 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn
-        :disabled="!model"
-        color="grey darken-3"
-        @click="model = null"
+        :disabled="!results"
+        color="primary"
+        @click="results = []"
       >
         Clear
         <v-icon right>
@@ -81,7 +83,8 @@
       ],
       searchObj: {
         ty: null,
-        content: null
+        content: null,
+        registerId: null
       },
       results: [],
     }),
@@ -101,6 +104,7 @@
     created: function(){
        this.searchObj.ty = this.$route.query.flag;
        this.searchObj.content = this.$route.query.content;
+       this.searchObj.registerId = this.$store.state.member.id;
        this.searching();
     },
 
@@ -129,6 +133,10 @@
 
     methods:{
       searching(){
+        if(_.trim(this.searchObj.content) === ""){
+          return false;
+        }
+        this.searchObj.content = _.trim(this.searchObj.content);
         this.$nextTick(function () {
           this.$http
             this.$http.post("/search/comprehensive", this.searchObj).then((response) => {
@@ -136,7 +144,6 @@
    
           });
         });
-
       },
 
       test(){

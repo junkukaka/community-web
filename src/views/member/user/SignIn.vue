@@ -5,6 +5,7 @@
         v-model="member.loginId"
         label="Login ID"
         required
+        :rules="loginRules"
         @keyup.native.enter="validate"
       ></v-text-field>
 
@@ -15,6 +16,7 @@
         :type="showPassword ? 'text' : 'password'"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         required
+        :rules="passwordRules"
         @click:append="showPassword = !showPassword"
         @keyup.native.enter="validate"
       ></v-text-field>
@@ -26,6 +28,7 @@
         class="mt-5"
         @click="validate"
         depressed
+        @keyup.native.enter="validate"
         >Sign In</v-btn
       >
     </v-form>
@@ -60,7 +63,15 @@ export default {
     dialog: false,
     dialogTitle: "",
     showPassword: false,
-    valid: true
+    valid: true,
+    passwordRules: [
+      (v) => !!v || "password is required",
+      (v) => (v && v.length >= 3) || "Name must be more than 3 characters",
+    ],
+    loginRules: [
+      (v) => !!v || "login ID is required",
+      (v) => (v && v.length <= 20) || "Name must be less than 20 characters"
+    ]
   }),
 
   created: function () {

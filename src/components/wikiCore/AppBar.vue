@@ -89,7 +89,6 @@ export default {
       { title: "Community Menu", link: "/community/communityMenu" },
       { title: "Wiki Menu", link: "/wiki/wikiMenu" },
     ],
-    searchDialog : false,
     searchFlag: "WIKI",
     searchContent : null
   }),
@@ -114,7 +113,7 @@ export default {
 
     myInfo() {
       let id = this.$store.state.member.id;
-      this.$router.push(`memberInfo?id=${id}`);
+      this.$router.push(`/memberInfo?id=${id}`);
     },
 
     searching(){

@@ -36,16 +36,6 @@
       ></v-text-field>
 
       <v-text-field
-        v-model="member.password"
-        :counter="10"
-        label="Password"
-        :type="showPassword ? 'text' : 'password'"
-        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        required
-        @click:append="showPassword = !showPassword"
-      ></v-text-field>
-
-      <v-text-field
         v-model="member.email"
         :rules="emailRules"
         label="E-mail"
@@ -112,7 +102,7 @@ export default {
     valid: true,
     nameRules: [
       (v) => !!v || "Name is required",
-      (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      (v) => (v && v.length <= 30) || "Name must be less than 30 characters",
     ],
     emailRules: [
       (v) => !!v || "E-mail is required",

@@ -46,7 +46,7 @@ export default {
     if (this.$store.state.member != null) {  
       const u = this.$store.state.member;
       this.$http
-        .post("/member/members/login",u)
+        .post("/member/members/checkSession",u)
         .then((response) => {
             if (response.data.data.member == 0) {
                this.$store.state.member = null;

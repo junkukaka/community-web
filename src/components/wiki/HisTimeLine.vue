@@ -28,10 +28,10 @@
         <div>{{ item.updateTime | date-format('yyyy-mm-dd hh:mi:ss') }}</div>
       </template>
       <v-card class="elevation-2" @click="hisReview(item.wikiHisId)">
-        <v-card-title class="text-subtitle-1">
-          {{item.title}}
+        <v-card-title class="text-subtitle-2">
+          {{item.information}}
         </v-card-title>
-        <v-card-text>{{item.information}}</v-card-text>
+        <!-- <v-card-text>{{item.information}}</v-card-text> -->
       </v-card>
     </v-timeline-item>
   </v-timeline>

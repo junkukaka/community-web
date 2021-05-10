@@ -271,7 +271,6 @@ export default {
 
       //由于网页加载可能有延迟，导航加载时间会出现延迟。
       if(br.length > 0){
-        console.log(`${i} ---- ${br.length}`);
         break;
       }
 

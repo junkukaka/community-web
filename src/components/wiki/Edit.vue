@@ -71,8 +71,8 @@
           <v-btn color="red darken-1" text @click="saveDialog = false">
             cancle
           </v-btn>
-          <v-btn color="green darken-1" text @click="save(); wikiHis.active = false"> save </v-btn>
-          <v-btn color="primary darken-1" text @click="save(); wikiHis.active = true">
+          <v-btn color="green darken-1" text @click="wikiHis.active = false; save();"> save </v-btn>
+          <v-btn color="primary darken-1" text @click="wikiHis.active = true; save();">
             Active
           </v-btn>
         </v-card-actions>
@@ -108,6 +108,7 @@ export default {
       content: "",
       information: "",
       active: false,
+      hisYn: 0
     },
     oldContent:"",
     memberId : null,
@@ -121,6 +122,7 @@ export default {
     warningDialog: false,
     warningMsg: null,
     saveDialog: false,
+    fromProfile: undefined,
     titleRules: [
       (v) => !!v || "title is required",
       (v) => (v && v.length <= 100) || "Name must be less than 100 characters",
@@ -151,6 +153,7 @@ export default {
     this.wikiHis.menuId = this.$route.query.menuId;
     this.memberId = this.$store.state.member.id;
     this.wikiHis.id = this.$route.query.id;
+    this.fromProfile =  this.$route.query.fromProfile;
     if (this.wikiHis.id != null) {
       this.initialize();
     }
@@ -176,11 +179,20 @@ export default {
         return false;
       }
 
-      if (this.wikiHis.content === this.oldContent) {
+      if (this.fromProfile === undefined && this.wikiHis.content === this.oldContent) {
         this.warningDialog = true;
         this.warningMsg = "Nothing has been modified";
         return false;
       }
+
+      if(this.fromProfile > 0){
+        if (this.wikiHis.content === this.oldContent && !this.wikiHis.active) {
+          this.warningDialog = true;
+          this.warningMsg = "Nothing has been modified 1";
+          return false;
+        }
+      }
+      
 
       if (this.wikiHis.title.trim().length === 0) {
         this.warningDialog = true;

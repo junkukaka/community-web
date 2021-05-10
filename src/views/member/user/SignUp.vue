@@ -7,6 +7,7 @@
         :rules="nameRules"
         label="Name"
         required
+        @keyup.native.enter="validate"
       ></v-text-field>
 
       <v-text-field
@@ -15,6 +16,7 @@
         :rules="loginRules"
         label="LogIn ID"
         required
+        @keyup.native.enter="validate"
       ></v-text-field>
 
       <v-text-field
@@ -24,7 +26,9 @@
         :type="showPassword ? 'text' : 'password'"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         required
+        :rules="passwordRules"
         @click:append="showPassword = !showPassword"
+        @keyup.native.enter="validate"
       ></v-text-field>
 
       <v-text-field
@@ -35,12 +39,14 @@
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         required
         @click:append="showPassword = !showPassword"
+        @keyup.native.enter="validate"
       ></v-text-field>
 
       <v-text-field
         v-model="member.email"
         :rules="emailRules"
         label="E-mail"
+        @keyup.native.enter="validate"
         required
       ></v-text-field>
 
@@ -58,6 +64,7 @@
         class="mt-5"
         @click="validate"
         depressed
+        @keyup.native.enter="validate"
         >ASPN 회원가입</v-btn
       >
     </v-form>
@@ -102,11 +109,11 @@ export default {
     valid: true,
     nameRules: [
       (v) => !!v || "Name is required",
-      (v) => (v && v.length <= 50) || "Name must be less than 50 characters",
+      (v) => (v && v.length <= 30) || "Name must be less than 30 characters",
     ],
     loginRules: [
       (v) => !!v || "login id is required",
-      (v) => (v && v.length <= 11) || "Name must be less than 11 characters",
+      (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
       (v) => /^[A-Za-z0-9]+$/.test(v) || "login id must be number or English alphabet",
     ],
     emailRules: [
@@ -117,6 +124,10 @@ export default {
     phoneRules: [
       (v) => !!v || "E-mail is required",
       (v) => /^[1][3,4,5,7,8,9][0-9]{9}$/.test(v) || "Phone must be valid",
+    ],
+    passwordRules: [
+      (v) => !!v || "password is required",
+      (v) => (v && v.length >= 3) || "Name must be more than 3 characters",
     ],
   }),
 

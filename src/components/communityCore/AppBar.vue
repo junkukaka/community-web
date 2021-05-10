@@ -18,14 +18,16 @@
 
     <v-spacer></v-spacer>
 
-    <!-- <v-text-field
-      v-model="search"
+   <v-text-field
+      v-model="searchContent"
       append-icon="mdi-magnify"
       label="Search"
       single-line
       hide-details
-      class="mr-1"
-    ></v-text-field> -->
+      class="mr-3 ml-3"
+      @keyup.native.enter="searching"
+    ></v-text-field>
+
     <v-menu right bottom offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" class="mr-1">
@@ -83,7 +85,8 @@ export default {
       { title: "Community Menu", link: "/community/communityMenu" },
       { title: "Wiki Menu", link: "/wiki/wikiMenu" },
     ],
-    search: "",
+    searchFlag: "COMMUNITY",
+    searchContent : null
   }),
 
   computed: {
@@ -105,8 +108,12 @@ export default {
 
     myInfo() {
       let id = this.$store.state.member.id;
-      this.$router.push(`memberInfo?id=${id}`);
+      this.$router.push(`/memberInfo?id=${id}`);
     },
+
+    searching(){
+      this.$router.push(`/community/communitySearch?content=${this.searchContent}&flag=${this.searchFlag}`);
+    }
   },
 };
 </script>

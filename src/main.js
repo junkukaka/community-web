@@ -4,6 +4,7 @@ import http from './http';
 import vuetify from './plugins/vuetify';
 import router from './router'
 import store from './store'
+import _ from 'lodash'
 
 
 import VueMarkdownEditor from '@kangc/v-md-editor';
@@ -45,6 +46,7 @@ Vue.use(VueMarkdownEditor);
 Vue.config.productionTip = false
 Vue.prototype.$http= http
 Vue.prototype.$store = store
+Vue.prototype._ = _
 
 //全局注册时间格式化
 Vue.filter('date-format',function(input, pattern = '') {
