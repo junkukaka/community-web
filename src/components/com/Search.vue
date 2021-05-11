@@ -109,6 +109,12 @@
     },
 
     watch: {
+
+      $route(){
+        this.searchObj.content= this.$route.query.content
+        this.searching();
+      },
+
       search (val) {
         // Items have already been loaded
         if (this.items.length > 0) return
@@ -136,10 +142,12 @@
         if(_.trim(this.searchObj.content) === ""){
           return false;
         }
+        this.results = [];
         this.searchObj.content = _.trim(this.searchObj.content);
         this.$nextTick(function () {
           this.$http
             this.$http.post("/search/comprehensive", this.searchObj).then((response) => {
+              
               this.results = response.data.data;
    
           });

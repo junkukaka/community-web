@@ -125,11 +125,11 @@ export default {
     fromProfile: undefined,
     titleRules: [
       (v) => !!v || "title is required",
-      (v) => (v && v.length <= 100) || "Name must be less than 100 characters",
+      (v) => (v && v.length <= 255) || "Name must be less than 255 characters",
     ],
     commentRules: [
       (v) => !!v || "title is required",
-      (v) => (v && v.length <= 300) || "Name must be less than 300 characters",
+      (v) => (v && v.length <= 1000) || "Name must be less than 1000 characters",
     ],
   }),
 

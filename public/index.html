@@ -8,7 +8,7 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
-    <!-- <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> -->
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
   </head>
   <body>
     <noscript>
@@ -20,6 +20,15 @@
 </html>
 
 <style>
+/* markdown max-with  */
+.vuepress-markdown-body:not(.custom){
+  max-width: 100% !important;
+  padding: 1.5rem 1.5rem !important;
+}
+.v-md-editor-preview{
+  padding: 0 !important;
+}
+
 html{font-size:15px; }
 .clearfix:after {
   visibility: hidden;

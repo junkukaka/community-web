@@ -41,7 +41,7 @@
       </template>
 
       <v-list>
-        <v-list-item to="/community/profile" v-if="$store.state.member != null">
+        <v-list-item to="/wiki/profile" v-if="$store.state.member != null">
           <v-list-item-title>Profile</v-list-item-title>
         </v-list-item>
         <v-list-item @click="myInfo" v-if="$store.state.member != null">

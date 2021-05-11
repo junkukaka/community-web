@@ -70,7 +70,7 @@ export default {
 
     pageResize() {
       let screenWidth = document.body.clientWidth;
-      if (screenWidth < 1264) {
+      if (screenWidth < 1260) {
         this.$store.state.window.rightDrawerTop = -1000;
         this.$store.state.window.mainPaddingLeft = 0;
         this.$store.state.window.mainPaddingRight = 0;

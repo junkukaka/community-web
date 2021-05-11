@@ -52,7 +52,7 @@
         </v-card>
 
        <!-- anchor -->
-        <div class="anchorArea">
+        <div class="anchorArea" v-if="titles.length > 0">
           <h6 class="text-h6 pb-1">Contents</h6>
           <div style="" class="d-none ml-5 d-lg-block">
             <div
@@ -198,7 +198,7 @@ export default {
     commentRules: [
       (v) => !!v || "comment is required",
       (v) =>
-        (v && v.length <= 200) || "comment must be less than 200 characters",
+        (v && v.length <= 3000) || "comment must be less than 3000 characters",
     ],
     commentList: [],
     commentCount: null,

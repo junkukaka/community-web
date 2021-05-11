@@ -9,7 +9,7 @@
       <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" />
       <!-- anchor -->
 
-      <div class="anchorArea">
+      <div class="anchorArea" v-if="titles.length > 0">
         <h6 class="text-h6 pb-1">Contents</h6>
         <div style="" class="d-none ml-5 d-lg-block">
           <div
