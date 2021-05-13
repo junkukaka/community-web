@@ -3,7 +3,7 @@
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
         v-model="member.memberName"
-        :counter="10"
+        :counter="30"
         :rules="nameRules"
         label="Name"
         required
@@ -12,7 +12,7 @@
 
       <v-text-field
         v-model="member.loginId"
-        :counter="10"
+        :counter="20"
         :rules="loginRules"
         label="LogIn ID"
         required
@@ -21,7 +21,7 @@
 
       <v-text-field
         v-model="member.password"
-        :counter="10"
+        :counter="50"
         label="Password"
         :type="showPassword ? 'text' : 'password'"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -33,7 +33,7 @@
 
       <v-text-field
         v-model="confirmPassord"
-        :counter="10"
+        :counter="50"
         label="confirm Password"
         :type="showPassword ? 'text' : 'password'"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -65,7 +65,7 @@
         @click="validate"
         depressed
         @keyup.native.enter="validate"
-        >ASPN 회원가입</v-btn
+        >회원가입</v-btn
       >
     </v-form>
 
@@ -127,7 +127,7 @@ export default {
     ],
     passwordRules: [
       (v) => !!v || "password is required",
-      (v) => (v && v.length >= 3) || "Name must be more than 3 characters",
+      (v) => (v && v.length >= 3 && v.length <= 50) || "Name must be more than 3 characters",
     ],
   }),
 

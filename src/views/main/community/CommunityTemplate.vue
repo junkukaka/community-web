@@ -57,13 +57,11 @@
       initialize(){
         //请求参数
         let request = {
-          params: {
             menuId: null,
             size: 15
-          } 
         }
         this.$nextTick(function(){
-          this.$http.get("/community/communitys/mainPage",request)
+          this.$http.post("/community/communitys/mainPage",request)
             .then((response)=>{
               const communitys = response.data.data;
               for(let i = 0; i < communitys.length ; i++){

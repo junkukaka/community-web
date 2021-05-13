@@ -4,6 +4,7 @@
       <v-text-field
         v-model="member.loginId"
         label="Login ID"
+        :counter="20"
         required
         :rules="loginRules"
         @keyup.native.enter="validate"
@@ -11,7 +12,7 @@
 
       <v-text-field
         v-model="member.password"
-        :counter="10"
+        :counter="50"
         label="Password"
         :type="showPassword ? 'text' : 'password'"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -29,7 +30,17 @@
         @click="validate"
         depressed
         @keyup.native.enter="validate"
-        >Sign In</v-btn
+        >로그인</v-btn
+      >
+      <v-btn
+        block
+        outlined
+        large
+        color="primary"
+        class="mt-3"
+        to="/signUp"
+        depressed
+        >회원가입</v-btn
       >
     </v-form>
 
@@ -66,7 +77,7 @@ export default {
     valid: true,
     passwordRules: [
       (v) => !!v || "password is required",
-      (v) => (v && v.length >= 3) || "Name must be more than 3 characters",
+      (v) => (v && v.length >= 3 && v.length <= 50) || "Name must be more than 3 characters",
     ],
     loginRules: [
       (v) => !!v || "login ID is required",

@@ -12,7 +12,7 @@
     <v-toolbar-title class="pl-2">
       <v-btn to="/community/communityMain" text>
         <v-icon>mdi-account-multiple</v-icon>
-        <span style="padding-left: 7px">Community</span>
+        <span style="padding-left: 7px">커뮤니티</span>
       </v-btn>
     </v-toolbar-title>
 
@@ -32,7 +32,8 @@
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" class="mr-1">
           <v-avatar size="43" v-if="$store.state.member != null">
-            <img :src="`${$store.state.member.picture}`" alt="John" />
+            <img :src="`${$store.state.member.picture}`" v-if="$store.state.member.picture != null" :alt="`photo`" />
+            <v-icon dark v-if="$store.state.member.picture == null"> mdi-account-circle </v-icon>
           </v-avatar>
           <v-avatar color="#EEEEEE" v-if="$store.state.member == null">
             <v-icon dark> mdi-account-circle </v-icon>
@@ -42,19 +43,19 @@
 
       <v-list>
         <v-list-item to="/wiki/profile" v-if="$store.state.member != null">
-          <v-list-item-title>Profile</v-list-item-title>
+          <v-list-item-title>프로파일</v-list-item-title>
         </v-list-item>
         <v-list-item @click="myInfo" v-if="$store.state.member != null">
-          <v-list-item-title>My Info</v-list-item-title>
+          <v-list-item-title>회원정보</v-list-item-title>
         </v-list-item>
         <v-list-item @click="signOut" v-if="$store.state.member != null">
-          <v-list-item-title>Logout</v-list-item-title>
+          <v-list-item-title>로그아웃</v-list-item-title>
         </v-list-item>
         <v-list-item to="/signIn" v-if="$store.state.member == null">
-          <v-list-item-title>Sign In</v-list-item-title>
+          <v-list-item-title>로그인</v-list-item-title>
         </v-list-item>
         <v-list-item to="/signUp" v-if="$store.state.member == null">
-          <v-list-item-title>Sign Up</v-list-item-title>
+          <v-list-item-title>회원가입</v-list-item-title>
         </v-list-item>
         <v-list-item
           to="/community/communityMenu"
@@ -62,7 +63,7 @@
             $store.state.member != null && $store.state.member.authority === 0
           "
         >
-          <v-list-item-title>Community Menu</v-list-item-title>
+          <v-list-item-title>커뮤니티 메뉴</v-list-item-title>
         </v-list-item>
         <v-list-item
           to="/wiki/wikiMenu"
@@ -70,7 +71,7 @@
             $store.state.member != null && $store.state.member.authority === 0
           "
         >
-          <v-list-item-title>Wiki Menu</v-list-item-title>
+          <v-list-item-title>위키 메뉴</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>

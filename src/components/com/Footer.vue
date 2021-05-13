@@ -11,12 +11,12 @@
     </v-btn>
 
     <v-btn to= "/community/communityMain">
-      <span>Community</span>
+      <span>커뮤니티</span>
       <v-icon>mdi-account-multiple</v-icon>
     </v-btn>
 
     <v-btn to="/wiki/wikiMain">
-      <span>Wike</span>
+      <span>위키</span>
       <v-icon>mdi-school</v-icon>
     </v-btn>
     

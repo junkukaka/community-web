@@ -114,7 +114,13 @@
           ></v-divider>
           <v-list-item v-else :key="index">
             <v-list-item-avatar>
-              <v-img :src="item.picture"></v-img>
+
+              <v-avatar size="43" v-if="item.picture != null">
+                <img :src="item.picture" :alt="`photo`" />
+              </v-avatar>
+              <v-avatar color="#EEEEEE" v-if="item.picture == null">
+                <v-icon dark class="pr-2"> mdi-account-circle </v-icon>
+              </v-avatar>
             </v-list-item-avatar>
 
             <v-list-item-content>
