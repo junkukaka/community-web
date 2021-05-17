@@ -19,7 +19,6 @@
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
-
       <v-card-actions style="padding: 0px">
         <v-list-item class="grow">
           <v-list-item-avatar >
@@ -29,14 +28,14 @@
             <v-avatar color="#E0E0E0" v-if="!community.picture">
               <v-icon dark class="mr-2" size="52"> mdi-account-circle </v-icon>
             </v-avatar>
-
             <!-- <v-img class="elevation-6" alt="" :src="community.picture" v-if="community.picture != null"></v-img> -->
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title> {{ community.memberName }} </v-list-item-title>
+            <v-list-item-title> 
+              {{ community.memberName }} 
+            </v-list-item-title>
           </v-list-item-content>
-
           <v-row align="center" justify="end">
             <span>
               <v-icon class="mr-2"> mdi-domain </v-icon>
@@ -121,7 +120,6 @@
           ></v-divider>
           <v-list-item v-else :key="index">
             <v-list-item-avatar>
-             
               <v-avatar color="#E0E0E0" v-if="item.picture == ''">
                 <v-icon dark class="mr-2" size="52"> mdi-account-circle </v-icon>
               </v-avatar>
@@ -132,7 +130,7 @@
 
             <v-list-item-content>
               <v-list-item-title>{{ item.member_name }}</v-list-item-title>
-              <v-list-item-subtitle>{{ item.content }}</v-list-item-subtitle>
+              <v-list-item-subtitle v-html="`${item.content.replace(/\n/g,'<br/>')}`"></v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-action>
@@ -186,6 +184,17 @@
         @click="saveLikes"
       >
         <v-icon>mdi-thumb-up</v-icon>
+      </v-btn>
+
+      <v-btn
+        v-if="community.memberId === $store.state.member.id"
+        fab
+        dark
+        small
+        color="indigo"
+        @click="editMyCommunity"
+      >
+        <v-icon>mdi-wrench</v-icon>
       </v-btn>
     </v-speed-dial>
   </v-card>
@@ -324,7 +333,7 @@ export default {
         .get(`/community/communitys/${this.community.id}`)
         .then((response) => {
           this.community = response.data.data;
-          //console.log(response.data.data.content);
+          console.log(response.data.data);
         });
     },
 
@@ -411,6 +420,11 @@ export default {
       this.dialog = !this.dialog;
       this.getComments();
     },
+
+    //to the my community edit
+    editMyCommunity() {
+      this.$router.push(`/community/communityEdit?menuId=${this.community.menuId}&id=${this.community.id}`);
+    }
   },
 };
 </script>

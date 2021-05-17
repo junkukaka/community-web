@@ -7,7 +7,7 @@
             <img :src="member.picture" />
           </v-avatar>
         </v-col>
-        <v-col cols="12" sm="9" md="10" lg="11" class="pl-2 pt-2">
+        <v-col cols="12" sm="5" md="5" lg="5" class="pl-2 pt-2">
           <v-file-input
             :rules="imgRules"
             accept="image/png, image/jpeg, image/bmp"
@@ -16,6 +16,12 @@
             v-model="avatar"
             style="cursor: pointer;"
           ></v-file-input>
+        </v-col>
+
+        <v-col cols="12" sm="4" md="5" lg="6" class="pl-2 pt-2">
+          <v-btn outlined color="grey" to="/updatePassword">
+            비밀번호 수정
+          </v-btn>
         </v-col>
       </v-row>
 

@@ -50,6 +50,11 @@ const routes = [
                 path: 'memberList',
                 name: 'MemberList',
                 component: () => import('@/views/admin/MemberList')
+            },
+            {
+                path: 'updatePassword',
+                name: 'UpdatePassword',
+                component: () => import('@/views/member/user/UpdatePassword')
             }
         ],
     },
