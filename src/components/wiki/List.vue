@@ -19,7 +19,7 @@
                 </v-card-subtitle>
                 <v-card-actions style="margin-top:-16px !important">
                   <v-btn class="ml-1" outlined rounded small>
-                    Wiki Edit
+                    Wiki content
                   </v-btn>
                 </v-card-actions>
               </div>

@@ -22,8 +22,15 @@
 
       <v-card-actions style="padding: 0px">
         <v-list-item class="grow">
-          <v-list-item-avatar>
-            <v-img class="elevation-6" alt="" :src="community.picture"></v-img>
+          <v-list-item-avatar >
+            <v-avatar size="43" v-if="community.picture">
+              <img :src="community.picture" :alt="`photo`" />
+            </v-avatar>
+            <v-avatar color="#E0E0E0" v-if="!community.picture">
+              <v-icon dark class="mr-2" size="52"> mdi-account-circle </v-icon>
+            </v-avatar>
+
+            <!-- <v-img class="elevation-6" alt="" :src="community.picture" v-if="community.picture != null"></v-img> -->
           </v-list-item-avatar>
 
           <v-list-item-content>
@@ -114,12 +121,12 @@
           ></v-divider>
           <v-list-item v-else :key="index">
             <v-list-item-avatar>
-
-              <v-avatar size="43" v-if="item.picture != null">
-                <img :src="item.picture" :alt="`photo`" />
+             
+              <v-avatar color="#E0E0E0" v-if="item.picture == ''">
+                <v-icon dark class="mr-2" size="52"> mdi-account-circle </v-icon>
               </v-avatar>
-              <v-avatar color="#EEEEEE" v-if="item.picture == null">
-                <v-icon dark class="pr-2"> mdi-account-circle </v-icon>
+              <v-avatar v-if="item.picture != ''">
+                <img :src="item.picture" :alt="`photo`" />
               </v-avatar>
             </v-list-item-avatar>
 

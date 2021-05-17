@@ -17,7 +17,12 @@
               :to ="`/community/communityDetail?id=${item.id}`" 
             >
               <v-list-item-avatar>
-                <v-img :src="item.picture"></v-img>
+                <v-avatar size="43" v-if="item.picture !== ''">
+                  <img :src="item.picture" :alt="`photo`" />
+                </v-avatar>
+                <v-avatar color="#E0E0E0" v-if="item.picture === ''">
+                  <v-icon dark class="mr-2" size="52"> mdi-account-circle </v-icon>
+                </v-avatar>
               </v-list-item-avatar>
 
               <v-list-item-content>

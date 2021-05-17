@@ -50,12 +50,20 @@
         required
       ></v-text-field>
 
-      <!-- <v-text-field
+      <v-text-field
         v-model="member.phone"
         :rules="phoneRules"
         label="Phone"
         required
-      ></v-text-field> -->
+      ></v-text-field>
+
+       <v-select
+        v-model="member.department"
+        :items="departments"
+        :rules="[(v) => !!v || 'Item is required']"
+        label="Department"
+        required
+      ></v-select>
 
       <v-btn
         block
@@ -100,7 +108,9 @@ export default {
       password: "",
       email: "",
       phone: null,
+      department: null,
     },
+    departments: [], 
     confirmPassord: "",
     dialog: false,
     dialogMsg: "",
@@ -132,10 +142,20 @@ export default {
   }),
 
   created: function () {
-
+     this.initialize();
   },
 
   methods: {
+
+    initialize() {
+      this.$nextTick(function () {
+        this.$http
+          .get("/member/members/department")
+          .then((response) => (this.departments = response.data.data));
+          console.log(this.departments)
+      });
+    },
+
     validate() {
       const val = this.$refs.form.validate(); //是否填满表单
       if(this.member.password !== this.confirmPassord){
