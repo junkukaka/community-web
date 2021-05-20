@@ -58,9 +58,9 @@
         </v-card>
 
        <!-- anchor -->
-        <div class="anchorArea" v-if="titles.length > 0">
+        <div class="anchorArea" v-if="titles.length > 0" v-show="$store.state.ifMobile">
           <h6 class="text-h6 pb-1">Contents</h6>
-          <div style="" class="d-none ml-5 d-lg-block">
+          <div style="" class="d-none ml-3 d-lg-block">
             <div
               v-for="(anchor, i) in titles"
               :key="i"
@@ -333,7 +333,6 @@ export default {
         .get(`/community/communitys/${this.community.id}`)
         .then((response) => {
           this.community = response.data.data;
-          console.log(response.data.data);
         });
     },
 

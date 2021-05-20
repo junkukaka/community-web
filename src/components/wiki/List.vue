@@ -1,6 +1,5 @@
 <template>
   <v-card flat class="mx-auto">
-    <v-container>
       <v-row dense>
         <v-col
           v-for="(item, i) in wikis"
@@ -31,7 +30,6 @@
           </v-card>
         </v-col>
       </v-row>
-    </v-container>
 
     <v-fab-transition>
       <router-link :to="`/wiki/wikiEdit?menuId=${menuId}`">

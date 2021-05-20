@@ -26,6 +26,7 @@
       hide-details
       class="mr-3 ml-3"
       @keyup.native.enter="searching"
+      style="max-width:35%"
     ></v-text-field>
 
     <v-menu right bottom offset-y>

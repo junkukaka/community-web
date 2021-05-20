@@ -9,6 +9,8 @@ const store = new Vuex.Store({
   state: {
     member: null,
     drawer: true,
+    clientWith: null,
+    ifMobile: false,
     window: {
       rightDrawerTop: 72,
       mainPaddingLeft: 256,

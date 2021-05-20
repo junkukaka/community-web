@@ -8,10 +8,11 @@
             : {{wikiHis.title}}
         </v-card-title>
         <v-divider></v-divider>
-        <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" style="background-color: #F5F5F5"/>
-
+        <div class="hisReview">
+          <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" />
+        </div>
          <!-- anchor -->
-        <div class="anchorArea">
+        <div class="anchorArea" v-if="titles.length > 0" v-show="$store.state.ifMobile">
           <h6 class="text-h6 pb-1">Contents</h6>
           <div style="" class="d-none ml-5 d-lg-block">
             <div
@@ -78,7 +79,9 @@
                         </v-icon>
                          : {{wikiHis.title}}
                     </v-card-title>
-                    <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" style="background-color: #F5F5F5"/>
+                    <div class="hisReview">
+                      <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" style="background-color: #F5F5F5"/>
+                    </div>
                 </v-card>
             </v-col>
 
@@ -237,3 +240,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.hisReview .v-md-editor__preview-wrapper .vuepress-markdown-body{
+  background-color: #F5F5F5 !important ;
+}
+</style>

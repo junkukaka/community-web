@@ -2,7 +2,6 @@
   <v-card flat>
     <!-- <carousel/> -->
     <!-- new community -->
-    <br />
     <community-template/>
   </v-card>
 </template>

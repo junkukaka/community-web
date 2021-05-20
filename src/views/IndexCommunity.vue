@@ -9,9 +9,9 @@
       }"
     >
       <!-- Provides the application the proper gutter -->
-      <v-container fluid color="grey lighten-4">
+      <v-container fluid color="grey lighten-4" class="containerPadding">
         <!-- If using vue-router -->
-        <div style="margin: 0 auto; max-width: 1300px">
+        <div class="containerMaxWith">
           <router-view></router-view>
         </div>
        

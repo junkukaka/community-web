@@ -22,7 +22,20 @@ export default {
     window.addEventListener("beforeunload", () => {
       localStorage.setItem("store", JSON.stringify(this.$store.state));
     });
+
+    this.$store.state.clientWith = document.body.clientWidth;
   },
+
+  watch: {
+    '$store.state.clientWith': function(clientWith){
+       console.log(this.$store.state.ifMobile)
+      if(clientWith >= 1264) {
+        this.$store.state.ifMobile = true;
+      }else{
+        this.$store.state.ifMobile = false;
+      }
+    }
+  }
 };
 </script>
 
@@ -34,7 +47,7 @@ export default {
   position: fixed;
   right: 0px;
   top: 77px;
-  width: 280px;
+  width: 270px;
 }
 .anchorArea .contentsBorder {
   border-left: 1px solid black;
@@ -68,5 +81,13 @@ export default {
 }
 .v-application a {
   text-decoration: none;
+}
+
+.containerMaxWith{
+  margin: 0 auto; max-width: 1090px
+}
+
+.containerPadding{
+  padding: 12px 0 !important;
 }
 </style>
