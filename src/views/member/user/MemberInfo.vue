@@ -121,8 +121,8 @@ export default {
     imgRules: [
       (value) =>
         !value ||
-        value.size < 2000000 ||
-        "Avatar size should be less than 2 MB!",
+        value.size < 10000000 ||
+        "Avatar size should be less than 10 MB!",
     ],
     departments: [], 
   }),

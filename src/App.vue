@@ -28,7 +28,6 @@ export default {
 
   watch: {
     '$store.state.clientWith': function(clientWith){
-       console.log(this.$store.state.ifMobile)
       if(clientWith >= 1264) {
         this.$store.state.ifMobile = true;
       }else{
@@ -84,10 +83,10 @@ export default {
 }
 
 .containerMaxWith{
-  margin: 0 auto; max-width: 1090px
+  margin: 0 auto; max-width: 1600px;
 }
 
 .containerPadding{
-  padding: 12px 0 !important;
+  padding: 12px 6px !important;
 }
 </style>

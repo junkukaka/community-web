@@ -32,7 +32,7 @@
 
               <v-list-item-action>
                 <v-list-item-subtitle>
-                  <v-chip small color="indigo darken-3" outlined>new</v-chip>
+                  <v-chip x-small color="primary" outlined>new</v-chip>
                 </v-list-item-subtitle>
                 <v-list-item-subtitle>
                   {{item.registerTime|date-format('yyyy-mm-dd hh:mi:ss')}}

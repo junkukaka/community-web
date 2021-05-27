@@ -50,13 +50,6 @@
         required
       ></v-text-field>
 
-      <v-text-field
-        v-model="member.phone"
-        :rules="phoneRules"
-        label="Phone"
-        required
-      ></v-text-field>
-
        <v-select
         v-model="member.department"
         :items="departments"
@@ -64,6 +57,13 @@
         label="Department"
         required
       ></v-select>
+
+      <v-textarea
+          outlined
+          label="reason for application"
+          v-model="member.comment"
+          :rules="[(v) => !!v || 'reason for application is required']"
+        ></v-textarea>
 
       <v-btn
         block
@@ -109,6 +109,7 @@ export default {
       email: "",
       phone: null,
       department: null,
+      comment: ""
     },
     departments: [], 
     confirmPassord: "",
@@ -133,7 +134,7 @@ export default {
     ],
     phoneRules: [
       (v) => !!v || "E-mail is required",
-      (v) => /^[1][3,4,5,7,8,9][0-9]{9}$/.test(v) || "Phone must be valid",
+      (v) => /^[1][3,4,5,7,8,9,6][0-9]{9}$/.test(v) || "Phone must be valid",
     ],
     passwordRules: [
       (v) => !!v || "password is required",
@@ -168,14 +169,15 @@ export default {
       let data = this.$data;
       if (val) {
         this.$http
-          .post("/member/members", data.member)
+          .post("/member/memberApplication", data.member)
           .then((response) => {
-            console.log(response.data);
             //设置弹窗
             data.dialog = true;
+            console.log(response.data)
             data.dialogMsg = response.data.data.msg;
             if (response.data.data.code == "1") {
-              data.dialogTitle = "Welcome to the ASPN community";
+              data.dialogTitle = "회원가입 신청 성공";
+              this.$router.push("/");
             } else {
               data.dialogTitle = "Application failed";
             }

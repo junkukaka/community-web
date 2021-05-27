@@ -7,34 +7,36 @@
     class="white"
     style="border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important"
   >
-    <v-app-bar-nav-icon @click="setDrawer(!drawer)"></v-app-bar-nav-icon>
+    <v-btn to="/main" text class="ml-3">
+      <span>Home</span>
+    </v-btn>
 
-    <v-toolbar-title class="pl-2">
-      <v-btn to="/community/communityMain" text>
-        <v-icon>mdi-account-multiple</v-icon>
-        <span style="padding-left: 7px">커뮤니티</span>
-      </v-btn>
-    </v-toolbar-title>
+    <v-btn to="/aspnAdmin/communityMenu" text class="ml-3">
+      <span>커뮤니티 메뉴</span>
+    </v-btn>
+
+    <v-btn to="/aspnAdmin/wikiMenu" text class="ml-3">
+      <span>위키 메뉴</span>
+    </v-btn>
+
+    <v-btn to="/aspnAdmin/memberComprehensive" text class="ml-3">
+      <span>회원 관리</span>
+    </v-btn>
 
     <v-spacer></v-spacer>
 
-     <v-text-field
-      v-model="searchContent"
-      append-icon="mdi-magnify"
-      label="Search"
-      single-line
-      hide-details
-      class="mr-3 ml-3"
-      @keyup.native.enter="searching"
-      style="max-width:35%"
-    ></v-text-field>
-    
     <v-menu right bottom offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" class="mr-1">
           <v-avatar size="43" v-if="$store.state.member != null">
-            <img :src="`${$store.state.member.picture}`" v-if="$store.state.member.picture != null" :alt="`photo`" />
-            <v-icon dark v-if="$store.state.member.picture == null"> mdi-account-circle </v-icon>
+            <img
+              :src="`${$store.state.member.picture}`"
+              v-if="$store.state.member.picture != null"
+              :alt="`photo`"
+            />
+            <v-icon dark v-if="$store.state.member.picture == null">
+              mdi-account-circle
+            </v-icon>
           </v-avatar>
           <v-avatar color="#EEEEEE" v-if="$store.state.member == null">
             <v-icon dark> mdi-account-circle </v-icon>
@@ -58,7 +60,6 @@
         <v-list-item to="/signUp" v-if="$store.state.member == null">
           <v-list-item-title>회원가입</v-list-item-title>
         </v-list-item>
-        
         <v-list-item
           to="/aspnAdmin/adminMain"
           v-if="
@@ -69,7 +70,6 @@
         </v-list-item>
       </v-list>
     </v-menu>
-
   </v-app-bar>
 </template>
 
@@ -77,7 +77,6 @@
 import { mapState, mapMutations } from "vuex";
 
 export default {
-
   data: () => ({
     options: [{ title: "Profile", link: "/wiki/profile" }],
     admins: [
@@ -85,11 +84,17 @@ export default {
       { title: "Wiki Menu", link: "/wiki/wikiMenu" },
     ],
     searchFlag: "WIKI",
-    searchContent : null
+    searchContent: null,
   }),
 
   computed: {
     ...mapState(["drawer"]),
+  },
+
+  created(){
+    this.member = this.$store.state.member;
+    this.checkAdmin();
+    
   },
 
   methods: {
@@ -97,6 +102,11 @@ export default {
       setDrawer: "SET_DRAWER",
     }),
 
+    checkAdmin(){
+        if(this.member.authority != 0) {
+            this.$router.push("/");
+        }
+    },
 
     signOut() {
       this.$store.state.member = null;
@@ -111,9 +121,11 @@ export default {
       this.$router.push(`/memberInfo?id=${id}`);
     },
 
-    searching(){
-      this.$router.push(`/wiki/wikiSearch?content=${this.searchContent}&flag=${this.searchFlag}`);
-    }
+    searching() {
+      this.$router.push(
+        `/wiki/wikiSearch?content=${this.searchContent}&flag=${this.searchFlag}`
+      );
+    },
   },
 };
 </script>

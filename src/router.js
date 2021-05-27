@@ -23,10 +23,6 @@ const routes = [
                 component: () => import('@/views/main/community/Main')
             },
             {
-                path: 'tree',
-                component: () => import('@/views/admin/Tree')
-            },
-            {
                 path: 'signUp',
                 name: 'SignUp',
                 component: () => import('@/views/member/user/SignUp')
@@ -47,16 +43,38 @@ const routes = [
                 component: () => import('@/views/member/profile/Profile')
             },
             {
-                path: 'memberList',
-                name: 'MemberList',
-                component: () => import('@/views/admin/MemberList')
-            },
-            {
                 path: 'updatePassword',
                 name: 'UpdatePassword',
                 component: () => import('@/views/member/user/UpdatePassword')
             }
         ],
+    },
+    {
+        path: '/aspnAdmin',
+        component: () => import('@/views/IndexAdmin'),
+        redirect: "/aspnAdmin/adminMain",  
+        children: [
+            {
+                path: 'adminMain',
+                name: 'adminMain',
+                component: () => import('@/views/main/community/Main')
+            },
+            {
+                path: 'memberComprehensive',
+                name: 'Comprehensive',
+                component: () => import('@/views/admin/member/Comprehensive')
+            },
+            {
+                path: 'communityMenu',
+                name: 'CommunityMenu',
+                component: () => import('@/views/admin/menu/CommunityMenu')
+            },
+            {
+                path: 'wikiMenu',
+                name: 'WikiMenu',
+                component: () => import('@/views/admin/menu/WikiMenu')
+            },
+        ]
     },
     {
         path: '/community',
@@ -67,11 +85,6 @@ const routes = [
                 path: 'communityMain',
                 name: 'CommunityMain',
                 component: () => import('@/views/main/community/Main')
-            },
-            {
-                path: 'communityMenu',
-                name: 'CommunityMenu',
-                component: () => import('@/views/admin/CommunityMenu')
             },
             {
                 path: 'communityList',
@@ -106,11 +119,6 @@ const routes = [
                 path: 'wikiMain',
                 name: 'wikiMain',
                 component: () => import('@/views/main/wiki/Main')
-            },
-            {
-                path: 'wikiMenu',
-                name: 'WikiMenu',
-                component: () => import('@/views/admin/WikiMenu')
             },
             {
                 path: 'wikiList',

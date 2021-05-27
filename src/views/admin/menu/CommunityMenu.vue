@@ -1,7 +1,7 @@
 <template>
   <!-- Firset  Menu Start -->
-  <v-card>
-    <v-card id="FirsetMenu" width="300" class="float-left ma-3" tile>
+  <v-card style="margin:0 auto;max-width:1600px">
+    <v-card id="FirsetMenu" width="500" class="float-left ma-3" tile>
       <v-list flat>
         <v-subheader class="title">
           <v-list-item-title> First Menu </v-list-item-title>
@@ -50,7 +50,7 @@
     <!-- Firset Menu End -->
 
     <!-- SecondMenu  Menu Start -->
-    <v-card id="SecondMenu" width="300" class="float-left ma-3" tile>
+    <v-card id="SecondMenu" width="500" class="float-left ma-3" tile>
       <v-list flat>
         <v-subheader class="title">
           <v-list-item-title> Second Menu </v-list-item-title>
@@ -96,7 +96,7 @@
     <!-- SecondMenu Menu End -->
 
     <!-- Third  Menu Start -->
-    <v-card id="ThirdMenu" width="300" class="float-left ma-3" tile>
+    <v-card id="ThirdMenu" width="500" class="float-left ma-3" tile>
       <v-list flat>
         <v-subheader class="title">
           <v-list-item-title> Third Menu </v-list-item-title>

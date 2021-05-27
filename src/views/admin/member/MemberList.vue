@@ -1,7 +1,5 @@
 <template>
     <v-card flat>
-        <div class="transition-swing text-h5 mb-1 ml-3">members list</div>
-        <v-divider class="ml-3"></v-divider>
         <v-list>
           <template v-for="(item, index) in items">
             <v-divider

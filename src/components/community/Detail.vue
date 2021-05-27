@@ -3,15 +3,13 @@
     <v-card flat>
       <v-list-item three-line>
         <v-list-item-content>
-          <div class="overline mb-2" style="color: rgba(0, 0, 0, 0.6)">
+          <div class="text-overline font-weight-light">
             {{
               community.registerTime | date-format("yyyy-mm-dd hh:mi:ss")
             }}
           </div>
-          <v-list-item-title class="headline mb-3 text-h4">
-            {{ community.title }}
-          </v-list-item-title>
-          <v-list-item-subtitle>
+          <v-list-item-title class="headline mb-3 text-h3 ">{{community.title }}</v-list-item-title>
+          <v-list-item-subtitle class="text-overline font-weight-regular">
             <span class="mr-3"> {{ comInfoCount.hitsCount }} Views</span>
             <span class="mr-3"> {{ comInfoCount.collectCount }} Comments</span>
             <span class="mr-3"> {{ comInfoCount.likesCount }} liks</span>

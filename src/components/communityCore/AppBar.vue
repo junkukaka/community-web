@@ -58,21 +58,14 @@
         <v-list-item to="/signUp" v-if="$store.state.member == null">
           <v-list-item-title>회원가입</v-list-item-title>
         </v-list-item>
+        
         <v-list-item
-          to="/community/communityMenu"
+          to="/aspnAdmin/adminMain"
           v-if="
             $store.state.member != null && $store.state.member.authority === 0
           "
         >
-          <v-list-item-title>커뮤니티 메뉴</v-list-item-title>
-        </v-list-item>
-        <v-list-item
-          to="/wiki/wikiMenu"
-          v-if="
-            $store.state.member != null && $store.state.member.authority === 0
-          "
-        >
-          <v-list-item-title>위키 메뉴</v-list-item-title>
+          <v-list-item-title>관리자 페이지</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>

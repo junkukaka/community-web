@@ -1,11 +1,8 @@
 <template>
   <v-card flat color="#F5F5F5">
     <v-card flat style="background-color: #F5F5F5">
-        <v-card-title>
-            <v-icon>
-                mdi-format-title
-            </v-icon>
-            : {{wikiHis.title}}
+        <v-card-title class="text-h2 font-weight-bold">
+            {{wikiHis.title}}
         </v-card-title>
         <v-divider></v-divider>
         <div class="hisReview">
@@ -72,12 +69,8 @@
             <!-- history -->
             <v-col cols="12" md="6">
                 <v-card flat style="background-color: #F5F5F5" >
-                    <v-card-title>
-                        History
-                        <v-icon>
-                            mdi-format-title
-                        </v-icon>
-                         : {{wikiHis.title}}
+                    <v-card-title class="text-h3 font-weight-bold">
+                        History : {{wikiHis.title}}
                     </v-card-title>
                     <div class="hisReview">
                       <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" style="background-color: #F5F5F5"/>
@@ -88,12 +81,8 @@
             <!-- right now -->
             <v-col cols="12" md="6">
                 <v-card flat>
-                    <v-card-title>
-                        Current
-                        <v-icon>
-                            mdi-format-title
-                        </v-icon>
-                        : {{wikiNow.title}}
+                    <v-card-title class="text-h3 font-weight-bold">
+                        Current : {{wikiNow.title}}
                     </v-card-title>
                     <v-md-editor v-model="wikiNow.content" mode="preview" ref="editor"/>
                 </v-card>

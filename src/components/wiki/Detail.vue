@@ -1,9 +1,8 @@
 <template>
   <v-card flat>
     <v-card flat class="mt-n3">
-      <v-card-title>
-        <v-icon> mdi-format-title </v-icon>
-        : {{ wikiHis.title }}
+      <v-card-title class="text-h3 font-weight-bold">
+        {{ wikiHis.title }}
       </v-card-title>
       <v-divider></v-divider>
       <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" />
