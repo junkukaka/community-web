@@ -1,7 +1,7 @@
 <template>
     <v-card flat>
       <v-card flat>
-        <div class="transition-swing text-h5 mb-1 ml-3">{{menuName}}</div>
+        <div class="transition-swing text-h5 font-weight-regular mb-2 ml-3">{{menuName}}</div>
         <v-divider class="ml-3"></v-divider>
         <v-list>
           <template v-for="(item, index) in items">

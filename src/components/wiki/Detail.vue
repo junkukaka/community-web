@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <v-card flat class="mt-n3">
-      <v-card-title class="text-h3 font-weight-bold">
+      <v-card-title class="text-h3 font-weight-medium">
         {{ wikiHis.title }}
       </v-card-title>
       <v-divider></v-divider>

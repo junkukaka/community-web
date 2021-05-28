@@ -1,76 +1,91 @@
 <template>
-    <v-card flat>
-        <v-list>
-          <template v-for="(item, index) in items">
-            <v-divider
-              v-if="item.divider"
-              :key="index"
-              :inset="item.inset"
-            ></v-divider>
-            <v-list-item
-               v-else
-              :key="index"
-              link
-              :to ="`/member/members?id=${item.id}`" 
-            >
-              <v-list-item-avatar>
-                <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
-              </v-list-item-avatar>
+  <v-card flat class="pa-2">
+    <v-data-table
+      flat
+      :headers="headers"
+      :items="members"
+      :disable-pagination="disablePagination"
+      class="elevation-1 mytable"
+      hide-default-footer
+    >
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-toolbar-title>Member List</v-toolbar-title>
+          <v-divider class="mx-4" inset vertical></v-divider>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+      </template>
 
-              <v-list-item-content>
-                <v-list-item-title>{{item.memberName}}</v-list-item-title>
-                <!-- <v-list-item-subtitle v-html="item.content"></v-list-item-subtitle> -->
-              </v-list-item-content>
-
-              <v-list-item-action>
-                <v-list-item-subtitle>
-                  {{item.registerTime|date-format('yyyy-mm-dd')}}
-                </v-list-item-subtitle>
-                <v-list-item-subtitle>
-               
-                </v-list-item-subtitle>
-              </v-list-item-action>
-              
-            </v-list-item>
-          </template>
-        </v-list>
+      <template v-slot:[`item.memberName`]="{ item }">
+        <v-btn text color="primary">
+          {{ item.memberName }}
+        </v-btn>
+      </template>
+    </v-data-table>
+    <v-card flat class="mt-5">
+      <template>
+        <div class="text-center">
+          <v-pagination
+            v-model="page"
+            :length="pages"
+            :total-visible="7"
+          ></v-pagination>
+        </div>
+      </template>
     </v-card>
+  </v-card>
 </template>
 
-
 <script>
-  export default {
-    data: () => ({
-      items: []
-    }),
+export default {
+  data: () => ({
+    member: {},
+    page: 1,
+    itemsPerPage: 5,
+    pages: 1,
+    members: [],
+    dialog: false,
+    disablePagination: true,
+    headers: [
+      { text: "Name", align: "start", value: "memberName" },
+      { text: "상태", value: "status" },
+      { text: "login id", value: "loginId" },
+      { text: "가입일자", value: "registerTime" },
+      { text: "등록일자", value: "updateTime" },
+    ],
+  }),
 
-
-    created(){
-      this.initialize()
+  watch: {
+    dialog(val) {
+      val || this.close();
     },
+  },
 
+  created() {
+    this.initialize();
+  },
 
-    methods: {
-      //初始化方法
-      initialize(){
-        let data  = this.$data
-        data.items = [] //清空
-        this.$nextTick(function(){
-          this.$http.get("/member/members/getAll","")
-            .then(function(response){
-              let members = response.data.data;
-              //console.log(communitys);
-              //添加下划线
-              for(let i = 0; i < members.length ; i++){
-                  data.items.push(members[i])
-                  data.items.push({divider: true, inset: true })
-              }
-            })
-        });
-      },
-    }
+  watch: {
+    page: function () {
+      this.initialize();
+    },
+  },
 
-
-   
-  }
+  methods: {
+    initialize() {
+      this.$nextTick(function () {
+        this.$http
+          .get("/member/members/getAllMemberByAdmin")
+          .then((response) => {
+            this.members = response.data.data;
+            // this.page = response.data.data.page; //当前页面
+            // this.pages = response.data.data.pages; //页数
+          });
+      });
+    },
+  },
+};
 </script>
+
+
+

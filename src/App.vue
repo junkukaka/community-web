@@ -83,7 +83,7 @@ export default {
 }
 
 .containerMaxWith{
-  margin: 0 auto; max-width: 1600px;
+  margin: 0 auto; max-width: 1700px;
 }
 
 .containerPadding{

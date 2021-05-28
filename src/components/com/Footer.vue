@@ -19,6 +19,11 @@
       <span>위키</span>
       <v-icon>mdi-school</v-icon>
     </v-btn>
+
+    <v-btn to="/wiki/wikiDetail?wikiId=7">
+      <span>Help</span>
+      <v-icon>mdi-help-box</v-icon>
+    </v-btn>
     
   </v-bottom-navigation>
 </template>

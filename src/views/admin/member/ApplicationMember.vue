@@ -1,5 +1,5 @@
 <template>
-   <v-card flat>
+   <v-card flat class="">
      <v-data-table
       v-model="selected"
       :headers="headers"
@@ -19,28 +19,29 @@
       </template>
     </v-data-table>
 
-    <v-card flat>
-      <v-btn
-        large
-        depressed
-        color="primary"
-        class="mt-3 white--text"
-        @click="joinMember"
-      >
-        회원가입 
-        <v-icon right dark>mdi-account-check </v-icon>
-      </v-btn>
-
-      <v-btn
-        large
-        depressed
-        color="grey darken-3"
-        class="mt-3 ml-5 white--text"
-        @click="deleteJoinMember"
-      >
-        신청 삭제 
-        <v-icon right dark>mdi-account-cancel-outline </v-icon>
-      </v-btn>
+    <v-card style="height:100px">
+      <v-card flat style="position:fixed; bottom:70px; right: 30px">
+        <v-btn
+          large
+          depressed
+          color="primary"
+          class="mt-3 white--text"
+          @click="joinMember"
+        >
+          회원가입 
+          <v-icon right dark>mdi-account-check </v-icon>
+        </v-btn>
+        <v-btn
+          large
+          depressed
+          color="grey darken-3"
+          class="mt-3 ml-5 white--text"
+          @click="deleteJoinMember"
+        >
+          신청 삭제 
+          <v-icon right dark>mdi-account-cancel-outline </v-icon>
+        </v-btn>
+      </v-card>
     </v-card>
     <pop-msg-dialog v-bind:parent="popMsg"/>
   </v-card>
