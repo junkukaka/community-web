@@ -61,7 +61,7 @@
           <v-list-item-title>회원가입</v-list-item-title>
         </v-list-item>
         <v-list-item
-          to="/aspnAdmin/adminMain"
+          to="/aspnAdmin"
           v-if="
             $store.state.member != null && $store.state.member.authority === 0
           "

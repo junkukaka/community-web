@@ -153,7 +153,6 @@ export default {
         this.$http
           .get("/member/members/department")
           .then((response) => (this.departments = response.data.data));
-          console.log(this.departments)
       });
     },
 

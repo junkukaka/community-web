@@ -60,7 +60,7 @@
         </v-list-item>
         
         <v-list-item
-          to="/aspnAdmin/adminMain"
+          to="/aspnAdmin"
           v-if="
             $store.state.member != null && $store.state.member.authority === 0
           "

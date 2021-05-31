@@ -52,13 +52,8 @@ const routes = [
     {
         path: '/aspnAdmin',
         component: () => import('@/views/IndexAdmin'),
-        redirect: "/aspnAdmin/adminMain",  
+        redirect: "/aspnAdmin/memberComprehensive",  
         children: [
-            {
-                path: 'adminMain',
-                name: 'adminMain',
-                component: () => import('@/views/main/community/Main')
-            },
             {
                 path: 'memberComprehensive',
                 name: 'Comprehensive',
