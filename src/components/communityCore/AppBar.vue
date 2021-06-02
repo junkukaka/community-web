@@ -44,7 +44,10 @@
 
       <v-list>
         <v-list-item to="/community/profile" v-if="$store.state.member != null">
-          <v-list-item-title>프로파일</v-list-item-title>
+          <v-list-item-title>커뮤니티 프로파일</v-list-item-title>
+        </v-list-item>
+        <v-list-item to="/wiki/profile" v-if="$store.state.member != null">
+          <v-list-item-title>위키 프로파일</v-list-item-title>
         </v-list-item>
         <v-list-item @click="myInfo" v-if="$store.state.member != null">
           <v-list-item-title>회원정보</v-list-item-title>

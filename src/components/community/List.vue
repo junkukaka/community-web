@@ -1,5 +1,10 @@
 <template>
     <v-card flat>
+      <div style="margin: -10px 0 15px">
+        <!-- dashboard -->
+        <dashboard-vue/>
+      </div>
+      
       <v-card flat>
         <div class="transition-swing text-h5 font-weight-regular mb-2 ml-3">{{menuName}}</div>
         <v-divider class="ml-3"></v-divider>
@@ -74,7 +79,10 @@
 
 
 <script>
+import DashboardVue from "../com/Dashboard.vue";
+
   export default {
+    components: { DashboardVue },
     data: () => ({
       page: 1,
       pages: 1,

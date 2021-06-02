@@ -83,14 +83,17 @@ const routes = [
             },
             {
                 path: 'communityList',
+                name: 'CommunityList',
                 component: () => import('@/components/community/List')
             },
             {
                 path: 'communityEdit',
+                name: 'CommunityEdit',
                 component: () => import('@/components/community/Edit')
             },
             {
                 path: 'communityDetail',
+                name: 'CommunityDetail',
                 component: () => import('@/components/community/Detail')
             },
             {
@@ -117,7 +120,7 @@ const routes = [
             },
             {
                 path: 'wikiList',
-                name: 'wikiList',
+                name: 'WikiList',
                 component: () => import('@/components/wiki/List')
             },
             {
@@ -138,7 +141,7 @@ const routes = [
             {
                 path: 'profile',
                 name: 'Profile',
-                component: () => import('@/views/member/profile/Profile')
+                component: () => import('@/views/member/wikiProfile/Profile')
             },
             {
                 path: 'wikiSearch',

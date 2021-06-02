@@ -10,7 +10,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>My Likes</v-toolbar-title>
+          <v-toolbar-title>Editing wiki list</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
 

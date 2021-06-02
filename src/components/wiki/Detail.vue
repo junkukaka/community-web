@@ -1,5 +1,9 @@
 <template>
   <v-card flat>
+     <div style="margin: -10px 0 10px -10px">
+      <!-- dashboard -->
+      <dashboard-vue/>
+    </div>
     <v-card flat class="mt-n3">
       <v-card-title class="text-h3 font-weight-medium">
         {{ wikiHis.title }}
@@ -72,9 +76,11 @@
 
 <script>
 import HisTimeLine from "./HisTimeLine";
+import DashboardVue from "../com/Dashboard.vue";
 
 export default {
   components: {
+    DashboardVue,
     HisTimeLine,
   },
 
@@ -161,12 +167,11 @@ export default {
     },
 
     getWikiHisDetail() {
-      this.$nextTick(function () {
-        this.$http.get(`/wiki/wikiDetail/${this.wikiId}`).then((response) => {
-          this.wikiHis = response.data.data;
-        });
+      this.$http.get(`/wiki/wikiDetail/${this.wikiId}`).then((response) => {
+        this.wikiHis = response.data.data;
       });
     },
+
   },
 };
 </script>

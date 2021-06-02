@@ -1,5 +1,11 @@
 <template>
   <v-card flat>
+    <div style="margin: -10px 0 0">
+      <!-- dashboard -->
+      <dashboard-vue/>
+    </div>
+    
+
     <v-card flat>
       <v-list-item three-line>
         <v-list-item-content>
@@ -202,8 +208,11 @@
 
 <script>
 import { mapGetters } from "vuex";
+import DashboardVue from "../com/Dashboard.vue";
 
 export default {
+  components: { DashboardVue },
+
   data: () => ({
     community: {},
     titles: [],
