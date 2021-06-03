@@ -89,4 +89,10 @@ export default {
 .containerPadding{
   padding: 12px 6px !important;
 }
+
+.wikiListBorder{
+  border-color: #1976d2;
+  border-left-width: 0.26rem;
+  border-left-style: solid;
+}
 </style>

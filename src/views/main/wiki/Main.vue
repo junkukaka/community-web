@@ -6,8 +6,8 @@
           :key="i"
           cols="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"
         >
-          <v-card color="#FAFAFA" flat :to="'/wiki/wikiDetail?wikiId=' + item.id">
-            <div class="d-flex flex-no-wrap justify-space-between">
+          <v-card flat :to="'/wiki/wikiDetail?wikiId=' + item.id" class="grey lighten-5">
+            <div class="d-flex flex-no-wrap justify-space-between wikiListBorder">
               <div>
                 <v-card-title
                   class="text-subtitle-1"

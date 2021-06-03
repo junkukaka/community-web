@@ -12,11 +12,11 @@
           cols="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"
         >
           <v-card
-            class="grey lighten-5"
+            class="grey lighten-5" 
             flat
             :to="'/wiki/wikiDetail?wikiId=' + item.id"
           >
-            <div class="d-flex flex-no-wrap justify-space-between">
+            <div class="d-flex flex-no-wrap justify-space-between wikiListBorder">
               <div>
                 <v-card-title
                   class="text-subtitle-1"
@@ -39,8 +39,8 @@
                 </v-card-actions>
               </div>
               <v-avatar class="ma-4" size="78" tile>
-                <v-img :src="item.picture" v-show="item.picture != null"></v-img>
-                <v-img
+                <v-img :src="item.picture" contain v-show="item.picture != null"></v-img>
+                <v-img 
                   src="../../assets/wiki.jpg"
                   v-show="item.picture == null"
                 ></v-img>
