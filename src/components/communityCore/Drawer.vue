@@ -53,9 +53,6 @@ export default {
     //初始化方法
     initialize: function () {
       let data = this.$data;
-      let request = {
-        tier: 1,
-      };
       if(this.menu.length === 0){
         this.$http.get("/communityMenu/menus/tree").then(function (response) {
           data.menu = response.data.data;

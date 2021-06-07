@@ -15,7 +15,7 @@
       :disabled-menus="[]"
       @save="saveDialog = true"
       :include-level="[1, 2, 3, 4]"
-      left-toolbar="undo redo clear | h bold italic strikethrough quote | ul ol todo-list table hr | link image code | save | tip emoji "
+      left-toolbar="undo redo | h bold italic strikethrough quote | ul ol todo-list table hr | link image code | tip emoji "
       v-model="community.content"
       height="600px"
     >
