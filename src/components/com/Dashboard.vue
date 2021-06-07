@@ -75,6 +75,9 @@
           }
           this.items.push(m);
           m = {};
+          if(this.items.length === 3){
+            return false;
+          }
         }
       },
 

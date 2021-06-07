@@ -32,6 +32,12 @@ import './components/language/prism-java.min.js'
 import './components/language/prism-json.min.js'
 import './components/language/prism-scss.min.js'
 import './components/language/prism-sql.min.js'
+import './components/language/prism-go.min.js'
+import './components/language/prism-php.min.js'
+import './components/language/prism-python.min.js'
+import './components/language/prism-sass.min.js'
+import './components/language/prism-scala.min.js'
+import './components/language/prism-swift.min.js'
 
 
 

@@ -23,7 +23,7 @@
                 </v-card-actions>
               </div>
               <v-avatar class="ma-4" size="78" tile>
-                <v-img :src="item.picture" v-show="item.picture!= null"></v-img>
+                <v-img :src="item.picture" v-show="item.picture!= null" contain></v-img>
                 <v-img src="../../../assets/wiki.jpg" v-show="item.picture == null"></v-img>
               </v-avatar>
             </div>
