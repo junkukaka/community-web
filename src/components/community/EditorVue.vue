@@ -193,22 +193,24 @@ export default {
       }
     },
 
-    openMenu: function () {
+    openMenu () {
       this.menuDialog = true;
     },
 
-    changeMenu: function(item){
+    changeMenu(item){
       if(!(_.has(item,'children'))){
         this.community.menuId = item.id;
         this.menu.id = item.id;
         this.menu.name = item.name; 
+      }else{
+        this.updateError("대분류와 중분류를 선택할수가 없습니다.");
       }
       this.menuDialog = false;
     },
 
     updateError(error){
       this.popMsg.dialog = true;
-      this.popMsg.title = "Error Message";
+      this.popMsg.title = "Warning Message";
       this.popMsg.content = error;
     },
 
