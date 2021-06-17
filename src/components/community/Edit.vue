@@ -33,7 +33,7 @@ export default {
   },
 
   data: () => ({
-    tabs: "makedowmEditor",
+    tabs: "normalEditor",
     community: {
       id: null,
       userId: null,

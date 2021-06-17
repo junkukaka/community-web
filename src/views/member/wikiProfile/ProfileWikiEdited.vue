@@ -36,6 +36,7 @@ export default {
     headers: [
       { text: "Title", align: "start", value: "title" },
       { text: "Menu Name", value: "menuName" },
+      { text: "Date", value: "updateTime" },
     ],
   }),
 

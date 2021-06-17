@@ -3,8 +3,34 @@
 </template>
 
 <script>
+
+import { mapMutations } from "vuex";
+
 export default {
   name: "App",
+
+  beforeCreate() {
+     //如果用户改变了密码就推出登录
+    if (this.$store.state.member != null) {  
+      const u = this.$store.state.member;
+      this.$http
+        .post("/member/members/checkSession",u)
+        .then((response) => {
+            if (response.data.data.member == undefined || response.data.data.member == 0) {
+               this.$store.state.member = null;
+                //退出登录，清空token
+                this.dialog = false;
+                localStorage.removeItem("Authorization");
+                localStorage.removeItem("store");
+                this.$router.push('/signIn');
+            }else{
+              this.$store.state.member = response.data.data.member;
+              this.memberToken = response.data.data.token;
+              this.changeLogin({ Authorization: this.memberToken }); 
+            }
+        });
+    }
+  },
 
   created() {
     //在页面加载时读取localStorage里的状态信息
@@ -24,6 +50,8 @@ export default {
     });
 
     this.$store.state.clientWith = document.body.clientWidth;
+
+    this.pageResize();
   },
 
   watch: {
@@ -34,7 +62,32 @@ export default {
         this.$store.state.ifMobile = false;
       }
     }
-  }
+  },
+
+   methods: {
+    ...mapMutations(["changeLogin"]),
+
+    pageResize() {
+      let screenWidth = document.body.clientWidth;
+      if (screenWidth < 1260) {
+        this.$store.state.window.rightDrawerTop = -1000;
+        this.$store.state.window.mainPaddingLeft = 0;
+        this.$store.state.window.mainPaddingRight = 0;
+      } else {
+        this.$store.state.window.rightDrawerTop = 64;
+        this.$store.state.window.mainPaddingLeft = 256;
+        this.$store.state.window.mainPaddingRight = 270;
+      }
+    },
+  },
+
+  mounted() {
+    let that = this; //赋值vue的this
+    window.onresize = () => {
+      //调用methods中的事件
+      that.pageResize();
+    };
+  },
 };
 </script>
 

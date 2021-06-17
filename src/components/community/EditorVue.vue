@@ -47,7 +47,7 @@
 
     <vue-editor id="Editor" v-model.lazy="community.content"> </vue-editor>
 
-    <!-- <v-file-input
+    <v-file-input
       v-model="files"
       color="deep-purple accent-4"
       counter
@@ -68,9 +68,38 @@
           {{ text }}
         </v-chip>
       </template>
-    </v-file-input> -->
+    </v-file-input>
 
-
+    <div class="pb-3" v-if="filesList">
+      <v-simple-table>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">
+                Name
+              </th>
+              <th class="text-left">
+                action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in filesList" :key="item.name">
+              <td>{{ item.originalName }}</td>            
+              <td>
+                <v-btn class="mx-2" dark small color="primary" :href="item.filePath" target="_blank"> 
+                  <v-icon>mdi-cloud-download</v-icon>
+                </v-btn>
+                <v-btn class="mx-2" dark small color="primary" @click="deleteFile(item.id)">
+                  <v-icon>mdi-delete-forever</v-icon>
+                </v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </div>
+    
     <!-- menus dialog start-->
     <v-dialog v-model="menuDialog" max-width="700">
       <v-card flat>
@@ -138,8 +167,11 @@ export default {
       useYn: 0,
       title: "",
       content: "",
+      docId: ""
     },
+    cid: null,
     files: [],
+    filesList: [],
     menus: [],
     menuDialog: false,
     popMsg: {
@@ -162,6 +194,20 @@ export default {
       this.initialize();
     }
     this.getMenuTee();
+  },
+
+  watch: {
+    files: {
+      handler(newVal,oldVal){
+        for (const file of newVal) {
+          if(file.size > 50000000){
+            this.updateError("50M 을 초과 할수가 없습니다.");
+            this.files = [];
+          }
+        }
+        this.uploadFiles(newVal);
+      }
+    }
   },
 
   methods: {
@@ -217,7 +263,6 @@ export default {
     //增加内容
     save: function () {
       let router = this.$router;
-      console.log(this.community);
       if(_.isNull(this.community.title) || _.eq(this.community.title,'')){
         this.updateError("제목을 입력해 주세요");
         return false;
@@ -230,12 +275,48 @@ export default {
         this.$http
           this.$http.post("/community/communitys", this.community)
           .then((response) => {
+            this.cid = response.data.data;
+            //是否有附件。
             router.go(-1);
           }).catch((error) => {
             this.updateError(error);
           });
       });
     },
+
+    //上传文件
+    uploadFiles(files){
+      let formData = new FormData();
+      formData.append("docId",this.community.docId);
+      formData.append("flag","community");
+      for(let i = 0; i< files.length; i++){
+        formData.append(i,files[i]);
+      }
+      this.$http.post("/files/upload", formData).then((response) => {
+        const result = response.data.data;
+        this.community.docId = result[0].docId;
+        this.selectFilesList(); //回显
+      });
+    },
+
+    selectFilesList(){
+      this.$http.get(`/files/list/${this.community.docId}`).then((response)=>{
+        this.filesList = response.data.data;
+      });
+    },
+
+    deleteFile(id){
+      this.$http.delete(`/files/delete/${id}`).then((response)=>{
+        this.filesList = response.data.data; 
+      })
+    },
+
+    downloadFile(url,name){
+      let str=url.split("/").pop().split("?")[0]  
+     	let strType=String(str.substring(str.indexOf(".")).trim()) 
+      Download(url, name,strType);
+    }
+
   },
 };
 </script>

@@ -249,17 +249,17 @@ export default {
     this.community.id = this.$route.query.id;
     //comment
     this.comment.communityId = this.$route.query.id;
-    this.comment.memberId = this.getMember().id; //用户ID 赋值
+    
     //comInfo
     this.comInfo.communityId = this.$route.query.id;
-    this.comInfo.memberId = this.getMember().id; //用户ID 赋值
+    
     this.scrollTop = document.documentElement.scrollTop;
     this.getCommunity();
     this.getComments();
     this.saveHits();
     this.getInfoCount();
     this.getMemberLikeAndCollect(); //member like or collected this community
-
+    this.setMemberId();
     
   },
 
@@ -314,6 +314,11 @@ export default {
 
     sleep (time) {
       return new Promise((resolve) => setTimeout(resolve, time));
+    },
+
+    setMemberId(){
+      this.comment.memberId = this.getMember().id; //用户ID 赋值
+      this.comInfo.memberId = this.getMember().id; //用户ID 赋值
     },
 
     //v-md-editor nav
