@@ -8,6 +8,9 @@ import { mapMutations } from "vuex";
 
 export default {
   name: "App",
+  data: () => ({
+    memberToken: null
+  }),
 
   beforeCreate() {
      //如果用户改变了密码就推出登录
@@ -23,6 +26,7 @@ export default {
                 localStorage.removeItem("Authorization");
                 localStorage.removeItem("store");
                 this.$router.push('/signIn');
+                this.removeLogin();
             }else{
               this.$store.state.member = response.data.data.member;
               this.memberToken = response.data.data.token;
@@ -65,7 +69,7 @@ export default {
   },
 
    methods: {
-    ...mapMutations(["changeLogin"]),
+    ...mapMutations(["changeLogin","removeLogin"]),
 
     pageResize() {
       let screenWidth = document.body.clientWidth;

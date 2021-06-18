@@ -28,6 +28,10 @@ const store = new Vuex.Store({
       state.Authorization = member.Authorization;
       localStorage.setItem('Authorization', member.Authorization);
       localStorage.setItem('token', member.Authorization);
+    },
+    // 删除 token
+    removeLogin(){
+      localStorage.removeItem('token');
     }
   },
   actions: {},

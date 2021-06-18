@@ -51,7 +51,7 @@
       v-model="files"
       color="deep-purple accent-4"
       counter
-      label="File input"
+      label="첨부파일"
       multiple
       placeholder="Select your files"
       prepend-icon="mdi-paperclip"
@@ -70,27 +70,15 @@
       </template>
     </v-file-input>
 
+    <!-- file list -->
     <div class="pb-3" v-if="filesList">
       <v-simple-table>
         <template v-slot:default>
-          <thead>
-            <tr>
-              <th class="text-left">
-                Name
-              </th>
-              <th class="text-left">
-                action
-              </th>
-            </tr>
-          </thead>
           <tbody>
             <tr v-for="item in filesList" :key="item.name">
-              <td>{{ item.originalName }}</td>            
-              <td>
-                <v-btn class="mx-2" dark small color="primary" :href="item.filePath" target="_blank"> 
-                  <v-icon>mdi-cloud-download</v-icon>
-                </v-btn>
-                <v-btn class="mx-2" dark small color="primary" @click="deleteFile(item.id)">
+              <td width="70%">{{ item.originalName }}</td>            
+              <td width="30%" style="text-align:right">
+                <v-btn class="mx-2" dark small color="primary" depressed @click="deleteFile(item.id)">
                   <v-icon>mdi-delete-forever</v-icon>
                 </v-btn>
               </td>
@@ -99,6 +87,7 @@
         </template>
       </v-simple-table>
     </div>
+    <!-- file list end-->
     
     <!-- menus dialog start-->
     <v-dialog v-model="menuDialog" max-width="700">
@@ -169,9 +158,9 @@ export default {
       content: "",
       docId: ""
     },
-    cid: null,
     files: [],
     filesList: [],
+    updateYn: true,
     menus: [],
     menuDialog: false,
     popMsg: {
@@ -203,9 +192,13 @@ export default {
           if(file.size > 50000000){
             this.updateError("50M 을 초과 할수가 없습니다.");
             this.files = [];
+            this.updateYn = false;
+            return false;
           }
         }
-        this.uploadFiles(newVal);
+        if(this.updateYn){
+          this.uploadFiles(newVal);
+        }
       }
     }
   },
@@ -217,6 +210,10 @@ export default {
           .get(`/community/communitys/${this.community.id}`)
           .then((response) => {
             this.community = response.data.data;
+            console.log(this.community);
+            if (this.community.docId != null){
+              this.selectFilesList();
+            } 
           });
       });
     },
@@ -275,8 +272,7 @@ export default {
         this.$http
           this.$http.post("/community/communitys", this.community)
           .then((response) => {
-            this.cid = response.data.data;
-            //是否有附件。
+            console.log(response.data.data);
             router.go(-1);
           }).catch((error) => {
             this.updateError(error);

@@ -111,6 +111,8 @@
     </v-dialog>
     <!-- comment write area  end-->
 
+    <files-list-vue v-bind:parent="filesObj"/>
+
     <!-- comment list area -->
     <v-card flat>
       <div class="transition-swing text-h5 mb-1 mt-10 ml-3">Comments list</div>
@@ -208,10 +210,11 @@
 
 <script>
 import { mapGetters } from "vuex";
-import DashboardVue from "../com/Dashboard.vue";
+import DashboardVue from "../com/Dashboard";
+import FilesListVue from "../com/FilesList";
 
 export default {
-  components: { DashboardVue },
+  components: { DashboardVue,FilesListVue },
 
   data: () => ({
     community: {},
@@ -243,13 +246,17 @@ export default {
       commentCount: 0,
     },
     contentsTitle: 0,
+    filesObj:{
+      id: null,
+      flag: "C"
+    }
   }),
 
   created() {
     this.community.id = this.$route.query.id;
     //comment
     this.comment.communityId = this.$route.query.id;
-    
+    this.filesObj.id = this.$route.query.id;
     //comInfo
     this.comInfo.communityId = this.$route.query.id;
     

@@ -33,7 +33,7 @@ export default {
   },
 
   data: () => ({
-    tabs: "normalEditor",
+    tabs: "makedowmEditor",
     community: {
       id: null,
       userId: null,
@@ -63,7 +63,6 @@ export default {
           .get(`/community/communitys/${data.community.id}`)
           .then(function (response) {
             data.community = response.data.data;
-            console.log(data.community.mdYn)
             if(data.community.mdYn == 1){
               data.tabs = "makedowmEditor"
             }else{

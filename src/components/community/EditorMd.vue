@@ -55,6 +55,30 @@
     >
     </v-md-editor>
 
+
+    <v-file-input
+      v-model="files"
+      color="deep-purple accent-4"
+      counter
+      label="첨부파일"
+      multiple
+      placeholder="Select your files"
+      prepend-icon="mdi-paperclip"
+      :show-size="1000"
+      class="mt-5"
+    >
+      <template v-slot:selection="{text }">
+        <v-chip
+          color="deep-purple accent-4"
+          dark
+          label
+          small
+        >
+          {{ text }}
+        </v-chip>
+      </template>
+    </v-file-input>
+
      <!-- menus dialog start-->
     <v-dialog v-model="menuDialog" max-width="700">
       <v-card flat>
@@ -89,6 +113,25 @@
     </v-dialog>
     <!-- menus dialog end-->
 
+    <!-- file list -->
+    <div class="pb-3" v-if="filesList">
+      <v-simple-table>
+        <template v-slot:default>
+          <tbody>
+            <tr v-for="item in filesList" :key="item.name">
+              <td width="70%">{{ item.originalName }}</td>            
+              <td width="30%" style="text-align:right">
+                <v-btn class="mx-2" dark small color="primary" depressed @click="deleteFile(item.id)">
+                  <v-icon>mdi-delete-forever</v-icon>
+                </v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </div>
+    <!-- file list end-->
+
     <v-btn
       large
       depressed
@@ -120,6 +163,7 @@ export default {
       useYn: 0,
       title: "",
       content: "",
+      docId: ""
     },
     titleRules: [
       (v) => !!v || "title is required",
@@ -131,6 +175,8 @@ export default {
       title: null
     },
     files: [],
+    filesList: [],
+    updateYn: true,
     menuDialog: false,
     menus: [],
     menu:{
@@ -150,17 +196,35 @@ export default {
     this.getMenuTee();
   },
 
+   watch: {
+    files: {
+      handler(newVal,oldVal){
+        for (const file of newVal) {
+          if(file.size > 50000000){
+            this.updateError("50M 을 초과 할수가 없습니다.");
+            this.files = [];
+            this.updateYn = false;
+            return false;
+          }
+        }
+        if(this.updateYn){
+          this.uploadFiles(newVal);
+        }
+      }
+    }
+  },
+
   methods: {
     //初始化
-    initialize: function () {
-      let data = this.$data;
-      this.$nextTick(function () {
-        this.$http
-          .get(`/community/communitys/${data.community.id}`)
-          .then(function (response) {
-            data.community = response.data.data;
-          });
-      });
+    initialize(){
+      this.$http
+        .get(`/community/communitys/${this.community.id}`)
+        .then((response)=> {
+          this.community = response.data.data;
+           if(this.community.docId != null){
+              this.selectFilesList();
+            } 
+        });
     },
 
     getMenu(id){
@@ -255,6 +319,34 @@ export default {
           });
         });
       });
+    },
+
+
+    //上传文件
+    uploadFiles(files){
+      let formData = new FormData();
+      formData.append("docId",this.community.docId);
+      formData.append("flag","community");
+      for(let i = 0; i< files.length; i++){
+        formData.append(i,files[i]);
+      }
+      this.$http.post("/files/upload", formData).then((response) => {
+        const result = response.data.data;
+        this.community.docId = result[0].docId;
+        this.selectFilesList(); //回显
+      });
+    },
+
+    selectFilesList(){
+      this.$http.get(`/files/list/${this.community.docId}`).then((response)=>{
+        this.filesList = response.data.data;
+      });
+    },
+
+    deleteFile(id){
+      this.$http.delete(`/files/delete/${id}`).then((response)=>{
+        this.filesList = response.data.data; 
+      })
     },
   },
 };
