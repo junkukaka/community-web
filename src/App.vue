@@ -48,6 +48,14 @@ export default {
       );
     }
 
+     if(!localStorage.getItem("Authorization")){
+        this.$store.state.member = null;
+        //退出登录，清空token
+        localStorage.removeItem("Authorization");
+        localStorage.removeItem("store");
+        this.$router.push("/signIn");
+     }
+
     //在页面刷新时将vuex里的信息保存到localStorage里
     window.addEventListener("beforeunload", () => {
       localStorage.setItem("store", JSON.stringify(this.$store.state));

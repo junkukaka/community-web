@@ -274,6 +274,9 @@ export default {
       }else if(_.isNull(this.community.content) || _.eq(this.community.content,'')){
         this.updateError("내용을 주세요");
         return false;
+      }else if(this.community.content.length > 20100){
+         this.updateError("20100자이상 저장 할수 없습니다.");
+        return false;
       }
       this.afterSave();
     },

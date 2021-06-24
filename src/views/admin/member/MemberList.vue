@@ -30,21 +30,14 @@
     </v-data-table>
 
     <!-- dialog start -->
-    <v-dialog
-      v-model="dialog"
-      max-width="600px"
-    >
+    <v-dialog v-model="dialog" max-width="600px">
       <v-card>
-        <v-card-title>
-          User Profil
-        </v-card-title>
+        <v-card-title> User Profil </v-card-title>
 
         <v-card-text>
           <v-container>
             <v-row>
-               <v-col
-                cols="12"
-                sm="6">
+              <v-col cols="12" sm="6">
                 <v-text-field
                   label="Memeber Name"
                   disabled
@@ -52,9 +45,7 @@
                 ></v-text-field>
               </v-col>
 
-              <v-col
-                cols="12"
-                sm="6">
+              <v-col cols="12" sm="6">
                 <v-text-field
                   label="Login ID"
                   disabled
@@ -62,9 +53,7 @@
                 ></v-text-field>
               </v-col>
 
-              <v-col
-                cols="12"
-                sm="6">
+              <v-col cols="12" sm="6">
                 <v-select
                   :items="departments"
                   label="departments"
@@ -73,9 +62,7 @@
                 ></v-select>
               </v-col>
 
-              <v-col
-                cols="12"
-                sm="6">
+              <v-col cols="12" sm="6">
                 <v-select
                   :items="statuses"
                   label="status"
@@ -83,29 +70,17 @@
                   v-model="member.status"
                 ></v-select>
               </v-col>
-
             </v-row>
           </v-container>
         </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
+          <v-btn color="blue darken-1" text @click="dialog = false">
             Close
           </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="updateMember"
-          >
-            Save
-          </v-btn>
+          <v-btn color="blue darken-1" text @click="updateMember"> Save </v-btn>
         </v-card-actions>
-
       </v-card>
     </v-dialog>
     <!-- dialog end -->
@@ -122,16 +97,16 @@
       </template>
     </v-card>
 
-    <pop-msg-dialog v-bind:parent="popMsg"/>
+    <pop-msg-dialog v-bind:parent="popMsg" />
   </v-card>
 </template>
 
 <script>
- import PopMsgDialog from "../../../components/com/PopMsgDialog.vue";
-  export default {
-    components: {
-      PopMsgDialog
-    },
+import PopMsgDialog from "../../../components/com/PopMsgDialog.vue";
+export default {
+  components: {
+    PopMsgDialog,
+  },
 
   data: () => ({
     member: {
@@ -141,9 +116,9 @@
       department: null,
       departmentName: null,
     },
-    statuses:[
-      {value:"ON",text:"ON"},
-      {value:"OFF",text:"OFF"},
+    statuses: [
+      { value: "ON", text: "ON" },
+      { value: "OFF", text: "OFF" },
     ],
     page: 1,
     itemsPerPage: 1000,
@@ -160,10 +135,10 @@
       { text: "가입일자", value: "registerTime" },
       { text: "등록일자", value: "updateTime" },
     ],
-     popMsg: {
+    popMsg: {
       dialog: false,
       content: null,
-      title: null
+      title: null,
     },
   }),
 
@@ -200,11 +175,10 @@
           .get("/member/members/department")
           .then((response) => (this.departments = response.data.data));
       });
-
     },
 
     //회원조회 dialog open
-    editMember(item){
+    editMember(item) {
       this.dialog = true;
       this.member.id = item.id;
       this.member.loginId = item.loginId;
@@ -215,33 +189,29 @@
     },
 
     //회원수정
-    updateMember(){
+    updateMember() {
       this.dialog = false;
       this.$nextTick(function () {
         this.$http
-          .put("/member/members",this.member)
+          .put("/member/members", this.member)
           .then((response) => {
-            if(response.data.code == 200){
+            if (response.data.code == 200) {
               this.initialize();
-            } else{
+            } else {
               this.updateError();
             }
           })
-          .catch (error => {
+          .catch((error) => {
             this.updateError();
-          }) 
-          ;
+          });
       });
     },
 
-
-    updateError(){
+    updateError() {
       this.popMsg.dialog = true;
       this.popMsg.title = "Error Message";
       this.popMsg.content = "Service Error";
-    }
-
-
+    },
   },
 };
 </script>

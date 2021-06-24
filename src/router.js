@@ -56,7 +56,7 @@ const routes = [
         children: [
             {
                 path: 'memberComprehensive',
-                name: 'Comprehensive',
+                name: 'MemberComprehensive',
                 component: () => import('@/views/admin/member/Comprehensive')
             },
             {
@@ -69,6 +69,11 @@ const routes = [
                 name: 'WikiMenu',
                 component: () => import('@/views/admin/menu/WikiMenu')
             },
+            {
+                path: 'authorityComprehensive',
+                name: 'AuthorityComprehensive',
+                component: () => import('@/views/admin/authority/Comprehensive') 
+            }
         ]
     },
     {
@@ -162,7 +167,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     //允许访问的路径
-    const arrJPath = ['/signIn','/community/communityList','/signUp']
+    const arrJPath = ['/signIn','/signUp']
     if (arrJPath.find(element => element == to.path)) {
         next();
     } else {

@@ -8,28 +8,36 @@
     style="border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important"
   >
     <v-row align="center">
-      <v-clo>
-        <v-btn to="/main" text class="ml-3">
+      <v-col>
+        <v-btn to="/main" text>
           <span>Home</span>
         </v-btn>
-      </v-clo>
+      </v-col>
 
-      <v-clo>
-        <v-btn to="/aspnAdmin/communityMenu" text class="ml-3">
+      <v-col>
+        <v-btn to="/aspnAdmin/communityMenu" text>
           <span>커뮤니티 메뉴</span>
         </v-btn>
-      </v-clo>
+      </v-col>
 
-      <v-clo>
-        <v-btn to="/aspnAdmin/wikiMenu" text class="ml-3">
+      <v-col>
+        <v-btn to="/aspnAdmin/wikiMenu" text>
           <span>위키 메뉴</span>
         </v-btn>
-      </v-clo>
-      <v-clo>
-        <v-btn to="/aspnAdmin/memberComprehensive" text class="ml-3">
+      </v-col>
+      
+      <v-col>
+        <v-btn to="/aspnAdmin/memberComprehensive" text>
           <span>회원 관리</span>
         </v-btn>
-      </v-clo>
+      </v-col>
+
+      <v-col>
+        <v-btn to="/aspnAdmin/authorityComprehensive" text>
+          <span>권한 관리</span>
+        </v-btn>
+      </v-col>
+
     </v-row>
 
     <v-spacer></v-spacer>

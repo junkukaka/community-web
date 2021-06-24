@@ -303,6 +303,9 @@ export default {
       }else if(_.isNull(this.wikiHis.information) || _.eq(this.wikiHis.information,'')) {
        this.updateError("Comment 을 입력해주세요.");
         return false;
+      }else if(this.wikiHis.content.length> 20100){
+         this.updateError("20100자이상 저장 할수 없습니다.");
+        return false;
       }
       this.afterSave();
     },

@@ -10,43 +10,61 @@
           v-for="(item, i) in wikis"
           :key="i"
           cols="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"
+          class="pa-1"
         >
-          <v-card
-            class="grey lighten-5" 
-            flat
-          >
-            <router-link :to="'/wiki/wikiDetail?wikiId='+item.id">
-              <div class="d-flex flex-no-wrap justify-space-between wikiListBorder">
-                <div>
-                  <v-card-title
-                    class="text-subtitle-1"
-                    v-text="
-                      `${
-                        item.title.length < 27
-                          ? item.title
-                          : item.title.substring(0, 27) + '...'
-                      }`
-                    "
-                  ></v-card-title>
-                  <v-card-subtitle class="text-subtitle-2">
-                    Founder: {{ item.registerName }} | Last Review:
-                    {{ item.updateName }}
-                  </v-card-subtitle>
-                  <v-card-actions style="margin-top: -16px !important">
-                    <v-btn class="ml-1" outlined rounded small>
-                      Wiki content
-                    </v-btn>
-                  </v-card-actions>
+          <v-card class="grey lighten-5" flat>
+            <v-hover>
+              <template v-slot:default="{ hover }">
+                <div :class="`elevation-${hover ? 24 : 0}`" :style="`${hover ? 'background-color : white' : '' }`">
+                  <router-link
+                    :to="'/wiki/wikiDetail?wikiId=' + item.id"
+                    style="color: #151515f2"
+                  >
+                    <div
+                      class="
+                        d-flex
+                        flex-no-wrap
+                        justify-space-between
+                        wikiListBorder
+                      "
+                    >
+                      <div>
+                        <v-card-title
+                          class="text-subtitle-1"
+                          v-text="
+                            `${
+                              item.title.length < 27
+                                ? item.title
+                                : item.title.substring(0, 27) + '...'
+                            }`
+                          "
+                        ></v-card-title>
+                        <v-card-subtitle class="text-subtitle-2">
+                          Founder: {{ item.registerName }} | Last Review:
+                          {{ item.updateName }}
+                        </v-card-subtitle>
+                        <v-card-actions style="margin-top: -16px !important">
+                          <v-btn class="ml-1" outlined rounded small>
+                            Wiki content
+                          </v-btn>
+                        </v-card-actions>
+                      </div>
+                      <v-avatar class="ma-4" size="78" tile>
+                        <v-img
+                          :src="item.picture"
+                          contain
+                          v-show="item.picture != null"
+                        ></v-img>
+                        <v-img
+                          src="../../assets/wiki.jpg"
+                          v-show="item.picture == null"
+                        ></v-img>
+                      </v-avatar>
+                    </div>
+                  </router-link>
                 </div>
-                <v-avatar class="ma-4" size="78" tile>
-                  <v-img :src="item.picture" contain v-show="item.picture != null"></v-img>
-                  <v-img 
-                    src="../../assets/wiki.jpg"
-                    v-show="item.picture == null"
-                  ></v-img>
-                </v-avatar>
-              </div>
-            </router-link>
+              </template>
+            </v-hover>
           </v-card>
         </v-col>
       </v-row>
