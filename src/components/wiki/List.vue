@@ -77,7 +77,21 @@
         </v-btn>
       </router-link>
     </v-fab-transition>
+
+    <v-card flat class="mt-10">
+        <template>
+          <div class="text-center">
+            <v-pagination
+              v-model="page"
+              :length="pages"
+              :total-visible="7"
+            ></v-pagination>
+          </div>
+        </template>
+      </v-card>
   </v-card>
+
+  
 </template>
 
 
@@ -88,7 +102,11 @@ export default {
 
   data: () => ({
     menuId: null,
+    page: 1,
+    pages: 1,
+    itemsPerPage: 20,
     wikis: [],
+
   }),
 
   created: function () {
@@ -109,6 +127,15 @@ export default {
 
   methods: {
     initialize() {
+      let data = this;
+      let request = {
+        params: {
+          menuId: data.menuId,
+          page: data.page,
+          itemsPerPage: data.itemsPerPage
+        } 
+      };
+      
       this.wikis = [];
       this.$nextTick(function () {
         this.$http.get(`/wiki/wikis/${this.menuId}`).then((response) => {

@@ -87,7 +87,7 @@
 export default {
   data: () => ({
     wikis: [],
-    count: 50,
+    count: 20,
   }),
 
   created: function () {

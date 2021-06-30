@@ -12,7 +12,7 @@
         >
           <template v-slot:top>
             <v-toolbar flat>
-              <v-toolbar-title>Authority Master Manage</v-toolbar-title>
+              <v-toolbar-title>권한 마스터</v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
 
@@ -123,7 +123,7 @@
         >
           <template v-slot:top>
             <v-toolbar flat>
-              <v-toolbar-title>Community Authority item Manage</v-toolbar-title>
+              <v-toolbar-title>{{authorityItemFlag.flag == 'C' ? '커뮤니티 권한 아이템': '위키 권한 아이템'}}</v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
 
@@ -138,7 +138,7 @@
                     v-on="on"
                     @click="authorityItemNew"
                   >
-                    New Community Authority
+                    New 권한 아이템
                   </v-btn>
                 </template>
 
@@ -222,6 +222,23 @@
               <v-icon> mdi-delete</v-icon>
             </v-btn>
           </template>
+
+          <template v-slot:[`item.viewYn`]="{ item }">
+            <v-switch
+              v-model="item.viewYn"
+              @click="changeViewAndEditYn(item)"
+              :label="`${item.viewYn == 1 ? 'ON' : 'OFF'}`"
+            ></v-switch>
+          </template>
+
+          <template v-slot:[`item.editYn`]="{ item }">
+            <v-switch
+              v-model="item.editYn"
+              @click="changeViewAndEditYn(item)"
+              :label="`${item.editYn == 1 ? 'ON' : 'OFF'}`"
+            ></v-switch>
+          </template>
+
         </v-data-table>
       </div>
     </v-col>
@@ -259,13 +276,10 @@ export default {
     },
     authorityItemDialog: false,
     authorityItemHeaders: [
-      { text: "ID", align: "start", value: "id" },
-      { text: "authority ID", value: "aId" },
       { text: "authorityName", value: "authorityName" },
-      { text: "menuId", value: "menuId" },
       { text: "menuName", value: "menuName" },
-      { text: "view", value: "viewYn" },
-      { text: "edit", value: "editYn" },
+      { text: "view", align: "center", value: "viewYn" },
+      { text: "edit", align: "center", value: "editYn" },
       { text: "Actions", value: "actions", sortable: false },
     ],
     authorityItems: [],
@@ -418,7 +432,23 @@ export default {
     },
 
     authorityItemDeleteItem(item){
-
+      let request = {
+        aId: null,
+        flag : null
+      }
+      request.flag = this.authorityItemFlag.flag;
+      request.aId = item.id;
+      this.$http.post("/authority/deleteItem",request).then((response) => {
+        if(response.data.code == 200){
+          let param = {id:null}
+          param.id = item.aId;
+          if(this.authorityItemFlag.flag == "C"){
+            this.communityItems(param);
+          }else{
+            this.wikiItems(param);
+          }
+        }
+      })
     },
 
     //authority item 
@@ -439,8 +469,48 @@ export default {
       this.$http.post("/authority/addItems",request).then((response) =>{
         if(response.data.code == 200){
           this.authorityItemDialog = false;
+          if(response.data.code == 200){
+            let param = {id:null};
+            param.id = request.aId;
+            if(this.authorityItemFlag.flag == "C"){
+              this.communityItems(param);
+            }else{
+              this.wikiItems(param);
+            }
+          }
         }
       })
+    },
+
+    changeViewAndEditYn(item){
+      if(item.viewYn){
+        item.viewYn = 1
+      } else{
+        item.viewYn = 0;
+      }
+
+      if(item.editYn){
+        item.editYn = 1
+      } else{
+        item.editYn = 0;
+      }
+
+      let request = {
+        flag: null,
+        editYn : item.editYn,
+        viewYn : item.viewYn,
+        id : item.id,
+        memberId: null
+      }
+
+      request.flag = this.authorityItemFlag.flag;
+      request.memberId = this.member.id;
+      this.$http.put("/authority/editItem",request).then((response) => {
+        if(response.data.code != 200){
+          this.updateError(response.data.data);
+        }
+      })
+
     },
 
     updateError(error) {
