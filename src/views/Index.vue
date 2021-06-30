@@ -28,8 +28,8 @@
 export default {
   name: "Index",
   components: {
-    AppBar: () => import("@/components/communityCore/AppBar"),
-    Drawer: () => import("@/components/communityCore/Drawer"),
+    AppBar: () => import("@/components/community/AppBar"),
+    Drawer: () => import("@/components/community/Drawer"),
     Footer: () => import("@/components/com/Footer"),
   },
 };

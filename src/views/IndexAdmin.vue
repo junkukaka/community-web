@@ -19,7 +19,7 @@
 export default {
   name: "IndexAdmin",
   components: {
-    AppBar: () => import("@/components/adminCore/AppBar"),
+    AppBar: () => import("@/components/admin/AppBar"),
     Footer: () => import("@/components/com/Footer"),
   },
 

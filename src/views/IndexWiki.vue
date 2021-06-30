@@ -25,8 +25,8 @@
 export default {
   name: "IndexWiki",
   components: {
-    AppBar: () => import("@/components/wikiCore/AppBar"),
-    Drawer: () => import("@/components/wikiCore/Drawer"),
+    AppBar: () => import("@/components/wiki/AppBar"),
+    Drawer: () => import("@/components/wiki/Drawer"),
     Footer: () => import("@/components/com/Footer"),
   }
 };
