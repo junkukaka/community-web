@@ -106,12 +106,13 @@ export default {
     pages: 1,
     itemsPerPage: 20,
     wikis: [],
-
   }),
 
   created: function () {
-    this.menuId = this.$route.query.menuId;
-    this.initialize();
+    this.menuId = _.toNumber(this.$route.query.menuId);
+    if(this.$route.query.page != null){
+      this.page = _.toNumber(this.$route.query.page);
+    }
   },
 
   watch: {
@@ -123,23 +124,31 @@ export default {
     menuId: function () {
       this.initialize();
     },
+
+    page: function(){
+      this.$router.push(`/wiki/wikiList?menuId=${this.menuId}&page=${this.page}`);
+    }
   },
 
   methods: {
     initialize() {
-      let data = this;
+      let data  = this.$data
+      data.wikis = [] //清空
+      //请求参数
       let request = {
         params: {
           menuId: data.menuId,
           page: data.page,
           itemsPerPage: data.itemsPerPage
         } 
-      };
+      }
       
-      this.wikis = [];
       this.$nextTick(function () {
-        this.$http.get(`/wiki/wikis/${this.menuId}`).then((response) => {
+        this.$http.get('/wiki/wikis/pageList',request).then((response) => {
           this.wikis = response.data.data;
+            this.wikis = response.data.data.wikis;
+            this.page = response.data.data.page; //当前页面
+            this.pages = response.data.data.pages; //页数
         });
       });
     },

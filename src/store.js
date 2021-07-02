@@ -16,6 +16,7 @@ const store = new Vuex.Store({
       mainPaddingLeft: 256,
       mainPaddingRight: 300
     },
+    memberAlert:0,
     // 存储token
     Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : ''
   },

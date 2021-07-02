@@ -87,12 +87,14 @@ import DashboardVue from "../com/Dashboard.vue";
       pages: 1,
       itemsPerPage: 20,
       menuId: null,
-      menuName: "",
       items: []
     }),
 
     created(){
-      this.menuId = this.$route.query.menuId;
+      this.menuId = _.toNumber(this.$route.query.menuId);
+      if(this.$route.query.page != null){
+        this.page = _.toNumber(this.$route.query.page);
+      }
     },
 
     watch: {
@@ -106,7 +108,7 @@ import DashboardVue from "../com/Dashboard.vue";
       },
       
       page: function(){
-        this.initialize();
+        this.$router.push(`/community/communityList?menuId=${this.menuId}&page=${this.page}`)
       }
     },
 
@@ -131,7 +133,6 @@ import DashboardVue from "../com/Dashboard.vue";
               let newCommunitys = response.data.data.communitys;
               data.page = response.data.data.page; //当前页面
               data.pages = response.data.data.pages; //页数
-              data.menuName = response.data.data.menuName; //当前页面标题
               //添加下划线
               for(let i = 0; i < newCommunitys.length ; i++){
                   data.items.push(newCommunitys[i])

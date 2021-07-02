@@ -267,7 +267,10 @@ export default {
     this.getInfoCount();
     this.getMemberLikeAndCollect(); //member like or collected this community
     this.setMemberId();
-    
+    //如果是会员本人看就执行
+    if(this.community.memberId == this.$store.state.member.memberId){
+      this.readComment(this.community);
+    }
   },
 
   
@@ -442,7 +445,13 @@ export default {
     //to the my community edit
     editMyCommunity() {
       this.$router.push(`/community/communityEdit?menuId=${this.community.menuId}&id=${this.community.id}`);
-    }
+    },
+
+    readComment(item) {
+      this.$nextTick(function () {
+        this.$http.put(`/comment/readComment/${item.id}`);
+      });
+    },
   },
 };
 </script>

@@ -43,6 +43,11 @@ const routes = [
                 component: () => import('@/views/member/profile/Profile')
             },
             {
+                path: 'notifications',
+                name: 'Notifications',
+                component: () => import('@/views/member/notification/Notifications')
+            },
+            {
                 path: 'updatePassword',
                 name: 'UpdatePassword',
                 component: () => import('@/views/member/user/UpdatePassword')

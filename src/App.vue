@@ -3,36 +3,36 @@
 </template>
 
 <script>
-
 import { mapMutations } from "vuex";
 
 export default {
   name: "App",
   data: () => ({
-    memberToken: null
+    memberToken: null,
   }),
 
   beforeCreate() {
-     //如果用户改变了密码就推出登录
-    if (this.$store.state.member != null) {  
+    //如果用户改变了密码就推出登录
+    if (this.$store.state.member != null) {
       const u = this.$store.state.member;
-      this.$http
-        .post("/member/members/checkSession",u)
-        .then((response) => {
-            if (response.data.data.member == undefined || response.data.data.member == 0) {
-               this.$store.state.member = null;
-                //退出登录，清空token
-                this.dialog = false;
-                localStorage.removeItem("Authorization");
-                localStorage.removeItem("store");
-                this.$router.push('/signIn');
-                this.removeLogin();
-            }else{
-              this.$store.state.member = response.data.data.member;
-              this.memberToken = response.data.data.token;
-              this.changeLogin({ Authorization: this.memberToken }); 
-            }
-        });
+      this.$http.post("/member/members/checkSession", u).then((response) => {
+        if (
+          response.data.data.member == undefined ||
+          response.data.data.member == 0
+        ) {
+          this.$store.state.member = null;
+          //退出登录，清空token
+          this.dialog = false;
+          localStorage.removeItem("Authorization");
+          localStorage.removeItem("store");
+          this.$router.push("/signIn");
+          this.removeLogin();
+        } else {
+          this.$store.state.member = response.data.data.member;
+          this.memberToken = response.data.data.token;
+          this.changeLogin({ Authorization: this.memberToken });
+        }
+      });
     }
   },
 
@@ -48,36 +48,39 @@ export default {
       );
     }
 
-     if(!localStorage.getItem("Authorization")){
-        this.$store.state.member = null;
-        //退出登录，清空token
-        localStorage.removeItem("Authorization");
-        localStorage.removeItem("store");
-        this.$router.push("/signIn");
-     }
+    this.checkSession();
+    if(this.$store.state.member == null){
+      this.logout();
+    }
 
     //在页面刷新时将vuex里的信息保存到localStorage里
     window.addEventListener("beforeunload", () => {
       localStorage.setItem("store", JSON.stringify(this.$store.state));
     });
-
     this.$store.state.clientWith = document.body.clientWidth;
-
     this.pageResize();
   },
 
   watch: {
-    '$store.state.clientWith': function(clientWith){
-      if(clientWith >= 1264) {
+    "$store.state.clientWith": function (clientWith) {
+      if (clientWith >= 1264) {
         this.$store.state.ifMobile = true;
-      }else{
+      } else {
         this.$store.state.ifMobile = false;
       }
-    }
+    },
   },
 
-   methods: {
-    ...mapMutations(["changeLogin","removeLogin"]),
+  mounted() {
+    let that = this; //赋值vue的this
+    window.onresize = () => {
+      //调用methods中的事件
+      that.pageResize();
+    };
+  },
+
+  methods: {
+    ...mapMutations(["changeLogin", "removeLogin"]),
 
     pageResize() {
       let screenWidth = document.body.clientWidth;
@@ -91,14 +94,23 @@ export default {
         this.$store.state.window.mainPaddingRight = 270;
       }
     },
-  },
 
-  mounted() {
-    let that = this; //赋值vue的this
-    window.onresize = () => {
-      //调用methods中的事件
-      that.pageResize();
-    };
+    checkSession() {
+      const token = localStorage.getItem("token");
+      this.$http.get(`/member/memberVerify/${token}`).then((response) => {
+        if (response.data.data == 0) {
+          this.logout();
+        }
+      });
+    },
+
+    logout() {
+      this.$store.state.member = null;
+      //退出登录，清空token
+      localStorage.removeItem("Authorization");
+      localStorage.removeItem("store");
+      this.$router.push("/signIn");
+    },
   },
 };
 </script>
@@ -118,8 +130,9 @@ export default {
   color: black !important;
 }
 
-.rightBottomArea{
-  right: 26px; bottom: 26px
+.rightBottomArea {
+  right: 26px;
+  bottom: 26px;
 }
 
 .anchorArea .contentsBorder a {
@@ -147,15 +160,16 @@ export default {
   text-decoration: none;
 }
 
-.containerMaxWith{
-  margin: 0 auto; max-width: 1700px;
+.containerMaxWith {
+  margin: 0 auto;
+  max-width: 1700px;
 }
 
-.containerPadding{
+.containerPadding {
   padding: 12px 6px !important;
 }
 
-.wikiListBorder{
+.wikiListBorder {
   border-color: #1976d2;
   border-left-width: 0.26rem;
   border-left-style: solid;

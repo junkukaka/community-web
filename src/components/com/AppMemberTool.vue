@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-0 d-flex justify-end" style="padding-bottom:0 !important">
+  <div class="pa-0 d-flex justify-end" style="padding-bottom: 0 !important">
     <v-text-field
       v-model="searchContent"
       append-icon="mdi-magnify"
@@ -7,22 +7,31 @@
       single-line
       hide-details
       class="mr-3 ml-3 pt-2"
-      style="max-width:60%;"
+      style="max-width: 60%"
       @keyup.native.enter="searching"
     ></v-text-field>
     <v-menu right bottom offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" class="mr-1">
-          <v-avatar size="43" v-if="$store.state.member != null">
-            <img
-              :src="`${$store.state.member.picture}`"
-              v-if="$store.state.member.picture != null"
-              :alt="`photo`"
-            />
-            <v-icon dark v-if="$store.state.member.picture == null">
-              mdi-account-circle
-            </v-icon>
-          </v-avatar>
+          <v-badge
+            bordered
+            bottom
+            color="green accent-4"
+            dot
+            :offset-x="$store.state.memberAlert > 0 ? 10 : 10000"
+            offset-y="10"
+          >
+            <v-avatar size="43" v-if="$store.state.member != null">
+              <img
+                :src="`${$store.state.member.picture}`"
+                v-if="$store.state.member.picture != null"
+                :alt="`photo`"
+              />
+              <v-icon dark v-if="$store.state.member.picture == null">
+                mdi-account-circle
+              </v-icon>
+            </v-avatar>
+          </v-badge>
           <v-avatar color="#EEEEEE" v-if="$store.state.member == null">
             <v-icon dark> mdi-account-circle </v-icon>
           </v-avatar>
@@ -30,6 +39,11 @@
       </template>
 
       <v-list>
+        <v-list-item to="/notifications" v-if="$store.state.member != null">
+          <v-list-item-title>
+            <v-badge color="green" :content="$store.state.memberAlert">Notifications </v-badge>
+          </v-list-item-title>
+        </v-list-item>
         <v-list-item to="/community/profile" v-if="$store.state.member != null">
           <v-list-item-title>커뮤니티 프로파일</v-list-item-title>
         </v-list-item>
@@ -73,7 +87,24 @@ export default {
     searchContent: null,
   }),
 
+  created() {
+    this.member = this.$store.state.member;
+    if (this.$store.state.member != null) {
+      this.initialize();
+    }
+  },
+
+  watch: {
+    "$store.state.memberAlert": function (newVal) {
+      console.log(newVal);
+    },
+  },
+
   methods: {
+    initialize() {
+      this.getMyCommunityCommentCount();
+    },
+
     signOut() {
       this.$store.state.member = null;
       //退出登录，清空token
@@ -85,6 +116,14 @@ export default {
     myInfo() {
       let id = this.$store.state.member.id;
       this.$router.push(`/memberInfo?id=${id}`);
+    },
+
+    getMyCommunityCommentCount() {
+      this.$http
+        .get(`/comment/getMyCommunityCommentCount/${this.member.id}`)
+        .then((response) => {
+          this.$store.state.memberAlert = response.data.data;
+        });
     },
 
     searching() {
