@@ -63,7 +63,7 @@
         //请求参数
         let request = {
             menuId: null,
-            size: 15
+            size: 20
         }
         this.$nextTick(function(){
           this.$http.post("/community/communitys/mainPage",request)

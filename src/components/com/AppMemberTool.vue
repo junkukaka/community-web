@@ -10,7 +10,7 @@
       style="max-width: 60%"
       @keyup.native.enter="searching"
     ></v-text-field>
-    <v-menu right bottom offset-y>
+    <v-menu right bottom offset-y transition="slide-x-reverse-transition">
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" class="mr-1">
           <v-badge
@@ -39,7 +39,7 @@
       </template>
 
       <v-list>
-        <v-list-item to="/notifications" v-if="$store.state.member != null">
+        <v-list-item to="/notifications" v-if="$store.state.member != null" v-show="$store.state.memberAlert > 0">
           <v-list-item-title>
             <v-badge color="green" :content="$store.state.memberAlert">Notifications </v-badge>
           </v-list-item-title>
@@ -85,6 +85,7 @@ export default {
     ],
     searchFlag: "COMMUNITY",
     searchContent: null,
+    timer: '',
   }),
 
   created() {
@@ -96,11 +97,21 @@ export default {
 
   watch: {
     "$store.state.memberAlert": function (newVal) {
-      console.log(newVal);
+      this.getMyCommunityCommentCount();
     },
   },
 
+  mounted(){
+    //반시간 한번씩 실행
+    this.timer = setInterval(this.getMyCommunityCommentCount,1800000)
+  },
+
+  beforeDestroy() {
+    clearInterval(this.timer);
+  },
+
   methods: {
+
     initialize() {
       this.getMyCommunityCommentCount();
     },

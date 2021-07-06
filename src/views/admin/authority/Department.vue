@@ -49,10 +49,13 @@
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.authority"
-                        label="Authority"
-                      ></v-text-field>
+                        <v-select
+                          v-model="editedItem.authority"
+                          :items="authorities"
+                          item-text="name"
+                          item-value="id"
+                          label="권한"
+                        ></v-select>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -118,9 +121,11 @@ export default {
     headers: [
       { text: "id", align: "start", value: "id"},
       { text: "name", value: "name" },
-      { text: "authority", value: "authority" },
+      { text: "권한아이디", value: "authority" },
+      { text: "권한이름", value: "authorityName" },
       { text: "Actions", value: "actions", sortable: false },
     ],
+    authorities: [],
     departments: [],
     editedIndex: -1,
     editedItem: {
@@ -145,6 +150,7 @@ export default {
   created() {
     this.member = this.$store.state.member;
     this.initialize();
+    this.getAuthorities();
   },
 
   methods: {
@@ -152,6 +158,14 @@ export default {
       this.$http.get("/authority/getDepartments").then((response) => {
         this.departments = response.data.data;
       });
+    },
+
+    getAuthorities(){
+      this.$nextTick(function(){
+        this.$http.get("/authority/getAuthority").then((response) => {
+          this.authorities = response.data.data;
+        })
+      })
     },
 
     editItem(item) {
@@ -199,6 +213,7 @@ export default {
     save() {
       //update department;
       if (this.editedIndex > 0) {
+        console.log(this.editedItem);
         this.$http
           .put("/authority/editDepartments", this.editedItem)
           .then((response) => {

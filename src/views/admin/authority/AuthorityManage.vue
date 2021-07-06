@@ -39,12 +39,23 @@
                   <v-card-text>
                     <v-container>
                       <v-row>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col cols="12" sm="6" md="6">
+                          <v-select
+                            v-model="authorityEdited.id"
+                            :items="authorityIds"
+                            append-outer-icon="mdi-map"
+                            menu-props="auto"
+                            hide-details
+                            label="Id"
+                            single-line
+                          ></v-select>
+                        </v-col>  
+                        <v-col cols="12" sm="6" md="6">
                           <v-text-field
                             v-model="authorityEdited.name"
                             label="Name"
                           ></v-text-field>
-                        </v-col>
+                        </v-col>  
                       </v-row>
                     </v-container>
                   </v-card-text>
@@ -265,9 +276,12 @@ export default {
     authority: [],
     authorityEditedIndex: -1,
     authorityEdited: {
+      id: null,
       name: "",
       updateId: null,
     },
+    authorityIdsCheck:[],
+    authorityIds:[],
 
     //선택중의 권한 flag == C 커뮤니티 flag == W 위키  aId는 권한 master id
     authorityItemFlag: {
@@ -278,9 +292,9 @@ export default {
     authorityItemHeaders: [
       { text: "authorityName", value: "authorityName" },
       { text: "menuName", value: "menuName" },
-      { text: "view", align: "center", value: "viewYn" },
-      { text: "edit", align: "center", value: "editYn" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "view", align: "left", value: "viewYn" },
+      { text: "edit", align: "left", value: "editYn" },
+      { text: "Actions", value: "actions", align: "center", sortable: false },
     ],
     authorityItems: [],
     selectionType: 'leaf',
@@ -317,7 +331,19 @@ export default {
     initialize() {
       this.$http.get("/authority/getAuthority").then((response) => {
         this.authority = response.data.data;
+        for (const obj of this.authority) {
+          this.authorityIdsCheck.push(_.toNumber(obj.id));
+        }
+         this.setAuthorityIds();
       });
+    },
+
+    setAuthorityIds(){
+      for(let i = 0; i < 10; i++){
+        if(_.indexOf(this.authorityIdsCheck,i) < 0){
+          this.authorityIds.push(i);
+        }
+      }
     },
 
     authorityEditItem(item) {
@@ -362,6 +388,7 @@ export default {
 
     //master authority
     authoritySave() {
+      this.authorityEdited.updateId = this.member.id;
       //update department;
       if (this.authorityEditedIndex > 0) {
         this.$http
@@ -515,7 +542,7 @@ export default {
 
     updateError(error) {
       this.popMsg.dialog = true;
-      this.popMsg.title = "Warning Message";
+      this.popMsg.title = "Error Message";
       this.popMsg.content = error;
     },
   },

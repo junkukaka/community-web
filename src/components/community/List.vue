@@ -108,7 +108,8 @@ import DashboardVue from "../com/Dashboard.vue";
       },
       
       page: function(){
-        this.$router.push(`/community/communityList?menuId=${this.menuId}&page=${this.page}`)
+        this.$router.push(`/community/communityList?menuId=${this.menuId}&page=${this.page}`);
+        this.initialize();
       }
     },
 

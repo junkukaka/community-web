@@ -2,9 +2,8 @@
   <v-card flat>
     <div style="margin: -10px 0 0">
       <!-- dashboard -->
-      <dashboard-vue/>
+      <dashboard-vue />
     </div>
-    
 
     <v-card flat>
       <v-list-item three-line>
@@ -14,7 +13,9 @@
               community.registerTime | date-format("yyyy-mm-dd hh:mi:ss")
             }}
           </div>
-          <v-list-item-title class="headline mb-3 text-h3 ">{{community.title }}</v-list-item-title>
+          <v-list-item-title class="headline mb-3 text-h3">{{
+            community.title
+          }}</v-list-item-title>
           <v-list-item-subtitle class="text-overline font-weight-regular">
             <span class="mr-3"> {{ comInfoCount.hitsCount }} Views</span>
             <span class="mr-3"> {{ comInfoCount.collectCount }} Comments</span>
@@ -25,7 +26,7 @@
       </v-list-item>
       <v-card-actions style="padding: 0px">
         <v-list-item class="grow">
-          <v-list-item-avatar >
+          <v-list-item-avatar>
             <v-avatar size="43" v-if="community.picture">
               <img :src="community.picture" :alt="`photo`" />
             </v-avatar>
@@ -36,8 +37,8 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title> 
-              {{ community.memberName }} 
+            <v-list-item-title>
+              {{ community.memberName }}
             </v-list-item-title>
           </v-list-item-content>
           <v-row align="center" justify="end">
@@ -52,36 +53,35 @@
       <v-divider class="ml-3"></v-divider>
       <!-- v-mditor start  -->
       <!-- preview -->
-     
-        <v-card flat>
-          <v-md-editor
-            v-model="community.content"
-            mode="preview"
-            ref="editor"
-          />
-        </v-card>
 
-       <!-- anchor -->
-        <div class="anchorArea" v-if="titles.length > 0" v-show="$store.state.ifMobile">
-          <h6 class="text-h6 pb-1">Contents</h6>
-          <div style="" class="d-none ml-3 d-lg-block">
-            <div
-              v-for="(anchor, i) in titles"
-              :key="i"
-              :style="{ padding: `0 0 0 ${anchor.indent * 17 + 10}px` }"
-              @click="handleAnchorClick(anchor)"
-              :class="{
-                contentsBorder: anchor.lineIndex == contentsTitle,
-                normalBorder: anchor.lineIndex != contentsTitle,
-              }"
-            >
-              <a> {{ anchor.title }} {{anchor.top}} </a>
-            </div>
+      <v-card flat>
+        <v-md-editor v-model="community.content" mode="preview" ref="editor" />
+      </v-card>
+
+      <!-- anchor -->
+      <div
+        class="anchorArea"
+        v-if="titles.length > 0"
+        v-show="$store.state.ifMobile"
+      >
+        <h6 class="text-h6 pb-1">Contents</h6>
+        <div style="" class="d-none ml-3 d-lg-block">
+          <div
+            v-for="(anchor, i) in titles"
+            :key="i"
+            :style="{ padding: `0 0 0 ${anchor.indent * 17 + 10}px` }"
+            @click="handleAnchorClick(anchor)"
+            :class="{
+              contentsBorder: anchor.lineIndex == contentsTitle,
+              normalBorder: anchor.lineIndex != contentsTitle,
+            }"
+          >
+            <a> {{ anchor.title }} {{ anchor.top }} </a>
           </div>
         </div>
-        <!-- anchor  end -->
-      
-      
+      </div>
+      <!-- anchor  end -->
+
       <v-divider></v-divider>
       <!-- v-mditor end  -->
     </v-card>
@@ -111,7 +111,7 @@
     </v-dialog>
     <!-- comment write area  end-->
 
-    <files-list-vue v-bind:parent="filesObj"/>
+    <files-list-vue v-bind:parent="filesObj" />
 
     <!-- comment list area -->
     <v-card flat>
@@ -127,7 +127,9 @@
           <v-list-item v-else :key="index">
             <v-list-item-avatar>
               <v-avatar color="#E0E0E0" v-if="item.picture == ''">
-                <v-icon dark class="mr-2" size="52"> mdi-account-circle </v-icon>
+                <v-icon dark class="mr-2" size="52">
+                  mdi-account-circle
+                </v-icon>
               </v-avatar>
               <v-avatar v-if="item.picture != ''">
                 <img :src="item.picture" :alt="`photo`" />
@@ -136,7 +138,9 @@
 
             <v-list-item-content>
               <v-list-item-title>{{ item.member_name }}</v-list-item-title>
-              <v-list-item-subtitle v-html="`${item.content.replace(/\n/g,'<br/>')}`"></v-list-item-subtitle>
+              <v-list-item-subtitle
+                v-html="`${item.content.replace(/\n/g, '<br/>')}`"
+              ></v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-action>
@@ -214,7 +218,7 @@ import DashboardVue from "../com/Dashboard";
 import FilesListVue from "../com/FilesList";
 
 export default {
-  components: { DashboardVue,FilesListVue },
+  components: { DashboardVue, FilesListVue },
 
   data: () => ({
     community: {},
@@ -227,6 +231,7 @@ export default {
       communityId: null,
       content: "",
     },
+    member: {},
     commentRules: [
       (v) => !!v || "comment is required",
       (v) =>
@@ -246,10 +251,10 @@ export default {
       commentCount: 0,
     },
     contentsTitle: 0,
-    filesObj:{
+    filesObj: {
       id: null,
-      flag: "C"
-    }
+      flag: "C",
+    },
   }),
 
   created() {
@@ -259,7 +264,8 @@ export default {
     this.filesObj.id = this.$route.query.id;
     //comInfo
     this.comInfo.communityId = this.$route.query.id;
-    
+    this.member = this.$store.state.member;
+
     this.scrollTop = document.documentElement.scrollTop;
     this.getCommunity();
     this.getComments();
@@ -267,24 +273,19 @@ export default {
     this.getInfoCount();
     this.getMemberLikeAndCollect(); //member like or collected this community
     this.setMemberId();
-    //如果是会员本人看就执行
-    if(this.community.memberId == this.$store.state.member.memberId){
-      this.readComment(this.community);
-    }
   },
 
-  
   mounted() {
-    let br; 
+    let br;
     let i = 0;
     //try 10s
-    while(i < 7){
+    while (i < 7) {
       br = this.$refs.editor.$el.querySelectorAll(
         ".v-md-editor-preview h1,h2,h3,h4"
       );
-      //加载导航  
+      //加载导航
       this.sleep(1000).then(() => {
-      // 这里写sleep之后需要去做的事情
+        // 这里写sleep之后需要去做的事情
         const anchors = this.$refs.editor.$el.querySelectorAll(
           ".v-md-editor-preview h1,h2,h3,h4,h5,h6"
         );
@@ -296,7 +297,7 @@ export default {
           this.titles = [];
           return;
         }
-        
+
         const hTags = Array.from(
           new Set(titles.map((title) => title.tagName))
         ).sort();
@@ -306,27 +307,25 @@ export default {
           lineIndex: el.getAttribute("data-v-md-line"),
           indent: hTags.indexOf(el.tagName),
         }));
-      })
+      });
 
       //由于网页加载可能有延迟，导航加载时间会出现延迟。
-      if(br.length > 0){
+      if (br.length > 0) {
         break;
       }
 
       i++;
     }
-
-    
   },
 
   methods: {
     ...mapGetters(["getMember"]),
 
-    sleep (time) {
+    sleep(time) {
       return new Promise((resolve) => setTimeout(resolve, time));
     },
 
-    setMemberId(){
+    setMemberId() {
       this.comment.memberId = this.getMember().id; //用户ID 赋值
       this.comInfo.memberId = this.getMember().id; //用户ID 赋值
     },
@@ -355,6 +354,10 @@ export default {
         .get(`/community/communitys/${this.community.id}`)
         .then((response) => {
           this.community = response.data.data;
+          //如果是会员本人看就执行
+          if (this.community.memberId == this.member.id) {
+            this.readComment(this.community);
+          }
         });
     },
 
@@ -444,12 +447,27 @@ export default {
 
     //to the my community edit
     editMyCommunity() {
-      this.$router.push(`/community/communityEdit?menuId=${this.community.menuId}&id=${this.community.id}`);
+      this.$router.push(
+        `/community/communityEdit?menuId=${this.community.menuId}&id=${this.community.id}`
+      );
     },
 
     readComment(item) {
       this.$nextTick(function () {
-        this.$http.put(`/comment/readComment/${item.id}`);
+        this.$http.put(`/comment/readComment/${item.id}`).then(() => {
+          this.getCommunityComment();
+        });
+      });
+    },
+
+    //如果是本人，就更新notification
+    getCommunityComment() {
+      this.$nextTick(function () {
+        this.$http
+          .get(`/comment/getMyCommunityCommentCount/${this.member.id}`)
+          .then((response) => {
+            this.$store.state.memberAlert = response.data.data;
+          });
       });
     },
   },

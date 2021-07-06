@@ -53,11 +53,11 @@
                         <v-img
                           :src="item.picture"
                           contain
-                          v-show="item.picture != null"
-                        ></v-img>
+                          v-show="item.picture != null && item.picture != ''"
+                        ></v-img> 
                         <v-img
                           src="../../assets/wiki.jpg"
-                          v-show="item.picture == null"
+                          v-show="item.picture == null || item.picture == ''"
                         ></v-img>
                       </v-avatar>
                     </div>
@@ -127,6 +127,7 @@ export default {
 
     page: function(){
       this.$router.push(`/wiki/wikiList?menuId=${this.menuId}&page=${this.page}`);
+      this.initialize();
     }
   },
 
@@ -145,10 +146,10 @@ export default {
       
       this.$nextTick(function () {
         this.$http.get('/wiki/wikis/pageList',request).then((response) => {
-          this.wikis = response.data.data;
             this.wikis = response.data.data.wikis;
             this.page = response.data.data.page; //当前页面
             this.pages = response.data.data.pages; //页数
+            console.log(this.wikis);
         });
       });
     },
