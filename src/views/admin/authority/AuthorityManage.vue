@@ -447,11 +447,11 @@ export default {
     authorityItemNew(){
       //community
       if(this.authorityItemFlag.flag === "C"){
-        this.$http.get("/communityMenu/menus/tree").then((response) => {
+        this.$http.get("/communityMenu/menus/getAllMenuTree").then((response) => {
           this.menus = response.data.data;
         });
       }else{
-        this.$http.get("/wikiMenu/menus/tree").then((response) => {
+        this.$http.get("/wikiMenu/menus/getAllMenuTree").then((response) => {
           this.menus = response.data.data;
         });
       }

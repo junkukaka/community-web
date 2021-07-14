@@ -19,8 +19,7 @@
 
     <v-treeview
       activatable
-      :items="menu"
-      
+      :items="$store.state.wikiMenus"
       open-all.lazy="!drawer"
       hoverable
       class="my-3"
@@ -46,18 +45,15 @@ export default {
   }),
 
   created: function () {
-    this.initialize();
+    // this.initialize();
   },
 
   methods: {
     //初始化方法
     initialize: function () {
       let data = this.$data;
-      let request = {
-        tier: 1,
-      };
       if(this.menu.length === 0){
-        this.$http.get("/wikiMenu/menus/tree").then(function (response) {
+        this.$http.get(`/wikiMenu/menus/tree/${this.member.authority}`).then(function (response) {
           data.menu = response.data.data;
         });
       }

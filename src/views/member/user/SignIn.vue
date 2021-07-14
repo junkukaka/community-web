@@ -107,10 +107,11 @@ export default {
               data.dialogTitle = `Hello ${response.data.data.member.memberName} Welcome to ASPN`;
               //给store member 赋值
               that.$store.state.member = response.data.data.member;
+              that.member = response.data.data.member;
               that.memberToken = response.data.data.token;
               //将用户token保存到vuex中
               that.changeLogin({ Authorization: that.memberToken });
-   
+              this.getMemberMenuTree();
             } else {
               data.dialogTitle = "login ID or password is fail";
               data.dialog = true;
@@ -118,6 +119,17 @@ export default {
           })
           .catch((err) => console.log(err));
       }
+    },
+
+    getMemberMenuTree(){
+      //get wiki menu
+      this.$http.get(`/wikiMenu/menus/tree/${this.member.authority}`).then((response) =>{
+        this.$store.state.wikiMenus = response.data.data;
+      });
+      //get community menu
+      this.$http.get(`/communityMenu/menus/tree/${this.member.authority}`).then((response) => {
+        this.$store.state.communityMenus = response.data.data;
+      });
     },
 
     //关闭弹窗

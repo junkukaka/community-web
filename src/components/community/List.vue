@@ -47,7 +47,7 @@
           </template>
         </v-list>
 
-        <v-fab-transition>
+        <v-fab-transition v-if="memberAuthority.editYn === 1">
           <router-link :to="`/community/communityEdit?menuId=${menuId}`">
             <v-btn
               color="primary"
@@ -87,7 +87,9 @@ import DashboardVue from "../com/Dashboard.vue";
       pages: 1,
       itemsPerPage: 20,
       menuId: null,
-      items: []
+      items: [],
+      member:{},
+      memberAuthority: {}
     }),
 
     created(){
@@ -95,6 +97,7 @@ import DashboardVue from "../com/Dashboard.vue";
       if(this.$route.query.page != null){
         this.page = _.toNumber(this.$route.query.page);
       }
+      this.member = this.$store.state.member;
     },
 
     watch: {
@@ -105,6 +108,7 @@ import DashboardVue from "../com/Dashboard.vue";
 
       menuId: function(){
         this.initialize();
+        this.getMemberAuthority();
       },
       
       page: function(){
@@ -125,7 +129,8 @@ import DashboardVue from "../com/Dashboard.vue";
           params: {
             menuId: data.menuId,
             page: data.page,
-            itemsPerPage: data.itemsPerPage
+            itemsPerPage: data.itemsPerPage,
+            authority: data.member.authority
           } 
         }
         this.$nextTick(function(){
@@ -142,9 +147,28 @@ import DashboardVue from "../com/Dashboard.vue";
             })
         });
       },
+
+      getMemberAuthority(){
+        let data = this.$data;
+        let request = {
+          params: {
+            menuId : data.menuId,
+            authority : data.member.authority
+          } 
+        }
+        this.$nextTick(function () {
+          this.$http.get("/authority/getMemberCommunityAuthority",request).then((response) => {
+            this.memberAuthority = response.data.data;
+            console.log(this.memberAuthority);
+            if(this.memberAuthority.viewYn != 1){
+              this.$router.go(-1);
+            }
+          });
+        });
+      }
+
+
+
     }
-
-
-   
   }
 </script>

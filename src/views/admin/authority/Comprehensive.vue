@@ -6,11 +6,11 @@
       </v-tab>
     </v-tabs>
     <v-tabs-items v-model="tabs">
-      <v-tab-item>
-        <department />
+       <v-tab-item>
+        <authority-manage />
       </v-tab-item>
       <v-tab-item>
-        <authority-manage />
+        <department />
       </v-tab-item>
     </v-tabs-items>
   </v-card>

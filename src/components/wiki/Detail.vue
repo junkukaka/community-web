@@ -42,6 +42,7 @@
       transition="slide-y-reverse-transition"
       fixed
       class="rightBottomArea"
+      v-if="this.memberAuthority.editYn == 1"
     >
       <template v-slot:activator>
         <v-btn v-model="fab" color="blue darken-2" dark fab>
@@ -92,10 +93,13 @@ export default {
     timeLineDialog: false,
     fab: false,
     contentsTitle: 0,
+    member: {},
+    memberAuthority: {}
   }),
 
   created() {
     this.wikiId = this.$route.query.wikiId;
+    this.member = this.$store.state.member;
     this.getWikiHisDetail();
   },
 
@@ -169,8 +173,26 @@ export default {
     getWikiHisDetail() {
       this.$http.get(`/wiki/wikiDetail/${this.wikiId}`).then((response) => {
         this.wikiHis = response.data.data;
+        this.getMemberAuthority();
       });
     },
+
+    getMemberAuthority(){
+      let data = this.$data;
+      let request = {
+        params: {
+          menuId : data.wikiHis.menuId,
+          authority : data.member.authority
+        } 
+      }
+      this.$http.get("/authority/getMemberWikiAuthority",request).then((response) => {
+        this.memberAuthority = response.data.data;
+        if(this.memberAuthority.viewYn != 1){
+            this.$router.go(-1);
+        }
+      });
+
+    }
 
   },
 };

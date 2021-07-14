@@ -32,11 +32,11 @@
         </v-btn>
       </v-col>
 
-      <!-- <v-col>
+      <v-col>
         <v-btn to="/aspnAdmin/authorityComprehensive" text>
           <span>권한 관리</span>
         </v-btn>
-      </v-col> -->
+      </v-col>
 
     </v-row>
 

@@ -70,7 +70,7 @@
       </v-row>
     </v-card>
 
-    <v-fab-transition>
+    <v-fab-transition v-if="memberAuthority.editYn === 1">
       <router-link :to="`/wiki/wikiEdit?menuId=${menuId}`">
         <v-btn color="primary" large fab fixed class="rightBottomArea">
           <v-icon>mdi-pencil</v-icon>
@@ -106,6 +106,8 @@ export default {
     pages: 1,
     itemsPerPage: 20,
     wikis: [],
+    member: {},
+    memberAuthority: {}
   }),
 
   created: function () {
@@ -113,6 +115,7 @@ export default {
     if(this.$route.query.page != null){
       this.page = _.toNumber(this.$route.query.page);
     }
+    this.member = this.$store.state.member;
   },
 
   watch: {
@@ -123,6 +126,7 @@ export default {
 
     menuId: function () {
       this.initialize();
+      this.getMemberAuthority();
     },
 
     page: function(){
@@ -140,19 +144,39 @@ export default {
         params: {
           menuId: data.menuId,
           page: data.page,
-          itemsPerPage: data.itemsPerPage
+          itemsPerPage: data.itemsPerPage,
+          authority: data.member.authority
         } 
       }
       
+     
+      this.$http.get('/wiki/wikis/pageList',request).then((response) => {
+          this.wikis = response.data.data.wikis;
+          this.page = response.data.data.page; //当前页面
+          this.pages = response.data.data.pages; //页数
+          
+      });
+     
+    },
+
+    getMemberAuthority(){
+      let data = this.$data;
+      let request = {
+        params: {
+          menuId : data.menuId,
+          authority : data.member.authority
+        } 
+      }
       this.$nextTick(function () {
-        this.$http.get('/wiki/wikis/pageList',request).then((response) => {
-            this.wikis = response.data.data.wikis;
-            this.page = response.data.data.page; //当前页面
-            this.pages = response.data.data.pages; //页数
-            console.log(this.wikis);
+        this.$http.get("/authority/getMemberWikiAuthority",request).then((response) => {
+          this.memberAuthority = response.data.data;
+          if(this.memberAuthority.viewYn != 1){
+             this.$router.go(-1);
+          }
         });
       });
-    },
+    }
+    
   },
 };
 </script>

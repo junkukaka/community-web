@@ -88,17 +88,28 @@ export default {
   data: () => ({
     wikis: [],
     count: 20,
+    member: {}
   }),
 
   created: function () {
+    this.member = this.$store.state.member;
     this.initialize();
   },
 
   methods: {
     initialize() {
+      let data  = this.$data;
+      //请求参数
+      let request = {
+        params: {
+          count: data.count,
+          authority: data.member.authority
+        } 
+      }
+
       this.wikis = [];
       this.$nextTick(function () {
-        this.$http.get(`/wiki/wikiMain/${this.count}`).then((response) => {
+        this.$http.get(`/wiki/wikiMain`,request).then((response) => {
           this.wikis = response.data.data;
         });
       });

@@ -9,6 +9,7 @@ export default {
   name: "App",
   data: () => ({
     memberToken: null,
+    member: {}
   }),
 
   beforeCreate() {
@@ -51,6 +52,9 @@ export default {
     this.checkSession();
     if(this.$store.state.member == null){
       this.logout();
+    }else{
+      this.member = this.$store.state.member;
+      this.getMemberMenuTree();
     }
 
     //在页面刷新时将vuex里的信息保存到localStorage里
@@ -98,9 +102,20 @@ export default {
     checkSession() {
       const token = localStorage.getItem("token");
       this.$http.get(`/member/memberVerify/${token}`).then((response) => {
-        if (response.data.data == 0) {
+        if (response.data.data < 1 || response.data.code == "50000") {
           this.logout();
         }
+      });
+    },
+
+    getMemberMenuTree(){
+      //get wiki menu
+      this.$http.get(`/wikiMenu/menus/tree/${this.member.authority}`).then((response) =>{
+        this.$store.state.wikiMenus = response.data.data;
+      });
+      //get community menu
+      this.$http.get(`/communityMenu/menus/tree/${this.member.authority}`).then((response) => {
+        this.$store.state.communityMenus = response.data.data;
       });
     },
 

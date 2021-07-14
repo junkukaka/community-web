@@ -19,7 +19,7 @@
 
     <v-treeview
       activatable
-      :items="menu"
+      :items="$store.state.communityMenus"
       
       open-all.lazy="!drawer"
       hoverable
@@ -42,11 +42,13 @@
 <script>
 export default {
   data: () => ({
-    menu: []
+    menu: [],
+    member:{}
   }),
 
   created: function () {
-    this.initialize();
+    this.member = this.$store.state.member;
+    // this.initialize();
   },
 
   methods: {
@@ -54,7 +56,7 @@ export default {
     initialize: function () {
       let data = this.$data;
       if(this.menu.length === 0){
-        this.$http.get("/communityMenu/menus/tree").then(function (response) {
+        this.$http.get(`/communityMenu/menus/tree/${this.member.authority}`).then(function (response) {
           data.menu = response.data.data;
         });
       }

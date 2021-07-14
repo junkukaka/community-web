@@ -50,10 +50,13 @@
 <script>
   export default {
     data: () => ({
-      items: []
+      items: [],
+      count: 20,
+      member: {}
     }),
 
     created(){
+      this.member = this.$store.state.member;
       this.initialize();
     },
 
@@ -61,13 +64,21 @@
       //初始化方法
       initialize(){
         //请求参数
+        let data  = this.$data;
+        //请求参数
         let request = {
-            menuId: null,
-            size: 20
+          params: {
+            count: data.count,
+            authority: data.member.authority
+          } 
         }
+
         this.$nextTick(function(){
-          this.$http.post("/community/communitys/mainPage",request)
+          this.$http.get("/community/communitys/mainPage",request)
             .then((response)=>{
+              if(response.data.code == "50000"){
+                this.logout();
+              }
               const communitys = response.data.data;
               for(let i = 0; i < communitys.length ; i++){
                   this.items.push(communitys[i])
@@ -76,6 +87,15 @@
             })
         });
       },
+
+      logout() {
+        this.$store.state.member = null;
+        //退出登录，清空token
+        localStorage.removeItem("Authorization");
+        localStorage.removeItem("store");
+        this.$router.push("/signIn");
+      },
+      
     }
   }
 </script>
