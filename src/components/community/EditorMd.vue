@@ -182,10 +182,12 @@ export default {
     menu:{
       name:null,
       id:null
-    }
+    },
+    member: {}
   }),
 
   created() {
+    this.member = this.$store.state.member;
     this.community.menuId = this.$route.query.menuId;
     this.community.memberId = this.$store.state.member.id;
     this.community.id = this.$route.query.id;
@@ -221,7 +223,7 @@ export default {
         .get(`/community/communitys/${this.community.id}`)
         .then((response)=> {
           this.community = response.data.data;
-           if(this.community.docId != null){
+           if(this.community.docId != ""){
               this.selectFilesList();
             } 
         });
@@ -238,8 +240,15 @@ export default {
     },
 
     getMenuTee(){
+      let data = this.$data;
+      let request = {
+        params: {
+          authority: data.member.authority,
+          flag: 1,
+        },
+      };
       if(this.menus.length === 0){
-        this.$http.get("/communityMenu/menus/tree").then((response) => {
+        this.$http.get("/communityMenu/menus/tree",request).then((response) => {
           this.menus= response.data.data;
         });
       }

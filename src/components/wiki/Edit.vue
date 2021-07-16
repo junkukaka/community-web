@@ -173,6 +173,7 @@ export default {
       active: false,
       hisYn: 0
     },
+    member: {},
     oldContent:"",
     memberId : null,
     avatar: null,
@@ -222,6 +223,7 @@ export default {
   },
 
   created: function () {
+    this.member = this.$store.state.member;
     this.wikiHis.menuId = this.$route.query.menuId;
     this.memberId = this.$store.state.member.id;
     this.wikiHis.id = this.$route.query.id;
@@ -256,8 +258,15 @@ export default {
     },
 
     getMenuTee(){
+      let data = this.$data;
+      let request = {
+        params: {
+          authority: data.member.authority,
+          flag: 1,
+        },
+      };
       if(this.menus.length === 0){
-        this.$http.get("/wikiMenu/menus/tree").then((response) => {
+        this.$http.get("/wikiMenu/menus/tree",request).then((response) => {
           this.menus= response.data.data;
         });
       }

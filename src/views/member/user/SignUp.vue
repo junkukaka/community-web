@@ -78,7 +78,7 @@
     </v-form>
 
     <div class="text-center">
-      <v-dialog v-model="dialog" width="500">
+      <v-dialog v-model="dialog" width="500" persistent>
         <v-card>
           <v-card-title class="headline">
             {{ dialogTitle }}
@@ -164,7 +164,6 @@ export default {
         this.dialogMsg = "please check your password and confirm password";
         return false;
       }
-      console.log(this.member);
       let data = this.$data;
       if (val) {
         this.$http
@@ -172,11 +171,11 @@ export default {
           .then((response) => {
             //设置弹窗
             data.dialog = true;
-            console.log(response.data)
             data.dialogMsg = response.data.data.msg;
             if (response.data.data.code == "1") {
-              data.dialogTitle = "회원가입 신청 성공";
-              this.$router.push("/");
+              data.dialogTitle = `Welcome to the ASPN community`;
+              data.dialogMsg = `${this.member.memberName}님 회원가입신청 성공했습니다.`;
+              data.dialog = true;
             } else {
               data.dialogTitle = "Application failed";
             }

@@ -9,7 +9,7 @@ export default {
   name: "App",
   data: () => ({
     memberToken: null,
-    member: {}
+    member: {},
   }),
 
   beforeCreate() {
@@ -50,9 +50,9 @@ export default {
     }
 
     this.checkSession();
-    if(this.$store.state.member == null){
+    if (this.$store.state.member == null) {
       this.logout();
-    }else{
+    } else {
       this.member = this.$store.state.member;
       this.getMemberMenuTree();
     }
@@ -108,13 +108,20 @@ export default {
       });
     },
 
-    getMemberMenuTree(){
+    getMemberMenuTree() {
+      let data = this.$data;
+      let request = {
+        params: {
+          authority: data.member.authority,
+          flag: 0,
+        },
+      };
       //get wiki menu
-      this.$http.get(`/wikiMenu/menus/tree/${this.member.authority}`).then((response) =>{
+      this.$http.get(`/wikiMenu/menus/tree`, request).then((response) => {
         this.$store.state.wikiMenus = response.data.data;
       });
       //get community menu
-      this.$http.get(`/communityMenu/menus/tree/${this.member.authority}`).then((response) => {
+      this.$http.get(`/communityMenu/menus/tree`, request).then((response) => {
         this.$store.state.communityMenus = response.data.data;
       });
     },

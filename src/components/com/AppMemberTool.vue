@@ -129,7 +129,7 @@ export default {
       this.$router.push(`/memberInfo?id=${id}`);
     },
 
-    getMyCommunityCommentCount() {
+    getMyCommunityCommentCount(){
       this.$http
         .get(`/comment/getMyCommunityCommentCount/${this.member.id}`)
         .then((response) => {

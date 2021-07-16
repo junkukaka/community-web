@@ -171,10 +171,12 @@ export default {
     menu:{
       name:null,
       id:null
-    }
+    },
+    member: {}
   }),
 
   created: function () {
+    this.member = this.$store.state.member;
     this.community.menuId = this.$route.query.menuId;
     this.community.memberId = this.$store.state.member.id;
     this.community.id = this.$route.query.id;
@@ -210,8 +212,7 @@ export default {
           .get(`/community/communitys/${this.community.id}`)
           .then((response) => {
             this.community = response.data.data;
-            console.log(this.community);
-            if (this.community.docId != null){
+            if (this.community.docId != ""){
               this.selectFilesList();
             } 
           });
@@ -229,8 +230,15 @@ export default {
     },
 
     getMenuTee(){
+      let data = this.$data;
+      let request = {
+        params: {
+          authority: data.member.authority,
+          flag: 1,
+        },
+      };
       if(this.menus.length === 0){
-        this.$http.get("/communityMenu/menus/tree").then((response) => {
+        this.$http.get("/communityMenu/menus/tree",request).then((response) => {
           this.menus= response.data.data;
         });
       }
@@ -266,16 +274,12 @@ export default {
       }else if(_.isNull(this.community.content) || _.eq(this.community.content,'')){
         this.updateError("내용을 주세요");
         return false;
-      }else if(this.community.content.length > 20100){
-         this.updateError("20100자이상 저장 할수 없습니다.");
-        return false;
       }
 
       this.$nextTick(function () {
         this.$http
           this.$http.post("/community/communitys", this.community)
           .then((response) => {
-            console.log(response.data.data);
             router.go(-1);
           }).catch((error) => {
             this.updateError(error);
