@@ -9,6 +9,7 @@
           sort-by="calories"
           class="elevation-1"
           hide-default-footer
+           :disable-pagination=true
         >
           <template v-slot:top>
             <v-toolbar flat>
@@ -131,6 +132,7 @@
           sort-by="calories"
           class="elevation-1"
           hide-default-footer
+          :disable-pagination=true
         >
           <template v-slot:top>
             <v-toolbar flat>
@@ -297,7 +299,7 @@ export default {
       { text: "Actions", value: "actions", align: "center", sortable: false },
     ],
     authorityItems: [],
-    selectionType: 'leaf',
+    selectionType: 'independent',
     selection: [],
     menus: [],
 
@@ -459,6 +461,7 @@ export default {
     },
 
     authorityItemDeleteItem(item){
+      let deleteIndex = this.authorityItems.indexOf(item);
       let request = {
         aId: null,
         flag : null
@@ -469,14 +472,12 @@ export default {
         if(response.data.code == 200){
           let param = {id:null}
           param.id = item.aId;
-          if(this.authorityItemFlag.flag == "C"){
-            this.communityItems(param);
-          }else{
-            this.wikiItems(param);
-          }
+          this.authorityItems.splice(deleteIndex,1);
         }
       })
     },
+
+
 
     //authority item 
     authorityItemSave() {

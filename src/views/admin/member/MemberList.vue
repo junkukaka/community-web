@@ -40,7 +40,6 @@
               <v-col cols="12" sm="6">
                 <v-text-field
                   label="Memeber Name"
-                  disabled
                   v-model="member.memberName"
                 ></v-text-field>
               </v-col>
@@ -70,16 +69,28 @@
                   v-model="member.status"
                 ></v-select>
               </v-col>
+              <v-col cols="12" sm="6" md="4">
+                <v-select
+                  v-model="member.authority"
+                  :items="authorities"
+                  item-text="name"
+                  item-value="id"
+                  outlined
+                  label="권한 관린"
+                ></v-select>
+              </v-col>
             </v-row>
           </v-container>
         </v-card-text>
-
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">
-            Close
+          <v-btn color="blue darken-1" text @click="iniPassword">
+            비밀번호 초기화
           </v-btn>
           <v-btn color="blue darken-1" text @click="updateMember"> Save </v-btn>
+          <v-btn color="blue darken-1" text @click="dialog = false">
+            Close</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -110,11 +121,13 @@ export default {
 
   data: () => ({
     member: {
+      id: null,
       memberName: null,
       status: null,
       loginId: null,
       department: null,
       departmentName: null,
+      authority: null,
     },
     statuses: [
       { value: "ON", text: "ON" },
@@ -140,6 +153,7 @@ export default {
       content: null,
       title: null,
     },
+    authorities: [],
   }),
 
   watch: {
@@ -150,6 +164,7 @@ export default {
 
   created() {
     this.initialize();
+    this.getAuthorities();
   },
 
   watch: {
@@ -165,8 +180,6 @@ export default {
           .get("/member/members/getAllMemberByAdmin")
           .then((response) => {
             this.members = response.data.data;
-            // this.page = response.data.data.page; //当前页面
-            // this.pages = response.data.data.pages; //页数
           });
       });
 
@@ -174,6 +187,14 @@ export default {
         this.$http
           .get("/member/members/department")
           .then((response) => (this.departments = response.data.data));
+      });
+    },
+
+    getAuthorities() {
+      this.$nextTick(function () {
+        this.$http.get("/authority/getAuthority").then((response) => {
+          this.authorities = response.data.data;
+        });
       });
     },
 
@@ -186,6 +207,25 @@ export default {
       this.member.department = item.department;
       this.member.departmentName = item.departmentName;
       this.member.status = item.status;
+    },
+
+    //비밀번호 초기화
+    iniPassword() {
+      this.$nextTick(function () {
+        this.$http
+          .put("/member/iniPassword",this.member)
+          .then((response) => {
+            if (response.data.code == 200) {
+              this.dialog = false;
+              this.initialize();
+            } else {
+              this.updateError();
+            }
+          })
+          .catch((error) => {
+            this.updateError();
+          });
+      });
     },
 
     //회원수정

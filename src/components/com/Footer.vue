@@ -25,11 +25,27 @@
       <v-icon>mdi-help-box</v-icon>
     </v-btn>
     
+    <v-btn @click="toFtp">
+        <span>FTP</span>
+        <v-icon>mdi-file-cloud</v-icon>
+    </v-btn>
+
   </v-bottom-navigation>
 </template>
 
 <script>
   export default {
     data: () => ({ activeBtn:null}),
+    methods: {
+      toFtp(){
+        // console.log(_.words("http://192.168.0.116:9000","192").length)
+        let url = window.location.href;
+        if(_.words(url,"192").length > 0){
+          window.open('http://192.168.0.116:9000/', '_blank');
+        }else{
+          window.open('http://36.97.142.103:9000/', '_blank');
+        }
+      }
+    }
   }
 </script>

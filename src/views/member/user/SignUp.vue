@@ -174,7 +174,7 @@ export default {
             data.dialogMsg = response.data.data.msg;
             if (response.data.data.code == "1") {
               data.dialogTitle = `Welcome to the ASPN community`;
-              data.dialogMsg = `${this.member.memberName}님 회원가입신청 성공했습니다.`;
+              data.dialogMsg = `${this.member.memberName}님 회원가입신청 완료.`;
               data.dialog = true;
             } else {
               data.dialogTitle = "Application failed";
