@@ -144,6 +144,7 @@ export default {
       { text: "Name", align: "start", value: "memberName" },
       { text: "상태", value: "status" },
       { text: "login id", value: "loginId" },
+      { text: "권한", value: "authorityName" },
       { text: "department", value: "departmentName" },
       { text: "가입일자", value: "registerTime" },
       { text: "등록일자", value: "updateTime" },
@@ -194,6 +195,7 @@ export default {
       this.$nextTick(function () {
         this.$http.get("/authority/getAuthority").then((response) => {
           this.authorities = response.data.data;
+          console.log(this.authorities);
         });
       });
     },
@@ -206,6 +208,7 @@ export default {
       this.member.memberName = item.memberName;
       this.member.department = item.department;
       this.member.departmentName = item.departmentName;
+      this.member.authority = item.authority;
       this.member.status = item.status;
     },
 
