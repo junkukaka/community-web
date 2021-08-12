@@ -40,6 +40,10 @@
         </v-btn>
       </template>
 
+      <template v-slot:[`item.registerTime`]="{ item }">
+        {{ item.registerTime |date-format('yyyy-mm-dd hh:mi:ss') }}
+      </template>
+
       <template v-slot:[`item.actions`]="{ item }">
         <v-btn text :to="`/community/communityEdit?&menuId=${item.menuId}&id=${item.id}`">
           <v-icon small class="mr-2"> mdi-pencil </v-icon>

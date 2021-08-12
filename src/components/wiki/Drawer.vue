@@ -1,18 +1,24 @@
 <template>
-  <v-navigation-drawer app class="" width="270" fixed v-model="drawer">
+  <v-navigation-drawer
+    app
+    class=""
+    width="270"
+    fixed
+    v-model="drawer"
+    style="top: 30px"
+  >
     <template v-slot:prepend>
       <div
-        style="
-          padding: 12px 0 12px 19px;
-          border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
-        "
+        style="padding: 16px 0px 14px 16px; border-right: none"
+        class="boxShadow"
       >
-        <router-link to="/wiki/wikiMain">
-          <v-img
-            height="39"
-            width="109"
-            src="../../assets/aspn_logo01.png"
-          ></v-img>
+        <router-link to="/">
+          <h2 class="fontGray">
+            ASPN
+            <span class="font-weight-medium" style="font-size: 16px"
+              >Wiki&Community</span
+            >
+          </h2>
         </router-link>
       </div>
     </template>
@@ -30,7 +36,7 @@
           class="v-list-item"
         >
           <span style="color: #212121">
-            {{ props.item.name }} 
+            {{ props.item.name }}
           </span>
         </router-link>
       </template>
@@ -52,10 +58,12 @@ export default {
     //初始化方法
     initialize: function () {
       let data = this.$data;
-      if(this.menu.length === 0){
-        this.$http.get(`/wikiMenu/menus/tree/${this.member.authority}`).then(function (response) {
-          data.menu = response.data.data;
-        });
+      if (this.menu.length === 0) {
+        this.$http
+          .get(`/wikiMenu/menus/tree/${this.member.authority}`)
+          .then(function (response) {
+            data.menu = response.data.data;
+          });
       }
     },
   },

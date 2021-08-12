@@ -33,7 +33,7 @@
                           `${
                             item.title.length < 37
                               ? item.title
-                              : item.title.substring(0, 37) + '...'
+                              : item.title.substring(0, 26) + '...'
                           }`
                         "
                       ></v-card-title>

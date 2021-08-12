@@ -20,7 +20,7 @@ const routes = [
             {
                 path: 'main',
                 name: 'Main',
-                component: () => import('@/views/main/community/Main')
+                component: () => import('@/views/main/index/Main')
             },
             {
                 path: 'signUp',
@@ -51,7 +51,22 @@ const routes = [
                 path: 'updatePassword',
                 name: 'UpdatePassword',
                 component: () => import('@/views/member/user/UpdatePassword')
-            }
+            },
+            {
+                path: 'search',
+                name: 'Search',
+                component: () => import('@/components/com/Search')
+            },
+            {
+                path: 'communityProfile',
+                name: 'CommunityProfile',
+                component: () => import('@/views/member/profile/Profile')
+            },
+            {
+                path: 'wikiProfile',
+                name: 'WikiProfile',
+                component: () => import('@/views/member/wikiProfile/Profile')
+            },
         ],
     },
     {
@@ -105,17 +120,7 @@ const routes = [
                 path: 'communityDetail',
                 name: 'CommunityDetail',
                 component: () => import('@/components/community/Detail')
-            },
-            {
-                path: 'profile',
-                name: 'Profile',
-                component: () => import('@/views/member/profile/Profile')
-            },
-            {
-                path: 'communitySearch',
-                name: 'CommunitySearch',
-                component: () => import('@/components/com/Search')
-            },
+            }
         ]
     },
     {
@@ -126,7 +131,7 @@ const routes = [
             {
                 path: 'wikiMain',
                 name: 'wikiMain',
-                component: () => import('@/views/main/wiki/Main')
+                component: () => import('@/views/main/wiki/WikiTemplate')
             },
             {
                 path: 'wikiList',
@@ -147,17 +152,7 @@ const routes = [
                 path: 'hisReview',
                 name: 'HisReview',
                 component: () => import('@/components/wiki/HisReview')
-            },
-            {
-                path: 'profile',
-                name: 'Profile',
-                component: () => import('@/views/member/wikiProfile/Profile')
-            },
-            {
-                path: 'wikiSearch',
-                name: 'WikiSearch',
-                component: () => import('@/components/com/Search')
-            },
+            }
         ]
     }
 
@@ -172,7 +167,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     //允许访问的路径
-    const arrJPath = ['/signIn','/signUp']
+    const arrJPath = ['/main','/signIn','/signUp']
     if (arrJPath.find(element => element == to.path)) {
         next();
     } else {

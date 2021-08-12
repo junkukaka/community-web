@@ -1,36 +1,33 @@
 <template>
   <v-app>
-    <Drawer />
-    <AppBar />
+    <system-bar/>
+    <main-app-bar />
     <!-- Sizes your content based upon application components -->
-    <v-main
-      :style="{
-        padding: `64px ${this.$store.state.window.mainPaddingLeft}px 0px ${this.$store.state.window.mainPaddingRight}px !important`,
-      }"
-    >
+    <v-main class="bgColor">
       <!-- Provides the application the proper gutter -->
-      <v-container fluid color="grey lighten-4" class="containerPadding">
+      <v-container fluid color="grey lighten-4" class="" >
         <!-- If using vue-router -->
-        <div class="containerMaxWith pl-lg-7 pr-lg-7">
+        <div class="containerMaxWith">
           <router-view></router-view>
         </div>
-       
       </v-container>
     </v-main>
-     <Footer />
+    <main-footer/>
   </v-app>
 </template>
 
 <script>
-
+import MainAppBar from '../components/com/MainAppBar.vue';
+import MainFooter from '../components/com/MainFooter.vue';
+import SystemBar from '../components/com/SystemBar.vue';
 
 
 export default {
   name: "Index",
   components: {
-    AppBar: () => import("@/components/community/AppBar"),
-    Drawer: () => import("@/components/community/Drawer"),
-    Footer: () => import("@/components/com/Footer"),
-  },
+    MainAppBar,
+    MainFooter,
+    SystemBar
+  }
 };
 </script>

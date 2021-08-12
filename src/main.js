@@ -78,6 +78,5 @@ Vue.filter('date-format',function(input, pattern = '') {
 new Vue({
   vuetify,
   router,
-  store,
   render: h => h(App)
 }).$mount('#app')

@@ -2,10 +2,13 @@
   <v-app-bar
     app
     fixed
-    flat
-    elevate-on-scroll
-    class="white"
-    style="border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important"
+    class="white boxShadow"
+    style="
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+      top: 30px;
+      border-bottom: none;
+      padding: 0px !important;
+    "
   >
     <v-app-bar-nav-icon @click="setDrawer(!drawer)"></v-app-bar-nav-icon>
 

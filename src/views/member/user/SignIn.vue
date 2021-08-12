@@ -1,64 +1,66 @@
 <template>
-  <v-card class="pa-5" flat>
-    <v-form ref="form" v-model="valid" lazy-validation>
-      <v-text-field
-        v-model="member.loginId"
-        label="Login ID"
-        :counter="20"
-        required
-        :rules="loginRules"
-        @keyup.native.enter="validate"
-      ></v-text-field>
+  <div style="margin: 47px 0px 30px">
+    <v-card class="pa-12 mx-lg-auto boxShadow" style="max-width:900px">
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-text-field
+          v-model="member.loginId"
+          label="Login ID"
+          :counter="20"
+          required
+          :rules="loginRules"
+          @keyup.native.enter="validate"
+        ></v-text-field>
 
-      <v-text-field
-        v-model="member.password"
-        :counter="50"
-        label="Password"
-        :type="showPassword ? 'text' : 'password'"
-        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        required
-        :rules="passwordRules"
-        @click:append="showPassword = !showPassword"
-        @keyup.native.enter="validate"
-      ></v-text-field>
+        <v-text-field
+          v-model="member.password"
+          :counter="50"
+          label="Password"
+          :type="showPassword ? 'text' : 'password'"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          required
+          :rules="passwordRules"
+          @click:append="showPassword = !showPassword"
+          @keyup.native.enter="validate"
+        ></v-text-field>
 
-      <v-btn
-        block
-        large
-        color="primary"
-        class="mt-5"
-        @click="validate"
-        depressed
-        @keyup.native.enter="validate"
-        >로그인</v-btn
-      >
-      <v-btn
-        block
-        outlined
-        large
-        color="primary"
-        class="mt-3"
-        to="/signUp"
-        depressed
-        >회원가입</v-btn
-      >
-    </v-form>
+        <v-btn
+          block
+          large
+          color="primary"
+          class="mt-5"
+          @click="validate"
+          depressed
+          @keyup.native.enter="validate"
+          >로그인</v-btn
+        >
+        <v-btn
+          block
+          outlined
+          large
+          color="primary"
+          class="mt-3"
+          to="/signUp"
+          depressed
+          >회원가입</v-btn
+        >
+      </v-form>
 
-    <div class="text-center">
-      <v-dialog v-model="dialog" width="500">
-        <v-card>
-          <v-card-title class="headline">
-            {{ dialogTitle }}
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="closeDialogMsg"> Ok </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </div>
-  </v-card>
+      <div class="text-center">
+        <v-dialog v-model="dialog" width="500">
+          <v-card>
+            <v-card-title class="headline">
+              {{ dialogTitle }}
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" text @click="closeDialogMsg"> Ok </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </div>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -77,12 +79,14 @@ export default {
     valid: true,
     passwordRules: [
       (v) => !!v || "password is required",
-      (v) => (v && v.length >= 3 && v.length <= 50) || "Name must be more than 3 characters",
+      (v) =>
+        (v && v.length >= 3 && v.length <= 50) ||
+        "Name must be more than 3 characters",
     ],
     loginRules: [
       (v) => !!v || "login ID is required",
-      (v) => (v && v.length <= 20) || "Name must be less than 20 characters"
-    ]
+      (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
+    ],
   }),
 
   created: function () {
@@ -121,7 +125,7 @@ export default {
       }
     },
 
-    getMemberMenuTree(){
+    getMemberMenuTree() {
       let data = this.$data;
       let request = {
         params: {
@@ -130,11 +134,11 @@ export default {
         },
       };
       //get wiki menu
-      this.$http.get(`/wikiMenu/menus/tree`,request).then((response) =>{
+      this.$http.get(`/wikiMenu/menus/tree`, request).then((response) => {
         this.$store.state.wikiMenus = response.data.data;
       });
       //get community menu
-      this.$http.get(`/communityMenu/menus/tree`,request).then((response) => {
+      this.$http.get(`/communityMenu/menus/tree`, request).then((response) => {
         this.$store.state.communityMenus = response.data.data;
       });
     },

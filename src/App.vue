@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import "./static/css/api.css";
 import { mapMutations } from "vuex";
 
 export default {
@@ -26,7 +27,7 @@ export default {
           this.dialog = false;
           localStorage.removeItem("Authorization");
           localStorage.removeItem("store");
-          this.$router.push("/signIn");
+          this.$router.push("/");
           this.removeLogin();
         } else {
           this.$store.state.member = response.data.data.member;
@@ -131,69 +132,12 @@ export default {
       //退出登录，清空token
       localStorage.removeItem("Authorization");
       localStorage.removeItem("store");
-      this.$router.push("/signIn");
+      this.$router.push("/");
     },
   },
 };
 </script>
 
 <style>
-.Mytitle {
-  font-size: 2rem !important;
-}
-.anchorArea {
-  position: fixed;
-  right: 0px;
-  top: 77px;
-  width: 270px;
-}
-.anchorArea .contentsBorder {
-  border-left: 1px solid black;
-  color: black !important;
-}
 
-.rightBottomArea {
-  right: 26px;
-  bottom: 26px;
-}
-
-.anchorArea .contentsBorder a {
-  cursor: pointer;
-  font-size: 12px;
-  color: #0091ea;
-}
-
-.anchorArea .normalBorder {
-  border-left: 1px solid #e0e0e0;
-}
-.anchorArea .normalBorder a {
-  cursor: pointer;
-  font-size: 12px;
-  color: #757575;
-}
-#read .ql-syntax {
-  background-color: rgb(236, 236, 236);
-  padding: 10px;
-}
-#read p img {
-  max-width: 100%;
-}
-.v-application a {
-  text-decoration: none;
-}
-
-.containerMaxWith {
-  margin: 0 auto;
-  max-width: 1700px;
-}
-
-.containerPadding {
-  padding: 12px 6px !important;
-}
-
-.wikiListBorder {
-  border-color: #1976d2;
-  border-left-width: 0.26rem;
-  border-left-style: solid;
-}
 </style>

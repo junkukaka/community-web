@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <system-bar/>
     <Drawer />
     <AppBar />
     <!-- Sizes your content based upon application components -->
@@ -11,7 +12,7 @@
       <!-- Provides the application the proper gutter -->
       <v-container fluid color="grey lighten-4" class="containerPadding">
         <!-- If using vue-router -->
-        <div class="containerMaxWith pl-lg-7 pr-lg-7">
+        <div class="containerMaxWith pl-lg-7 pr-lg-7 pt-8">
           <router-view></router-view>
         </div>
        
@@ -22,12 +23,14 @@
 </template>
 
 <script>
+import SystemBar from '../components/com/SystemBar.vue';
 export default {
   name: "IndexWiki",
   components: {
     AppBar: () => import("@/components/wiki/AppBar"),
     Drawer: () => import("@/components/wiki/Drawer"),
     Footer: () => import("@/components/com/Footer"),
+    SystemBar,
   }
 };
 </script>

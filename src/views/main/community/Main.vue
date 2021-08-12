@@ -7,11 +7,9 @@
 </template>
 
 <script>
-import Carousel from "./Carousel";
 import CommunityTemplate from './CommunityTemplate';
 export default {
   components: {
-    Carousel,
     CommunityTemplate
   },
   data() {
