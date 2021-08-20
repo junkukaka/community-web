@@ -69,7 +69,7 @@
                   v-model="member.status"
                 ></v-select>
               </v-col>
-              <v-col cols="12" sm="6" md="4">
+              <v-col cols="12" sm="6">
                 <v-select
                   v-model="member.authority"
                   :items="authorities"

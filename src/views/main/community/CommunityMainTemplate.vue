@@ -48,7 +48,7 @@
   export default {
     data: () => ({
       items: [],
-      count: 39,
+      count: 38,
       member: {}
     }),
 
@@ -71,7 +71,7 @@
         }
 
         this.$nextTick(function(){
-          this.$http.get("/community/communitys/mainPage",request)
+          this.$http.get("/community/communities/mainPage",request)
             .then((response)=>{
               if(response.data.code == "50000"){
                 this.logout();

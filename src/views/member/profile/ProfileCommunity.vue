@@ -124,7 +124,7 @@ export default {
       //select community list by member
       this.$nextTick(function () {
         this.$http
-          .get("/community/communitys/getListByMember", request)
+          .get("/community/communities/getListByMember", request)
           .then((response) => {
             this.communitys = response.data.data.communitys;
             this.page = response.data.data.page; //当前页面
@@ -140,7 +140,7 @@ export default {
 
     deleteItemConfirm() {
       this.$http
-        .delete(`/community/communitys/${this.deletedId}`)
+        .delete(`/community/communities/${this.deletedId}`)
         .then((response) => {
           console.log(response);
           if (response.data.code == 200) {

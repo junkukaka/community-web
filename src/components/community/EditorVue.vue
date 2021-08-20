@@ -209,7 +209,7 @@ export default {
     initialize: function () {
       this.$nextTick(function () {
         this.$http
-          .get(`/community/communitys/${this.community.id}`)
+          .get(`/community/communities/${this.community.id}`)
           .then((response) => {
             this.community = response.data.data;
             if (this.community.docId != ""){
@@ -278,7 +278,7 @@ export default {
 
       this.$nextTick(function () {
         this.$http
-          this.$http.post("/community/communitys", this.community)
+          this.$http.post("/community/communities", this.community)
           .then((response) => {
             router.go(-1);
           }).catch((error) => {

@@ -60,12 +60,12 @@
 
       <!-- anchor -->
       <div
-        class="anchorArea"
+        class="anchorArea d-none d-lg-block"
         v-if="titles.length > 0"
         v-show="$store.state.ifMobile"
       >
         <h6 class="text-h6 pb-1">Contents</h6>
-        <div style="" class="d-none ml-3 d-lg-block">
+        <div style="" class="ml-3">
           <div
             v-for="(anchor, i) in titles"
             :key="i"
@@ -351,7 +351,7 @@ export default {
     getCommunity() {
       //community select
       this.$http
-        .get(`/community/communitys/${this.community.id}`)
+        .get(`/community/communities/${this.community.id}`)
         .then((response) => {
           this.community = response.data.data;
           //如果是会员本人看就执行

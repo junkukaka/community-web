@@ -220,7 +220,7 @@ export default {
     //初始化
     initialize(){
       this.$http
-        .get(`/community/communitys/${this.community.id}`)
+        .get(`/community/communities/${this.community.id}`)
         .then((response)=> {
           this.community = response.data.data;
            if(this.community.docId != ""){
@@ -294,7 +294,7 @@ export default {
       let router = this.$router;
       let data = this.community;
       this.$nextTick(function () {
-        this.$http.post("/community/communitys", data).then((response) => {
+        this.$http.post("/community/communities", data).then((response) => {
           router.go(-1);
         }).catch((error) => {
           this.updateError(error);

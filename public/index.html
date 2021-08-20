@@ -4,11 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta   http-equiv="Expires"   CONTENT="0">
+    <meta   http-equiv="Cache-Control"   CONTENT="no-cache">
+    <meta   http-equiv="Pragma"   CONTENT="no-cache">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
-    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js?v=<%= new Date().getTime() %>"></script>
   </head>
   <body>
     <noscript>
@@ -18,33 +21,3 @@
     <!-- built files will be auto injected -->
   </body>
 </html>
-
-<style>
-/* markdown max-with  */
-.vuepress-markdown-body:not(.custom){
-  max-width: 100% !important;
-  padding: 1.5rem 1.5rem !important;
-}
-.v-md-editor-preview{
-  padding: 0 !important;
-}
-
-html{font-size:15px; }
-.clearfix:after {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: " ";
-  clear: both;
-  height: 0;
-}
-
-.v-application .v-md-editor__preview-wrapper .warning{
-  background-color: rgba(255, 229, 100, 0.3) !important;
-  border-color: #e7c000 !important
-}
-.clearfix { display: inline-block; }
-/* start commented backslash hack \*/
-* html .clearfix { height: 1%; }
-.clearfix { display: block; }
-</style>

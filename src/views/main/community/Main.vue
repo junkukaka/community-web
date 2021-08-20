@@ -1,5 +1,5 @@
 <template>
-  <v-card flat>
+  <v-card flat class="pb-10">
     <!-- <carousel/> -->
     <!-- new community -->
     <community-template/>

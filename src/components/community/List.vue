@@ -134,7 +134,7 @@ import DashboardVue from "../com/Dashboard.vue";
           } 
         }
         this.$nextTick(function(){
-          this.$http.get("/community/communitys/pageList",request)
+          this.$http.get("/community/communities/pageList",request)
             .then(function(response){
               let newCommunitys = response.data.data.communitys;
               data.page = response.data.data.page; //当前页面

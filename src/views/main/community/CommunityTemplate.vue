@@ -38,10 +38,21 @@
                   {{item.registerTime|date-format('yyyy-mm-dd hh:mi:ss')}}
                 </v-list-item-subtitle>
               </v-list-item-action>
-              
             </v-list-item>
           </template>
         </v-list>
+
+        <div style="width:90%;margin:15px auto" v-if="moreViewYn">
+            <v-btn 
+              class="pa-5 "
+              outlined
+              block
+              @click="selectMoreCommunity"
+              color="#BDBDBD">
+              More
+            </v-btn>
+        </div>
+       
       </v-card>
     </v-card>
 
@@ -51,8 +62,12 @@
   export default {
     data: () => ({
       items: [],
-      count: 20,
-      member: {}
+      size: 20,
+      page: 0,
+      total: 0,
+      pageNumber: 1,
+      moreViewYn: true,
+      member: {},
     }),
 
     created(){
@@ -60,32 +75,60 @@
       this.initialize();
     },
 
+    watch: {
+      page(){
+       if(this.page == this.total){
+          this.moreViewYn = false;
+        }
+      }
+    },
+
     methods: {
       //初始化方法
       initialize(){
+        this.selectCommunityTemplatePageCount();
+        this.selectCommunityTemplatePage();
+      },
+
+      selectCommunityTemplatePage(){
         //请求参数
         let data  = this.$data;
         //请求参数
         let request = {
           params: {
-            count: data.count,
+            size: data.size,
+            page: data.page,
             authority: data.member.authority
           } 
         }
 
-        this.$nextTick(function(){
-          this.$http.get("/community/communitys/mainPage",request)
-            .then((response)=>{
-              if(response.data.code == "50000"){
-                this.logout();
-              }
-              const communitys = response.data.data;
-              for(let i = 0; i < communitys.length ; i++){
-                  this.items.push(communitys[i])
-                  this.items.push({divider: true, inset: true })
-              }
-            })
-        });
+        this.$http.get("/community/communities/selectCommunityTemplatePage",request)
+          .then((response)=>{
+            const communitys = response.data.data;
+            for(let i = 0; i < communitys.length ; i++){
+                this.items.push(communitys[i])
+                this.items.push({divider: true, inset: true })
+            }
+          })
+      },
+
+      selectMoreCommunity(){
+        this.page = this.size * this.pageNumber;
+        this.pageNumber ++;
+        if(this.page > this.total){
+          this.page = this.total
+        }
+        this.selectCommunityTemplatePage(); 
+      },
+
+      selectCommunityTemplatePageCount(){
+        this.$http.get(`/community/communities/selectCommunityTemplatePageCount/${this.member.authority}`)
+          .then((response)=>{
+            if(response.data.code == "50000"){
+              this.logout();
+            }
+            this.total = response.data.data;
+          })
       },
 
       logout() {

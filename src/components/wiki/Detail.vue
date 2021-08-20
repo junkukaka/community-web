@@ -1,5 +1,5 @@
 <template>
-  <v-card flat>
+  <v-card flat class="pb-12">
      <div style="margin: -10px 0 10px -10px">
       <!-- dashboard -->
       <dashboard-vue/>
@@ -12,9 +12,9 @@
       <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" />
       <!-- anchor -->
 
-      <div class="anchorArea" v-if="titles.length > 0" v-show="$store.state.ifMobile">
+      <div class="anchorArea d-none d-lg-block" v-if="titles.length > 0" v-show="$store.state.ifMobile">
         <h6 class="text-h6 pb-1">Contents</h6>
-        <div style="" class="d-none ml-3 d-lg-block" >
+        <div class="ml-3" >
           <div
             v-for="(anchor, i) in titles"
             :key="i"

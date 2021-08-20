@@ -60,7 +60,7 @@ export default {
       let data = this.$data;
       this.$nextTick(function () {
         this.$http
-          .get(`/community/communitys/${data.community.id}`)
+          .get(`/community/communities/${data.community.id}`)
           .then(function (response) {
             data.community = response.data.data;
             if(data.community.mdYn == 1){
