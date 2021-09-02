@@ -27,6 +27,7 @@
           color="primary"
           class="mt-3 white--text"
           @click="joinMember"
+          :disabled="!joinDisabled"
         >
           회원가입 
           <v-icon right dark>mdi-account-check </v-icon>
@@ -58,6 +59,7 @@
       return {
         singleSelect: false,
         selected: [],
+        joinDisabled: true,
         headers: [
           {
             text: 'Name',
@@ -103,9 +105,11 @@
         for(let select of this.selected){
           request.push(select.id);
         }
+        this.joinDisabled = false;
         this.$http.post("/member/appMemberToRealMember",request)
           .then((response) => {
             this.initialize();
+            this.joinDisabled = true;
         }).catch((error) => {
             this.popMsg.dialog = true;
             this.popMsg.title = "에러 메세지";

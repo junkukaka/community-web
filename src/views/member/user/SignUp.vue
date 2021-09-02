@@ -74,6 +74,7 @@
           @click="validate"
           depressed
           @keyup.native.enter="validate"
+          :disabled="!joinDisabled"
           >회원가입</v-btn
         >
       </v-form>
@@ -113,6 +114,7 @@ export default {
       department: null,
       comment: "",
     },
+    joinDisabled: true,
     departments: [],
     confirmPassord: "",
     dialog: false,
@@ -170,6 +172,7 @@ export default {
         return false;
       }
       let data = this.$data;
+      this.joinDisabled = false;
       if (val) {
         this.$http
           .post("/member/memberApplication", data.member)
@@ -184,6 +187,7 @@ export default {
             } else {
               data.dialogTitle = "Application failed";
             }
+            this.joinDisabled = true;
           })
           .catch((err) => console.log(err));
       }

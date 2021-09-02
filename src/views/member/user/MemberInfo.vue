@@ -62,6 +62,7 @@
           :rules="[(v) => !!v || 'Item is required']"
           label="Department"
           required
+          disabled
         ></v-select>
         <v-btn
           block

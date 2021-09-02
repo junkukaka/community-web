@@ -104,7 +104,7 @@ export default {
       let request = {
         params: {
           count: data.count,
-          authority: 0
+          authority: data.member.authority
         } 
       }
 

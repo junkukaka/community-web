@@ -2,6 +2,7 @@ import axios from 'axios'
 const appDev = 'http://localhost:8090';
 const appCompany = 'http://192.168.0.134:9999'
 const appRemote = 'http://36.97.142.107:9999'
+const appPrd = 'http://192.168.0.141:9999'
 const http = axios.create({
     baseURL: appDev
 })

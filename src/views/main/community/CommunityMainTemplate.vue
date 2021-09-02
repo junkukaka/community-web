@@ -48,7 +48,7 @@
   export default {
     data: () => ({
       items: [],
-      count: 38,
+      count: 39,
       member: {}
     }),
 
@@ -66,7 +66,7 @@
         let request = {
           params: {
             count: data.count,
-            authority: 0
+            authority: data.member.authority
           } 
         }
 
