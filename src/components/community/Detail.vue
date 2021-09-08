@@ -65,7 +65,7 @@
         v-show="$store.state.ifMobile"
       >
         <h6 class="text-h6 pb-1">Contents</h6>
-        <div style="" class="ml-3">
+        <div style="" class="ml-3 anchorAreaBox">
           <div
             v-for="(anchor, i) in titles"
             :key="i"

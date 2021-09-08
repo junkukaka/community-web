@@ -3,18 +3,11 @@
     <div class="transition-swing text-h6 ml-3">New Wiki</div>
     <v-divider class="ml-3"></v-divider>
     <v-row dense class="mt-2">
-      <v-col
-        v-for="(item, i) in wikis"
-        :key="i"
-        cols="12"
-        class="pa-1"
-      >
+      <v-col v-for="(item, i) in wikis" :key="i" cols="12" class="pa-1">
         <v-card flat class="grey lighten-5">
           <v-hover>
             <template v-slot:default="{ hover }">
-              <div
-                :style="`${hover ? 'background-color : white' : ''}`"
-              >
+              <div :style="`${hover ? 'background-color : white' : ''}`">
                 <router-link
                   :to="`/wiki/wikiDetail?wikiId=${item.id}`"
                   style="color: #151515f2"
@@ -89,7 +82,7 @@ export default {
   data: () => ({
     wikis: [],
     count: 20,
-    member: {}
+    member: {},
   }),
 
   created: function () {
@@ -99,21 +92,25 @@ export default {
 
   methods: {
     initialize() {
-      let data  = this.$data;
-      //请求参数
-      let request = {
-        params: {
-          count: data.count,
-          authority: data.member.authority
-        } 
-      }
+      if (this.member == null) {
+        this.$router.push("/signIn");
+      } else {
+        let data = this.$data;
+        //请求参数
+        let request = {
+          params: {
+            count: data.count,
+            authority: data.member.authority,
+          },
+        };
 
-      this.wikis = [];
-      this.$nextTick(function () {
-        this.$http.get(`/wiki/wikiMain`,request).then((response) => {
-          this.wikis = response.data.data;
+        this.wikis = [];
+        this.$nextTick(function () {
+          this.$http.get(`/wiki/wikiMain`, request).then((response) => {
+            this.wikis = response.data.data;
+          });
         });
-      });
+      }
     },
   },
 };

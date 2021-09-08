@@ -60,6 +60,11 @@ html {
   width: 270px;
 }
 
+.anchorAreaBox{
+  max-height:600px;
+  overflow:scroll
+}
+
 
 
 .anchorArea .contentsBorder {
