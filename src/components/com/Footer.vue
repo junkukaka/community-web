@@ -25,10 +25,10 @@
       <v-icon>mdi-help-box</v-icon>
     </v-btn>
     
-    <v-btn @click="toFtp">
+    <!-- <v-btn @click="toFtp">
         <span>FTP</span>
         <v-icon>mdi-file-cloud</v-icon>
-    </v-btn>
+    </v-btn> -->
 
   </v-bottom-navigation>
 </template>

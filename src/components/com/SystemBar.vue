@@ -31,6 +31,23 @@
         >
         <v-col><a @click="toFtp" class="white--text">FTP</a></v-col>
       </v-row>
+
+      <v-dialog v-model="toFtpDialog" width="260">
+        <v-card class="text-center">
+          <v-card-title class="primary white--text"> FTP LINK </v-card-title>
+          <v-card-text class="pt-4">
+            <v-btn class="ma-2" color="warning" depressed @click="toInteriorIp">
+              내부
+              <v-icon right dark> mdi-television </v-icon>
+            </v-btn>
+
+            <v-btn class="ma-2 white--text" color="success" depressed @click="toExternalIp">
+              외부
+              <v-icon right dark> mdi-cloud-upload </v-icon>
+            </v-btn>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
     </div>
   </v-system-bar>
 </template>
@@ -38,19 +55,26 @@
 <script>
 import AppMemberTool from "./AppMemberTool";
 export default {
+  data: () => ({
+    toFtpDialog: false,
+  }),
   components: {
     AppMemberTool,
   },
   methods: {
     toFtp() {
-      // console.log(_.words("http://192.168.0.116:9000","192").length)
-      let url = window.location.href;
-      if (_.words(url, "192").length > 0) {
-        window.open("http://192.168.0.116:9000/", "_blank");
-      } else {
-        window.open("http://36.97.142.103:9000/", "_blank");
-      }
+      this.toFtpDialog = true;
     },
+
+    toInteriorIp(){
+      window.open("http://192.168.0.116:9000/", "_blank");
+      this.toFtpDialog = false;
+    },
+
+    toExternalIp(){
+      window.open("http://ftp.aspnc.com.cn:9000", "_blank");
+      this.toFtpDialog = false;
+    }
   },
 };
 </script>

@@ -4,7 +4,7 @@ const appCompany = 'http://192.168.0.134:9999'
 const appRemote = 'http://36.97.142.107:9999'
 const appPrd = 'http://aspnc.com.cn:9999'
 const http = axios.create({
-    baseURL: appPrd
+    baseURL: appDev
 })
 
 //让请求自带token
