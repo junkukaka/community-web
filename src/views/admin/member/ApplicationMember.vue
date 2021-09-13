@@ -114,6 +114,7 @@
             this.popMsg.dialog = true;
             this.popMsg.title = "에러 메세지";
             this.popMsg.content = "수정 실패";
+            this.joinDisabled = true;
         })
       },
 

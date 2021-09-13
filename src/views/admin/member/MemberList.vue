@@ -195,7 +195,6 @@ export default {
       this.$nextTick(function () {
         this.$http.get("/authority/getAuthority").then((response) => {
           this.authorities = response.data.data;
-          console.log(this.authorities);
         });
       });
     },
