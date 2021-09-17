@@ -83,9 +83,10 @@ export default {
       { title: "Community Menu", link: "/community/communityMenu" },
       { title: "Wiki Menu", link: "/wiki/wikiMenu" },
     ],
-    searchFlag: "COMMUNITY",
+    searchFlag: "WIKI",
     searchContent: null,
     timer: '',
+    path: null,
   }),
 
   created() {
@@ -93,6 +94,8 @@ export default {
     if (this.$store.state.member != null) {
       this.initialize();
     }
+    this.path = this.$route.path;
+    this.iniSearchFlag();
   },
 
   watch: {
@@ -114,6 +117,12 @@ export default {
 
     initialize() {
       this.getMyCommunityCommentCount();
+    },
+
+    iniSearchFlag(){
+      if(_.startsWith(this.path,"/community")){
+        this.searchFlag = 'COMMUNITY'
+      }
     },
 
     signOut() {

@@ -1,10 +1,8 @@
 import axios from 'axios'
-const appDev = 'http://localhost:8090';
-const appCompany = 'http://192.168.0.134:9999'
-const appRemote = 'http://36.97.142.107:9999'
-const appPrd = 'http://aspnc.com.cn:9999'
+import conf from './conf.js'
+
 const http = axios.create({
-    baseURL: appDev
+    baseURL: conf.url.test
 })
 
 //让请求自带token

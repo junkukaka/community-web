@@ -159,7 +159,7 @@ import DashboardVue from "../com/Dashboard.vue";
         this.$nextTick(function () {
           this.$http.get("/authority/getMemberCommunityAuthority",request).then((response) => {
             this.memberAuthority = response.data.data;
-            console.log(this.memberAuthority);
+            // console.log(this.memberAuthority);
             if(this.memberAuthority.viewYn != 1){
               this.$router.go(-1);
             }
