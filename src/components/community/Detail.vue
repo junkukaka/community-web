@@ -343,7 +343,7 @@ export default {
         editor.previewScrollToTarget({
           target: heading,
           scrollContainer: window,
-          top: 60,
+          top: 100,
         });
       }
     },

@@ -5,9 +5,36 @@
       <dashboard-vue/>
     </div>
     <v-card flat class="mt-n3">
-      <v-card-title class="text-h3 font-weight-medium">
+       <div class="text-overline font-weight-light pl-5 pt-2">
+          last update:
+          {{
+            wikiHis.registerTime | date-format("yyyy-mm-dd hh:mi:ss")
+          }}
+        </div>
+      <v-card-title class="text-h3 font-weight-medium pt-1">
         {{ wikiHis.title }}
       </v-card-title>
+
+      <v-card-actions style="padding: 0px">
+        <v-list-item class="grow" >
+          <v-list-item-avatar  v-for="(member,id) in wikiHisMembers" :key="id">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attr }">
+                <v-avatar size="43" v-if="member.picture"
+                  v-bind="attr"
+                  v-on="on"
+                >
+                  <img :src="member.picture" :alt="`photo`" />
+                </v-avatar>
+                <v-avatar color="#E0E0E0" v-if="!member.picture">
+                  <v-icon dark class="mr-2" size="52"> mdi-account-circle </v-icon>
+                </v-avatar>
+              </template>
+              <span>{{member.member_name}}</span>
+            </v-tooltip>  
+          </v-list-item-avatar>
+        </v-list-item>
+      </v-card-actions>
       <v-divider></v-divider>
       <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" />
       <!-- anchor -->
@@ -94,13 +121,15 @@ export default {
     fab: false,
     contentsTitle: 0,
     member: {},
-    memberAuthority: {}
+    memberAuthority: {},
+    wikiHisMembers: []
   }),
 
   created() {
     this.wikiId = this.$route.query.wikiId;
     this.member = this.$store.state.member;
     this.getWikiHisDetail();
+    this.selectWikiHisMembers();
   },
 
   mounted() {
@@ -165,7 +194,7 @@ export default {
         editor.previewScrollToTarget({
           target: heading,
           scrollContainer: window,
-          top: 70,
+          top: 100,
         });
       }
     },
@@ -174,6 +203,12 @@ export default {
       this.$http.get(`/wiki/wikiDetail/${this.wikiId}`).then((response) => {
         this.wikiHis = response.data.data;
         this.getMemberAuthority();
+      });
+    },
+
+    selectWikiHisMembers() {
+      this.$http.get(`/wiki/selectWikiHisMembers/${this.wikiId}`).then((response) => {
+        this.wikiHisMembers = response.data.data;
       });
     },
 

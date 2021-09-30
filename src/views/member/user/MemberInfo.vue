@@ -28,7 +28,7 @@
 
         <v-text-field
           v-model="member.memberName"
-          :counter="10"
+          :counter="30"
           :rules="nameRules"
           label="Name"
           required
@@ -36,7 +36,7 @@
 
         <v-text-field
           v-model="member.loginId"
-          :counter="10"
+          :counter="20"
           :rules="nameRules"
           label="Login ID"
           disabled

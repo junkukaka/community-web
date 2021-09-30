@@ -49,6 +49,7 @@
                             hide-details
                             label="Id"
                             single-line
+                            :disabled="!authorityIdsEditFlag"
                           ></v-select>
                         </v-col>  
                         <v-col cols="12" sm="6" md="6">
@@ -302,6 +303,7 @@ export default {
     selectionType: 'independent',
     selection: [],
     menus: [],
+    authorityIdsEditFlag: false,
 
     popMsg: {
       dialog: false,
@@ -341,7 +343,7 @@ export default {
     },
 
     setAuthorityIds(){
-      for(let i = 0; i < 10; i++){
+      for(let i = 0; i < 50; i++){
         if(_.indexOf(this.authorityIdsCheck,i) < 0){
           this.authorityIds.push(i);
         }
@@ -354,12 +356,14 @@ export default {
       this.authorityEdited.id = item.id;
       this.authorityEdited.name = item.name;
       this.authorityEdited.updateId = this.member.id;
+      this.authorityIdsEditFlag = false;
     },
 
     authorityNew() {
       this.authorityEdited.id = null;
       this.authorityEdited.name = null;
       this.authorityEdited.updateId = null;
+      this.authorityIdsEditFlag = true;
     },
 
     authorityDeleteItem(item) {
