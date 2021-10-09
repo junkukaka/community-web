@@ -5,6 +5,8 @@ import vuetify from './plugins/vuetify';
 import router from './router'
 import store from './store'
 import _ from 'lodash'
+import VueWechatTitle from 'vue-wechat-title'
+
 
 
 
@@ -49,6 +51,7 @@ VueMarkdownEditor.use(createEmojiPlugin());
 VueMarkdownEditor.use(createLineNumbertPlugin());
 VueMarkdownEditor.use(vuepressTheme);
 Vue.use(VueMarkdownEditor);
+Vue.use(VueWechatTitle)
 
 Vue.config.productionTip = false
 Vue.prototype.$http= http
