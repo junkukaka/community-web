@@ -245,7 +245,18 @@ router.beforeEach((to, from, next) => {
             // console.log(`token is ${token}`);
             next('/signIn');
         } else {
-            next();
+            //community & wiki Edite 저장 확인
+            if(from.path == '/community/communityEdit' || from.path =='/wiki/wikiEdit'){
+                let r = confirm("글 작성중입니다. 나가겠습니까?");
+                if(r){
+                    window.onbeforeunload = null;
+                    next()
+                }else{
+                    next(false);
+                }
+            }else{
+                next();
+            }
         }
     }
 });

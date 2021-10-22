@@ -4,6 +4,7 @@
 
 <script>
 import "./static/css/api.css";
+// import "./static/css/googleapis.css";
 import { mapMutations } from "vuex";
 
 export default {
