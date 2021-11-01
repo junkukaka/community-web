@@ -97,6 +97,14 @@ const routes = [
                     title: "ASPN-wikiProfile"
                 },
             },
+            {
+                path: 'reportMain',
+                name: 'ReportMain',
+                component: () => import('@/views/report/ReportMain'),
+                meta:{
+                    title: "ASPN-reportMain"
+                },
+            },
         ],
     },
     {
@@ -234,6 +242,7 @@ const router = new VueRouter({
     mode: "history"
 });
 
+
 router.beforeEach((to, from, next) => {
     //允许访问的路径
     const arrJPath = ['/main','/signIn','/signUp']
@@ -247,19 +256,14 @@ router.beforeEach((to, from, next) => {
         } else {
             //community & wiki Edite 저장 확인
             if(from.path == '/community/communityEdit' || from.path =='/wiki/wikiEdit'){
-                let r = confirm("글 작성중입니다. 나가겠습니까?");
-                if(r){
-                    window.onbeforeunload = null;
-                    next()
-                }else{
-                    next(false);
-                }
+                window.onbeforeunload = null;
+                next();
             }else{
                 next();
             }
         }
     }
-});
+  });
 
 
 

@@ -198,13 +198,6 @@ export default {
     this.getMenuTee();
   },
 
-  //편집중일때 프라우저를 닫기전에 alert 창 뜨워주기
-  mounted(){
-    window.onbeforeunload = function(e){
-      return ''
-    }
-  },
-
    watch: {
     files: {
       handler(newVal,oldVal){

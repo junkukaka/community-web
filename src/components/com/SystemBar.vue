@@ -11,6 +11,11 @@
     <v-spacer></v-spacer>
     <div class="pr-3 white--text">
       <v-row class="textCenter darken-4--text">
+        <v-col>
+          <router-link class="white--text" to="/ReportMain">
+              Report
+          </router-link>  
+        </v-col>
         <v-col
           ><a
             href="http://csr.aspnc.com"
