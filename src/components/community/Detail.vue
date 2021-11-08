@@ -18,7 +18,7 @@
           }}</v-list-item-title>
           <v-list-item-subtitle class="text-overline font-weight-regular">
             <span class="mr-3"> {{ comInfoCount.hitsCount }} Views</span>
-            <span class="mr-3"> {{ comInfoCount.collectCount }} Comments</span>
+            <span class="mr-3"> {{ comInfoCount.commentCount }} Comments</span>
             <span class="mr-3"> {{ comInfoCount.likesCount }} liks</span>
             <span class="mr-3"> {{ comInfoCount.collectCount }} collect</span>
           </v-list-item-subtitle>

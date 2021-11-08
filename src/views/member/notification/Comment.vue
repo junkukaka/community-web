@@ -92,5 +92,11 @@ export default {
 };
 </script>
 
+<style scoped>
+.v-application .elevation-1 {
+    box-shadow:none !important
+}
+</style>
+
 
 

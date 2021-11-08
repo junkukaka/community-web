@@ -30,8 +30,9 @@
             <th class="text-center">위키 참여편집 회수</th>
             <th class="text-center">커뮤니티</th>
             <th class="text-center">댓글</th>
-            <th class="text-center">좋와요 클릭회수</th>
-            <th class="text-center">좋와요 받은회수</th>
+            <th class="text-center">커뮤니티 즐겨찾기 받은회수</th>
+            <th class="text-center">커뮤니티 좋와요 받은회수</th>
+            <th class="text-center">총점</th>
           </tr>
         </thead>
         <tbody>
@@ -41,8 +42,9 @@
             <td class="text-center">{{ item.wiki_his_cnt }}</td>
             <td class="text-center">{{ item.community_cnt }}</td>
             <td class="text-center">{{ item.comment_cnt }}</td>
-            <td class="text-center">{{ item.like_cnt }}</td>
+            <td class="text-center">{{ item.be_collect }}</td>
             <td class="text-center">{{ item.be_liked }}</td>
+            <td class="text-center">{{ item.point }}</td>
           </tr>
         </tbody>
       </template>

@@ -1,5 +1,5 @@
 <template>
-  <v-card flat>
+  <v-card flat class="mt-12 boxShadow pa-5">
     <v-tabs fixed-tabs v-model="tabs">
       <v-tab v-for="itme in tabItems" :key="itme">
         {{ itme }}

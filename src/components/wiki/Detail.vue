@@ -11,9 +11,19 @@
             wikiHis.registerTime | date-format("yyyy-mm-dd hh:mi:ss")
           }}
         </div>
-      <v-card-title class="text-h3 font-weight-medium pt-1">
+      <v-card-title class="text-h3 font-weight-medium pt-1 pb-1">
         {{ wikiHis.title }}
       </v-card-title>
+
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-subtitle class="text-overline font-weight-regular">
+            <span class="mr-3"> {{ wikiInfoCount.hitsCount }} Views</span>
+            <span class="mr-3"> {{ wikiInfoCount.likesCount }} liks</span>
+            <!-- <span class="mr-3"> {{ wikiInfoCount.collectCount }} collect</span> -->
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
 
       <v-card-actions style="padding: 0px">
         <v-list-item class="grow" >
@@ -86,8 +96,30 @@
       >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
-      <v-btn fab dark small color="orange" @click="timeLineDialog = true">
+      <v-btn fab dark small color="indigo" @click="timeLineDialog = true">
         <v-icon>mdi-history</v-icon>
+      </v-btn>
+      <!-- <v-btn
+        fab
+        dark
+        small
+        :color="`${
+          this.memberLikesAndCollect.memberCollectYn == 1 ? 'grey' : 'orange'
+        }`"
+        @click="saveCollect"
+      >
+        <v-icon>mdi-star</v-icon>
+      </v-btn> -->
+      <v-btn
+        fab
+        dark
+        small
+        :color="`${
+          this.memberLikesAndCollect.memberLikesYn == 1 ? 'grey' : 'red'
+        }`"
+        @click="saveLikes"
+      >
+        <v-icon>mdi-thumb-up</v-icon>
       </v-btn>
     </v-speed-dial>
     <!-- icon dial -->
@@ -122,14 +154,30 @@ export default {
     contentsTitle: 0,
     member: {},
     memberAuthority: {},
-    wikiHisMembers: []
+    wikiHisMembers: [],
+    memberLikesAndCollect: {},
+    wikiInfo: {
+      wikiId: null,
+      memberId: null,
+    },
+    wikiInfoCount: {
+      hitsCount: 0,
+      likesCount: 0,
+      collectCount: 0,
+      commentCount: 0,
+    },
   }),
 
   created() {
     this.wikiId = this.$route.query.wikiId;
     this.member = this.$store.state.member;
+    this.wikiInfo.wikiId = this.$route.query.wikiId;
+    this.wikiInfo.memberId = this.member.id;
     this.getWikiHisDetail();
+    this.getInfoCount();
     this.selectWikiHisMembers();
+    this.getMemberLikeAndCollect();
+    this.saveHits();
   },
 
   mounted() {
@@ -227,7 +275,43 @@ export default {
         }
       });
 
-    }
+    },
+
+    getInfoCount() {
+      this.$nextTick(function () {
+        this.$http
+          .get(`/wikiInfo/count/${this.wikiId}`)
+          .then((response) => {
+            this.wikiInfoCount = response.data.data;
+          });
+      });
+    },
+
+    saveHits() {
+      this.$nextTick(function () {
+        this.$http.post("/wikiInfo/save/hits", this.wikiInfo);
+      });
+    },
+
+    saveLikes() {
+      this.$nextTick(function () {
+        this.$http
+          .post("/wikiInfo/save/likes", this.wikiInfo)
+          .then(() => {
+            this.getMemberLikeAndCollect();
+          });
+      });
+    },
+
+    getMemberLikeAndCollect() {
+      this.$nextTick(function () {
+        this.$http
+          .post("/wikiInfo/selectLikeAndCollectByMember", this.wikiInfo)
+          .then((response) => {
+            this.memberLikesAndCollect = response.data.data;
+          });
+      });
+    },
 
   },
 };

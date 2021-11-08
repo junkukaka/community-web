@@ -4,8 +4,8 @@
       flat
       :headers="headers"
       :items="collect"
-      :disable-pagination="disablePagination"
       class="elevation-1 mytable"
+      :disable-pagination="disablePagination"
       hide-default-footer
     >
       <template v-slot:top>

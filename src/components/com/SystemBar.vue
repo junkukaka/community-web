@@ -13,8 +13,8 @@
       <v-row class="textCenter darken-4--text">
         <v-col>
           <router-link class="white--text" to="/ReportMain">
-              Report
-          </router-link>  
+            Report
+          </router-link>
         </v-col>
         <v-col
           ><a
@@ -35,6 +35,30 @@
           ></v-col
         >
         <v-col><a @click="toFtp" class="white--text">FTP</a></v-col>
+        <v-col
+          v-if="
+            $store.state.member != null && $store.state.member.authority === 0
+          "
+        >
+          <a @click="toAdmin" class="white--text">Admin</a></v-col
+        >
+        <v-col
+          v-if="
+            $store.state.member != null
+          "
+        >
+          <a @click="signOut" class="white--text">Logout</a></v-col
+        >
+
+        <v-col
+          v-if="
+            $store.state.member == null
+          "
+        >
+          <a @click="signIn" class="white--text">Login</a></v-col
+        >
+
+    
       </v-row>
 
       <v-dialog v-model="toFtpDialog" width="260">
@@ -46,7 +70,12 @@
               <v-icon right dark> mdi-television </v-icon>
             </v-btn>
 
-            <v-btn class="ma-2 white--text" color="success" depressed @click="toExternalIp">
+            <v-btn
+              class="ma-2 white--text"
+              color="success"
+              depressed
+              @click="toExternalIp"
+            >
               외부
               <v-icon right dark> mdi-cloud-upload </v-icon>
             </v-btn>
@@ -71,15 +100,32 @@ export default {
       this.toFtpDialog = true;
     },
 
-    toInteriorIp(){
+    toInteriorIp() {
       window.open("http://192.168.0.116:9000/", "_blank");
       this.toFtpDialog = false;
     },
 
-    toExternalIp(){
+    toExternalIp() {
       window.open("http://ftp.aspnc.com.cn:9000", "_blank");
       this.toFtpDialog = false;
+    },
+
+    toAdmin(){
+      this.$router.push("/aspnAdmin");
+    },
+
+    signOut() {
+      this.$store.state.member = null;
+      //退出登录，清空token
+      localStorage.removeItem("Authorization");
+      localStorage.removeItem("store");
+      this.$router.push("/signIn");
+    },
+
+    signIn(){
+      this.$router.push("/signIn")
     }
+
   },
 };
 </script>

@@ -20,7 +20,7 @@
           </v-col>
 
           <v-col cols="12" sm="4" md="5" lg="6" class="pl-2 pt-2">
-            <v-btn outlined color="grey" to="/updatePassword">
+            <v-btn outlined color="grey" to="/member/updatePassword">
               비밀번호 수정
             </v-btn>
           </v-col>

@@ -42,35 +42,11 @@ const routes = [
                 },
             },
             {
-                path: 'memberInfo',
-                name: 'memberInfo',
-                component: () => import('@/views/member/user/MemberInfo'),
-                meta:{
-                    title: "ASPN-memberInfo"
-                },
-            },
-            {
                 path: 'profile',
                 name: 'Profile',
                 component: () => import('@/views/member/profile/Profile'),
                 meta:{
                     title: "ASPN-profile"
-                },
-            },
-            {
-                path: 'notifications',
-                name: 'Notifications',
-                component: () => import('@/views/member/notification/Notifications'),
-                meta:{
-                    title: "ASPN-Notifications"
-                },
-            },
-            {
-                path: 'updatePassword',
-                name: 'UpdatePassword',
-                component: () => import('@/views/member/user/UpdatePassword'),
-                meta:{
-                    title: "ASPN-updatePassword"
                 },
             },
             {
@@ -90,14 +66,6 @@ const routes = [
                 },
             },
             {
-                path: 'wikiProfile',
-                name: 'WikiProfile',
-                component: () => import('@/views/member/wikiProfile/Profile'),
-                meta:{
-                    title: "ASPN-wikiProfile"
-                },
-            },
-            {
                 path: 'reportMain',
                 name: 'ReportMain',
                 component: () => import('@/views/report/ReportMain'),
@@ -106,6 +74,53 @@ const routes = [
                 },
             },
         ],
+    },
+    {
+        path: '/member',
+        component: () => import('@/views/IndexMember'),
+        redirect: "/member/communityProfile",  
+        children: [
+            {
+                path: 'memberInfo',
+                name: 'memberInfo',
+                component: () => import('@/views/member/user/MemberInfo'),
+                meta:{
+                    title: "ASPN-memberInfo"
+                },
+            },
+            {
+                path: 'updatePassword',
+                name: 'UpdatePassword',
+                component: () => import('@/views/member/user/UpdatePassword'),
+                meta:{
+                    title: "ASPN-updatePassword"
+                },
+            },
+            {
+                path: 'communityProfile',
+                name: 'CommunityProfile',
+                component: () => import('@/views/member/profile/Profile'),
+                meta:{
+                    title: "ASPN-communityProfile"
+                },
+            },
+            {
+                path: 'wikiProfile',
+                name: 'WikiProfile',
+                component: () => import('@/views/member/wikiProfile/Profile'),
+                meta:{
+                    title: "ASPN-wikiProfile"
+                },
+            },
+            {
+                path: 'notifications',
+                name: 'Notifications',
+                component: () => import('@/views/member/notification/Notifications'),
+                meta:{
+                    title: "ASPN-Notifications"
+                },
+            },
+        ]
     },
     {
         path: '/aspnAdmin',
