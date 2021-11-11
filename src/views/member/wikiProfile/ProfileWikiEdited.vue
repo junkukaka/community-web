@@ -17,9 +17,12 @@
       </template>
 
       <template v-slot:[`item.title`]="{ item }">
-        <v-btn text :to="`/wiki/wikiDetail?wikiId=${item.id}`" color="primary">
-          {{ item.title }}
-        </v-btn>
+          <router-link :to="`/wiki/wikiDetail?wikiId=${item.id}`" color="primary"
+             v-text="`${
+              item.title.length < 50 
+              ? item.title 
+              : item.title.substring(0, 50) + '...'
+          }`"/> 
       </template>
 
     </v-data-table>
@@ -36,7 +39,7 @@ export default {
     headers: [
       { text: "Title", align: "start", value: "title" },
       { text: "Menu Name", value: "menuName" },
-      { text: "Date", value: "updateTime" },
+      { text: "Date", value: "updateTime",align: "center" },
     ],
   }),
 

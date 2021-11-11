@@ -11,7 +11,9 @@
     <v-spacer></v-spacer>
     <div class="pr-3 white--text">
       <v-row class="textCenter darken-4--text">
-        <v-col>
+        <v-col  v-if="
+            $store.state.member != null && $store.state.member.authority < 4
+          ">
           <router-link class="white--text" to="/ReportMain">
             Report
           </router-link>

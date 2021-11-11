@@ -35,13 +35,21 @@
       </template>
 
       <template v-slot:[`item.title`]="{ item }">
-        <v-btn text :to="`/community/communityDetail?id=${item.id}`" color="primary">
-          {{ item.title }}
-        </v-btn>
+        <div style="width:300px;">
+          <router-link :to="`/community/communityDetail?id=${item.id}`" color="primary" 
+            v-text="
+              `${
+                item.title.length < 30
+                  ? item.title
+                  : item.title.substring(0, 30) + '...'
+              }`
+            "
+          />
+        </div>
       </template>
 
       <template v-slot:[`item.registerTime`]="{ item }">
-        {{ item.registerTime |date-format('yyyy-mm-dd hh:mi:ss') }}
+        {{ item.registerTime |date-format('yyyy-mm-dd') }}
       </template>
 
       <template v-slot:[`item.actions`]="{ item }">
@@ -81,12 +89,12 @@ export default {
     dialogDelete: false,
     disablePagination: true,
     headers: [
-      { text: "Title", align: "start", value: "title" },
-      { text: "Likes", value: "likesCount" },
-      { text: "Hits", value: "hitsCount" },
-      { text: "Comment", value: "commentCount" },
-      { text: "Date", value: "registerTime" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Title", align: "start", value: "title", width: 100 },
+      { text: "Likes",value: "likesCount" ,align: "center"},
+      { text: "Hits",value: "hitsCount" ,align: "center"},
+      { text: "Comment",value: "commentCount" ,align: "center"},
+      { text: "Date",value: "registerTime" ,align: "center"},
+      { text: "Actions", with:100 ,value: "actions", sortable: false ,align: "center"},
     ],
     deletedId: -1,
   }),

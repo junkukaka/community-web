@@ -1,16 +1,16 @@
 <template>
   <v-card flat class="pa-2">
-    <v-data-table
+    <v-data-table 
       flat
       :headers="headers"
-      :items="wikiHis"
-      :disable-pagination="disablePagination"
+      :items="likes"
       class="elevation-1 mytable"
+      :disable-pagination="disablePagination"
       hide-default-footer
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Editing wiki list</v-toolbar-title>
+          <v-toolbar-title>My Likes</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
 
@@ -34,26 +34,44 @@
         </v-toolbar>
       </template>
 
-      <template v-slot:[`item.title`]="{ item }">
-          {{ item.title }}
-      </template>
+ 
+    <template v-slot:[`item.title`]="{ item }">
+      <div style="width:300px;">
+        <router-link :to="`/wiki/wikiDetail?wikiId=${item.wikiId}`" color="primary" 
+          v-text="
+            `${
+              item.title.length < 35
+                ? item.title
+                : item.title.substring(0, 35) + '...'
+            }`
+          "
+        />
+      </div>
+    </template>
 
-      <template v-slot:[`item.date`]="{ item }">
-        {{ item.date |date-format('yyyy-mm-dd hh:mi:ss') }}
-      </template>
+    <template v-slot:[`item.date`]="{ item }">
+        {{ item.date |date-format('yyyy-mm-dd') }}
+    </template>
 
-      <template v-slot:[`item.actions`]="{ item }">
-        <v-btn text :to="`/wiki/wikiEdit?&menuId=${item.menuId}&id=${item.id}&fromProfile=1`">
-          <v-icon small class="mr-2"> mdi-pencil </v-icon>
-          Edit
-        </v-btn>
-        <v-btn text @click="deleteItem(item)">
-          <v-icon small> mdi-delete </v-icon>
-          Delete
-        </v-btn>
-      </template>
+    <template v-slot:[`item.actions`]="{ item }">
+      <v-btn text @click="deleteItem(item)">
+        <v-icon small> mdi-delete </v-icon>
+        Delete
+      </v-btn>
+    </template>
 
     </v-data-table>
+    <v-card flat class="mt-5">
+      <template>
+        <div class="text-center">
+          <v-pagination
+            v-model="page"
+            :length="pages"
+            :total-visible="7"
+          ></v-pagination>
+        </div>
+      </template>
+    </v-card>
   </v-card>
 </template>
 
@@ -62,13 +80,16 @@ export default {
   props: ["parent"],
   data: () => ({
     member: {},
-    wikiHis: [],
+    page: 1,
+    itemsPerPage: 30,
+    pages: 1,
+    likes: [],
     dialogDelete: false,
     disablePagination: true,
     headers: [
-      { text: "Title", align: "start", value: "title" },
+      { text: "Title", align: "start", value: "title",},
       { text: "Menu Name", value: "menuName" },
-      { text: "Date", value: "date", align: "center" },
+      { text: "Date", value: "date" , align: "center"},
       { text: "Actions", value: "actions", sortable: false , align: "center"},
     ],
     deleted: {},
@@ -89,37 +110,47 @@ export default {
   },
 
   watch: {
-    page: function () {
-      this.initialize();
-    },
+    page: function(){
+        this.initialize();
+      }
   },
 
   methods: {
+    //
     initialize() {
+      let request = {
+        params: {
+          memberId: this.member.id,
+          page: this.page,
+          itemsPerPage: this.itemsPerPage
+        },
+      };
+      //select community list by member
       this.$nextTick(function () {
         this.$http
-          .get(`/wiki/wikiProfileList/${this.member.id}`)
+          .get("/wikiInfo/likes/likesPageList", request)
           .then((response) => {
-            this.wikiHis = response.data.data;
+            this.likes = response.data.data.likes;
+            this.page = response.data.data.page; //当前页面
+            this.pages = response.data.data.pages; //页数
           });
       });
     },
 
     deleteItem(item) {
-      this.deleted.id = item.id;
+      this.deleted.communityId = item.communityId;
       this.deleted.memberId = item.memberId;
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
-      this.$http
-        .delete(`/wiki/wikiHis/${this.deleted.id}`)
-        .then((response) => {
-          console.log(response);
-          if (response.data.code == 200) {
-            this.closeDelete();
-          }
-        });
+      this.$http.post('/comInfo/save/likes',this.deleted)
+      .then((response) => {
+        console.log(response);
+        if(response.data.code == 200){
+          this.closeDelete();
+        }
+      })
     },
 
     close() {
@@ -140,7 +171,7 @@ export default {
 
 <style scoped>
 .v-application .elevation-1 {
-  box-shadow: none !important;
+    box-shadow:none !important
 }
 </style>
 

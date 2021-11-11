@@ -2,6 +2,18 @@
   <div>
     <v-row class="mt-2 mb-1">
       <v-col cols="12" lg="6" md="6">
+        <v-combobox
+          v-model="selectDepartments"
+          :items="departments"
+          :item-text="departments.text"
+          :item-value="departments.value"
+          label="권한구룹"
+          multiple
+          outlined
+          dense
+        ></v-combobox>
+      </v-col>
+      <v-col cols="12" lg="6" md="6">
         <v-btn outlined color="indigo" class="ml-10" @click="pickStart">
           시작일 : {{ startDate }}
         </v-btn>
@@ -26,12 +38,12 @@
         <thead>
           <tr>
             <th class="text-left">이름</th>
-            <th class="text-center">위키 최초작성 회수</th>
-            <th class="text-center">위키 참여편집 회수</th>
-            <th class="text-center">커뮤니티</th>
-            <th class="text-center">댓글</th>
-            <th class="text-center">커뮤니티 즐겨찾기 받은회수</th>
-            <th class="text-center">커뮤니티 좋와요 받은회수</th>
+            <th class="text-center">위키 최초작성 회수(2)</th>
+            <th class="text-center">위키 참여편집 회수(1)</th>
+            <th class="text-center">커뮤니티(1)</th>
+            <th class="text-center">댓글(0.2)</th>
+            <th class="text-center">커뮤니티 즐겨찾기 받은회수(0.5)</th>
+            <th class="text-center">커뮤니티 좋와요 받은회수(0.3)</th>
             <th class="text-center">총점</th>
           </tr>
         </thead>
@@ -78,16 +90,22 @@ export default {
       pickDialog: false,
       textSnackbar:"종료일은 시작일보다 작을수가 없습니다.",
       pickFlag: "S",
-      report: [
+      report: [],
+      departments: [],
+      selectDepartments: [
         {
-          name: "Frozen Yogurt",
-          calories: 159,
+           text: "중국ASPN"
+          ,value: "aspn_china"
         },
         {
-          name: "Ice cream sandwich",
-          calories: 237,
+           text: "ASPN China 리더그룹"
+          ,value: "aspn_china_leader"
         },
-      ],
+        {
+           text: "ASPN China 경영관리"
+          ,value: "aspn_china_management"
+        }
+      ]
     };
   },
 
@@ -96,6 +114,7 @@ export default {
     this.startDate = this.formatDate(new Date(), "yyyy-MM-") + "01";
     this.endDate = this.formatDate(new Date(), "yyyy-MM-dd");
     this.reportWCMemberCount();
+    this.initialize();
   },
 
   watch: {
@@ -119,13 +138,32 @@ export default {
   },
 
   methods: {
+    initialize() {
+      this.$nextTick(function () {
+        this.$http
+          .get("/member/members/department")
+          .then((response) => {
+              this.departments = response.data.data;
+          });
+      });
+    },
+
     reportWCMemberCount(){
+      let dept = []
+      for(const  department of this.selectDepartments){
+        dept.push(department.value)
+      }
+      
+      let depts = _.toString(dept)
+
       let params = {
         params: {
           startDate: this.startDate,
-          endDate: this.endDate
+          endDate: this.endDate,
+          departments: depts
         }
       }
+
       this.$http.get("/member/reportWCMemberCount",params).then((response) => {
         this.report = response.data.data;
       }) 

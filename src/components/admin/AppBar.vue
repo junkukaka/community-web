@@ -37,62 +37,7 @@
           <span>권한 관리</span>
         </v-btn>
       </v-col>
-
     </v-row>
-
-    <v-spacer></v-spacer>
-
-    <div>
-      <v-menu right bottom offset-y>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on" class="mr-1">
-            <v-avatar size="43" v-if="$store.state.member != null">
-              <img
-                :src="`${$store.state.member.picture}`"
-                v-if="$store.state.member.picture != null"
-                :alt="`photo`"
-              />
-              <v-icon dark v-if="$store.state.member.picture == null">
-                mdi-account-circle
-              </v-icon>
-            </v-avatar>
-            <v-avatar color="#EEEEEE" v-if="$store.state.member == null">
-              <v-icon dark> mdi-account-circle </v-icon>
-            </v-avatar>
-          </v-btn>
-        </template>
-
-        <v-list>
-          <v-list-item to="/community/profile" v-if="$store.state.member != null">
-            <v-list-item-title>커뮤니티 프로파일</v-list-item-title>
-          </v-list-item>
-          <v-list-item to="/wiki/profile" v-if="$store.state.member != null">
-            <v-list-item-title>위키 프로파일</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="myInfo" v-if="$store.state.member != null">
-            <v-list-item-title>회원정보</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="signOut" v-if="$store.state.member != null">
-            <v-list-item-title>로그아웃</v-list-item-title>
-          </v-list-item>
-          <v-list-item to="/signIn" v-if="$store.state.member == null">
-            <v-list-item-title>로그인</v-list-item-title>
-          </v-list-item>
-          <v-list-item to="/signUp" v-if="$store.state.member == null">
-            <v-list-item-title>회원가입</v-list-item-title>
-          </v-list-item>
-          <v-list-item
-            to="/aspnAdmin"
-            v-if="
-              $store.state.member != null && $store.state.member.authority === 0
-            "
-          >
-            <v-list-item-title>관리자 페이지</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </div>
-    
   </v-app-bar>
 </template>
 

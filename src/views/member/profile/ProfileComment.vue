@@ -36,13 +36,43 @@
 
  
     <template v-slot:[`item.title`]="{ item }">
-      <v-btn text :to="`/community/communityDetail?id=${item.communityId}`" color="primary">
-        {{ item.title }}
-      </v-btn>
+      <div style="width:300px;">
+      <router-link :to="`/community/communityDetail?id=${item.communityId}`" color="primary" 
+          v-text="
+            `${
+              item.title.length < 20
+                ? item.title
+                : item.title.substring(0, 20) + '...'
+            }`
+          "
+        />
+      </div>
+    </template>
+
+    <template v-slot:[`item.menuName`]="{ item }">
+      <div style="width:150px;" v-text="
+        `${
+              item.menuName.length < 10
+                ? item.menuName
+                : item.menuName.substring(0, 10) + '...'
+            }`
+      ">
+      </div>  
+    </template>
+
+    <template v-slot:[`item.content`]="{ item }">
+      <div style="width:300px;" v-text="
+        `${
+              item.content.length < 25
+                ? item.content
+                : item.content.substring(0, 25) + '...'
+            }`
+      ">
+      </div>  
     </template>
 
     <template v-slot:[`item.date`]="{ item }">
-        {{ item.date |date-format('yyyy-mm-dd hh:mi:ss') }}
+        {{ item.date |date-format('yyyy-mm-dd') }}
     </template>
 
     <template v-slot:[`item.actions`]="{ item }">
@@ -80,10 +110,10 @@ export default {
     dialogDelete: false,
     headers: [
       { text: "Title", align: "start", value: "title",},
-      { text: "Menu Name", value: "menuName" },
+      { text: "Menu Name",  align: "start",value: "menuName" },
       { text: "Content", value: "content" },
-      { text: "Date", value: "date" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Date", value: "date" , align: "center"},
+      { text: "Actions", value: "actions", sortable: false ,align: "center"},
     ],
     deletedId: -1,
   }),

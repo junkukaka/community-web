@@ -36,13 +36,21 @@
 
  
     <template v-slot:[`item.title`]="{ item }">
-      <v-btn text :to="`/community/communityDetail?id=${item.communityId}`" color="primary">
-        {{ item.title }}
-      </v-btn>
+      <div style="width:300px;">
+        <router-link :to="`/community/communityDetail?id=${item.communityId}`" color="primary" 
+          v-text="
+            `${
+              item.title.length < 35
+                ? item.title
+                : item.title.substring(0, 35) + '...'
+            }`
+          "
+        />
+      </div>
     </template>
 
     <template v-slot:[`item.date`]="{ item }">
-        {{ item.date |date-format('yyyy-mm-dd hh:mi:ss') }}
+        {{ item.date |date-format('yyyy-mm-dd') }}
     </template>
 
     <template v-slot:[`item.actions`]="{ item }">
@@ -81,8 +89,8 @@ export default {
     headers: [
       { text: "Title", align: "start", value: "title",},
       { text: "Menu Name", value: "menuName" },
-      { text: "Date", value: "date" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Date", value: "date" , align: "center"},
+      { text: "Actions", value: "actions", sortable: false , align: "center"},
     ],
     deleted: {},
   }),
