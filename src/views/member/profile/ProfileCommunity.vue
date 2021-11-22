@@ -35,13 +35,13 @@
       </template>
 
       <template v-slot:[`item.title`]="{ item }">
-        <div style="width:300px;">
+        <div>
           <router-link :to="`/community/communityDetail?id=${item.id}`" color="primary" 
             v-text="
               `${
-                item.title.length < 30
+                item.title.length < 35
                   ? item.title
-                  : item.title.substring(0, 30) + '...'
+                  : item.title.substring(0, 35) + '...'
               }`
             "
           />
@@ -89,12 +89,12 @@ export default {
     dialogDelete: false,
     disablePagination: true,
     headers: [
-      { text: "Title", align: "start", value: "title", width: 100 },
+      { text: "Title", align: "start", value: "title" },
       { text: "Likes",value: "likesCount" ,align: "center"},
       { text: "Hits",value: "hitsCount" ,align: "center"},
       { text: "Comment",value: "commentCount" ,align: "center"},
       { text: "Date",value: "registerTime" ,align: "center"},
-      { text: "Actions", with:100 ,value: "actions", sortable: false ,align: "center"},
+      { text: "Actions" ,value: "actions", sortable: false ,align: "center"},
     ],
     deletedId: -1,
   }),

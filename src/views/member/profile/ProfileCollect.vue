@@ -36,13 +36,13 @@
 
  
     <template v-slot:[`item.title`]="{ item }">
-       <div style="width:300px;">
+       <div>
         <router-link :to="`/community/communityDetail?id=${item.communityId}`" color="primary" 
           v-text="
             `${
-              item.title.length < 30
+              item.title.length < 35
                 ? item.title
-                : item.title.substring(0, 30) + '...'
+                : item.title.substring(0, 35) + '...'
             }`
           "
         />

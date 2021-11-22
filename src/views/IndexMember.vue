@@ -13,43 +13,77 @@
       "
     >
       <v-container class="py-0 fill-height">
-        <v-avatar
-          size="39"
-          v-if="$store.state.member != null"
-          class="mr-10"
-          @click="myInfo"
-          style="cursor: pointer"
-        >
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <img
-                :src="`${$store.state.member.picture}`"
-                v-bind="attrs"
-                v-on="on"
-                v-if="$store.state.member.picture != null"
-                :alt="`photo`"
-              />
-              <v-icon dark v-if="$store.state.member.picture == null">
-                mdi-account-circle
-              </v-icon>
-            </template>
-            <span>회원정보</span>
-          </v-tooltip>
-        </v-avatar>
+        <v-card class="d-flex flex-row pa-0 ma-0" flat>
+          <v-card class="pa-0 ma-0" flat>
+            <v-row>
+              <v-avatar
+                size="42"
+                v-if="$store.state.member != null"
+                class="mr-10 mt-4"
+                @click="myInfo"
+                style="cursor: pointer"
+              >
+                <v-tooltip bottom  v-if="$store.state.member.picture != null">
+                  <template v-slot:activator="{ on, attrs }">
+                    <img
+                      :src="`${$store.state.member.picture}`"
+                      v-bind="attrs"
+                      v-on="on"
+                      :alt="`photo`"
+                    />
+                  </template>
+                  <span>회원정보</span>
+                </v-tooltip>
+                <v-icon v-if="$store.state.member.picture == null">
+                  mdi-account-circle
+                </v-icon>
+              </v-avatar>
+            </v-row>
+          </v-card>
 
-        <div>
-          <v-btn text class="mr-7" to="/"> Home </v-btn>
-          <v-btn text class="mr-7" to="/member/communityProfile">
-            커뮤니티 프로파일
-          </v-btn>
-          <v-btn text class="mr-7" to="/member/wikiProfile">
-            위키 프로파일
-          </v-btn>
-          <v-btn text class="mr-7" to="/member/notifications" v-if="$store.state.memberAlert > 0">
-            <v-badge color="green" :content="$store.state.memberAlert">Notifications </v-badge>
-          </v-btn>
-          <!-- <v-btn text class="mr-7"> My Wiki </v-btn> -->
-        </div>
+          <v-card flat to="/" class="pr-3 pl-3">
+           <v-btn color="primary" class="mt-2" outlined>
+             Home
+             <v-icon
+                right
+                dark
+              >
+                mdi-home
+              </v-icon>
+              
+            </v-btn>
+          </v-card>
+
+          <v-card flat clas="pa-0 ma-0">
+            <v-tabs>
+              <v-tab @click="toLink(2)">
+                <span class="black--text pl-3 pr-3 pl-3 pr-3">
+                  위키 즐겨찾기
+                </span>
+              </v-tab>
+              <v-tab @click="toLink(3)">
+                <span class="black--text pl-3 pr-3 pl-3 pr-3">
+                  위키 프로파일
+                </span>
+              </v-tab>
+              <v-tab @click="toLink(4)">
+                <span class="black--text pl-3 pr-3 pl-3 pr-3">
+                  커뮤니티 프로파일
+                </span>
+              </v-tab>
+              <v-tab v-if="$store.state.memberAlert > 0" @click="toLink(5)">
+                <router-link
+                  to="/member/notifications"
+                  class="black--text pl-3 pr-3"
+                >
+                  <v-badge color="green" :content="$store.state.memberAlert"
+                    >Notifications
+                  </v-badge>
+                </router-link>
+              </v-tab>
+            </v-tabs>
+          </v-card>
+        </v-card>
       </v-container>
     </v-app-bar>
 
@@ -76,16 +110,44 @@ export default {
     SystemBar,
   },
 
-   watch: {
+  data: () => ({
+    tabModel: "#",
+  }),
+
+  watch: {
     "$store.state.memberAlert": function (newVal) {
       this.getMyCommunityCommentCount();
     },
+  },
+
+  created() {
+    console.log(this.$store.state.member.picture);
   },
 
   methods: {
     myInfo() {
       let id = this.$store.state.member.id;
       this.$router.push(`/member/memberInfo?id=${id}`);
+    },
+
+    toLink(toLink) {
+      switch (toLink) {
+        case 1:
+          this.$router.push(`/`);
+          break;
+        case 2:
+          this.$router.push(`/member/wikiCollect`);
+          break;
+        case 3:
+          this.$router.push(`/member/wikiProfile`);
+          break;
+        case 4:
+          this.$router.push(`/member/communityProfile`);
+          break;
+        case 5:
+          this.$router.push(`/member/notifications`);
+          break;
+      }
     },
   },
 };

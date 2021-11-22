@@ -61,7 +61,7 @@
     </template>
 
     <template v-slot:[`item.content`]="{ item }">
-      <div style="width:300px;" v-text="
+      <div v-text="
         `${
               item.content.length < 25
                 ? item.content

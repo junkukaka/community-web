@@ -20,6 +20,7 @@
           <v-list-item-subtitle class="text-overline font-weight-regular">
             <span class="mr-3"> {{ wikiInfoCount.hitsCount }} Views</span>
             <span class="mr-3"> {{ wikiInfoCount.likesCount }} liks</span>
+            <span class="mr-3"> {{ wikiInfoCount.collectCount }} collect</span>
             <!-- <span class="mr-3"> {{ wikiInfoCount.collectCount }} collect</span> -->
           </v-list-item-subtitle>
         </v-list-item-content>
@@ -30,14 +31,19 @@
           <v-list-item-avatar  v-for="(member,id) in wikiHisMembers" :key="id">
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attr }">
-                <v-avatar size="43" v-if="member.picture"
+                <v-avatar size="41" v-if="member.picture"
                   v-bind="attr"
                   v-on="on"
                 >
                   <img :src="member.picture" :alt="`photo`" />
                 </v-avatar>
-                <v-avatar color="#E0E0E0" v-if="!member.picture">
-                  <v-icon dark class="mr-2" size="52"> mdi-account-circle </v-icon>
+                <v-avatar size="41" color="indigo" v-if="!member.picture" 
+                  v-bind="attr"
+                  v-on="on"
+                >
+                  <v-icon dark>
+                    mdi-account-circle 
+                  </v-icon>
                 </v-avatar>
               </template>
               <span>{{member.member_name}}</span>
@@ -99,17 +105,17 @@
       <v-btn fab dark small color="indigo" @click="timeLineDialog = true">
         <v-icon>mdi-history</v-icon>
       </v-btn>
-      <!-- <v-btn
+      <v-btn
         fab
         dark
         small
         :color="`${
           this.memberLikesAndCollect.memberCollectYn == 1 ? 'grey' : 'orange'
         }`"
-        @click="saveCollect"
+        @click="wikiMemberMenusDialog = true"
       >
         <v-icon>mdi-star</v-icon>
-      </v-btn> -->
+      </v-btn>
       <v-btn
         fab
         dark
@@ -131,6 +137,38 @@
         </v-card>
       </v-dialog>
     </v-row>
+
+    <!-- wiki memeber collect  -->
+    <v-dialog v-model="wikiMemberMenusDialog" width="500">
+      <v-card>
+        <v-card-title class="text-h5 orange white--text" >
+          Wiki Collect Menu
+        </v-card-title>
+        <v-card-text class="mt-10 text-center">
+          <v-select
+            v-if="wikiMemberMenus.length > 0"
+            :items="wikiMemberMenus"
+            label="위키 즐겨찾기 메뉴"
+            item-text="menuName"
+            item-value="id"
+            outlined
+            @change="saveCollect"
+            v-model="selectWikiMenu"
+          ></v-select>
+          <v-btn
+              v-if="wikiMemberMenus.length == 0"
+              x-large
+              color="success"
+              dark
+              depressed
+              to="/member/wikiCollect"
+            >
+              <v-icon>mdi-format-list-bulleted-square</v-icon>
+              즐겨찾기 메뉴 
+            </v-btn>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -166,6 +204,9 @@ export default {
       collectCount: 0,
       commentCount: 0,
     },
+    wikiMemberMenusDialog: false,
+    wikiMemberMenus:[],
+    selectWikiMenu: null
   }),
 
   created() {
@@ -178,6 +219,7 @@ export default {
     this.selectWikiHisMembers();
     this.getMemberLikeAndCollect();
     this.saveHits();
+    this.selectWikiCollectMenu();
   },
 
   mounted() {
@@ -312,6 +354,37 @@ export default {
           });
       });
     },
+
+    selectWikiCollectMenu() {
+      this.$nextTick(function () {
+        this.$http
+          .get(
+            `/wikiCollect/collectMenu/selectCollectMenuListByMember/${this.member.id}`
+          )
+          .then((response) => {
+            this.wikiMemberMenus = response.data.data;
+          });
+      });
+    },
+
+    //즐겨찾기 저장
+    saveCollect(){
+      this.wikiMemberMenusDialog = false;
+      let params = {
+        collectMenuId: this.selectWikiMenu,
+        memberId: this.member.id,
+        wikiId: this.wikiId
+      }
+
+      this.$http.post("/wikiCollect/collect/saveWikiCollect",params)
+        .then((response) => {
+          if(response.status == 200){
+            this.getMemberLikeAndCollect();
+          }
+      })
+
+
+    }
 
   },
 };

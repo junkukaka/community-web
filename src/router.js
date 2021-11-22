@@ -78,7 +78,7 @@ const routes = [
     {
         path: '/member',
         component: () => import('@/views/IndexMember'),
-        redirect: "/member/communityProfile",  
+        redirect: "/member/wikiCollect",  
         children: [
             {
                 path: 'memberInfo',
@@ -118,6 +118,14 @@ const routes = [
                 component: () => import('@/views/member/notification/Notifications'),
                 meta:{
                     title: "ASPN-Notifications"
+                },
+            },
+            {
+                path: 'wikiCollect',
+                name: 'WikiCollect',
+                component: () => import('@/views/member/wikiProfile/ProfileWikiCollect'),
+                meta:{
+                    title: "ASPN-wikiProfile"
                 },
             },
         ]

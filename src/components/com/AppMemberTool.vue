@@ -10,7 +10,7 @@
       style="max-width: 60%"
       @keyup.native.enter="searching"
     ></v-text-field>
-      <v-btn icon class="mr-1">
+      <v-btn icon class="mr-1" @click="toMemberProfile">
         <v-badge
           bordered
           bottom
@@ -24,7 +24,6 @@
               :src="`${$store.state.member.picture}`"
               v-if="$store.state.member.picture != null"
               :alt="`photo`"
-              @click="toMemberProfile"
             />
             <v-icon dark v-if="$store.state.member.picture == null">
               mdi-account-circle
