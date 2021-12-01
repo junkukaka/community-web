@@ -168,7 +168,6 @@ export default {
     deleteItemConfirm() {
       this.$http.delete(`/comment/comments/${this.deletedId}`)
       .then((response) => {
-        console.log(response);
         if(response.data.code == 200){
           this.closeDelete();
         }

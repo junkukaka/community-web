@@ -140,6 +140,7 @@ export default {
           .post("/minio/user", formData)
           .then((result) => {
             this.member.picture = result.data.data;
+            this.$store.state.member.picture = this.member.picture;
           })
           .catch((e) => console.log(e));
       },

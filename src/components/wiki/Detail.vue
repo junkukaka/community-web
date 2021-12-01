@@ -1,5 +1,16 @@
 <template>
   <v-card flat class="pb-12">
+    <!-- 권한관리 메세지  -->
+    <v-alert
+      shaped
+      prominent
+      type="error"
+      v-if="authorityView"
+    >
+      해당 페이지 방문 권한이 없습니다. 
+      권한에관하여 관리자한테 문의하세요.
+    </v-alert>
+
      <div style="margin: -10px 0 10px -10px">
       <!-- dashboard -->
       <dashboard-vue/>
@@ -206,7 +217,8 @@ export default {
     },
     wikiMemberMenusDialog: false,
     wikiMemberMenus:[],
-    selectWikiMenu: null
+    selectWikiMenu: null,
+    authorityView : false
   }),
 
   created() {
@@ -302,6 +314,7 @@ export default {
       });
     },
 
+    //권한관리 
     getMemberAuthority(){
       let data = this.$data;
       let request = {
@@ -310,13 +323,24 @@ export default {
           authority : data.member.authority
         } 
       }
-      this.$http.get("/authority/getMemberWikiAuthority",request).then((response) => {
-        this.memberAuthority = response.data.data;
-        if(this.memberAuthority.viewYn != 1){
-            this.$router.go(-1);
-        }
-      });
-
+      this.$nextTick(function(){
+        this.$http.get("/authority/getMemberWikiAuthority",request).then((response) => {
+          this.memberAuthority = response.data.data;
+          if(this.memberAuthority.viewYn != 1){
+              this.authorityView = true;
+              const secounds = 2;
+              let num = 0;
+              const timer = setInterval(()=>{
+                if(num < secounds){
+                  num ++;
+                }else{
+                  clearInterval(timer);
+                  this.$router.go(-1);
+                }
+              },1000)
+          }
+        });
+      })
     },
 
     getInfoCount() {

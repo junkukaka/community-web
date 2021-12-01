@@ -166,7 +166,23 @@ const routes = [
                 meta:{
                     title: "ASPN-admin"
                 },
-            }
+            },
+            {
+                path: 'communityManage',
+                name: 'CommunityManage',
+                component: () => import('@/views/admin/article/CommunityManage'),
+                meta:{
+                    title: "ASPN-CommunityManage"
+                },
+            },
+            {
+                path: 'wikiManage',
+                name: 'WikiManage',
+                component: () => import('@/views/admin/article/WikiManage'),
+                meta:{
+                    title: "ASPN-WikiManage"
+                },
+            },
         ]
     },
     {

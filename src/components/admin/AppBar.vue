@@ -6,58 +6,49 @@
     elevate-on-scroll
     class="white"
     style="border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important"
-  >
-    <v-row align="center">
-      <v-col>
-        <v-btn to="/main" text>
-          <span>Home</span>
-        </v-btn>
-      </v-col>
-
-      <v-col>
-        <v-btn to="/aspnAdmin/communityMenu" text>
-          <span>커뮤니티 메뉴</span>
-        </v-btn>
-      </v-col>
-
-      <v-col>
-        <v-btn to="/aspnAdmin/wikiMenu" text>
-          <span>위키 메뉴</span>
-        </v-btn>
-      </v-col>
-      
-      <v-col>
-        <v-btn to="/aspnAdmin/memberComprehensive" text>
-          <span>회원 관리</span>
-        </v-btn>
-      </v-col>
-
-      <v-col>
-        <v-btn to="/aspnAdmin/authorityComprehensive" text>
-          <span>권한 관리</span>
-        </v-btn>
-      </v-col>
-    </v-row>
+  > 
+    <v-card flat to="/" class="pr-3 pl-3">
+      <v-btn color="primary" class="mt-2" outlined>
+        Home
+        <v-icon
+          right
+          dark
+        >
+          mdi-home
+        </v-icon>
+      </v-btn>
+    </v-card>
+    <v-card flat  clas="pa-0 ma-0">
+      <v-tabs>
+        <v-tab  @click="toLink(1)">
+           <span class="black--text pl-3 pr-3 pl-3 pr-3">회원 관리</span>
+        </v-tab>
+        <v-tab @click="toLink(2)">
+           <span class="black--text pl-3 pr-3 pl-3 pr-3">권한 관리</span>
+        </v-tab>
+        <v-tab @click="toLink(3)">
+           <span class="black--text pl-3 pr-3 pl-3 pr-3">커뮤니티 메뉴</span>
+        </v-tab>
+        <v-tab  @click="toLink(4)">
+           <span class="black--text pl-3 pr-3 pl-3 pr-3">위키 메뉴</span>
+        </v-tab>
+        <v-tab  @click="toLink(5)">
+           <span class="black--text pl-3 pr-3 pl-3 pr-3">커뮤니티 관리</span>
+        </v-tab>
+        <v-tab  @click="toLink(6)">
+           <span class="black--text pl-3 pr-3 pl-3 pr-3">위키 관리</span>
+        </v-tab>
+      </v-tabs>
+    </v-card>
+   
   </v-app-bar>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
 
 export default {
   data: () => ({
-    options: [{ title: "Profile", link: "/wiki/profile" }],
-    admins: [
-      { title: "Community Menu", link: "/community/communityMenu" },
-      { title: "Wiki Menu", link: "/wiki/wikiMenu" },
-    ],
-    searchFlag: "WIKI",
-    searchContent: null,
   }),
-
-  computed: {
-    ...mapState(["drawer"]),
-  },
 
   created() {
     this.member = this.$store.state.member;
@@ -65,34 +56,37 @@ export default {
   },
 
   methods: {
-    ...mapMutations({
-      setDrawer: "SET_DRAWER",
-    }),
-
     checkAdmin() {
       if (this.member.authority != 0) {
         this.$router.push("/");
       }
     },
 
-    signOut() {
-      this.$store.state.member = null;
-      //退出登录，清空token
-      localStorage.removeItem("Authorization");
-      localStorage.removeItem("store");
-      this.$router.push("/signIn");
+    toLink(toLink) {
+      switch (toLink) {
+        case 1:
+          this.$router.push(`/aspnAdmin/memberComprehensive`);
+          break;
+        case 2:
+          this.$router.push(`/aspnAdmin/authorityComprehensive`);
+          break;  
+        case 3:
+          this.$router.push(`/aspnAdmin/communityMenu`);
+          break;
+        case 4:
+          this.$router.push(`/aspnAdmin/wikiMenu`);
+          break;
+        case 5:
+          this.$router.push(`/aspnAdmin/communityManage`);
+          break;  
+        case 6:
+          this.$router.push(`/aspnAdmin/wikiManage`);
+          break;    
+      }
     },
 
-    myInfo() {
-      let id = this.$store.state.member.id;
-      this.$router.push(`/memberInfo?id=${id}`);
-    },
+   
 
-    searching() {
-      this.$router.push(
-        `/wiki/wikiSearch?content=${this.searchContent}&flag=${this.searchFlag}`
-      );
-    },
   },
 };
 </script>
