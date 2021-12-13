@@ -28,6 +28,9 @@ import '@kangc/v-md-editor/lib/plugins/highlight-lines/highlight-lines.css';
 import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/cdn';
 import '@kangc/v-md-editor/lib/plugins/mermaid/mermaid.css';
 
+import "mdi-icons/css/materialdesignicons.min.css";
+import "@fontsource/roboto"; 
+
 import './components/language/prism-abap.min.js'
 import './components/language/prism-bash.min.js'
 import './components/language/prism-java.min.js'

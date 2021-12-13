@@ -7,7 +7,7 @@
     >
       <template v-slot:icon>
         <v-avatar>
-          <img :src="item.picture">
+          <img :src="item.picture != null ? item.picture : 'http://aspnc.com.cn:9000/community/2021/2021-11/2021-11-25/296c75a6-e897-4035-9b36-90c7fbc5ec6c.png'">
         </v-avatar>
       </template>
       <template v-slot:opposite>

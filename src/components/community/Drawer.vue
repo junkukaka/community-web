@@ -1,11 +1,5 @@
 <template>
-  <v-navigation-drawer
-    app
-    width="270"
-    fixed
-    v-model="drawer"
-    style="top: 30px;"
-  >
+  <v-navigation-drawer app width="270" fixed v-model="drawer" style="top: 30px">
     <template v-slot:prepend>
       <div
         style="padding: 16px 0px 14px 16px; border-right: none"
@@ -22,24 +16,41 @@
       </div>
     </template>
 
-    <v-treeview
-      activatable
-      :items="$store.state.communityMenus"
-      open-all.lazy="!drawer"
-      hoverable
-      class="my-3"
-    >
-      <template slot="label" slot-scope="props">
-        <router-link
-          :to="'/community/communityList?menuId=' + props.item.id"
-          class="v-list-item"
-        >
-          <span style="color: #000000">
-            {{ props.item.name }}
-          </span>
-        </router-link>
-      </template>
-    </v-treeview>
+    <v-card flat class="mt-2">
+      <v-sheet class="pa-2 grey lighten-5">
+        <v-text-field
+          v-model="search"
+          label="Search wiki menu name"
+          flat
+          solo-inverted
+          hide-details
+          clearable
+          clear-icon="mdi-close-circle-outline"
+        ></v-text-field>
+      </v-sheet>
+
+      <v-treeview
+        activatable
+        :items="$store.state.communityMenus"
+        open-all.lazy="!drawer"
+        hoverable
+        class="my-3"
+        :search="search"
+        :filter="filter"
+        :open.sync="open"
+      >
+        <template slot="label" slot-scope="props">
+          <router-link
+            :to="'/community/communityList?menuId=' + props.item.id"
+            class="v-list-item"
+          >
+            <span style="color: #000000">
+              {{ props.item.name }}
+            </span>
+          </router-link>
+        </template>
+      </v-treeview>
+    </v-card>
   </v-navigation-drawer>
 </template>
 
@@ -48,6 +59,8 @@ export default {
   data: () => ({
     menu: [],
     member: {},
+    search: null,
+    open: [],
   }),
 
   created: function () {
@@ -77,6 +90,10 @@ export default {
       set(val) {
         this.$store.commit("SET_DRAWER", val);
       },
+    },
+
+    filter() {
+      (item, search, textKey) => item[textKey].indexOf(search) > -1;
     },
   },
 };

@@ -1,139 +1,139 @@
 div::-webkit-scrollbar {
-  width: 0.2em;
-}
-
-div::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-}
-
-/* markdown max-with  */
-.vuepress-markdown-body:not(.custom) {
-  max-width: 100% !important;
-  padding: 1.5rem 1.5rem !important;
-}
-
-.v-md-editor-preview {
-  padding: 0 !important;
-}
-
-html {
-  font-size: 15px;
-}
-
-.clearfix:after {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: " ";
-  clear: both;
-  height: 0;
-}
-
-.v-application .v-md-editor__preview-wrapper .warning {
-  background-color: rgba(255, 229, 100, 0.3) !important;
-  border-color: #e7c000 !important
-}
-
-.clearfix {
-  display: inline-block;
-}
-
-/* start commented backslash hack \*/
-* html .clearfix {
-  height: 1%;
-}
-
-.clearfix {
-  display: block;
-}
-
-.Mytitle {
-  font-size: 2rem !important;
-}
-
-.anchorArea {
-  position: fixed;
-  overflow: scroll;
-  height: 100%;
-  right: 0px;
-  top: 110px;
-  width: 270px;
-}
-
-.anchorAreaBox{
-  max-height:600px;
-  overflow:scroll
-}
-
-
-
-.anchorArea .contentsBorder {
-  border-left: 1px solid black;
-  color: black !important;
-}
-
-.rightBottomArea {
-  right: 26px;
-  bottom: 26px;
-}
-
-.anchorArea .contentsBorder a {
-  cursor: pointer;
-  font-size: 12px;
-  color: #0091ea;
-}
-
-.anchorArea .normalBorder {
-  border-left: 1px solid #e0e0e0;
-}
-
-.anchorArea .normalBorder a {
-  cursor: pointer;
-  font-size: 12px;
-  color: #757575;
-}
-
-#read .ql-syntax {
-  background-color: rgb(236, 236, 236);
-  padding: 10px;
-}
-
-#read p img {
-  max-width: 100%;
-}
-
-.v-application a {
-  text-decoration: none;
-}
-
-.containerMaxWith {
-  margin: 0 auto;
-  max-width: 1700px;
-}
-
-.containerPadding {
-  padding: 12px 6px !important;
-}
-
-.wikiListBorder {
-  border-color: #1976d2;
-  border-left-width: 0.26rem;
-  border-left-style: solid;
-}
-
-.bgColor {
-  background-color: #f2f5f8;
-}
-
-.textCenter {
-  text-align: center
-}
-
-.fontGray {
-  color: #2c2c2e
-}
-
-.boxShadow {
-  box-shadow: 0 10px 13px -7px #dddfe0 !important;
-
-}
+    width: 0.2em;
+  }
+  
+  div::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+  }
+  
+  /* markdown max-with  */
+  .vuepress-markdown-body:not(.custom) {
+    max-width: 100% !important;
+    padding: 1.5rem 1.5rem !important;
+  }
+  
+  .v-md-editor-preview {
+    padding: 0 !important;
+  }
+  
+  html {
+    font-size: 15px;
+  }
+  
+  .clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+  
+  .v-application .v-md-editor__preview-wrapper .warning {
+    background-color: rgba(255, 229, 100, 0.3) !important;
+    border-color: #e7c000 !important
+  }
+  
+  .clearfix {
+    display: inline-block;
+  }
+  
+  /* start commented backslash hack \*/
+  * html .clearfix {
+    height: 1%;
+  }
+  
+  .clearfix {
+    display: block;
+  }
+  
+  .Mytitle {
+    font-size: 2rem !important;
+  }
+  
+  .anchorArea {
+    position: fixed;
+    overflow: scroll;
+    height: 100%;
+    right: 0px;
+    top: 110px;
+    width: 270px;
+  }
+  
+  .anchorAreaBox{
+    max-height:600px;
+    overflow:scroll
+  }
+  
+  
+  
+  .anchorArea .contentsBorder {
+    border-left: 1px solid black;
+    color: black !important;
+  }
+  
+  .rightBottomArea {
+    right: 26px;
+    bottom: 26px;
+  }
+  
+  .anchorArea .contentsBorder a {
+    cursor: pointer;
+    font-size: 12px;
+    color: #0091ea;
+  }
+  
+  .anchorArea .normalBorder {
+    border-left: 1px solid #e0e0e0;
+  }
+  
+  .anchorArea .normalBorder a {
+    cursor: pointer;
+    font-size: 12px;
+    color: #757575;
+  }
+  
+  #read .ql-syntax {
+    background-color: rgb(236, 236, 236);
+    padding: 10px;
+  }
+  
+  #read p img {
+    max-width: 100%;
+  }
+  
+  .v-application a {
+    text-decoration: none;
+  }
+  
+  .containerMaxWith {
+    margin: 0 auto;
+    max-width: 1700px;
+  }
+  
+  .containerPadding {
+    padding: 12px 6px !important;
+  }
+  
+  .wikiListBorder {
+    border-color: #1976d2;
+    border-left-width: 0.26rem;
+    border-left-style: solid;
+  }
+  
+  .bgColor {
+    background-color: #f2f5f8;
+  }
+  
+  .textCenter {
+    text-align: center
+  }
+  
+  .fontGray {
+    color: #2c2c2e
+  }
+  
+  .boxShadow {
+    box-shadow: 0 10px 13px -7px #dddfe0 !important;
+  
+  }

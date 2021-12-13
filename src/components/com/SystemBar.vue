@@ -26,12 +26,6 @@
         show-arrows
         
       >
-        <v-tab v-if="$store.state.member != null">
-          <a @click="signOut" class="white--text text-caption">Logout</a>
-        </v-tab>
-        <v-tab v-if="$store.state.member == null">
-          <a @click="signIn" class="white--text text-caption">Login</a>
-        </v-tab>
         <v-tab
           v-if="
             $store.state.member != null && $store.state.member.authority < 4
@@ -68,6 +62,12 @@
           "
         >
           <a @click="toAdmin" class="white--text text-caption">Admin</a>
+        </v-tab>
+         <v-tab v-if="$store.state.member != null">
+          <a @click="signOut" class="white--text text-caption">Logout</a>
+        </v-tab>
+        <v-tab v-if="$store.state.member == null">
+          <a @click="signIn" class="white--text text-caption">Login</a>
         </v-tab>
       </v-tabs>
 

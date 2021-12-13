@@ -2,10 +2,10 @@
   <v-carousel cycle show-arrows-on-hover height="300">
     <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src" :href="item.href" target="_blank">
       <div :style="{'margin': margin,'text-align': align}" >
-        <div class="text-h2" >
+        <div class="text-h2 white--text" >
           {{ item.title }} 
         </div>
-        <p class="font-weight-light pt-2 pl-1" style="width:60%" v-show="!$vuetify.breakpoint.xs">
+        <p class="font-weight-light pt-2 pl-1 white--text" style="width:60%" v-show="!$vuetify.breakpoint.xs">
           {{ item.content }} 
         </p>
       </div>

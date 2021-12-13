@@ -22,25 +22,43 @@
         </router-link>
       </div>
     </template>
+    <v-card flat class="mt-2">
+      <v-sheet class="pa-2 grey lighten-5">
+        <v-text-field
+          v-model="search"
+          label="Search wiki menu name"
+          flat
+          solo-inverted
+          hide-details
+          clearable
+          clear-icon="mdi-close-circle-outline"
+        ></v-text-field>
+      </v-sheet>
 
-    <v-treeview
-      activatable
-      :items="$store.state.wikiMenus"
-      open-all.lazy="!drawer"
-      hoverable
-      class="my-3"
-    >
-      <template slot="label" slot-scope="props">
-        <router-link
-          :to="'/wiki/wikiList?menuId=' + props.item.id"
-          class="v-list-item"
+        <v-treeview
+          activatable
+          :items="$store.state.wikiMenus"
+          open-all.lazy="!drawer"
+          hoverable
+          :search="search"
+          :filter="filter"
+          :open.sync="open"
         >
-          <span style="color: #212121">
-            {{ props.item.name }}
-          </span>
-        </router-link>
-      </template>
-    </v-treeview>
+          <template slot="label" slot-scope="props">
+            <router-link
+              :to="'/wiki/wikiList?menuId=' + props.item.id"
+              class="v-list-item"
+            >
+              <span style="color: #212121">
+                {{ props.item.name }}
+              </span>
+            </router-link>
+          </template>
+        </v-treeview>
+
+      
+    </v-card>
+    
   </v-navigation-drawer>
 </template>
 
@@ -48,10 +66,19 @@
 export default {
   data: () => ({
     menu: [],
+    search: null,
+    open: [],
+    filter: null,
   }),
 
   created: function () {
     // this.initialize();
+  },
+
+  computed: {
+    filter () {
+      (item, search, textKey) => item[textKey].indexOf(search) > -1
+    },
   },
 
   methods: {
