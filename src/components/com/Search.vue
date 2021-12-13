@@ -120,6 +120,7 @@
           flat
           :headers="headers"
           :items="results"
+          item-key ="index"
           :disable-pagination="disablePagination"
           class="elevation-1 mytable"
           hide-default-footer
@@ -232,8 +233,8 @@
 
                 <v-scroll-x-transition group hide-on-leave>
                   <v-chip
-                    v-for="(selection, i) in wikiTree"
-                    :key="i"
+                    v-for="(selection, f) in wikiTree"
+                    :key="f"
                     color="grey"
                     dark
                     small
