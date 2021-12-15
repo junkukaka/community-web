@@ -26,7 +26,7 @@
       <v-sheet class="pa-2 grey lighten-5">
         <v-text-field
           v-model="search"
-          label="Search wiki menu name"
+          label="Search menu name"
           flat
           solo-inverted
           hide-details

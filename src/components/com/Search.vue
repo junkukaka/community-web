@@ -1,5 +1,20 @@
 <template>
   <div style="margin: 47px 0px 30px">
+    <v-alert
+      prominent
+      type="error"
+      v-if="alertFlag"
+      transition="scale-transition"
+    >
+      <v-row align="center">
+        <v-col class="grow">
+          검색내용이 업습니다. 
+        </v-col>
+        <v-col class="shrink">
+          <v-btn @click="alertFlag = !alertFlag">닫기</v-btn>
+        </v-col>
+      </v-row>
+    </v-alert>
     <v-card class="mx-lg-auto boxShadow" flat style="max-width: 1280px">
       <v-card-title class="headline primary lighten-1">
         <span style="color: white"> Search for Public Contens </span>
@@ -106,12 +121,10 @@
             large
             color="primary"
             @click="searchingRuslt"
-            v-if="menuShowYn"
           >
             search
             <v-icon class="pl-2">mdi-layers-search-outline</v-icon>
           </v-btn>
-
         </v-card>
       </v-card-text>
       <v-divider class="pt-5"></v-divider>
@@ -369,7 +382,7 @@ export default {
       { text: "Type", value: "ty", align: "start" },
     ],
     disablePagination: true,
-
+    alertFlag: false,
     pageNum: 1,
     morePage: true,
     loadingFlag : false
@@ -438,7 +451,9 @@ export default {
     },
 
     searching() {
-      if (_.trim(this.searchObj.content) === "") {
+      if (_.trim(this.searchObj.content) === "" && this.members.length ==0) {
+        this.loadingFlag = false;
+        this.alertFlag = true;
         return false;
       }
 
@@ -477,9 +492,9 @@ export default {
             for (const data of response.data.data) {
               this.results.push(data);
             }
-            this.loadingFlag = false;
           });
       });
+      this.loadingFlag = false;
     },
 
     menusDialog() {
