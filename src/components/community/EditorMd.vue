@@ -66,6 +66,7 @@
       prepend-icon="mdi-paperclip"
       :show-size="1000"
       class="mt-5"
+      :clearable="false"
     >
       <template v-slot:selection="{text }">
         <v-chip
@@ -78,6 +79,12 @@
         </v-chip>
       </template>
     </v-file-input>
+
+    <v-progress-linear
+      indeterminate
+      color="primary"
+      v-if="progress"
+    ></v-progress-linear>
 
      <!-- menus dialog start-->
     <v-dialog v-model="menuDialog" max-width="700">
@@ -139,6 +146,7 @@
       block
       class="mt-3 white--text "
       @click="save"
+      :disabled = progress
     >
       등록
       <v-icon right dark> mdi-content-save </v-icon>
@@ -183,7 +191,8 @@ export default {
       name:null,
       id:null
     },
-    member: {}
+    member: {},
+    progress: false
   }),
 
   created() {
@@ -342,10 +351,15 @@ export default {
       for(let i = 0; i< files.length; i++){
         formData.append(i,files[i]);
       }
+      if(files.length > 0){
+        this.progress = true;
+      }
+      
       this.$http.post("/files/upload", formData).then((response) => {
         const result = response.data.data;
         this.community.docId = result[0].docId;
         this.selectFilesList(); //回显
+        this.progress = false;
       });
     },
 

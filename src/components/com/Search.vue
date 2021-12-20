@@ -451,6 +451,7 @@ export default {
     },
 
     searching() {
+      this.alertFlag = false;
       if (_.trim(this.searchObj.content) === "" && this.members.length ==0) {
         this.loadingFlag = false;
         this.alertFlag = true;
