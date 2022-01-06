@@ -15,7 +15,7 @@
     <v-toolbar-title class="pl-2">
       <v-btn to="/community/communityMain" text>
         <v-icon>mdi-account-multiple</v-icon>
-        <span style="padding-left: 7px">커뮤니티</span>
+        <span style="padding-left: 7px">{{$t('community')}}</span>
       </v-btn>
     </v-toolbar-title>
     <v-spacer></v-spacer>

@@ -3,8 +3,8 @@
     <v-row>
       <v-col cols="12" sm="12" md="8">
         <v-text-field
-          label="Title"
-          hint="this is wiki title area"
+          :label="$t('title')"
+          :hint="$t('titleHint')"
           persistent-hint
           :rules="titleRules"
           outlined
@@ -30,13 +30,13 @@
                   </v-icon>
                 </v-btn>
               </template>
-              <span>menu change</span>
+              <span>{{$t('pickSomeThing',{0:$t('menu')})}}</span>
             </v-tooltip>
           </v-col>
           <v-col sm="6" md="9">
             <v-text-field
               value.lazy="menu.id"
-              label="menu name"
+              :label="$t('menu')"
               v-model.lazy="menu.name"
               disabled
             ></v-text-field>
@@ -57,7 +57,7 @@
           :rules="imgRules"
           accept="image/png, image/jpeg, image/bmp"
           placeholder="Pick an avatar"
-          label="Avatar"
+          :label="$t('avatar')"
           v-model="avatar"
           style="cursor: pointer"
         ></v-file-input>
@@ -78,7 +78,7 @@
 
     <v-textarea
       class="mt-5"
-      label="Wiki history Comment"
+      :label="$t('historyComment')"
       outlined
       :rules="commentRules"
       persistent-hint
@@ -94,7 +94,7 @@
       class="mt-3 white--text"
       @click="saveDialog = true"
     >
-      SAVE Content
+      {{$t('save')}}
       <v-icon right dark> mdi-content-save </v-icon>
     </v-btn>
 
@@ -102,7 +102,7 @@
     <v-dialog v-model="menuDialog" max-width="700">
       <v-card flat>
         <v-card-title class="text-h5">
-          Wiki Menus
+          {{$t('menu')}}
         </v-card-title>
         <v-card-text>
            <v-treeview
@@ -125,7 +125,7 @@
             text
             @click="menuDialog = false"
           >
-            close
+            {{$t('close')}}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -136,16 +136,16 @@
     <v-dialog v-model="saveDialog" max-width="290">
       <v-card>
         <v-card-title class="headline"
-          >Are you sure you want to publish ?</v-card-title
+          >{{$t('msgAreYouSurePublish')}}</v-card-title
         >
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="red darken-1" text @click="saveDialog = false">
-            cancle
+            {{$t('cancle')}}
           </v-btn>
-          <v-btn color="green darken-1" text @click="wikiHis.active = false; save();"> save </v-btn>
+          <v-btn color="green darken-1" text @click="wikiHis.active = false; save();"> {{$t('save')}} </v-btn>
           <v-btn color="primary darken-1" text @click="wikiHis.active = true; save();">
-            Active
+            {{$t('active')}}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -177,22 +177,8 @@ export default {
     oldContent:"",
     memberId : null,
     avatar: null,
-    imgRules: [
-      (value) =>
-        !value ||
-        value.size < 10000000 ||
-        "Avatar size should be less than 10 MB!",
-    ],
     saveDialog: false,
     fromProfile: undefined,
-    titleRules: [
-      (v) => !!v || "title is required",
-      (v) => (v && v.length <= 255) || "Name must be less than 255 characters",
-    ],
-    commentRules: [
-      (v) => !!v || "title is required",
-      (v) => (v && v.length <= 1000) || "Name must be less than 1000 characters",
-    ],
     popMsg: {
       dialog: false,
       content: null,
@@ -205,6 +191,30 @@ export default {
       id:null
     }
   }),
+
+  computed: {
+    imgRules(){
+      return [
+        (value) =>
+          !value ||
+          value.size < 10000000 ||
+          this.$t('fileLessThan',{0:10})
+      ]
+    },
+
+    titleRules () {
+      return [
+          (v) => !!v || this.$t('required', {0: this.$t('title')}),
+          (v) => (v && v.length <= 255) || this.$t('lessThan',{0:255})
+        ]
+    } ,
+    commentRules() {
+      return [
+        (v) => !!v || this.$t('required', {0: this.$t('comments')}),
+        (v) => (v && v.length <= 1000) || this.$t('lessThan',{0:1000})
+      ]
+    } ,
+  },
 
   watch: {
     //图片上传
@@ -289,38 +299,38 @@ export default {
         this.menu.id = item.id;
         this.menu.name = item.name; 
       }else{
-        this.updateError("대분류와 중분류를 선택할수가 없습니다.");
+        this.updateError(this.$t('msgCannotPick01'));
       }
       this.menuDialog = false;
     },
 
     updateError(error){
       this.popMsg.dialog = true;
-      this.popMsg.title = "Warning Message";
+      this.popMsg.title = this.$t('warningMessage');
       this.popMsg.content = error;
     },
 
     //增加内容
     save: function () {
       if(_.isNull(this.wikiHis.title) || _.eq(this.wikiHis.title,'')){
-        this.updateError("제목을 입력해 주세요");
+        this.updateError(this.$t('required',{0:this.$t('title')}));
         return false;
       }else if(_.isNull(this.wikiHis.content) || _.eq(this.wikiHis.content,'')){
-        this.updateError("내용을 주세요.");
+        this.updateError(this.$t('required',{0:this.$t('contant')}));
         return false;
       }else if(this.fromProfile === undefined && this.wikiHis.content === this.oldContent) {
-        this.updateError("변경 내용을 없습니다.");
+        this.updateError(this.$t('msgNoUpdate',{0:this.$t('contant')}));
         return false;
       }else if(this.fromProfile > 0){
         if (this.wikiHis.content === this.oldContent && !this.wikiHis.active) {
-          this.updateError("변경 내용을 없습니다.");
+          this.updateError(this.$t('msgNoUpdate',{0:this.$t('contant')}));
           return false;
         }
       }else if(_.isNull(this.wikiHis.information) || _.eq(this.wikiHis.information,'')) {
-       this.updateError("Comment 을 입력해주세요.");
+       this.updateError(this.$t('required',{0:this.$t('comments')}));
         return false;
       }else if(this.wikiHis.content.length> 20000){
-         this.updateError("20000자이상 저장 할수 없습니다.");
+         this.updateError(this.$t('lessThan',{0:20000}));
         return false;
       }
       this.afterSave();

@@ -10,22 +10,22 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Editing wiki list</v-toolbar-title>
+          <v-toolbar-title>{{$t('editingOption',{0:$t('wiki')})}}</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
 
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
               <v-card-title class="headline"
-                >Are you sure you want to delete this item?</v-card-title
+                >{{$t('msgDelteConfirm')}}</v-card-title
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="closeDelete"
-                  >Cancel</v-btn
+                  >{{$t('cancel')}} </v-btn
                 >
                 <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                  >OK</v-btn
+                  >{{$t('ok')}}</v-btn
                 >
                 <v-spacer></v-spacer>
               </v-card-actions>
@@ -45,11 +45,11 @@
       <template v-slot:[`item.actions`]="{ item }">
         <v-btn text :to="`/wiki/wikiEdit?&menuId=${item.menuId}&id=${item.id}&fromProfile=1`">
           <v-icon small class="mr-2"> mdi-pencil </v-icon>
-          Edit
+          {{$t('edit')}}
         </v-btn>
         <v-btn text @click="deleteItem(item)">
           <v-icon small> mdi-delete </v-icon>
-          Delete
+          {{$t('delete')}}
         </v-btn>
       </template>
 
@@ -65,14 +65,19 @@ export default {
     wikiHis: [],
     dialogDelete: false,
     disablePagination: true,
-    headers: [
-      { text: "Title", align: "start", value: "title" },
-      { text: "Menu Name", value: "menuName" },
-      { text: "Date", value: "date", align: "center" },
-      { text: "Actions", value: "actions", sortable: false , align: "center"},
-    ],
     deleted: {},
   }),
+
+   computed: {
+    headers(){
+      return [
+        { text: this.$t('title'), align: "start", value: "title" },
+        { text: this.$t('menu'), value: "menuName" },
+        { text: this.$t('date'), value: "updateTime",align: "center" },
+        { text: this.$t('actions'), value: "actions", sortable: false , align: "center"},
+      ]
+    }
+  },
 
   watch: {
     dialog(val) {

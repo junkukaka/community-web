@@ -74,7 +74,7 @@
           @click="validate"
           depressed
           @keyup.native.enter="validate"
-          >회원가입</v-btn
+          >{{$t('ok')}}</v-btn
         >
       </v-form>
 

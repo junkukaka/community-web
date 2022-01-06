@@ -3,10 +3,11 @@
     <v-row>
       <v-col cols="12" sm="12" md="8">
         <v-text-field
-          label="title"
-          hint="this is community title area"
+          :label="$t('title')"
+          :hint="$t('titleHint')"
           persistent-hint
           outlined
+          :rules="titleRules"
           style="border-radius: 0"
           v-model.lazy="community.title"
         ></v-text-field>
@@ -29,13 +30,13 @@
                   </v-icon>
                 </v-btn>
               </template>
-              <span>menu change</span>
+              <span>{{$t('pickSomeThing',{0:$t('menu')})}}</span>
             </v-tooltip>
           </v-col>
           <v-col sm="6" md="9">
             <v-text-field
               value.lazy="menu.id"
-              label="menu name"
+              :label="$t('menu')"
               v-model.lazy="menu.name"
               disabled
             ></v-text-field>
@@ -60,9 +61,9 @@
       v-model="files"
       color="deep-purple accent-4"
       counter
-      label="첨부파일"
+      :label="$t('fileUpload')"
       multiple
-      placeholder="Select your files"
+      :placeholder="$t('msgSelectFiles')"
       prepend-icon="mdi-paperclip"
       :show-size="1000"
       class="mt-5"
@@ -90,7 +91,7 @@
     <v-dialog v-model="menuDialog" max-width="700">
       <v-card flat>
         <v-card-title class="text-h5">
-          Community Menus
+          {{$t('menu')}}
         </v-card-title>
         <v-card-text>
            <v-treeview
@@ -148,7 +149,7 @@
       @click="save"
       :disabled = progress
     >
-      등록
+      {{$t('save')}}
       <v-icon right dark> mdi-content-save </v-icon>
     </v-btn>
 
@@ -173,10 +174,6 @@ export default {
       content: "",
       docId: ""
     },
-    titleRules: [
-      (v) => !!v || "title is required",
-      (v) => (v && v.length <= 100) || "Name must be less than 100 characters",
-    ],
     popMsg: {
       dialog: false,
       content: null,
@@ -195,6 +192,16 @@ export default {
     progress: false
   }),
 
+
+  computed: {
+    titleRules () {
+      return [
+          (v) => !!v || this.$t('required', {0: this.$t('title')}),
+          (v) => (v && v.length <= 100) || this.$t('lessThan',{0:100})
+        ]
+    } ,
+  },
+
   created() {
     this.member = this.$store.state.member;
     this.community.menuId = this.$route.query.menuId;
@@ -212,7 +219,7 @@ export default {
       handler(newVal,oldVal){
         for (const file of newVal) {
           if(file.size > 50000000){
-            this.updateError("50M 을 초과 할수가 없습니다.");
+            this.updateError(this.$t('fileLessThan',{0:"50M"}));
             this.files = [];
             this.updateYn = false;
             return false;
@@ -273,27 +280,27 @@ export default {
         this.menu.id = item.id;
         this.menu.name = item.name; 
       }else{
-        this.updateError("대분류와 중분류를 선택할수가 없습니다.");
+        this.updateError(this.$t('msgCannotPick01'));
       }
       this.menuDialog = false;
     },
 
     updateError(error){
       this.popMsg.dialog = true;
-      this.popMsg.title = "Warning Message";
+      this.popMsg.title = this.$t('warningMessage');
       this.popMsg.content = error;
     },
 
     //增加内容
     save() {
       if(_.isNull(this.community.title) || _.eq(this.community.title,'')){
-        this.updateError("제목을 입력해 주세요");
+        this.updateError(this.$t('required',{0:this.$t('title')}));
         return false;
       }else if(_.isNull(this.community.content) || _.eq(this.community.content,'')){
-        this.updateError("내용을 주세요");
+        this.updateError(this.$t('required',{0:this.$t('contant')}));
         return false;
-      }else if(this.community.content.length > 20100){
-         this.updateError("20100자이상 저장 할수 없습니다.");
+      }else if(this.community.content.length > 20000){
+         this.updateError(this.$t('lessThan',{0:20000}));
         return false;
       }
       this.afterSave();

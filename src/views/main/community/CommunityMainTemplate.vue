@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <div class="transition-swing text-h6 ml-3">New Community</div>
+    <div class="transition-swing text-h6 ml-3">{{$t('newCommunity')}}</div>
     <v-divider class="ml-3"></v-divider>
     <v-list class="mb-4">
       <template v-for="(item, index) in items">

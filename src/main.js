@@ -43,6 +43,9 @@ import './components/language/prism-swift.min.js'
 import './components/language/prism-go.min.js'
 
 
+import i18n from './i18n';
+
+
 
 
 VueMarkdownEditor.use(createMermaidPlugin());
@@ -85,5 +88,6 @@ Vue.filter('date-format',function(input, pattern = '') {
 new Vue({
   vuetify,
   router,
-  render: h => h(App)
+  i18n,
+  render: h => h(App),
 }).$mount('#app')

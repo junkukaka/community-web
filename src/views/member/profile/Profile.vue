@@ -47,8 +47,14 @@ export default {
     return {
       tabs: null,
       member: {},
-      tabItems: ["community", "comment", "liks", "Collection"],
+      
     };
+  },
+
+  computed: {
+    tabItems(){
+      return [this.$t('community'), this.$t('comments'), this.$t('likes'), this.$t('collect')]
+    }
   },
 
   created() {

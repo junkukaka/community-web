@@ -1,6 +1,6 @@
 <template>
   <div class="pt-5" v-if="filesList">
-    <h3 class="font-weight-medium pl-3 pb-1">File list</h3>
+    <h3 class="font-weight-medium pl-3 pb-1">{{$t('fileList')}}</h3>
     <v-divider class=""></v-divider>
     <v-simple-table>
       <template v-slot:default>

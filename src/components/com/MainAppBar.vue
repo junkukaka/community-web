@@ -26,12 +26,12 @@
           <v-card-title class="primary white--text"> Navigation </v-card-title>
           <v-card-text class="pt-4">
             <v-btn class="ma-2" color="warning" depressed to="/community/communityMain" width="150" @click="naviDialog =false">
-              Community
+              {{$t('community')}}
               <v-icon right dark> mdi-account-multiple </v-icon>
             </v-btn>
 
             <v-btn class="ma-2 white--text" color="success" depressed to="/wiki/wikiMain" width="150" @click="naviDialog =false">
-              Wiki
+              {{$t('wiki')}}
               <v-icon right dark> mdi-school </v-icon>
             </v-btn>
           </v-card-text>
@@ -41,12 +41,12 @@
     <v-row class="pt-1 textCenter" v-show="!$vuetify.breakpoint.xs">
       <v-col>
         <router-link to="/wiki/wikiMain">
-          <h3 class="font-weight-medium fontGray">Wiki</h3>
+          <h3 class="font-weight-medium fontGray">{{$t('wiki')}}</h3>
         </router-link>
       </v-col>
       <v-col>
         <router-link to="/community/communityMain">
-          <h3 class="font-weight-medium fontGray">Community</h3>
+          <h3 class="font-weight-medium fontGray">{{$t('community')}}</h3>
         </router-link>
       </v-col>
     </v-row>

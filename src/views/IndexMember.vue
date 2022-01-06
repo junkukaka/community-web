@@ -32,7 +32,7 @@
                       :alt="`photo`"
                     />
                   </template>
-                  <span>회원정보</span>
+                  <span>{{$t('myInfo')}}</span>
                 </v-tooltip>
                 <v-icon v-if="$store.state.member.picture == null">
                   mdi-account-circle
@@ -43,7 +43,7 @@
 
           <v-card flat to="/" class="pr-3 pl-3">
            <v-btn color="primary" class="mt-2" outlined>
-             Home
+             {{$t('home')}}
              <v-icon
                 right
                 dark
@@ -58,17 +58,17 @@
             <v-tabs>
               <v-tab @click="toLink(2)">
                 <span class="black--text pl-3 pr-3 pl-3 pr-3">
-                  위키 즐겨찾기
+                  {{$t('wikiCollect')}}
                 </span>
               </v-tab>
               <v-tab @click="toLink(3)">
                 <span class="black--text pl-3 pr-3 pl-3 pr-3">
-                  위키 프로파일
+                  {{$t('wikiProfile')}}
                 </span>
               </v-tab>
               <v-tab @click="toLink(4)">
                 <span class="black--text pl-3 pr-3 pl-3 pr-3">
-                  커뮤니티 프로파일
+                  {{$t('communityProfile')}}
                 </span>
               </v-tab>
               <v-tab v-if="$store.state.memberAlert > 0" @click="toLink(5)">
@@ -77,7 +77,7 @@
                   class="black--text pl-3 pr-3"
                 >
                   <v-badge color="green" :content="$store.state.memberAlert"
-                    >Notifications
+                    >{{$t('notifications')}}
                   </v-badge>
                 </router-link>
               </v-tab>

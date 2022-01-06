@@ -6,22 +6,22 @@
     horizontal
   >
     <v-btn to= "/main">
-      <span>Home</span>
+      <span>{{$t('home')}}</span>
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
     <v-btn to= "/community/communityMain">
-      <span>커뮤니티</span>
+      <span>{{$t('community')}}</span>
       <v-icon>mdi-account-multiple</v-icon>
     </v-btn>
 
     <v-btn to="/wiki/wikiMain">
-      <span>위키</span>
+      <span>{{$t('wiki')}}</span>
       <v-icon>mdi-school</v-icon>
     </v-btn>
 
     <v-btn to="/wiki/wikiDetail?wikiId=7">
-      <span>Help</span>
+      <span>{{$t('help')}}</span>
       <v-icon>mdi-help-box</v-icon>
     </v-btn>
     

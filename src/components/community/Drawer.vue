@@ -20,7 +20,7 @@
       <v-sheet class="pa-2 grey lighten-5">
         <v-text-field
           v-model="search"
-          label="Search menu name"
+          :label="$t('searchMenuName')"
           flat
           solo-inverted
           hide-details

@@ -6,7 +6,7 @@
           <v-subheader>
             <v-btn depressed color="primary" width="100%" @click="newMenu">
               <v-icon dark> mdi-plus </v-icon>
-              New Menu
+              {{$t('newWikiCollectMenu')}}
             </v-btn>
           </v-subheader>
           <v-list dense nav class="pl-4 pr-4">
@@ -37,10 +37,10 @@
               v-if="wikiCollectTitle != null"
               v-text="wikiCollectTitle.substring(0, 30)"
             ></div>
-            <div v-if="wikiCollectTitle == null" v-text="`All Collects`"></div>
+            <div v-if="wikiCollectTitle == null" v-text="$t('wikiCollect')"></div>
             <div>
               <v-btn depressed color="primary" @click="selectAllWikiCollect">
-                All
+                {{$t('all')}}
               </v-btn>
             </div>
           </v-card-title>
@@ -58,7 +58,7 @@
             <template v-slot:top>
               <v-text-field
                 v-model="search"
-                label="Search Title"
+                :label="$t('search') + $t('title')"
                 class="mx-4"
               ></v-text-field>
             </template>
@@ -70,9 +70,9 @@
                 <div
                   v-text="
                     `${
-                      item.title.length < 70
+                      item.title.length < 35
                         ? item.title
-                        : item.title.substring(0, 70) + '...'
+                        : item.title.substring(0, 35) + '...'
                     }`
                   "
                 ></div>
@@ -81,11 +81,11 @@
             <template v-slot:[`item.actions`]="{ item }">
               <v-btn text @click="wikiCollectEdit(item)">
                 <v-icon small class="mr-2" > mdi-pencil </v-icon>
-                Edit
+                {{$t('edit')}}
               </v-btn>
               <v-btn text @click="deleteWikiCollect(item)">
                 <v-icon small> mdi-delete </v-icon>
-                Delete
+                {{$t('delete')}}
               </v-btn>
             </template>
           </v-data-table>
@@ -97,14 +97,14 @@
     <v-dialog v-model="wikiMenusEditDialog" width="500">
       <v-card>
         <v-card-title class="text-h5 grey lighten-2">
-          New Wiki Collect Menu
+         {{$t('newWikiCollectMenu')}}
         </v-card-title>
 
         <v-card-text class="mt-3">
           <v-text-field
             v-model="wikiMemberMenu.menuName"
             :counter="100"
-            label="Menu Name"
+            :label="$t('menu')"
             required
           ></v-text-field>
         </v-card-text>
@@ -117,10 +117,10 @@
             dark
             @click="dialogDelete = true"
           >
-            삭제
+            {{$t('delete')}}
           </v-btn>
           <v-btn color="primary" depressed @click="saveWikiCollectMenu">
-            확인
+            {{$t('ok')}}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -129,15 +129,15 @@
     <v-dialog v-model="dialogDelete" max-width="500px">
       <v-card>
         <v-card-title class="headline"
-          >Are you sure you want to delete this item?</v-card-title
+          >{{$t('msgDelteConfirm')}}</v-card-title
         >
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialogDelete = false"
-            >Cancel</v-btn
+            >{{$t('cancel')}}</v-btn
           >
           <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-            >OK</v-btn
+            >{{$t('ok')}}</v-btn
           >
           <v-spacer></v-spacer>
         </v-card-actions>
@@ -149,13 +149,13 @@
     <v-dialog v-model="wikiMemberMenusDialog" width="500">
       <v-card>
         <v-card-title class="text-h5 orange white--text" >
-          Wiki Collect Menu
+          {{$t('wiki')}}{{$t('collect')}}{{$t('menu')}}
         </v-card-title>
         <v-card-text class="mt-10 text-center">
           <v-select
             v-if="wikiMemberMenus.length > 0"
             :items="wikiMemberMenus"
-            label="위키 즐겨찾기 메뉴"
+            :label="$t('wiki')+$t('collect')+$t('menu')"
             item-text="menuName"
             item-value="id"
             outlined
@@ -197,11 +197,16 @@ export default {
     avtiveWikiMenu:null,
     selectWikiMenu: null,
     selectWikiId: null,
-    headers: [
-      { text: "Title", align: "start", value: "title" },
-      { text: "Actions", value: "actions", sortable: false, align: "center" },
-    ],
   }),
+
+  computed: {
+    headers(){
+      return [
+        { text: this.$t('title'), align: "start", value: "title" },
+        { text: this.$t('actions'), value: "actions", sortable: false, align: "center" },
+      ]
+    }
+  },
 
   created() {
     this.member = this.$store.state.member;

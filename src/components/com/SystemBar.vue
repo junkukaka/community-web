@@ -18,7 +18,7 @@
         $vuetify.breakpoint.xl
       "
     >
-      <p class="font-weight-medium white--text">지식은 공유하면 더 커진다.</p>
+      <p class="font-weight-medium white--text">{{$t('sysMsg')}}</p>
     </div>
     <v-card flat class="white--text pa-0 ma-0">
       <v-tabs
@@ -32,7 +32,7 @@
           "
         >
           <router-link class="white--text text-caption" to="/ReportMain">
-            Report
+           {{$t('report')}}
           </router-link>
         </v-tab>
         <v-tab>
@@ -41,7 +41,7 @@
             target="_blank"
             rel="noopener noreferrer"
             class="white--text text-caption"
-            >CSR</a
+            >{{$t('csr')}}</a
           >
         </v-tab>
         <v-tab>
@@ -50,25 +50,52 @@
             target="_blank"
             rel="noopener noreferrer"
             class="white--text text-caption"
-            >Groupware</a
+            >{{$t('groupware')}}</a
           >
         </v-tab>
         <v-tab>
-          <a @click="toFtp" class="white--text text-caption text-caption">FTP</a>
+          <a @click="toFtp" class="white--text text-caption text-caption">{{$t('ftp')}}</a>
         </v-tab>
         <v-tab
           v-if="
             $store.state.member != null && $store.state.member.authority === 0
           "
         >
-          <a @click="toAdmin" class="white--text text-caption">Admin</a>
+          <a @click="toAdmin" class="white--text text-caption">{{$t('admin')}}</a>
         </v-tab>
          <v-tab v-if="$store.state.member != null">
-          <a @click="signOut" class="white--text text-caption">Logout</a>
+          <a @click="signOut" class="white--text text-caption">{{$t('logout')}}</a>
         </v-tab>
         <v-tab v-if="$store.state.member == null">
-          <a @click="signIn" class="white--text text-caption">Login</a>
+          <a @click="signIn" class="white--text text-caption">{{$t('login')}}</a>
         </v-tab>
+
+
+        <v-tab>
+          <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  v-bind="attrs"
+                  v-on="on"
+                  depressed
+                  class="white--text v-icon notranslate"
+                  color="primary"                >
+                <v-icon class="white--text v-icon notranslate"> mdi-translate </v-icon> 
+                <v-icon class="white--text v-icon notranslate">mdi-menu-down </v-icon> 
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item
+                  v-for="(item, index) in langs"
+                  :key="index"
+                  @click="selectLanguage(item.code,item.name)"
+                >
+                  <v-list-item-title>{{ item.name }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+        </v-tab>
+
       </v-tabs>
 
       <v-dialog v-model="toFtpDialog" width="260">
@@ -101,10 +128,24 @@ import AppMemberTool from "./AppMemberTool";
 export default {
   data: () => ({
     toFtpDialog: false,
+    langs: [
+      {name: "English", code: "en"},
+      {name: "简体中文", code: "ch"},
+      {name: "한글", code: "ko"}
+    ],
+    lang: "English"
   }),
   components: {
     AppMemberTool,
   },
+
+  created(){
+    //设置语言
+    if(this.$store.state.lang != null){
+      this.selectLanguage(this.$store.state.lang.code,this.$store.state.lang.name)
+    }
+  },
+
   methods: {
     toFtp() {
       this.toFtpDialog = true;
@@ -135,6 +176,15 @@ export default {
     signIn() {
       this.$router.push("/signIn");
     },
+
+
+    selectLanguage(code,name) {
+      this.$i18n.locale = code;
+      this.$store.state.lang =  {name: name, code: code};
+      this.lang = name;
+      //console.log(this.$store.state.lang);
+    }
+
   },
 };
 </script>

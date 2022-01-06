@@ -4,7 +4,7 @@
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
           v-model="member.loginId"
-          label="Login ID"
+          :label="$t('id')"
           :counter="20"
           required
           :rules="loginRules"
@@ -14,7 +14,7 @@
         <v-text-field
           v-model="member.password"
           :counter="50"
-          label="Password"
+          :label="$t('pw')"
           :type="showPassword ? 'text' : 'password'"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           required
@@ -31,7 +31,7 @@
           @click="validate"
           depressed
           @keyup.native.enter="validate"
-          >로그인</v-btn
+          >{{$t('login')}}</v-btn
         >
         <v-btn
           block
@@ -41,7 +41,7 @@
           class="mt-3"
           to="/signUp"
           depressed
-          >회원가입</v-btn
+          >{{$t('signUp')}}</v-btn
         >
       </v-form>
 
@@ -77,20 +77,27 @@ export default {
     dialogTitle: "",
     showPassword: false,
     valid: true,
-    passwordRules: [
-      (v) => !!v || "password is required",
-      (v) =>
-        (v && v.length >= 3 && v.length <= 50) ||
-        "Name must be more than 3 characters",
-    ],
-    loginRules: [
-      (v) => !!v || "login ID is required",
-      (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
-    ],
   }),
 
   created: function () {
     this.initialize();
+  },
+
+  computed: {
+    passwordRules() {
+      return [
+        (v) => !!v || this.$t('required', {0: this.$t('pw')}),
+        (v) =>
+          (v && v.length >= 3 && v.length <= 50) ||
+          this.$t('moreThan',{0:3})
+      ]
+    },
+    loginRules() {
+      return  [
+        (v) => !!v || this.$t('required', {0: this.$t('id')}),
+        (v) => (v && v.length <= 20) || this.$t('lessThan',{0:20})
+      ]
+    }
   },
 
   methods: {
@@ -108,7 +115,7 @@ export default {
           .then((response) => {
             that.dialog = true;
             if (response.data.data.member != "0") {
-              data.dialogTitle = `Hello ${response.data.data.member.memberName} Welcome to ASPN`;
+              data.dialogTitle = this.$t('msgWelcome',{0: `${response.data.data.member.memberName}`}) ;
               //给store member 赋值
               that.$store.state.member = response.data.data.member;
               that.member = response.data.data.member;
@@ -117,7 +124,7 @@ export default {
               that.changeLogin({ Authorization: that.memberToken });
               this.getMemberMenuTree();
             } else {
-              data.dialogTitle = "login ID or password is fail";
+              data.dialogTitle = this.$t('msgPWFail');
               data.dialog = true;
             }
           })

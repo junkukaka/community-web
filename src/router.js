@@ -58,14 +58,6 @@ const routes = [
                 },
             },
             {
-                path: 'communityProfile',
-                name: 'CommunityProfile',
-                component: () => import('@/views/member/profile/Profile'),
-                meta:{
-                    title: "ASPN-communityProfile"
-                },
-            },
-            {
                 path: 'reportMain',
                 name: 'ReportMain',
                 component: () => import('@/views/report/ReportMain'),

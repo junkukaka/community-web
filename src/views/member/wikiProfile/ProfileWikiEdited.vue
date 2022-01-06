@@ -10,7 +10,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Edited wiki list</v-toolbar-title>
+          <v-toolbar-title>{{$t('editedOption',{0:$t('wiki')})}}</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
         </v-toolbar>
@@ -36,14 +36,16 @@ export default {
     member: {},
     wikiHis: [],
     disablePagination: true,
-    headers: [
-      { text: "Title", align: "start", value: "title" },
-      { text: "Menu Name", value: "menuName" },
-      { text: "Date", value: "updateTime",align: "center" },
-    ],
   }),
 
-  watch: {
+  computed: {
+    headers(){
+      return [
+        { text: this.$t('title'), align: "start", value: "title" },
+        { text: this.$t('menu'), value: "menuName" },
+        { text: this.$t('date'), value: "updateTime",align: "center" },
+      ]
+    }
   },
 
   created() {

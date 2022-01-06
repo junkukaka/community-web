@@ -3,7 +3,7 @@
     <v-text-field
       v-model="searchContent"
       append-icon="mdi-magnify"
-      label="Search"
+      :label="$t('search')"
       single-line
       hide-details
       class="mr-3 ml-3 pt-2"

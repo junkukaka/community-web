@@ -1,7 +1,7 @@
 <template>
     <v-card flat>
       <v-card flat>
-        <div class="transition-swing text-h6 mb-1 ml-3">최신글</div>
+        <div class="transition-swing text-h6 mb-1 ml-3">{{$t('newCommunity')}}</div>
         <v-divider class="ml-3"></v-divider>
         <v-list>
           <template v-for="(item, index) in items">
@@ -49,7 +49,7 @@
               block
               @click="selectMoreCommunity"
               color="#BDBDBD">
-              More
+              {{$t('more')}}
             </v-btn>
         </div>
        

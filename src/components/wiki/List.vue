@@ -40,8 +40,7 @@
                           "
                         ></v-card-title>
                         <v-card-subtitle class="text-subtitle-2">
-                          Founder: {{ item.registerName }} | Last Review:
-                          {{ item.updateName }}
+                          {{$t('lastUpdate')}} {{ item.updateName }}
                         </v-card-subtitle>
                         <v-card-actions style="margin-top: -16px !important">
                           <v-btn class="ml-1" outlined rounded small>

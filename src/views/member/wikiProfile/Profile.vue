@@ -39,8 +39,17 @@ export default {
     return {
       tabs: null,
       member: {},
-      tabItems: ["Editing Wiki", "Editied Wiki","Wiki like"],
     };
+  },
+
+  computed: {
+    tabItems(){
+      return [
+          this.$t('editingOption',{0:this.$t('wiki')}), 
+          this.$t('editedOption',{0:this.$t('wiki')}),
+          this.$t('likeOption',{0:this.$t('wiki')})
+        ]
+    } 
   },
 
   created() {

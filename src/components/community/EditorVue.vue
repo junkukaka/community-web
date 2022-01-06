@@ -3,8 +3,9 @@
     <v-row>
       <v-col cols="12" sm="12" md="8">
         <v-text-field
-          label="title"
-          hint="this is community title area"
+          :label="$t('title')"
+          :hint="$t('titleHint')"
+          :rules="titleRules"
           persistent-hint
           outlined
           style="border-radius: 0"
@@ -29,13 +30,13 @@
                   </v-icon>
                 </v-btn>
               </template>
-              <span>menu change</span>
+              <span>{{$t('pickSomeThing',{0:$t('menu')})}}</span>
             </v-tooltip>
           </v-col>
           <v-col sm="6" md="9">
             <v-text-field
               value="menu.id"
-              label="menu name"
+              :label="$t('menu')"
               v-model="menu.name"
               disabled
             ></v-text-field>
@@ -100,7 +101,7 @@
     <v-dialog v-model="menuDialog" max-width="700">
       <v-card flat>
         <v-card-title class="text-h5">
-          Community Menus
+          {{$t('menu')}}
         </v-card-title>
         <v-card-text>
            <v-treeview
@@ -140,7 +141,7 @@
       @click="save"
       :disabled = progress
     >
-      등록
+      {{$t('save')}}
       <v-icon right dark> mdi-pencil </v-icon>
     </v-btn>
 
@@ -184,6 +185,15 @@ export default {
     progress: false
   }),
 
+  computed: {
+    titleRules () {
+      return [
+          (v) => !!v || this.$t('required', {0: this.$t('title')}),
+          (v) => (v && v.length <= 100) || this.$t('lessThan',{0:100})
+        ]
+    } ,
+  },
+
   created: function () {
     this.member = this.$store.state.member;
     this.community.menuId = this.$route.query.menuId;
@@ -201,7 +211,7 @@ export default {
       handler(newVal,oldVal){
         for (const file of newVal) {
           if(file.size > 50000000){
-            this.updateError("50M 을 초과 할수가 없습니다.");
+            this.updateError(this.$t('fileLessThan',{0:"50M"}));
             this.files = [];
             this.updateYn = false;
             return false;
@@ -263,14 +273,14 @@ export default {
         this.menu.id = item.id;
         this.menu.name = item.name; 
       }else{
-        this.updateError("대분류와 중분류를 선택할수가 없습니다.");
+        this.updateError(this.$t('msgCannotPick01'));
       }
       this.menuDialog = false;
     },
 
     updateError(error){
       this.popMsg.dialog = true;
-      this.popMsg.title = "Warning Message";
+      this.popMsg.title = this.$t('warningMessage');
       this.popMsg.content = error;
     },
 
@@ -278,10 +288,10 @@ export default {
     save: function () {
       let router = this.$router;
       if(_.isNull(this.community.title) || _.eq(this.community.title,'')){
-        this.updateError("제목을 입력해 주세요");
+        this.updateError(this.$t('required',{0:this.$t('title')}));
         return false;
       }else if(_.isNull(this.community.content) || _.eq(this.community.content,'')){
-        this.updateError("내용을 주세요");
+        this.updateError(this.$t('required',{0:this.$t('contant')}));
         return false;
       }
 

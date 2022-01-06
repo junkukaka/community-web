@@ -1,6 +1,6 @@
 <template>
   <v-card flat class="mx-auto">
-    <div class="transition-swing text-h6 ml-3">New Wiki</div>
+    <div class="transition-swing text-h6 ml-3">{{$t('newWiki')}}</div>
     <v-divider class="ml-3"></v-divider>
     <v-row dense class="mt-2">
       <v-col v-for="(item, i) in wikis" :key="i" cols="12" class="pa-1">
@@ -32,8 +32,7 @@
                         "
                       ></v-card-title>
                       <v-card-subtitle class="text-subtitle-2">
-                        Founder: {{ item.registerName }} | Last Review:
-                        {{ item.updateName }}
+                        {{$t('lastUpdate')}} {{ item.updateName }}
                       </v-card-subtitle>
                       <v-card-actions style="margin-top: -16px !important">
                         <v-btn class="ml-1" outlined rounded small>

@@ -7,8 +7,7 @@
       type="error"
       v-if="authorityView"
     >
-      해당 페이지 방문 권한이 없습니다. 
-      권한에관하여 관리자한테 문의하세요.
+      {{$t('authorityBanMSG')}}
     </v-alert>
 
      <div style="margin: -10px 0 10px -10px">
@@ -17,7 +16,7 @@
     </div>
     <v-card flat class="mt-n3">
        <div class="text-overline font-weight-light pl-5 pt-2">
-          last update:
+          {{$t('lastUpdate')}}
           {{
             wikiHis.registerTime | date-format("yyyy-mm-dd hh:mi:ss")
           }}
@@ -29,9 +28,9 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-subtitle class="text-overline font-weight-regular">
-            <span class="mr-3"> {{ wikiInfoCount.hitsCount }} Views</span>
-            <span class="mr-3"> {{ wikiInfoCount.likesCount }} liks</span>
-            <span class="mr-3"> {{ wikiInfoCount.collectCount }} collect</span>
+            <span class="mr-3"> {{ wikiInfoCount.hitsCount }}  {{$t('views')}} </span>
+            <span class="mr-3"> {{ wikiInfoCount.likesCount }} {{$t('likes')}}</span>
+            <span class="mr-3"> {{ wikiInfoCount.collectCount }} {{$t('collect')}}</span>
             <!-- <span class="mr-3"> {{ wikiInfoCount.collectCount }} collect</span> -->
           </v-list-item-subtitle>
         </v-list-item-content>
@@ -67,7 +66,7 @@
       <!-- anchor -->
 
       <div class="anchorArea d-none d-lg-block" v-if="titles.length > 0" v-show="$store.state.ifMobile">
-        <h6 class="text-h6 pb-1">Contents</h6>
+        <h6 class="text-h6 pb-1">{{$t('catalogue')}}</h6>
         <div class="ml-3 anchorAreaBox">
           <div
             v-for="(anchor, i) in titles"
@@ -153,13 +152,13 @@
     <v-dialog v-model="wikiMemberMenusDialog" width="500">
       <v-card>
         <v-card-title class="text-h5 orange white--text" >
-          Wiki Collect Menu
+          {{$t('wikiCollectMenu')}}
         </v-card-title>
         <v-card-text class="mt-10 text-center">
           <v-select
             v-if="wikiMemberMenus.length > 0"
             :items="wikiMemberMenus"
-            label="위키 즐겨찾기 메뉴"
+            :label="$t('wikiCollectMenu')"
             item-text="menuName"
             item-value="id"
             outlined

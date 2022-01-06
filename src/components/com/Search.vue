@@ -8,22 +8,22 @@
     >
       <v-row align="center">
         <v-col class="grow">
-          검색내용이 업습니다. 
+          {{$t('msgNoSearch')}}
         </v-col>
         <v-col class="shrink">
-          <v-btn @click="alertFlag = !alertFlag">닫기</v-btn>
+          <v-btn @click="alertFlag = !alertFlag">{{$t('close')}}</v-btn>
         </v-col>
       </v-row>
     </v-alert>
     <v-card class="mx-lg-auto boxShadow" flat style="max-width: 1280px">
       <v-card-title class="headline primary lighten-1">
-        <span style="color: white"> Search for Public Contens </span>
+        <span style="color: white"> {{$t('msgSearchTitle')}} </span>
       </v-card-title>
       <v-card-text class="pt-5">
         <v-card class="d-flex justify-space-between" style="height: 61px" flat>
           <v-select
             :items="selects"
-            label="위키/커뮤니티"
+            :label="$t('wikiAndCommunity')"
             item-text="state"
             item-value="abbr"
             v-model="searchObj.ty"
@@ -32,7 +32,7 @@
           ></v-select>
           <v-select
             :items="selectOptions"
-            label="제목/내용"
+            :label="$t('titleAndContant')"
             item-text="state"
             item-value="abbr"
             v-model="searchObj.option"
@@ -47,11 +47,11 @@
             :items="members"
             item-text="memberName"
             item-value="id"
-            no-data-text="검색된 회원이 없습니다."
+            :no-data-text="$t('userName')"
             :search-input.sync="searchMemberName"
             chips
             multiple
-            label="닉네임"
+            :label="$t('userName')"
           >
             <template v-slot:selection="data">
               <v-chip
@@ -109,7 +109,7 @@
           <v-text-field
             v-model="searchObj.content"
             append-icon="mdi-magnify"
-            label="Search"
+            :label="$t('search')"
             outlined
             hide-details
             @keyup.native.enter="searchingRuslt"
@@ -122,7 +122,7 @@
             color="primary"
             @click="searchingRuslt"
           >
-            search
+            {{$t('search')}}
             <v-icon class="pl-2">mdi-layers-search-outline</v-icon>
           </v-btn>
         </v-card>
@@ -186,11 +186,11 @@
             @click="morePageAction"
             color="primary"
           >
-            More
+            {{$t('more')}}
           </v-btn>
         </div>
         <v-btn :disabled="!results" color="primary" @click="results = []">
-          Clear
+          {{$t('clear')}}
           <v-icon right> mdi-close-circle </v-icon>
         </v-btn>
       </v-card-actions>
@@ -207,11 +207,11 @@
             <v-btn icon dark @click="wikiMenusDialog = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
-            <v-toolbar-title>Settings</v-toolbar-title>
+            <v-toolbar-title>{{$t('wikiMenu')}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-              <v-btn dark text @click="wikiTree = []"> Reset </v-btn>
-              <v-btn dark text @click="wikiMenusDialog = false"> 확인 </v-btn>
+              <v-btn dark text @click="wikiTree = []"> {{$t('reset')}} </v-btn>
+              <v-btn dark text @click="wikiMenusDialog = false"> {{$t('ok')}} </v-btn>
             </v-toolbar-items>
           </v-toolbar>
 
@@ -241,7 +241,7 @@
                   key="title"
                   class="text-h6 font-weight-light grey--text text-center"
                 >
-                  Select your wiki menus
+                  {{$t('msgSelectMenu',{0:$t('wiki'),1:$t('menu')})}}
                 </div>
 
                 <v-scroll-x-transition group hide-on-leave>
@@ -275,12 +275,12 @@
             <v-btn icon dark @click="communityMenusDialog = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
-            <v-toolbar-title>Settings</v-toolbar-title>
+            <v-toolbar-title>{{$t('communityMenu')}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-              <v-btn dark text @click="communityTree = []"> Reset </v-btn>
+              <v-btn dark text @click="communityTree = []"> {{$t('reset')}} </v-btn>
               <v-btn dark text @click="communityMenusDialog = false">
-                확인
+                {{$t('ok')}}
               </v-btn>
             </v-toolbar-items>
           </v-toolbar>
@@ -311,7 +311,7 @@
                   key="title"
                   class="text-h6 font-weight-light grey--text text-center"
                 >
-                  Select your community menus
+                  {{$t('msgSelectMenu',{0:$t('community'),1:$t('menu')})}}
                 </div>
 
                 <v-scroll-x-transition group hide-on-leave>
@@ -344,16 +344,6 @@ export default {
     isLoading: false,
     model: null,
     member: {},
-    selects: [
-      { state: "Wiki", abbr: "WIKI" },
-      { state: "Community", abbr: "COMMUNITY" },
-      { state: "Wiki&Community", abbr: "WC" },
-    ],
-    selectOptions: [
-      { state: "제목", abbr: "T" },
-      { state: "내용", abbr: "C" },
-      { state: "제목&내용", abbr: "TC" },
-    ],
     searchObj: {
       ty: null,
       content: null,
@@ -376,11 +366,6 @@ export default {
     communityTree: [],
     communityMenu: [],
     menuShowYn: true,
-    headers: [
-      { text: "Title", align: "start", value: "title" },
-      { text: "Menu Name", value: "menuName", align: "start" },
-      { text: "Type", value: "ty", align: "start" },
-    ],
     disablePagination: true,
     alertFlag: false,
     pageNum: 1,
@@ -399,6 +384,31 @@ export default {
         return Object.assign({}, entry, { content });
       });
     },
+
+    headers() {
+      return [
+        { text: this.$t('title') , align: "start", value: "title" },
+        { text: this.$t('menu') , value: "menuName", align: "start" },
+        { text: this.$t('wikiAndCommunity'), value: "ty", align: "start" },
+      ]
+    },
+
+    selects() {
+      return [
+        { state: this.$t('wiki'), abbr: "WIKI" },
+        { state: this.$t('community'), abbr: "COMMUNITY" },
+        { state: this.$t('wikiAndCommunity'), abbr: "WC" },
+      ]
+    },
+
+     selectOptions(){
+       return [
+        { state: this.$t('title'), abbr: "T" },
+        { state: this.$t('contant'), abbr: "C" },
+        { state: this.$t('titleAndContant'), abbr: "TC" },
+      ]
+     } 
+
   },
 
   created: function () {
@@ -425,10 +435,10 @@ export default {
     ["searchObj.ty"](val) {
       this.searchObj.menus = [];
       if (val == "COMMUNITY") {
-        this.menubtn = "커뮤니티 메뉴";
+        this.menubtn = this.$t('communityMenu');
         this.menuShowYn = true;
       } else if (val == "WIKI") {
-        this.menubtn = "위키 메뉴";
+        this.menubtn =  this.$t('wikiMenu')
         this.menuShowYn = true;
       } else {
         this.menuShowYn = false;

@@ -18,6 +18,7 @@ const store = new Vuex.Store({
     },
     wikiMenus:[],
     communityMenus: [],
+    lang: {},
     memberAlert:0,
     // 存储token
     Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : ''

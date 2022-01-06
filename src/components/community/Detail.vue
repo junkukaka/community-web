@@ -7,9 +7,8 @@
       type="error"
       v-if="authorityView"
     >
-      해당 페이지 방문 권한이 없습니다. 
-      권한에관하여 관리자한테 문의하세요.
-    </v-alert>
+      {{$t('authorityBanMSG')}}
+    </v-alert> 
 
 
     <div style="margin: -10px 0 0">
@@ -29,10 +28,10 @@
             community.title
           }}</v-list-item-title>
           <v-list-item-subtitle class="text-overline font-weight-regular">
-            <span class="mr-3"> {{ comInfoCount.hitsCount }} Views</span>
-            <span class="mr-3"> {{ comInfoCount.commentCount }} Comments</span>
-            <span class="mr-3"> {{ comInfoCount.likesCount }} liks</span>
-            <span class="mr-3"> {{ comInfoCount.collectCount }} collect</span>
+            <span class="mr-3"> {{ comInfoCount.hitsCount }} {{$t('views')}}</span>
+            <span class="mr-3"> {{ comInfoCount.commentCount }} {{$t('comments')}} </span>
+            <span class="mr-3"> {{ comInfoCount.likesCount }} {{$t('likes')}}</span>
+            <span class="mr-3"> {{ comInfoCount.collectCount }} {{$t('collect')}}</span>
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -76,7 +75,7 @@
         v-if="titles.length > 0"
         v-show="$store.state.ifMobile"
       >
-        <h6 class="text-h6 pb-1">Contents</h6>
+        <h6 class="text-h6 pb-1">{{$t('catalogue')}}</h6>
         <div style="" class="ml-3 anchorAreaBox">
           <div
             v-for="(anchor, i) in titles"
@@ -101,13 +100,13 @@
     <!-- comment write area  -->
     <v-dialog v-model="dialog" width="700">
       <v-card>
-        <v-card-title>댓글등록</v-card-title>
+        <v-card-title>{{$t('commentWrite')}}</v-card-title>
         <v-card-text style="padding-bottom: 0px">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-textarea
               outlined
-              label="Add a Comment"
-              value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+              :label="$t('addComment')"
+              value=""
               v-model="comment.content"
               :rules="commentRules"
             ></v-textarea>
@@ -115,9 +114,9 @@
         </v-card-text>
         <v-card-actions>
           <v-btn color="primary" text @click="commentSave">
-            <v-icon>mdi-pencil</v-icon> Write
+            <v-icon>mdi-pencil</v-icon> {{$t('ok')}}
           </v-btn>
-          <v-btn color="orange" text @click="commentDialog"> Close </v-btn>
+          <v-btn color="orange" text @click="commentDialog"> {{$t('close')}} </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -127,7 +126,7 @@
 
     <!-- comment list area -->
     <v-card flat>
-      <div class="transition-swing text-h5 mb-1 mt-10 ml-3">Comments list</div>
+      <div class="transition-swing text-h5 mb-1 mt-10 ml-3">{{$t('commentsList')}}</div>
       <v-divider class="ml-3"></v-divider>
       <v-list>
         <template v-for="(item, index) in commentList">
@@ -244,11 +243,6 @@ export default {
       content: "",
     },
     member: {},
-    commentRules: [
-      (v) => !!v || "comment is required",
-      (v) =>
-        (v && v.length <= 3000) || "comment must be less than 3000 characters",
-    ],
     commentList: [],
     commentCount: null,
     comInfo: {
@@ -269,6 +263,16 @@ export default {
     },
     authorityView : false
   }),
+
+  computed: {
+    commentRules(){
+      return [
+          (v) => !!v || this.$t('required', {0: this.$t('comments')}),
+          (v) =>
+            (v && v.length <= 3000) || this.$t('lessThan',{0:3000})
+        ]
+    }
+  },
 
   created() {
     this.community.id = this.$route.query.id;
