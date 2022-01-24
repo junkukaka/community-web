@@ -121,7 +121,7 @@ export default {
   },
 
   created() {
-    console.log(this.$store.state.member.picture);
+    // console.log(this.$store.state.member.picture);
   },
 
   methods: {

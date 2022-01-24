@@ -25,11 +25,16 @@ import ReportCWMemberCnt from './ReportCWMemberCnt';
     },
     data () {
       return {
-        tabs: null,
-        tabItems: [
-          '커뮤니티 위키 글 통계',
-        ],
+        tabs: null
       }
     },
+
+    computed: {
+      tabItems() {
+        return [
+          this.$t('reportTotal',{0:this.$t('wiki'),1: this.$t('community')})
+        ]
+      }
+    }
   }
 </script>

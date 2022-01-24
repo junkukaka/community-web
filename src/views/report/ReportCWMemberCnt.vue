@@ -15,10 +15,10 @@
       </v-col>
       <v-col cols="12" lg="6" md="6">
         <v-btn outlined color="indigo" class="ml-10" @click="pickStart">
-          시작일 : {{ startDate }}
+          {{$t('startDate')}} : {{ startDate }}
         </v-btn>
         <v-btn outlined color="indigo" class="ml-1" @click="pickEnd">
-          종료일: {{ endDate }}
+          {{$t('endDate')}}: {{ endDate }}
         </v-btn>
         <v-btn
           class="ml-1"
@@ -26,7 +26,7 @@
           depressed
           @click="reportWCMemberCount"
         >
-          조회
+          {{$t('search')}}
         </v-btn>
       </v-col>
     </v-row>
@@ -37,14 +37,14 @@
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-left">이름</th>
-            <th class="text-center">위키 최초작성 회수(2)</th>
-            <th class="text-center">위키 참여편집 회수(1)</th>
-            <th class="text-center">커뮤니티(1)</th>
-            <th class="text-center">댓글(0.2)</th>
-            <th class="text-center">커뮤니티 즐겨찾기 받은회수(0.5)</th>
-            <th class="text-center">커뮤니티 좋와요 받은회수(0.3)</th>
-            <th class="text-center">총점</th>
+            <th class="text-left">{{$t('userName')}}</th>
+            <th class="text-center">{{$t('firstWrite',{0:$t('wiki'),1:$t('cnt')})}}(2)</th>
+            <th class="text-center">{{$t('joinEdit',{0:$t('wiki'),1:$t('cnt')})}}(1)</th>
+            <th class="text-center">{{$t('community')}}(1)</th>
+            <th class="text-center">{{$t('comments')}}(0.2)</th>
+            <th class="text-center">{{$t('community')}}{{$t('collect')}} (0.5)</th>
+            <th class="text-center">{{$t('community')}}{{$t('likes')}}(0.3)</th>
+            <th class="text-center">{{$t('total')}}</th>
           </tr>
         </thead>
         <tbody>

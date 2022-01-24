@@ -55,12 +55,12 @@
           <v-btn icon dark @click="dialog = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
-          <v-toolbar-title>Settings</v-toolbar-title>
+          <v-toolbar-title>{{$t('setting')}}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn dark text @click="confrimDialog = true">
                 <v-icon class="mr-3">mdi-clock-time-ten-outline</v-icon>
-                 Back to the past 
+                 {{$t('backToPast')}} 
             </v-btn>
           </v-toolbar-items>
         </v-toolbar>
@@ -96,15 +96,15 @@
     <v-dialog v-model="confrimDialog" max-width="360">
       <v-card>
         <v-card-title class="headline"
-          >Are you sure back to the past ?</v-card-title
+          >{{$t('msgBackToPast')}}</v-card-title
         >
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="red darken-1" text @click="confrimDialog = false">
-            cancle
+            {{$t('cancle')}}
           </v-btn>
           <v-btn color="primary darken-1" text @click="backToThePast()">
-            Yes 
+            {{$t('ok')}} 
           </v-btn>
         </v-card-actions>
       </v-card>

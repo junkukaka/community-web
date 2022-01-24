@@ -6,7 +6,7 @@
           v-model="member.memberName"
           :counter="30"
           :rules="nameRules"
-          label="Name"
+          :label="$t('userName')"
           required
           @keyup.native.enter="validate"
         ></v-text-field>
@@ -15,7 +15,7 @@
           v-model="member.loginId"
           :counter="20"
           :rules="loginRules"
-          label="LogIn ID"
+          :label="$t('id')"
           required
           @keyup.native.enter="validate"
         ></v-text-field>
@@ -23,7 +23,7 @@
         <v-text-field
           v-model="member.password"
           :counter="50"
-          label="Password"
+          :label="$t('pw')"
           :type="showPassword ? 'text' : 'password'"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           required
@@ -35,7 +35,7 @@
         <v-text-field
           v-model="confirmPassord"
           :counter="50"
-          label="confirm Password"
+          :label="$t('confirmSomeThing',{0:$t('pw')})"
           :type="showPassword ? 'text' : 'password'"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           required
@@ -46,7 +46,7 @@
         <v-text-field
           v-model="member.email"
           :rules="emailRules"
-          label="E-mail"
+          :label="$t('mail')"
           @keyup.native.enter="validate"
           required
         ></v-text-field>
@@ -54,16 +54,16 @@
         <v-select
           v-model="member.department"
           :items="departments"
-          :rules="[(v) => !!v || 'Item is required']"
-          label="Department"
+          :rules="[(v) => !!v || $t('required',{0:$t('department')})]"
+          :label="$t('department')"
           required
         ></v-select>
 
         <v-textarea
           outlined
-          label="reason for application"
+          :label="$t('reasonForSomeThing')"
           v-model="member.comment"
-          :rules="[(v) => !!v || 'reason for application is required']"
+          :rules="[(v) => !!v || $t('required',{0:$t('reasonForSomeThing')})]"
         ></v-textarea>
 
         <v-btn
@@ -93,7 +93,7 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary" text @click="closeDialogMsg"> Ok </v-btn>
+              <v-btn color="primary" text @click="closeDialogMsg"> {{$t('ok')}} </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -113,6 +113,7 @@ export default {
       department: null,
       comment: "",
     },
+    successYn: false,
     departments: [],
     confirmPassord: "",
     dialog: false,
@@ -120,33 +121,45 @@ export default {
     dialogTitle: "",
     showPassword: false,
     valid: true,
-    nameRules: [
-      (v) => !!v || "Name is required",
-      (v) => (v && v.length <= 30) || "Name must be less than 30 characters",
-    ],
-    loginRules: [
-      (v) => !!v || "login id is required",
-      (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
-      (v) =>
-        /^[A-Za-z0-9]+$/.test(v) ||
-        "login id must be number or English alphabet",
-    ],
-    emailRules: [
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-      (v) => (v && v.length <= 32) || "Name must be less than 32 characters",
-    ],
     phoneRules: [
       (v) => !!v || "E-mail is required",
       (v) => /^[1][3,4,5,7,8,9,6][0-9]{9}$/.test(v) || "Phone must be valid",
     ],
-    passwordRules: [
-      (v) => !!v || "password is required",
-      (v) =>
-        (v && v.length >= 3 && v.length <= 50) ||
-        "Name must be more than 3 characters",
-    ],
   }),
+
+  computed: {
+    nameRules(){
+      return [
+        (v) => !!v || this.$t('required',{0:this.$t('userName')}),
+        (v) => (v && v.length <= 30) || this.$t('lessThan',{0:30})
+      ]
+    },
+
+    loginRules() {
+      return [
+        (v) => !!v || this.$t('required',{0:this.$t('id')}),
+        (v) => (v && v.length <= 20) || this.$t('lessThan',{0:20}) ,
+        (v) =>
+            /^[A-Za-z0-9]+$/.test(v) || this.$t('msgNumberOrAlphabet')
+        ]
+    },
+
+    passwordRules(){
+      return [
+        (v) => !!v || this.$t('required',{0:this.$t('pw')}),
+        (v) =>
+          (v && v.length >= 3 && v.length <= 50) || this.$t('moreThan',{0:3}),
+      ]
+    },
+
+    emailRules(){
+      return [
+        (v) => !!v || this.$t('required',{0:this.$t('mail')}),
+        (v) => /.+@.+\..+/.test(v) || this.$t('mailValid'),
+        (v) => (v && v.length <= 32) || this.$t('lessThan',{0:32}),
+      ]
+    },
+  },
 
   created: function () {
     this.initialize();
@@ -165,8 +178,8 @@ export default {
       const val = this.$refs.form.validate(); //是否填满表单
       if (this.member.password !== this.confirmPassord) {
         this.dialog = true;
-        this.dialogTitle = "Password error";
-        this.dialogMsg = "please check your password and confirm password";
+        this.dialogTitle = this.$t('errorSomeThing',{0:this.$t('pw')});
+        this.dialogMsg = this.$t('confirmSomeThing',{0:this.$t('pw')});
         return false;
       }
       let data = this.$data;
@@ -178,12 +191,12 @@ export default {
             data.dialog = true;
             data.dialogMsg = response.data.data.msg;
             if (response.data.data.code == "1") {
-              data.dialogTitle = `Welcome to the ASPN community`;
-              data.dialogMsg = `${this.member.memberName}님 회원가입신청 완료, 회원가입 승인후 로그인 할수있습니다.
-              회원가입 승인여부는 메일로 확인하세요.`;
+              data.dialogTitle = this.$t('msgWelcome',{0:this.member.memberName});
+              data.dialogMsg = this.$t('msgSignUpSuccess',{0:this.member.memberName});
               data.dialog = true;
+              this.successYn = true;
             } else {
-              data.dialogTitle = "Application failed";
+              data.dialogTitle = this.$t('msgFailed',{0:this.$t('application')});
             }
           })
           .catch((err) => console.log(err));
@@ -193,7 +206,7 @@ export default {
     //关闭弹窗
     closeDialogMsg() {
       this.dialog = false;
-      if (this.dialogTitle == "Welcome to the ASPN community") {
+      if (this.successYn) {
         this.$router.push("/signIn");
       }
     },
