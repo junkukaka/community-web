@@ -115,6 +115,7 @@
       <v-btn fab dark small color="indigo" @click="timeLineDialog = true">
         <v-icon>mdi-history</v-icon>
       </v-btn>
+
       <v-btn
         fab
         dark
@@ -126,6 +127,7 @@
       >
         <v-icon>mdi-star</v-icon>
       </v-btn>
+
       <v-btn
         fab
         dark
@@ -137,6 +139,17 @@
       >
         <v-icon>mdi-thumb-up</v-icon>
       </v-btn>
+
+      <router-link target="_blank" :to="'/pdf/wiki?wikiId=' + wikiId">
+        <v-btn
+          fab
+          dark
+          small
+          color="primary"
+        >
+          <v-icon>mdi-file-pdf</v-icon>
+        </v-btn>
+      </router-link>
     </v-speed-dial>
     <!-- icon dial -->
 

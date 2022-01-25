@@ -217,6 +217,18 @@
       >
         <v-icon>mdi-wrench</v-icon>
       </v-btn>
+
+      <router-link target="_blank" :to="'/pdf/community?id=' + community.id">
+        <v-btn
+          fab
+          dark
+          small
+          color="primary"
+        >
+          <v-icon>mdi-file-pdf</v-icon>
+        </v-btn>
+      </router-link>
+
     </v-speed-dial>
   </v-card>
 </template>

@@ -262,6 +262,28 @@ const routes = [
                 },
             }
         ]
+    },
+    {
+        path: '/pdf',
+        component: () => import('@/views/indexPDF'),
+        children: [
+            {
+                path: 'wiki',
+                name: 'wikiPDF',
+                component: () => import('@/components/wiki/pdf'),
+                meta:{
+                    title: "ASPN-wiki-PDF"
+                },
+            },
+            {
+                path: 'community',
+                name: 'communityPDF',
+                component: () => import('@/components/community/pdf'),
+                meta:{
+                    title: "ASPN-community-PDF"
+                },
+            },
+        ]
     }
 
 ]
