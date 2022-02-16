@@ -54,7 +54,14 @@
           >
         </v-tab>
         <v-tab>
-          <a @click="toFtp" class="white--text text-caption text-caption">{{$t('ftp')}}</a>
+          <a
+            href="http://36.97.142.103:9000/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="white--text text-caption"
+            >{{$t('ftp')}}</a
+          >
+          <!-- <a @click="toFtp" class="white--text text-caption text-caption">{{$t('ftp')}}</a> -->
         </v-tab>
         <v-tab
           v-if="

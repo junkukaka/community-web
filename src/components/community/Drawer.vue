@@ -16,7 +16,7 @@
       </div>
     </template>
 
-    <v-card flat class="mt-2">
+    <v-card flat class="mt-2 pb-10">
       <v-sheet class="pa-2 grey lighten-5">
         <v-text-field
           v-model="search"
