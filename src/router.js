@@ -65,6 +65,14 @@ const routes = [
                     title: "ASPN-reportMain"
                 },
             },
+            {
+                path: 'targetMember',
+                name: 'TargetMember',
+                component: () => import('@/views/member/targetMember/Profile'),
+                meta:{
+                    title: "ASPN-targetMember"
+                },
+            },
         ],
     },
     {
@@ -260,7 +268,7 @@ const routes = [
                 meta:{
                     title: "ASPN-wiki-hisReview"
                 },
-            }
+            },
         ]
     },
     {

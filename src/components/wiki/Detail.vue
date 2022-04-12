@@ -39,25 +39,27 @@
       <v-card-actions style="padding: 0px">
         <v-list-item class="grow" >
           <v-list-item-avatar  v-for="(member,id) in wikiHisMembers" :key="id">
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on, attr }">
-                <v-avatar size="41" v-if="member.picture"
-                  v-bind="attr"
-                  v-on="on"
-                >
-                  <img :src="member.picture" :alt="`photo`" />
-                </v-avatar>
-                <v-avatar size="41" color="indigo" v-if="!member.picture" 
-                  v-bind="attr"
-                  v-on="on"
-                >
-                  <v-icon dark>
-                    mdi-account-circle 
-                  </v-icon>
-                </v-avatar>
-              </template>
-              <span>{{member.member_name}}</span>
-            </v-tooltip>  
+            <router-link :to="'/targetMember?memberId=' + member.id">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attr }">
+                  <v-avatar size="41" v-if="member.picture"
+                    v-bind="attr"
+                    v-on="on"
+                  >
+                    <img :src="member.picture" :alt="`photo`" />
+                  </v-avatar>
+                  <v-avatar size="41" color="indigo" v-if="!member.picture" 
+                    v-bind="attr"
+                    v-on="on"
+                  >
+                    <v-icon dark>
+                      mdi-account-circle 
+                    </v-icon>
+                  </v-avatar>
+                </template>
+                <span>{{member.member_name}}</span>
+              </v-tooltip>  
+            </router-link>
           </v-list-item-avatar>
         </v-list-item>
       </v-card-actions>

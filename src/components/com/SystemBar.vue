@@ -55,7 +55,7 @@
         </v-tab>
         <v-tab>
           <a
-            href="http://36.97.142.103:9000/"
+            href="http://ftp.aspnc.com.cn:9000/"
             target="_blank"
             rel="noopener noreferrer"
             class="white--text text-caption"
