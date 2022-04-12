@@ -103,8 +103,6 @@
           } 
         }
 
-        console.log(request);
-
         this.$http.get("/community/communities/selectCommunityTemplatePage",request)
           .then((response)=>{
             const communitys = response.data.data;
