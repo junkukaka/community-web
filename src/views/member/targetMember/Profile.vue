@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mt-12 boxShadow pa-5">
+  <v-card class="mt-12 boxShadow pa-5 mb-10">
     <v-card justify="space-around" flat>
       <v-list-item-content class="justify-center">
         <div class="mx-auto text-center">

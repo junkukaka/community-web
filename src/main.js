@@ -27,6 +27,7 @@ import createHighlightLinesPlugin from '@kangc/v-md-editor/lib/plugins/highlight
 import '@kangc/v-md-editor/lib/plugins/highlight-lines/highlight-lines.css';
 import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/cdn';
 import '@kangc/v-md-editor/lib/plugins/mermaid/mermaid.css';
+import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn';
 
 import "mdi-icons/css/materialdesignicons.min.css";
 import "@fontsource/roboto"; 
@@ -55,6 +56,7 @@ VueMarkdownEditor.use(createTodoListPlugin());
 VueMarkdownEditor.use(createTipPlugin());
 VueMarkdownEditor.use(createEmojiPlugin());
 VueMarkdownEditor.use(createLineNumbertPlugin());
+VueMarkdownEditor.use(createKatexPlugin());
 VueMarkdownEditor.use(vuepressTheme);
 Vue.use(VueMarkdownEditor);
 Vue.use(VueWechatTitle)

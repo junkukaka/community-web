@@ -2,14 +2,21 @@
   <div style="margin: 47px 0px 30px">
     <v-card class="pa-12 mx-lg-auto boxShadow" style="max-width: 900px">
       <v-form ref="form" v-model="valid" lazy-validation>
-        <v-text-field
-          v-model="member.memberName"
-          :counter="30"
-          :rules="nameRules"
-          :label="$t('userName')"
-          required
-          @keyup.native.enter="validate"
-        ></v-text-field>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-on="on"
+              v-bind="attrs"
+              v-model="member.memberName"
+              :counter="30"
+              :rules="nameRules"
+              :label="$t('userName')"
+              required
+              @keyup.native.enter="validate"
+            ></v-text-field>
+          </template>
+          <span>{{$t('realNameTip')}}</span>
+        </v-tooltip>
 
         <v-text-field
           v-model="member.loginId"

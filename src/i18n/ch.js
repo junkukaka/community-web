@@ -108,5 +108,6 @@ module.exports = {
     firstWrite: "{0}首次编辑{1}",
     joinEdit: "{0}共同编辑{1}",
     startDate: "开始日期",
-    endDate: "结束日期"
+    endDate: "结束日期",
+    realNameTip: "실명을 사용해주세요 / 请使用真实姓名 / Please use real name"
 }
