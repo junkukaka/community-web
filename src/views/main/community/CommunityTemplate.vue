@@ -73,6 +73,7 @@
     created(){
       this.member = this.$store.state.member;
       this.initialize();
+      document.title = "Community-Main"
     },
 
     watch: {

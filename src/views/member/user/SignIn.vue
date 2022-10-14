@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import { el } from "vuetify/lib/locale";
 import { mapMutations } from "vuex";
 
 export default {
@@ -154,7 +155,13 @@ export default {
     closeDialogMsg() {
       this.dialog = false;
       if (this.memberToken != "") {
-        this.$router.push("/");
+        let url = localStorage.getItem('PreUrl');
+        if(url != "" && url != null){
+          this.$router.push(url); 
+        } else {
+          this.$router.push("/"); 
+        } 
+        
       }
     },
   },

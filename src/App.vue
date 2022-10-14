@@ -1,5 +1,5 @@
 <template>
-  <router-view v-wechat-title="$route.meta.title"></router-view>
+  <router-view></router-view>
 </template>
 
 <script>

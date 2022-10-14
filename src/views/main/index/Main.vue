@@ -28,5 +28,8 @@ import Carousel from "./Carousel.vue";
 
 export default {
   components: { Carousel, WikiMainTemplate, CommunityMainTemplate },
+  created(){
+    document.title = "ASPN Wiki&community";
+  }
 };
 </script>

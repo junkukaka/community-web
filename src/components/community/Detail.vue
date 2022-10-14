@@ -386,6 +386,7 @@ export default {
         .get(`/community/communities/${this.community.id}`)
         .then((response) => {
           this.community = response.data.data;
+          document.title = this.community.title;
           this.getMemberAuthority();
           //如果是会员本人看就执行
           if (this.community.memberId == this.member.id) {

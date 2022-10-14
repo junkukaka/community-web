@@ -63,9 +63,9 @@
         for(let menu of this.menus){
           m.text = menu.text;
           if(this.dashboard.flag === "WikiDetail" || this.dashboard.flag === "WikiList"){
-            m.href = `/wiki/wikiList?menuId=${menu.menuId}`;
+            m.href = `/wiki/wikiList?menuId=${menu.menuId}&menuName=${menu.text}`;
           }else if(this.dashboard.flag === "CommunityDetail" || this.dashboard.flag === "CommunityList"){
-            m.href = `/community/communityList?menuId=${menu.menuId}`;
+            m.href = `/community/communityList?menuId=${menu.menuId}&menuName=${menu.text}`;
           }
           
           if(this.dashboard.menuId == menu.menuId && !this.dashboard.detail){

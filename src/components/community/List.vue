@@ -87,6 +87,7 @@ import DashboardVue from "../com/Dashboard.vue";
       pages: 1,
       itemsPerPage: 20,
       menuId: null,
+      menuName: null,
       items: [],
       member:{},
       memberAuthority: {}
@@ -94,16 +95,25 @@ import DashboardVue from "../com/Dashboard.vue";
 
     created(){
       this.menuId = _.toNumber(this.$route.query.menuId);
+   
       if(this.$route.query.page != null){
         this.page = _.toNumber(this.$route.query.page);
       }
       this.member = this.$store.state.member;
     },
 
+    mounted: function(){
+      this.menuName = this.$route.query.menuName; 
+      //console.log(this.menuName);
+      document.title = this.menuName;
+    },
+
     watch: {
       //使用监听跳转页面
       $route(){
         this.menuId = this.$route.query.menuId;
+        this.menuName = this.$route.query.menuName; 
+        document.title = this.menuName;
       },
 
       menuId: function(){

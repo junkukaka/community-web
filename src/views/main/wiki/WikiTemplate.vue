@@ -94,6 +94,7 @@ export default {
   created: function () {
     this.member = this.$store.state.member;
     this.initialize();
+    document.title = "Wiki-Main"
   },
 
   watch: {

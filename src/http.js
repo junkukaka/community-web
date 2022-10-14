@@ -2,7 +2,7 @@ import axios from 'axios'
 import conf from './conf.js'
 
 const http = axios.create({
-    baseURL: conf.url.test
+    baseURL: conf.url.prod
 })
 
 //让请求自带token

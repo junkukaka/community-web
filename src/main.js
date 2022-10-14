@@ -5,7 +5,8 @@ import vuetify from './plugins/vuetify';
 import router from './router'
 import store from './store'
 import _ from 'lodash'
-import VueWechatTitle from 'vue-wechat-title'
+
+import VuetifyConfirm from 'vuetify-confirm'
 
 
 
@@ -59,7 +60,8 @@ VueMarkdownEditor.use(createLineNumbertPlugin());
 VueMarkdownEditor.use(createKatexPlugin());
 VueMarkdownEditor.use(vuepressTheme);
 Vue.use(VueMarkdownEditor);
-Vue.use(VueWechatTitle)
+
+Vue.use(VuetifyConfirm, { vuetify })
 
 Vue.config.productionTip = false
 Vue.prototype.$http= http

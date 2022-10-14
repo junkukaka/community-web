@@ -313,6 +313,7 @@ router.beforeEach((to, from, next) => {
         let token = localStorage.getItem('Authorization');
         if (token === null || token === '') {
             // console.log(`token is ${token}`);
+            localStorage.setItem('PreUrl', to.fullPath);
             next('/signIn');
         } else {
             //community & wiki Edite 저장 확인

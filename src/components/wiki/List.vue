@@ -101,6 +101,7 @@ export default {
 
   data: () => ({
     menuId: null,
+    menuName: null,
     page: 1,
     pages: 1,
     itemsPerPage: 20,
@@ -115,12 +116,21 @@ export default {
       this.page = _.toNumber(this.$route.query.page);
     }
     this.member = this.$store.state.member;
+   
   },
-
+  
+  mounted: function(){
+    this.menuName = this.$route.query.menuName; 
+    //console.log(this.menuName);
+    document.title = this.menuName;
+  },
+  
   watch: {
     //使用监听跳转页面
     $route() {
       this.menuId = this.$route.query.menuId;
+      this.menuName = this.$route.query.menuName; 
+      document.title = this.menuName;
     },
 
     menuId: function () {

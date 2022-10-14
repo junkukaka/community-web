@@ -46,7 +46,7 @@
         >
           <template slot="label" slot-scope="props">
             <router-link
-              :to="'/wiki/wikiList?menuId=' + props.item.id"
+              :to="'/wiki/wikiList?menuId=' + props.item.id+ '&menuName='+ props.item.name "
               class="v-list-item"
             >
               <span style="color: #212121">

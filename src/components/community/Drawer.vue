@@ -41,7 +41,7 @@
       >
         <template slot="label" slot-scope="props">
           <router-link
-            :to="'/community/communityList?menuId=' + props.item.id"
+            :to="'/community/communityList?menuId=' + props.item.id + '&menuName='+ props.item.name "
             class="v-list-item"
           >
             <span style="color: #000000">

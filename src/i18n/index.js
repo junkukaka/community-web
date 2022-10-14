@@ -10,6 +10,7 @@ const messages = {
 const i18n = new VueI18n({
     locale: 'ko',
     fallbackLocale: 'en',
-    messages: messages
+    messages: messages,
+    silentFallbackWarn: true
 });
 export default i18n;

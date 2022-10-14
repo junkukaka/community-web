@@ -318,6 +318,7 @@ export default {
     getWikiHisDetail() {
       this.$http.get(`/wiki/wikiDetail/${this.wikiId}`).then((response) => {
         this.wikiHis = response.data.data;
+        document.title = this.wikiHis.title;
         this.getMemberAuthority();
       });
     },
