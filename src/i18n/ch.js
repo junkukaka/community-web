@@ -109,5 +109,6 @@ module.exports = {
     joinEdit: "{0}共同编辑{1}",
     startDate: "开始日期",
     endDate: "结束日期",
-    realNameTip: "실명을 사용해주세요 / 请使用真实姓名 / Please use real name"
+    realNameTip: "실명을 사용해주세요 / 请使用真实姓名 / Please use real name",
+    books: "图书馆"
 }
