@@ -28,7 +28,7 @@
       >
         <v-tab
           v-if="
-            $store.state.member != null && $store.state.member.authority < 4
+            $store.state.member != null
           "
         >
           <router-link class="white--text text-caption" to="/ReportMain">
@@ -37,7 +37,7 @@
         </v-tab>
         <v-tab>
           <a
-            href="http://csr.aspnc.com"
+            href="http://csr.aspn.com.cn/"
             target="_blank"
             rel="noopener noreferrer"
             class="white--text text-caption"
@@ -60,6 +60,16 @@
             rel="noopener noreferrer"
             class="white--text text-caption"
             >{{$t('ftp')}}</a
+          >
+          <!-- <a @click="toFtp" class="white--text text-caption text-caption">{{$t('ftp')}}</a> -->
+        </v-tab>
+        <v-tab>
+          <a
+            href="http://192.168.0.116:5000/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="white--text text-caption"
+            >{{$t('books')}}</a
           >
           <!-- <a @click="toFtp" class="white--text text-caption text-caption">{{$t('ftp')}}</a> -->
         </v-tab>
