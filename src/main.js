@@ -25,10 +25,10 @@ import '@kangc/v-md-editor/lib/plugins/todo-list/todo-list.css';
 import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index';
 import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css';
 import createHighlightLinesPlugin from '@kangc/v-md-editor/lib/plugins/highlight-lines/index';
-import '@kangc/v-md-editor/lib/plugins/highlight-lines/highlight-lines.css';
-import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/cdn';
-import '@kangc/v-md-editor/lib/plugins/mermaid/mermaid.css';
-import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn';
+// import '@kangc/v-md-editor/lib/plugins/highlight-lines/highlight-lines.css';
+// import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/cdn';
+// import '@kangc/v-md-editor/lib/plugins/mermaid/mermaid.css';
+// import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn';
 
 import "mdi-icons/css/materialdesignicons.min.css";
 import "@fontsource/roboto"; 
@@ -50,14 +50,14 @@ import i18n from './i18n';
 
 
 
-VueMarkdownEditor.use(createMermaidPlugin());
+// VueMarkdownEditor.use(createMermaidPlugin());
 VueMarkdownEditor.use(createHighlightLinesPlugin());
 VueMarkdownEditor.use(createCopyCodePlugin());
 VueMarkdownEditor.use(createTodoListPlugin());
 VueMarkdownEditor.use(createTipPlugin());
 VueMarkdownEditor.use(createEmojiPlugin());
 VueMarkdownEditor.use(createLineNumbertPlugin());
-VueMarkdownEditor.use(createKatexPlugin());
+// VueMarkdownEditor.use(createKatexPlugin());
 VueMarkdownEditor.use(vuepressTheme);
 Vue.use(VueMarkdownEditor);
 
