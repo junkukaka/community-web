@@ -90,7 +90,7 @@
       large
       depressed
       block
-      color="primary"
+      color="indigo"
       class="mt-3 white--text"
       @click="saveDialog = true"
     >
@@ -144,7 +144,7 @@
             {{$t('cancle')}}
           </v-btn>
           <v-btn color="green darken-1" text @click="wikiHis.active = false; save();"> {{$t('save')}} </v-btn>
-          <v-btn color="primary darken-1" text @click="wikiHis.active = true; save();">
+          <v-btn color="indigo darken-1" text @click="wikiHis.active = true; save();">
             {{$t('active')}}
           </v-btn>
         </v-card-actions>

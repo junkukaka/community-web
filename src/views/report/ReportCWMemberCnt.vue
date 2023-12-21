@@ -22,7 +22,7 @@
         </v-btn>
         <v-btn
           class="ml-1"
-          color="primary"
+          color="indigo"
           depressed
           @click="reportWCMemberCount"
         >
@@ -42,8 +42,8 @@
             <th class="text-center">{{$t('joinEdit',{0:$t('wiki'),1:$t('cnt')})}}(1)</th>
             <th class="text-center">{{$t('community')}}(1)</th>
             <th class="text-center">{{$t('comments')}}(0.2)</th>
-            <th class="text-center">{{$t('community')}}{{$t('collect')}} (0.5)</th>
-            <th class="text-center">{{$t('community')}}{{$t('likes')}}(0.3)</th>
+            <th class="text-center">{{$t('wiki')}}{{$t('collect')}} (0.5)</th>
+            <th class="text-center">{{$t('wiki')}}{{$t('likes')}}(0.3)</th>
             <th class="text-center">{{$t('total')}}</th>
           </tr>
         </thead>

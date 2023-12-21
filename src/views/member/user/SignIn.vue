@@ -9,6 +9,7 @@
           required
           :rules="loginRules"
           @keyup.native.enter="validate"
+          color="indigo"
         ></v-text-field>
 
         <v-text-field
@@ -21,13 +22,14 @@
           :rules="passwordRules"
           @click:append="showPassword = !showPassword"
           @keyup.native.enter="validate"
+          color="indigo"
         ></v-text-field>
 
         <v-btn
           block
           large
-          color="primary"
-          class="mt-5"
+          color="indigo"
+          class="mt-5 white--text"
           @click="validate"
           depressed
           @keyup.native.enter="validate"
@@ -37,7 +39,7 @@
           block
           outlined
           large
-          color="primary"
+          color="indigo"
           class="mt-3"
           to="/signUp"
           depressed
@@ -54,7 +56,7 @@
             <v-divider></v-divider>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary" text @click="closeDialogMsg"> Ok </v-btn>
+              <v-btn color="indigo" text @click="closeDialogMsg"> Ok </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>

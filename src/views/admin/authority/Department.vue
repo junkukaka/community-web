@@ -18,7 +18,7 @@
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                color="primary"
+                color="indigo"
                 dark
                 class="mb-2"
                 v-bind="attrs"
@@ -100,7 +100,7 @@
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize"> Reset </v-btn>
+        <v-btn color="indigo" @click="initialize"> Reset </v-btn>
       </template>
     </v-data-table>
     <pop-msg-dialog v-bind:parent="popMsg" />

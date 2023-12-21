@@ -14,7 +14,7 @@
       <!-- :to = "`${item.link}?id=${$store.state.user.id}`" -->
       <v-list-item
         v-for="item in items"
-        color="primary"
+        color="indigo"
         :key="item.title"
         link
         :to="`${item.link}?id=${$store.state.user.id}`"

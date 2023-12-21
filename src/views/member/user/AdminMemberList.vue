@@ -35,7 +35,7 @@
       </template>
 
       <template v-slot:[`item.title`]="{ item }">
-        <v-btn text :to="`/community/communityDetail?id=${item.id}`" color="primary">
+        <v-btn text :to="`/community/communityDetail?id=${item.id}`" color="indigo">
           {{ item.title }}
         </v-btn>
       </template>

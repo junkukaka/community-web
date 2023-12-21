@@ -16,7 +16,7 @@
                 class="mx-2"
                 dark
                 small
-                color="primary"
+                color="indigo"
                 :href="item.filePath"
                 target="_blank"
                 depressed

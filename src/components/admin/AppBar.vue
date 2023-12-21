@@ -4,11 +4,12 @@
     fixed
     flat
     elevate-on-scroll
+    elevation = 0
     class="white"
     style="border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important"
   > 
     <v-card flat to="/" class="pr-3 pl-3">
-      <v-btn color="primary" class="mt-2" outlined>
+      <v-btn color="indigo" class="mt-2" outlined>
         Home
         <v-icon
           right

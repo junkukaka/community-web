@@ -42,7 +42,7 @@
           </v-card>
 
           <v-card flat to="/" class="pr-3 pl-3">
-           <v-btn color="primary" class="mt-2" outlined>
+           <v-btn color="indigo" class="mt-2" outlined>
              {{$t('home')}}
              <v-icon
                 right

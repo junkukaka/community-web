@@ -6,6 +6,7 @@
       :label="$t('search')"
       single-line
       hide-details
+      color = "indigo"
       class="mr-3 ml-3 pt-2"
       style="max-width: 60%"
       @keyup.native.enter="searching"

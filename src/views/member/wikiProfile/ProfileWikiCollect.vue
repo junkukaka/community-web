@@ -4,13 +4,13 @@
       <v-col cols="12" lg="4" md="5" sm="12">
         <v-card class="mx-auto" tile flat>
           <v-subheader>
-            <v-btn depressed color="primary" width="100%" @click="newMenu">
+            <v-btn depressed color="indigo" width="100%" @click="newMenu" class="white--text">
               <v-icon dark> mdi-plus </v-icon>
               {{$t('newWikiCollectMenu')}}
             </v-btn>
           </v-subheader>
           <v-list dense nav class="pl-4 pr-4">
-            <v-list-item-group color="primary">
+            <v-list-item-group color="indigo">
               <v-list-item
                 style="border-radius: 0; border-bottom: 1px solid #e0e0e0"
                 v-for="(item, i) in wikiMemberMenus"
@@ -39,7 +39,7 @@
             ></div>
             <div v-if="wikiCollectTitle == null" v-text="$t('wikiCollect')"></div>
             <div>
-              <v-btn depressed color="primary" @click="selectAllWikiCollect">
+              <v-btn depressed color="indigo" @click="selectAllWikiCollect" class="white--text">
                 {{$t('all')}}
               </v-btn>
             </div>
@@ -65,7 +65,7 @@
             <template v-slot:[`item.title`]="{ item }">
               <router-link
                 :to="`/wiki/wikiDetail?wikiId=${item.wikiId}`"
-                color="primary"
+                color="indigo"
               >
                 <div
                   v-text="
@@ -119,7 +119,7 @@
           >
             {{$t('delete')}}
           </v-btn>
-          <v-btn color="primary" depressed @click="saveWikiCollectMenu">
+          <v-btn color="indigo" depressed @click="saveWikiCollectMenu" class="white--text">
             {{$t('ok')}}
           </v-btn>
         </v-card-actions>

@@ -2,13 +2,8 @@
   <v-app-bar
     app
     fixed
-    class="white boxShadow"
-    style="
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
-      top: 30px;
-      border-bottom: none;
-      padding: 0px !important;
-    "
+    class="boxShadow appBarDisplay"
+    elevation = 0
   >
     <v-app-bar-nav-icon @click="setDrawer(!drawer)"></v-app-bar-nav-icon>
 

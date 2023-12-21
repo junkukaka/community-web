@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app width="270" fixed v-model="drawer" style="top: 30px">
+  <v-navigation-drawer app width="270" fixed v-model="drawer" style="top: 30px" elevation = 0>
     <template v-slot:prepend>
       <div
         style="padding: 16px 0px 14px 16px; border-right: none"

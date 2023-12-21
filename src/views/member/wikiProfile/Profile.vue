@@ -1,6 +1,6 @@
 <template>
   <v-card class="mt-12 boxShadow pa-5">
-    <v-tabs fixed-tabs v-model="tabs">
+    <v-tabs fixed-tabs v-model="tabs" color="indigo">
       <v-tab v-for="itme in tabItems" :key="itme">
         {{ itme }}
       </v-tab>

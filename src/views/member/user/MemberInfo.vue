@@ -67,7 +67,7 @@
         <v-btn
           block
           large
-          color="primary"
+          color="indigo"
           class="mt-5"
           @click="validate"
           depressed
@@ -90,7 +90,7 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary" text @click="closeDialogMsg"> Ok </v-btn>
+              <v-btn color="indigo" text @click="closeDialogMsg"> Ok </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>

@@ -1,7 +1,7 @@
 <template>
   <v-card flat class="pa-2">
     <v-card flat color="grey lighten-4" class="mb-5">
-      <v-toolbar flat color="primary">
+      <v-toolbar flat color="indigo">
         <v-toolbar-title class="font-weight-light white--text">
           위키 관리
         </v-toolbar-title>
@@ -58,7 +58,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn depressed color="primary" @click="initialize"> 
+          <v-btn depressed color="indigo" @click="initialize"> 
             <v-icon left>
               mdi-update
             </v-icon>
@@ -95,7 +95,7 @@
         <div>
           <router-link
             :to="`/wiki/wikiDetail?wikiId=${item.id}`"
-            color="primary"
+            color="indigo"
             v-text="
               `${
                 item.title.length < 35
@@ -128,7 +128,7 @@
       <v-card flat>
         <v-card-title
           v-text="`Wiki History List`"
-          class="primary white--text"
+          class="indigo white--text"
         >
         </v-card-title>
         <v-divider class="ml-3"></v-divider>

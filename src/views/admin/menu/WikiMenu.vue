@@ -9,7 +9,7 @@
             New<v-icon>mdi-plus-circle</v-icon>
           </v-btn>
         </v-subheader>
-        <v-list-item-group color="primary">
+        <v-list-item-group color="indigo">
           <v-list-item v-for="(item, sort) in menus" :key="sort">
             <v-list-item-content @click="selectMenus(item)">
               <v-list-item-title
@@ -101,7 +101,7 @@
         <v-subheader class="title">
           <v-list-item-title> Third Menu </v-list-item-title>
         </v-subheader>
-        <v-list-item-group color="primary">
+        <v-list-item-group color="indigo">
           <v-list-item v-for="(item, id) in menus3" :key="id">
             <v-list-item-content>
               <v-list-item-title
