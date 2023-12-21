@@ -1,6 +1,6 @@
 <template>
   <v-system-bar
-    color="primary"
+    color="indigo"
     height="30"
     fixed
     class="d-flex justify-space-between"
@@ -22,7 +22,7 @@
     </div>
     <v-card flat class="white--text pa-0 ma-0">
       <v-tabs
-        background-color="primary"
+        background-color="indigo"
         show-arrows
         
       >
@@ -96,7 +96,7 @@
                   v-on="on"
                   depressed
                   class="white--text v-icon notranslate"
-                  color="primary"                >
+                  color="indigo"                >
                 <v-icon class="white--text v-icon notranslate"> mdi-translate </v-icon> 
                 <v-icon class="white--text v-icon notranslate">mdi-menu-down </v-icon> 
                 </v-btn>
@@ -117,7 +117,7 @@
 
       <v-dialog v-model="toFtpDialog" width="260">
         <v-card class="text-center">
-          <v-card-title class="primary white--text"> FTP LINK </v-card-title>
+          <v-card-title class="indigo white--text"> FTP LINK </v-card-title>
           <v-card-text class="pt-4">
             <v-btn class="ma-2" color="warning" depressed @click="toInteriorIp">
               내부

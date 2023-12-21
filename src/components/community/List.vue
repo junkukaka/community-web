@@ -50,7 +50,7 @@
         <v-fab-transition v-if="memberAuthority.editYn === 1">
           <router-link :to="`/community/communityEdit?menuId=${menuId}`">
             <v-btn
-              color="primary"
+              color="indigo"
               large
               fab
               fixed
@@ -66,6 +66,7 @@
         <template>
           <div class="text-center">
             <v-pagination
+              color = "indigo"
               v-model="page"
               :length="pages"
               :total-visible="7"

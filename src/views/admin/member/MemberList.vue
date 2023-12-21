@@ -17,13 +17,13 @@
       </template>
 
       <template v-slot:[`item.memberName`]="{ item }">
-        <v-btn text color="primary" @click="editMember(item)">
+        <v-btn text color="indigo" @click="editMember(item)">
           {{ item.memberName }}
         </v-btn>
       </template>
 
       <template v-slot:[`item.status`]="{ item }">
-        <v-btn text color="primary" @click="editMember(item)">
+        <v-btn text color="indigo" @click="editMember(item)">
           {{ item.status }}
         </v-btn>
       </template>

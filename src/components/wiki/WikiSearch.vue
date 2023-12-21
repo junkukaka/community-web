@@ -1,7 +1,7 @@
 <template>
   <v-card
     color="">
-    <v-card-title class="headline primary lighten-1">
+    <v-card-title class="headline indigo lighten-1">
       <span style="color: white">
         Search for Public Contens
       </span>

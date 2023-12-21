@@ -24,7 +24,7 @@
         <v-btn
           large
           depressed
-          color="primary"
+          color="indigo"
           class="mt-3 white--text"
           @click="joinMember"
           :disabled="!joinDisabled"

@@ -83,7 +83,7 @@
 
     <v-progress-linear
       indeterminate
-      color="primary"
+      color="indigo"
       v-if="progress"
     ></v-progress-linear>
 
@@ -129,7 +129,7 @@
             <tr v-for="item in filesList" :key="item.name">
               <td width="70%">{{ item.originalName }}</td>            
               <td width="30%" style="text-align:right">
-                <v-btn class="mx-2" dark small color="primary" depressed @click="deleteFile(item.id)">
+                <v-btn class="mx-2" dark small color="indigo" depressed @click="deleteFile(item.id)">
                   <v-icon>mdi-delete-forever</v-icon>
                 </v-btn>
               </td>
@@ -143,7 +143,7 @@
     <v-btn
       large
       depressed
-      color="primary"
+      color="indigo"
       block
       class="mt-3 white--text "
       @click="save"

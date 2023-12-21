@@ -116,13 +116,13 @@ div::-webkit-scrollbar {
   }
   
   .wikiListBorder {
-    border-color: #1976d2;
+    border-color: #536dfe;
     border-left-width: 0.26rem;
     border-left-style: solid;
   }
   
   .bgColor {
-    background-color: #f2f5f8;
+    background-color: #ebebeb;
   }
   
   .textCenter {
@@ -130,10 +130,37 @@ div::-webkit-scrollbar {
   }
   
   .fontGray {
-    color: #2c2c2e
+    color: #05050c
   }
   
   .boxShadow {
-    box-shadow: 0 10px 13px -7px #dddfe0 !important;
-  
+    /* box-shadow: 0 10px 13px -7px #dddfe0 !important; */
+    border-bottom:1px solid #dddfe0 !important;
+    background-color: white !important;
   }
+
+  .appBarDisplay{
+    top: 30px !important;
+    border-bottom: none !important;
+    border-bottom: 1px solid #dddfe0 !important;
+    height: 67px !important;
+  }
+
+  .indigo {
+    color: #3f51b5;
+  }
+
+  #dashBoardBox > li > a{
+    color: #3f51b5;
+  }
+
+  /* 테이블 텍스트 색상 */
+ div > div.v-data-table.elevation-1.mytable.v-data-table--has-top.theme--light > div > table > tbody > tr > td > div > a {
+  color: #3f51b5;
+ }
+
+   /* 테이블 텍스트 색상 */
+ div.v-data-table__wrapper > table > tbody > tr > td.text-start > a {
+  color: #3f51b5;
+ }
+ 

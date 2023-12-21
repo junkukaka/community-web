@@ -31,10 +31,22 @@
             <span class="mr-3"> {{ wikiInfoCount.hitsCount }}  {{$t('views')}} </span>
             <span class="mr-3"> {{ wikiInfoCount.likesCount }} {{$t('likes')}}</span>
             <span class="mr-3"> {{ wikiInfoCount.collectCount }} {{$t('collect')}}</span>
-            <!-- <span class="mr-3"> {{ wikiInfoCount.collectCount }} collect</span> -->
+<!-- <span class="mr-3"> {{ wikiInfoCount.collectCount }} collect</span> -->
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
+
+      <div @click="saveRating">
+        <v-rating
+            v-model="rating"
+            background-color="indigo accent-1"
+            color="indigo accent-2"
+            length = 10
+            :readonly = "ratingReadonly"
+            size="26"
+        ></v-rating>
+      </div>
+      
 
       <v-card-actions style="padding: 0px">
         <v-list-item class="grow" >
@@ -100,7 +112,7 @@
       v-if="this.memberAuthority.editYn == 1"
     >
       <template v-slot:activator>
-        <v-btn v-model="fab" color="blue darken-2" dark fab>
+        <v-btn v-model="fab" color="indigo" dark fab elevation = 0>
           <v-icon v-if="fab"> mdi-close </v-icon>
           <v-icon v-else> mdi-format-list-bulleted-square </v-icon>
         </v-btn>
@@ -147,7 +159,7 @@
           fab
           dark
           small
-          color="primary"
+          color="indigo"
         >
           <v-icon>mdi-file-pdf</v-icon>
         </v-btn>
@@ -228,11 +240,14 @@ export default {
       likesCount: 0,
       collectCount: 0,
       commentCount: 0,
+      wikiRegisterID : null
     },
     wikiMemberMenusDialog: false,
     wikiMemberMenus:[],
     selectWikiMenu: null,
-    authorityView : false
+    authorityView : false,
+    rating: null,
+    ratingReadonly: false,
   }),
 
   created() {
@@ -246,6 +261,7 @@ export default {
     this.getMemberLikeAndCollect();
     this.saveHits();
     this.selectWikiCollectMenu();
+    this.getRating();
   },
 
   mounted() {
@@ -315,6 +331,32 @@ export default {
       }
     },
 
+    getRating(){
+      this.$http.get(`/wiki/getWikiRating/${this.wikiId}`).then((response) => {
+        this.rating = response.data.data;
+      });
+    },
+
+    saveRating(){
+      let data = {
+        memberId : this.member.id,
+        wikiId : this.wikiId,
+        rating : this.rating,
+        targetMemberId : this.wikiInfoCount.wikiRegisterID
+      };
+      if(this.wikiInfoCount.wikiRegisterID == this.$store.state.member.id){
+        return false;
+      }else{
+        this.$nextTick(function () {
+        this.$http.post("/wiki/wikiRating", data).then((response) => {
+          if(response.data.code == 200){
+            this.getRating();
+          }
+        })
+      });
+      }
+    },
+
     getWikiHisDetail() {
       this.$http.get(`/wiki/wikiDetail/${this.wikiId}`).then((response) => {
         this.wikiHis = response.data.data;
@@ -364,6 +406,10 @@ export default {
           .get(`/wikiInfo/count/${this.wikiId}`)
           .then((response) => {
             this.wikiInfoCount = response.data.data;
+            //본인 wiki이면 평점 하지 못한다 
+            if(this.wikiInfoCount.wikiRegisterID == this.$store.state.member.id){
+              this.ratingReadonly = true;
+            }
           });
       });
     },

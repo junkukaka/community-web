@@ -116,7 +116,7 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="primary" text @click="commentSave">
+          <v-btn color="indigo" text @click="commentSave">
             <v-icon>mdi-pencil</v-icon> {{$t('ok')}}
           </v-btn>
           <v-btn color="orange" text @click="commentDialog"> {{$t('close')}} </v-btn>
@@ -179,7 +179,7 @@
       class="rightBottomArea"
     >
       <template v-slot:activator>
-        <v-btn v-model="fab" color="blue darken-2" dark fab>
+        <v-btn v-model="fab" color="indigo" dark fab elevation = 0>
           <v-icon v-if="fab"> mdi-close </v-icon>
           <v-icon v-else> mdi-account-circle </v-icon>
         </v-btn>
@@ -226,7 +226,7 @@
           fab
           dark
           small
-          color="primary"
+          color="indigo"
         >
           <v-icon>mdi-file-pdf</v-icon>
         </v-btn>

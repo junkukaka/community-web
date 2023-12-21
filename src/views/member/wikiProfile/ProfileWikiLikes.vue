@@ -37,7 +37,7 @@
  
     <template v-slot:[`item.title`]="{ item }">
       <div>
-        <router-link :to="`/wiki/wikiDetail?wikiId=${item.wikiId}`" color="primary" 
+        <router-link :to="`/wiki/wikiDetail?wikiId=${item.wikiId}`" color="indigo" 
           v-text="
             `${
               item.title.length < 35

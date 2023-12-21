@@ -32,7 +32,7 @@
 
     <v-fab-transition>
         <v-btn
-          color="primary"
+          color="indigo"
           large
           fab
           fixed
@@ -51,7 +51,7 @@
       transition="dialog-bottom-transition"
     >
       <v-card>
-        <v-toolbar dark color="primary">
+        <v-toolbar dark color="indigo">
           <v-btn icon dark @click="dialog = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -103,7 +103,7 @@
           <v-btn color="red darken-1" text @click="confrimDialog = false">
             {{$t('cancle')}}
           </v-btn>
-          <v-btn color="primary darken-1" text @click="backToThePast()">
+          <v-btn color="indigo darken-1" text @click="backToThePast()">
             {{$t('ok')}} 
           </v-btn>
         </v-card-actions>

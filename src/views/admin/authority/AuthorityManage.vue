@@ -21,7 +21,7 @@
               <v-dialog v-model="authorityDialog" max-width="500px">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    color="primary"
+                    color="indigo"
                     dark
                     class="mb-2"
                     v-bind="attrs"
@@ -109,14 +109,14 @@
               <v-icon> mdi-delete</v-icon>
             </v-btn>
 
-            <v-btn class="ma-2" outlined small color="primary" @click="communityItems(item)">
+            <v-btn class="ma-2" outlined small color="indigo" @click="communityItems(item)">
               community
             </v-btn>
 
             <v-btn class="ma-2" outlined small color="indigo" @click="wikiItems(item)"> wiki </v-btn>
           </template>
           <template v-slot:no-data>
-            <v-btn color="primary" @click="initialize"> Reset </v-btn>
+            <v-btn color="indigo" @click="initialize"> Reset </v-btn>
           </template>
         </v-data-table>
         <pop-msg-dialog v-bind:parent="popMsg" />
@@ -145,7 +145,7 @@
               <v-dialog v-model="authorityItemDialog" max-width="800px">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    color="primary"
+                    color="indigo"
                     dark
                     class="mb-2"
                     v-bind="attrs"

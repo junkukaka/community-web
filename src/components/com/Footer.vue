@@ -1,8 +1,9 @@
 <template>
 
   <v-bottom-navigation
-    color="primary"
+    color="indigo"
     :v-mode="activeBtn"
+    style="box-shadow:none; border-top: 1px solid #dddfe0 !important;;"
     horizontal
   >
     <v-btn to= "/main">

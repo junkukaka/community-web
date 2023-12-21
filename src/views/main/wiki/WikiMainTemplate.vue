@@ -35,9 +35,15 @@
                         {{$t('lastUpdate')}} {{ item.updateName }}
                       </v-card-subtitle>
                       <v-card-actions style="margin-top: -16px !important">
-                        <v-btn class="ml-1" outlined rounded small>
-                          Wiki content
-                        </v-btn>
+                        <v-rating
+                            :value ="item.average_rating"   
+                            background-color="grey lighten-1"
+                            color="indigo accent-2"
+                            size="18"
+                            length="10"
+                            readonly
+                            style="margin-top:-6px"
+                          ></v-rating>
                       </v-card-actions>
                     </div>
                     <v-avatar class="ma-4" size="78" tile>
@@ -62,7 +68,7 @@
     <!-- <v-fab-transition>
       <router-link :to="`/wiki/wikiEdit?menuId=${menuId}`">
         <v-btn
-          color="primary"
+          color="indigo"
           large
           fab
           fixed

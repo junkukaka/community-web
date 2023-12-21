@@ -37,7 +37,7 @@
  
     <template v-slot:[`item.title`]="{ item }">
       <div style="width:300px;">
-      <router-link :to="`/community/communityDetail?id=${item.communityId}`" color="primary" 
+      <router-link :to="`/community/communityDetail?id=${item.communityId}`" color="indigo" 
           v-text="
             `${
               item.title.length < 20

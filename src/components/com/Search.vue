@@ -16,7 +16,7 @@
       </v-row>
     </v-alert>
     <v-card class="mx-lg-auto boxShadow" flat style="max-width: 1280px">
-      <v-card-title class="headline primary lighten-1">
+      <v-card-title class="headline indigo">
         <span style="color: white"> {{$t('msgSearchTitle')}} </span>
       </v-card-title>
       <v-card-text class="pt-5">
@@ -28,7 +28,9 @@
             item-value="abbr"
             v-model="searchObj.ty"
             outlined
-            class="mr-5"
+            color = "indigo"
+            item-color = "indigo"
+            class="mr-5 white--text"
           ></v-select>
           <v-select
             :items="selectOptions"
@@ -37,6 +39,8 @@
             item-value="abbr"
             v-model="searchObj.option"
             outlined
+            color = "indigo"
+            item-color = "indigo"
             @change="searchingRuslt"
           ></v-select>
         </v-card>
@@ -94,10 +98,10 @@
           </v-autocomplete>
 
           <v-btn
-            class="ml-5 mt-3"
+            class="ml-5 mt-3 white--text"
             depressed
             large
-            color="primary"
+            color="indigo"
             @click="menusDialog"
             v-if="menuShowYn"
           >
@@ -112,14 +116,15 @@
             :label="$t('search')"
             outlined
             hide-details
+            color="indigo"
             @keyup.native.enter="searchingRuslt"
           ></v-text-field>
 
            <v-btn
-            class="ml-5 mt-2"
+            class="ml-5 mt-2 white--text"
             depressed
             large
-            color="primary"
+            color="indigo"
             @click="searchingRuslt"
           >
             {{$t('search')}}
@@ -144,7 +149,7 @@
             <!-- WIKI LINK -->
             <router-link
               :to="`/wiki/wikiDetail?wikiId=${item.id}`"
-              color="primary"
+              color="indigo"
               v-if="item.ty == 'WIKI'"
             >
               <div
@@ -161,7 +166,7 @@
             <!-- COMMUNIYT LINK -->
             <router-link
               :to="`/community/communityDetail?id=${item.id}`"
-              color="primary"
+              color="indigo"
               v-if="item.ty == 'COMMUNITY'"
             >
               <div
@@ -184,12 +189,12 @@
             outlined
             block
             @click="morePageAction"
-            color="primary"
+            color="indigo"
           >
             {{$t('more')}}
           </v-btn>
         </div>
-        <v-btn :disabled="!results" color="primary" @click="results = []">
+        <v-btn :disabled="!results" color="indigo" @click="results = []" class="white--text">
           {{$t('clear')}}
           <v-icon right> mdi-close-circle </v-icon>
         </v-btn>
@@ -203,7 +208,7 @@
         transition="dialog-bottom-transition"
       >
         <v-card>
-          <v-toolbar dark color="primary">
+          <v-toolbar dark color="indigo">
             <v-btn icon dark @click="wikiMenusDialog = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
@@ -271,7 +276,7 @@
         transition="dialog-bottom-transition"
       >
         <v-card>
-          <v-toolbar dark color="primary">
+          <v-toolbar dark color="indigo">
             <v-btn icon dark @click="communityMenusDialog = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>

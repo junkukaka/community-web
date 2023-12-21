@@ -2,7 +2,8 @@
   <v-app-bar
     app
     fixed
-    class="white boxShadow"
+    class="white"
+    elevation = 0
     style="
       border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
       top: 30px;
@@ -23,7 +24,7 @@
 
     <v-dialog v-model="naviDialog" width="260">
         <v-card class="text-center">
-          <v-card-title class="primary white--text"> Navigation </v-card-title>
+          <v-card-title class="indigo white--text"> Navigation </v-card-title>
           <v-card-text class="pt-4">
             <v-btn class="ma-2" color="warning" depressed to="/community/communityMain" width="150" @click="naviDialog =false">
               {{$t('community')}}
