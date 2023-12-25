@@ -7,12 +7,12 @@
     <div class="mt-8 mb-10" flat>
       <v-row>
         <v-col cols="12" md="12" lg="6">
-            <v-card class="boxShadow pa-5" flat style="max-height:2471px"> 
+            <v-card class="boxShadow pa-5" flat style="max-height:2472px"> 
                 <wiki-main-template />
             </v-card>
         </v-col>
         <v-col cols="12" md="12" lg="6">
-            <v-card class="boxShadow pa-5" flat style="max-height:2436px"> 
+            <v-card class="boxShadow pa-5" flat style="max-height:2437px"> 
                 <community-main-template/>
             </v-card>
         </v-col>

@@ -44,6 +44,7 @@
             length = 10
             :readonly = "ratingReadonly"
             size="26"
+            hover
         ></v-rating>
       </div>
       
