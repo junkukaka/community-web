@@ -21,7 +21,7 @@
           {{$t('endDate')}}: {{ endDate }}
         </v-btn>
         <v-btn
-          class="ml-1"
+          class="ml-1 white--text"
           color="indigo"
           depressed
           @click="reportWCMemberCount"
