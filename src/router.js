@@ -183,6 +183,14 @@ const routes = [
                     title: "ASPN-WikiManage"
                 },
             },
+            {
+                path: 'reportMain',
+                name: 'ReportMain',
+                component: () => import('@/views/admin/rating/ReportMain'),
+                meta:{
+                    title: "ASPN-ReportMain"
+                },
+            },
         ]
     },
     {

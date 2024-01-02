@@ -36,18 +36,58 @@
         </v-list-item-content>
       </v-list-item>
 
-      <div @click="saveRating">
-        <v-rating
-            v-model="rating"
-            background-color="indigo accent-1"
-            color="indigo accent-2"
-            length = 10
-            :readonly = "ratingReadonly"
-            size="26"
-            hover
-        ></v-rating>
-      </div>
-      
+      <v-card-actions  style="padding: 0 8px 0;" >
+        <div @click="alertScorePop">
+          <v-rating
+                  v-model="rating"
+                  background-color="indigo accent-1"
+                  color="indigo accent-2"
+                  length = 10
+                  :readonly = "ratingReadonly"
+                  size="26"
+                  hover
+            ></v-rating>
+        </div>
+        <span v-if="rating" class="font-weight-medium indigo--text pl-3" >  ( {{ $t('score') }}: {{ rating -2}} )  </span>    
+      </v-card-actions>
+       
+      <!-- 평점 팜업 start -->
+      <v-dialog
+          v-model="ratingDialog"
+          max-width="400"
+        >
+          <v-card>
+            <v-card-title class="text-h5">
+              {{ $t('scoreConfrim',{0:rating-2}) }}
+            </v-card-title>
+            <v-card-text>
+              {{ $t('scoreDescribe01') }}
+              <br/>
+              {{ $t('scoreDescribe02') }}
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="indigo"
+                text
+                @click="saveRating"
+              >
+                <!-- 확인  -->
+                {{$t('ok')}}
+              </v-btn>
+
+              <v-btn
+                color="grey"
+                text
+                @click="ratingDialog = false"
+              >
+                 <!-- 취소  -->
+                 {{$t('cancle')}}
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      <!-- 평점 팜업 end -->
 
       <v-card-actions style="padding: 0px">
         <v-list-item class="grow" >
@@ -122,12 +162,13 @@
         fab
         dark
         small
+        depressed
         color="green"
         :to="`/wiki/wikiEdit?&menuId=${wikiHis.menuId}&id=${wikiHis.id}`"
       >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
-      <v-btn fab dark small color="indigo" @click="timeLineDialog = true">
+      <v-btn fab dark small depressed color="indigo" @click="timeLineDialog = true">
         <v-icon>mdi-history</v-icon>
       </v-btn>
 
@@ -135,6 +176,7 @@
         fab
         dark
         small
+        depressed
         :color="`${
           this.memberLikesAndCollect.memberCollectYn == 1 ? 'grey' : 'orange'
         }`"
@@ -147,6 +189,7 @@
         fab
         dark
         small
+        depressed
         :color="`${
           this.memberLikesAndCollect.memberLikesYn == 1 ? 'grey' : 'red'
         }`"
@@ -160,6 +203,7 @@
           fab
           dark
           small
+          depressed
           color="indigo"
         >
           <v-icon>mdi-file-pdf</v-icon>
@@ -249,6 +293,7 @@ export default {
     authorityView : false,
     rating: null,
     ratingReadonly: false,
+    ratingDialog :false
   }),
 
   created() {
@@ -338,6 +383,15 @@ export default {
       });
     },
 
+    /**
+     * 평점 팝업 호출 
+     */
+    alertScorePop(){
+      if(this.wikiInfoCount.wikiRegisterID != this.$store.state.member.id){
+        this.ratingDialog = true;
+      }
+    },
+
     saveRating(){
       let data = {
         memberId : this.member.id,
@@ -345,6 +399,7 @@ export default {
         rating : this.rating,
         targetMemberId : this.wikiInfoCount.wikiRegisterID
       };
+      this.ratingDialog = false;
       if(this.wikiInfoCount.wikiRegisterID == this.$store.state.member.id){
         return false;
       }else{
@@ -356,6 +411,10 @@ export default {
         })
       });
       }
+    },
+
+    ratingHover(){
+      console.log(this.rating);
     },
 
     getWikiHisDetail() {
@@ -474,6 +533,8 @@ export default {
 
   },
 };
+
+
 </script>
 
 <style>

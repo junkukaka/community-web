@@ -54,7 +54,8 @@
               large
               fab
               fixed
-              class="rightBottomArea"
+              depressed
+              class="rightBottomArea white--text"
             >
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
