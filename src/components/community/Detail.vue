@@ -184,13 +184,14 @@
           <v-icon v-else> mdi-account-circle </v-icon>
         </v-btn>
       </template>
-      <v-btn fab dark small color="green" @click="commentDialog">
+      <v-btn fab dark small depressed color="green" @click="commentDialog">
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
       <v-btn
         fab
         dark
         small
+        depressed
         :color="`${
           this.memberLikesAndCollect.memberCollectYn == 1 ? 'grey' : 'orange'
         }`"
@@ -202,6 +203,7 @@
         fab
         dark
         small
+        depressed
         :color="`${
           this.memberLikesAndCollect.memberLikesYn == 1 ? 'grey' : 'red'
         }`"
@@ -215,6 +217,7 @@
         fab
         dark
         small
+        depressed
         color="indigo"
         @click="editMyCommunity"
       >
@@ -226,6 +229,7 @@
           fab
           dark
           small
+          depressed
           color="indigo"
         >
           <v-icon>mdi-file-pdf</v-icon>

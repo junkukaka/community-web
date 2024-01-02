@@ -77,7 +77,7 @@
 
     <v-fab-transition v-if="memberAuthority.editYn === 1">
       <router-link :to="`/wiki/wikiEdit?menuId=${menuId}`">
-        <v-btn color="indigo" large fab fixed class="rightBottomArea">
+        <v-btn color="indigo" depressed large fab fixed class="rightBottomArea white--text">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </router-link>

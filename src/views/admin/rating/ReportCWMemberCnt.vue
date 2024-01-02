@@ -57,12 +57,51 @@
             <td class="text-center">{{ item.comment_cnt }}</td>
             <td class="text-center">{{ item.be_collect }}</td>
             <td class="text-center">{{ item.be_liked }}</td>
-            <td class="text-center">{{ item.rating }}</td>
+            <td class="text-center"><a class="indigo--text" @click="ratingDialogOpen(item.id,item.member_name) ">{{ item.rating }}</a></td>
             <td class="text-center">{{ item.point }}</td>
           </tr>
         </tbody>
       </template>
     </v-simple-table>
+
+    <v-dialog 
+      v-model="ratingDialog"
+      scrollable
+      max-width="600px"
+    >
+      <v-card class="pa-3">
+        <v-card-title>{{ targetRatingName }} 평점 상세</v-card-title>
+        <v-divider></v-divider>
+        <v-simple-table class="pa-2">
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th class="text-left">
+                  Name
+                </th>
+                <th class="text-left">
+                  Rating
+                </th>
+                <th class="text-left">
+                  Title 
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="item in ratingDetail"
+                :key="item.member_id"
+              >
+                <td>{{ item.member_name }}</td>
+                <td>{{ item.rating }}</td>
+                <td>{{ item.title }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>  
+
+      </v-card>
+    </v-dialog>
 
      <v-snackbar
         v-model="snackbar"
@@ -92,7 +131,10 @@ export default {
       pickDialog: false,
       textSnackbar:"종료일은 시작일보다 작을수가 없습니다.",
       pickFlag: "S",
+      ratingDialog: false,
+      targetRatingName : "",
       report: [],
+      ratingDetail: [],
       departments: [],
       selectDepartments: [
         {
@@ -148,6 +190,26 @@ export default {
               this.departments = response.data.data;
           });
       });
+    },
+
+    ratingDialogOpen(memberId,memberName){
+      this.ratingDialog = true,
+      this.targetRatingName = memberName;
+      this.getRatingDetail(memberId);
+    },
+
+    getRatingDetail(memberId){
+      let params = {
+        params: {
+          memberId: memberId,
+          startDate: this.startDate,
+          endDate: this.endDate
+        }
+      };
+
+      this.$http.get("/member/getRatingDetail",params).then((response) => {
+        this.ratingDetail = response.data.data;
+      }) 
     },
 
     reportWCMemberCount(){

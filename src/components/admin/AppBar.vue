@@ -39,6 +39,9 @@
         <v-tab  @click="toLink(6)">
            <span class="black--text pl-3 pr-3 pl-3 pr-3">위키 관리</span>
         </v-tab>
+        <v-tab  @click="toLink(7)">
+           <span class="black--text pl-3 pr-3 pl-3 pr-3">레포트 관리</span>
+        </v-tab>
       </v-tabs>
     </v-card>
    
@@ -83,6 +86,9 @@ export default {
         case 6:
           this.$router.push(`/aspnAdmin/wikiManage`);
           break;    
+        case 7:
+          this.$router.push(`/aspnAdmin/reportMain`);
+          break;      
       }
     },
 

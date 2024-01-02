@@ -105,5 +105,10 @@ module.exports = {
   startDate: "startDate",
   endDate: "endDate",
   realNameTip: "실명을 사용해주세요 / 请使用真实姓名 / Please use real name",
-  books: "books"
+  books: "books",
+  score: "score",
+  scoreDescribe01 : "Scores range from -1 to 8. 1 out of 1 star.",
+  scoreDescribe02 : "The final score is the average score of users",
+  scoreConfrim : "Would you give this wiki a score of {0}",
+  rating : "rating"
 }

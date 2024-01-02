@@ -110,5 +110,10 @@ module.exports = {
     startDate: "开始日期",
     endDate: "结束日期",
     realNameTip: "실명을 사용해주세요 / 请使用真实姓名 / Please use real name",
-    books: "图书馆"
+    books: "图书馆",
+    score: "评分",
+    scoreDescribe01 : "评分是从-1到8分，一个星代表1分。",
+    scoreDescribe02 : "最终评分是用户的平均分数。",
+    scoreConfrim : "给这个wiki{0}分吗？",
+    rating : "评分"
 }

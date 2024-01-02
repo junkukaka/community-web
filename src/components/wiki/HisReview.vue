@@ -36,7 +36,9 @@
           large
           fab
           fixed
+          depressed
           @click="compareHis"
+          class="white--text"
           style="right:30px;bottom:30px">
           <v-icon>mdi-format-list-bulleted-square</v-icon>
         </v-btn>

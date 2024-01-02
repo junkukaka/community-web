@@ -6,7 +6,7 @@ module.exports = {
   groupware: "그릅위어",
   ftp: "FTP",
   logout: "로그아웃",
-  admin: "어드민",
+  admin: "관리자",
   login: "로그인",
   signUp: "회원가입",
   id: "아이디",
@@ -108,5 +108,10 @@ module.exports = {
   startDate: "시작일",
   endDate: "종료일",
   realNameTip: "실명을 사용해주세요 / 请使用真实姓名 / Please use real name",
-  books: "도서관"
+  books: "도서관",
+  score: "점수",
+  scoreDescribe01 : "점수는 -1부터 8점 까지 입니다. 별하나에 1점입니다.",
+  scoreDescribe02 : "최종점수는 사용자들의 평균 점수입니다.",
+  scoreConfrim : "점수를 {0} 점 주겠습니까 ?",
+  rating : "평점"
 }
