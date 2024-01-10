@@ -57,7 +57,7 @@ module.exports = {
     title: "标题",
     contant: "文章",
     titleHint: "标题是必填项。",
-    avatar: "头像",
+    avatar: "标题图像",
     menu: "菜单",
     historyComment: "历史记录信息。",
     save: "保存",

@@ -33,7 +33,7 @@
     <v-dialog v-model="pickDialog" width="290">
       <v-date-picker v-model="datePicker" class="mt-5"></v-date-picker>
     </v-dialog>
-    <v-simple-table fixed-header height="1200px">
+    <v-simple-table fixed-header>
       <template v-slot:default>
         <thead>
           <tr>
