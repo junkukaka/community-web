@@ -33,7 +33,7 @@
     <v-dialog v-model="pickDialog" width="290">
       <v-date-picker v-model="datePicker" class="mt-5"></v-date-picker>
     </v-dialog>
-    <v-simple-table fixed-header height="1200px">
+    <v-simple-table fixed-header>
       <template v-slot:default>
         <thead>
           <tr>
@@ -66,8 +66,8 @@
 
     <v-dialog 
       v-model="ratingDialog"
+      max-width = "1000px"
       scrollable
-      max-width="600px"
     >
       <v-card class="pa-3">
         <v-card-title>{{ targetRatingName }} 평점 상세</v-card-title>
@@ -90,7 +90,7 @@
             <tbody>
               <tr
                 v-for="item in ratingDetail"
-                :key="item.member_id"
+                
               >
                 <td>{{ item.member_name }}</td>
                 <td>{{ item.rating }}</td>
