@@ -55,7 +55,7 @@ module.exports = {
   title: "타이틀",
   contant: "내용",
   titleHint: "타이틀은 필수 입력입니다",
-  avatar: "주제사신",
+  avatar: "주제사진",
   menu: "메뉴",
   historyComment: "이력 기록 메세지",
   save: "저장",
