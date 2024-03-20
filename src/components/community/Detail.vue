@@ -116,7 +116,7 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="indigo" text @click="commentSave">
+          <v-btn color="indigo" text @click="commentSave" :disabled = commentSaveFlag>
             <v-icon>mdi-pencil</v-icon> {{$t('ok')}}
           </v-btn>
           <v-btn color="orange" text @click="commentDialog"> {{$t('close')}} </v-btn>
@@ -158,15 +158,68 @@
             </v-list-item-content>
 
             <v-list-item-action>
-              <v-list-item-subtitle>
+              <v-list-item-subtitle style="max-height:19px">
                 {{ item.register_time | date-format("yyyy-mm-dd") }}
               </v-list-item-subtitle>
-              <v-list-item-subtitle> </v-list-item-subtitle>
+          
+              <v-list-item-subtitle v-if="item.memberId == member.id">
+                 <v-btn
+                    x-small
+                    color="indigo"
+                    dark
+                    class="mr-1"
+                    @click="editComment(item)"
+                  >
+                     <v-icon x-small dark>
+                        mdi-wrench
+                      </v-icon>
+                  </v-btn>
+                  <v-btn
+                    x-small
+                    color="secondary"
+                    dark
+                    @click="openDeleteCommentDialog(item.id)"
+                  >
+                    X
+                  </v-btn>
+              </v-list-item-subtitle>
             </v-list-item-action>
           </v-list-item>
         </template>
       </v-list>
     </v-card>
+
+    <!-- 댓글삭제 확인 -->
+    <v-dialog
+      v-model="commentDeleteConfirmDialog"
+      max-width="290"
+    >
+      <v-card>
+        <v-card-title class="text-h5">
+           {{$t('deleteCommentTitle')}}
+        </v-card-title>
+        <v-card-text>
+           {{$t('deleteCommentDescription')}}
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            text
+            @click="deleteComment"
+          >
+            {{$t('ok')}}
+          </v-btn>
+          <v-btn
+            color="orange"
+            text
+            @click="commentDeleteConfirmDialog = false"
+          >
+            {{$t('close')}}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
     <!-- icon dial -->
     <v-speed-dial
@@ -257,9 +310,10 @@ export default {
     valid: true,
     fab: false,
     comment: {
-      userId: null,
+      memberId: null,
       communityId: null,
       content: "",
+      id: null
     },
     member: {},
     commentList: [],
@@ -280,7 +334,10 @@ export default {
       id: null,
       flag: "C",
     },
-    authorityView : false
+    authorityView : false,
+    commentDeleteConfirmDialog: false,
+    deleteCommentId : null,
+    commentSaveFlag : false
   }),
 
   computed: {
@@ -442,9 +499,10 @@ export default {
     commentSave() {
       const val = this.$refs.form.validate(); // 验证
       if (val) {
+        this.commentSaveFlag = true;
         this.$http.post("/comment/comments", this.comment).then((response) => {
           //请求成功
-          if (response.data.data === 1) {
+          if (response.data.code == 200 ) {
             this.commentDialog();
           }
         });
@@ -480,6 +538,9 @@ export default {
     //comment dialog switch
     commentDialog() {
       this.dialog = !this.dialog;
+      this.commentSaveFlag = !this.dialog;
+      this.comment.id = null,
+      this.comment.content = "",
       this.getComments();
     },
 
@@ -537,6 +598,36 @@ export default {
         });
       })
     },
+
+    //댓글 삭제 확인 팝업 
+    openDeleteCommentDialog(id){
+      this.commentDeleteConfirmDialog = true;
+      this.deleteCommentId = id;
+    },
+
+    //댓글 삭제 액션
+    deleteComment(){
+      this.$nextTick(function () {
+        this.$http
+          .delete(`/comment/delete/${this.deleteCommentId}`)
+          .then((response) => {
+            this.commentDeleteConfirmDialog = false;
+            this.deleteCommentId = null;
+            this.getComments();
+          });
+      });
+    },
+
+    //댓글 편집 
+    editComment(item){
+      console.log(item);
+      this.dialog = true;
+      this.commentSaveFlag = false;
+      this.comment.id = item.id;
+      this.comment.content = item.content;
+      this.comment.memberId = item.memberId;
+      console.log(this.comment)
+    }
 
 
   },

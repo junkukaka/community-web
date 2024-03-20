@@ -115,5 +115,7 @@ module.exports = {
     scoreDescribe01 : "评分是从-1到8分，一个星代表1分。",
     scoreDescribe02 : "最终评分是用户的平均分数。",
     scoreConfrim : "给这个wiki{0}分吗？",
-    rating : "评分"
+    rating : "评分",
+    deleteCommentTitle : "删除评论",
+    deleteCommentDescription : "确认删除评论吗？",
 }

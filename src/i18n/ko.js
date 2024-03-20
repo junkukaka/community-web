@@ -113,5 +113,7 @@ module.exports = {
   scoreDescribe01 : "점수는 -1부터 8점 까지 입니다. 별하나에 1점입니다.",
   scoreDescribe02 : "최종점수는 사용자들의 평균 점수입니다.",
   scoreConfrim : "점수를 {0} 점 주겠습니까 ?",
-  rating : "평점"
+  rating : "평점",
+  deleteCommentTitle : "댓글 삭제",
+  deleteCommentDescription : "댓글을 삭제 하시겠습니까 ?",
 }
