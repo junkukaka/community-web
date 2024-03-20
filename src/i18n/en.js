@@ -110,5 +110,7 @@ module.exports = {
   scoreDescribe01 : "Scores range from -1 to 8. 1 out of 1 star.",
   scoreDescribe02 : "The final score is the average score of users",
   scoreConfrim : "Would you give this wiki a score of {0}",
-  rating : "rating"
+  rating : "rating",
+  deleteCommentTitle : "delete comment",
+  deleteCommentDescription : "Do you want to confirm the deletion of comments?",
 }
