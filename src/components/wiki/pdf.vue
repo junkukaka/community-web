@@ -5,7 +5,9 @@
         {{ wikiHis.title }}
       </v-card-title>
       <v-divider></v-divider>
-      <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" />
+      <div id="pdfHeight">
+        <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor"/>
+      </div>
     </v-card>
   </v-card>
 </template>
@@ -26,11 +28,12 @@ export default {
     wikiHis: function () {
       this.$nextTick(function () {
         this.sleep(5000).then(() => {
-          window.print();
+          this.print();
         });
       });
     },
   },
+  
 
   methods: {
     getWikiHisDetail() {
@@ -43,7 +46,17 @@ export default {
       return new Promise((resolve) => setTimeout(resolve, time));
     },
 
+    printHeight(){
+      let div = document.querySelector("#pdfHeight > div");
+      console.log(`old height is ${div.offsetHeight}`);
+      let more = div.offsetHeight/4;
+      let newHeight = div.offsetHeight + more;
+      console.log(`newHeight is ${newHeight}`);
+      div.style.height = newHeight + "px";
+    },
+
     print() {
+      this.printHeight();
       window.print();
     },
   },
