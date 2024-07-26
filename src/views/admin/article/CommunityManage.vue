@@ -58,7 +58,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn depressed color="indigo" @click="initialize"> 
+          <v-btn depressed color="indigo" @click="initialize" class="white--text"> 
             <v-icon left>
               mdi-update
             </v-icon>
