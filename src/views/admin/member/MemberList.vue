@@ -1,5 +1,67 @@
 <template>
   <v-card flat class="pa-2">
+
+    <v-card flat color="grey lighten-4" class="mb-5">
+      <v-toolbar flat color="indigo">
+        <v-toolbar-title class="font-weight-light white--text">
+          회원 검색 
+        </v-toolbar-title>
+      </v-toolbar>
+      <v-card-text>
+        <v-text-field
+          append-icon="mdi-magnify"
+          label="사용자 이름"
+          single-line
+          hide-details
+          class="mb-3 pb-3"
+          v-model="searchMemberName"
+          @keyup.native.enter="initialize"
+        ></v-text-field>
+
+        <v-row>
+          <v-col
+            class="d-flex"
+            cols="12"
+            sm="6"
+          >
+            <v-select
+              :items="authorities"
+              label="권한"
+              outlined
+              item-text="name"
+              item-value="id"
+              v-model="searchAuthority"
+              clearable 
+            ></v-select>
+          </v-col>
+
+          <v-col
+            class="d-flex"
+            cols="12"
+            sm="6"
+          >
+            <v-select
+              :items="departments"
+              label="departments"
+              outlined
+              v-model="searchDepartment"
+              clearable
+            ></v-select>
+          </v-col>
+        </v-row>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn depressed color="indigo" @click="searchAllMemberByAdmin" class="white--text"> 
+            <v-icon left>
+              mdi-update
+            </v-icon>
+             Search
+          </v-btn>
+        </v-card-actions>
+      </v-card-text>
+    </v-card>
+
     <v-data-table
       flat
       :headers="headers"
@@ -8,13 +70,13 @@
       class="elevation-1 mytable"
       hide-default-footer
     >
-      <template v-slot:top>
+      <!-- <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>Member List</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
         </v-toolbar>
-      </template>
+      </template> -->
 
       <template v-slot:[`item.memberName`]="{ item }">
         <v-btn text color="indigo" @click="editMember(item)">
@@ -114,6 +176,8 @@
 
 <script>
 import PopMsgDialog from "../../../components/com/PopMsgDialog.vue";
+
+
 export default {
   components: {
     PopMsgDialog,
@@ -134,7 +198,7 @@ export default {
       { value: "OFF", text: "OFF" },
     ],
     page: 1,
-    itemsPerPage: 1000,
+    itemsPerPage: 30,
     pages: 1,
     members: [],
     dialog: false,
@@ -155,7 +219,11 @@ export default {
       title: null,
     },
     authorities: [],
+    searchMemberName: null,
+    searchAuthority: null,
+    searchDepartment: null,
   }),
+
 
   watch: {
     dialog(val) {
@@ -176,18 +244,41 @@ export default {
 
   methods: {
     initialize() {
-      this.$nextTick(function () {
-        this.$http
-          .get("/member/members/getAllMemberByAdmin")
-          .then((response) => {
-            this.members = response.data.data;
-          });
-      });
-
+      this.getAllMemberByAdmin();
       this.$nextTick(function () {
         this.$http
           .get("/member/members/department")
           .then((response) => (this.departments = response.data.data));
+      });
+    },
+
+    //검색
+    searchAllMemberByAdmin(){
+      this.page = PAGE,
+      this.itemsPerPage = PERPAGE,
+      console.log(`authority is ${this.searchAuthority} ------ department is ${this.searchDepartment}`);
+      this.getAllMemberByAdmin();
+    },
+
+    //회원정보 전체 조회 
+    getAllMemberByAdmin(){
+      let request = {
+        params: {
+          page: this.page,
+          itemsPerPage: this.itemsPerPage,
+          authority: this.searchAuthority,
+          department: this.searchDepartment
+        },
+      };
+
+      this.$nextTick(function () {
+        this.$http
+          .get("/member/members/getAllMemberByAdmin",request)
+          .then((response) => {
+            this.members = response.data.data.members;
+            this.page = response.data.data.page; //当前页面
+            this.pages = response.data.data.pages; //页数
+          });
       });
     },
 
