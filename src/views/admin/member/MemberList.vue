@@ -177,6 +177,8 @@
 <script>
 import PopMsgDialog from "../../../components/com/PopMsgDialog.vue";
 
+const PAGE = 1;
+const PERPAGE = 30;
 
 export default {
   components: {
@@ -197,8 +199,8 @@ export default {
       { value: "ON", text: "ON" },
       { value: "OFF", text: "OFF" },
     ],
-    page: 1,
-    itemsPerPage: 30,
+    page: PAGE,
+    itemsPerPage: PERPAGE,
     pages: 1,
     members: [],
     dialog: false,
@@ -264,6 +266,7 @@ export default {
     getAllMemberByAdmin(){
       let request = {
         params: {
+          memberName: this.searchMemberName,
           page: this.page,
           itemsPerPage: this.itemsPerPage,
           authority: this.searchAuthority,
