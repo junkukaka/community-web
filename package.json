@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@fontsource/roboto": "^4.5.1",
-    "@kangc/v-md-editor": "^1.6.3",
+    "@kangc/v-md-editor": "^1.7.12",
     "@mdi/font": "^6.5.95",
     "@vue/compiler-dom": "^3.2.40",
     "axios": "^0.21.4",

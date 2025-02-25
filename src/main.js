@@ -10,6 +10,9 @@ import VuetifyConfirm from 'vuetify-confirm'
 
 
 
+import 'prismjs'; // Core library
+import 'prismjs/components/prism-markup'; // Example: Markup (HTML, XML) - often needed
+import 'prismjs/components/prism-css';   // Example: CSS
 
 import VueMarkdownEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
@@ -58,7 +61,9 @@ VueMarkdownEditor.use(createTipPlugin());
 VueMarkdownEditor.use(createEmojiPlugin());
 VueMarkdownEditor.use(createLineNumbertPlugin());
 // VueMarkdownEditor.use(createKatexPlugin());
-VueMarkdownEditor.use(vuepressTheme);
+VueMarkdownEditor.use(vuepressTheme, {
+  Prism,
+});
 Vue.use(VueMarkdownEditor);
 
 Vue.use(VuetifyConfirm, { vuetify })
