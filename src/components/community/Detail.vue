@@ -153,7 +153,7 @@
             <v-list-item-content>
               <v-list-item-title>{{ item.member_name }}</v-list-item-title>
               <v-list-item-subtitle
-                v-html="`${item.content.replace(/\n/g, '<br/>')}`"
+                  {{ formatContent(item.content) }}
               ></v-list-item-subtitle>
             </v-list-item-content>
 
@@ -413,6 +413,10 @@ export default {
 
   methods: {
     ...mapGetters(["getMember"]),
+
+    formatContent(content) {
+      return content.split('\n').join('<br/>');
+    },
 
     sleep(time) {
       return new Promise((resolve) => setTimeout(resolve, time));
