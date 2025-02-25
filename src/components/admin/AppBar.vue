@@ -87,7 +87,7 @@ export default {
           this.$router.push(`/aspnAdmin/wikiManage`);
           break;    
         case 7:
-          this.$router.push(`/aspnAdmin/reportMain`);
+          this.$router.push(`/aspnAdmin/adminReportMain`);
           break;      
       }
     },

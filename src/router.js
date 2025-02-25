@@ -184,11 +184,11 @@ const routes = [
                 },
             },
             {
-                path: 'reportMain',
-                name: 'ReportMain',
-                component: () => import('@/views/admin/rating/ReportMain'),
+                path: 'adminReportMain',
+                name: 'AdminReportMain',
+                component: () => import('@/views/admin/rating/AdminReportMain.vue'),
                 meta:{
-                    title: "ASPN-ReportMain"
+                    title: "ASPN-adminReportMain"
                 },
             },
         ]
