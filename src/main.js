@@ -11,10 +11,8 @@ import VuetifyConfirm from 'vuetify-confirm'
 
 
 import 'prismjs'; // Core library
-import 'prismjs/components/prism-abap'; // ABAP
 import 'prismjs/components/prism-markup'; // Example: Markup (HTML, XML) - often needed
 import 'prismjs/components/prism-css';   // Example: CSS
-import 'prismjs/components/prism-javascript'; // Example: JavaScript
 
 import VueMarkdownEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';

@@ -58,7 +58,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn depressed color="indigo" @click="initialize"> 
+          <v-btn depressed color="indigo" @click="initialize" class="white--text"> 
             <v-icon left>
               mdi-update
             </v-icon>
@@ -263,7 +263,7 @@ export default {
           itemsPerPage: this.itemsPerPage,
         },
       };
-      //console.log(request);
+      console.log(request);
       //select community list by member
       this.$nextTick(function () {
         this.$http
