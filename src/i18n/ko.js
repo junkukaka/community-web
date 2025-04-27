@@ -116,4 +116,5 @@ module.exports = {
   rating : "평점",
   deleteCommentTitle : "댓글 삭제",
   deleteCommentDescription : "댓글을 삭제 하시겠습니까 ?",
+  isValidImageFileMsg : "이미지 파일만 업로드 할수 있습니다. 이미지 유형: jpg, jpeg, png, gif",
 }

@@ -118,4 +118,5 @@ module.exports = {
     rating : "评分",
     deleteCommentTitle : "删除评论",
     deleteCommentDescription : "确认删除评论吗？",
+    isValidImageFileMsg : "只能上传图片文件。",
 }

@@ -113,4 +113,5 @@ module.exports = {
   rating : "rating",
   deleteCommentTitle : "delete comment",
   deleteCommentDescription : "Do you want to confirm the deletion of comments?",
+  isValidImageFileMsg : "image file must be jpg, jpeg, png, gif.",
 }

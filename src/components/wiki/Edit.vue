@@ -55,7 +55,7 @@
       <v-col cols="12" sm="9" md="10" lg="11" class="pl-2 pt-2">
         <v-file-input
           :rules="imgRules"
-          accept="image/png, image/jpeg, image/bmp"
+          accept="image/png, image/jpeg, image/gif"
           placeholder="Pick an avatar"
           :label="$t('avatar')"
           v-model="avatar"
@@ -220,15 +220,20 @@ export default {
     //图片上传
     avatar: {
       handler(newVal) {
-        const formData = new FormData();
-        formData.append("image", newVal);
-        this.$http
-          .post("/minio/user", formData)
-          .then((result) => {
-            this.wikiHis.picture = result.data.data;
-          })
-          .catch((e) => console.log(e));
+        if (this.isValidImageFile(newVal)) {
+          const formData = new FormData();
+          formData.append("image", newVal);
+          this.$http
+            .post("/minio/user", formData)
+            .then((result) => {
+              this.wikiHis.picture = result.data.data;
+            })
+            .catch((e) => console.log(e));
+        } else {
+          this.updateError(this.$t('isValidImageFileMsg'));
+        }
       },
+
     },
   },
 
@@ -253,6 +258,18 @@ export default {
   },
 
   methods: {
+
+    isValidImageFile(file) {
+      const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+      return validTypes.includes(file.type);
+    },
+
+    updateError(error) {
+      this.popMsg.dialog = true;
+      this.popMsg.title = this.$t('warningMessage');
+      this.popMsg.content = error;
+    },
+
     //初始化
     initialize: function () {
       this.$nextTick(function () {
