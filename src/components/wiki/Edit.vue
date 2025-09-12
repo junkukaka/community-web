@@ -141,7 +141,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="red darken-1" text @click="saveDialog = false">
-            {{$t('cancle')}}
+            {{$t('cancel')}}
           </v-btn>
           <v-btn color="green darken-1" text @click="wikiHis.active = false; save();"> {{$t('save')}} </v-btn>
           <v-btn color="indigo darken-1" text @click="wikiHis.active = true; save();">
@@ -333,14 +333,14 @@ export default {
         this.updateError(this.$t('required',{0:this.$t('title')}));
         return false;
       }else if(_.isNull(this.wikiHis.content) || _.eq(this.wikiHis.content,'')){
-        this.updateError(this.$t('required',{0:this.$t('contant')}));
+        this.updateError(this.$t('required',{0:this.$t('Content')}));
         return false;
       }else if(this.fromProfile === undefined && this.wikiHis.content === this.oldContent) {
-        this.updateError(this.$t('msgNoUpdate',{0:this.$t('contant')}));
+        this.updateError(this.$t('msgNoUpdate',{0:this.$t('Content')}));
         return false;
       }else if(this.fromProfile > 0){
         if (this.wikiHis.content === this.oldContent && !this.wikiHis.active) {
-          this.updateError(this.$t('msgNoUpdate',{0:this.$t('contant')}));
+          this.updateError(this.$t('msgNoUpdate',{0:this.$t('Content')}));
           return false;
         }
       }else if(_.isNull(this.wikiHis.information) || _.eq(this.wikiHis.information,'')) {

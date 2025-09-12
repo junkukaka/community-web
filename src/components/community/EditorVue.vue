@@ -291,7 +291,7 @@ export default {
         this.updateError(this.$t('required',{0:this.$t('title')}));
         return false;
       }else if(_.isNull(this.community.content) || _.eq(this.community.content,'')){
-        this.updateError(this.$t('required',{0:this.$t('contant')}));
+        this.updateError(this.$t('required',{0:this.$t('Content')}));
         return false;
       }
 

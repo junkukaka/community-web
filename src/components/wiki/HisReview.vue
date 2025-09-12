@@ -103,7 +103,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="red darken-1" text @click="confrimDialog = false">
-            {{$t('cancle')}}
+            {{$t('cancel')}}
           </v-btn>
           <v-btn color="indigo darken-1" text @click="backToThePast()">
             {{$t('ok')}} 

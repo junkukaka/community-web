@@ -34,7 +34,7 @@
           ></v-select>
           <v-select
             :items="selectOptions"
-            :label="$t('titleAndContant')"
+            :label="$t('titleAndContent')"
             item-text="state"
             item-value="abbr"
             v-model="searchObj.option"
@@ -409,8 +409,8 @@ export default {
      selectOptions(){
        return [
         { state: this.$t('title'), abbr: "T" },
-        { state: this.$t('contant'), abbr: "C" },
-        { state: this.$t('titleAndContant'), abbr: "TC" },
+        { state: this.$t('Content'), abbr: "C" },
+        { state: this.$t('titleAndContent'), abbr: "TC" },
       ]
      } 
 

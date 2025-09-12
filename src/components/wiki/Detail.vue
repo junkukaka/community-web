@@ -58,7 +58,7 @@
         >
           <v-card>
             <v-card-title class="text-h5">
-              {{ $t('scoreConfrim',{0:rating-2}) }}
+              {{ $t('scoreConfirm',{0:rating-2}) }}
             </v-card-title>
             <v-card-text>
               {{ $t('scoreDescribe01') }}
@@ -82,7 +82,7 @@
                 @click="ratingDialog = false"
               >
                  <!-- 취소  -->
-                 {{$t('cancle')}}
+                 {{$t('cancel')}}
               </v-btn>
             </v-card-actions>
           </v-card>
