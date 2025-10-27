@@ -329,27 +329,32 @@ export default {
     },
 
     //查看下级菜单
-    selectMenus: function (item,flag) {
-      let request = (request = {
+    selectMenus: function (item, flag) {
+      const request = {
         father: item.id,
         tier: item.tier + 1,
-      });
-      if (request.tier == 2) {
+      };
+      
+      // Update selected tier references
+      if (request.tier === 2) {
         this.selectedTier2 = item;
-      } else if (request.tier == 3) {
+      } else if (request.tier === 3) {
         this.selectedTier3 = item;
       }
-      let t = item.tier;
+      
       this.$http
         .post("/wikiMenu/menus/condition", request)
         .then((response) => {
-          if (t == 1) {
-            this.menus2 = response.data.data;
-            if(flag == null){
+          const menuData = response.data.data;
+          
+          if (request.tier === 2) {
+            this.menus2 = menuData;
+            // Clear third level menu when first level changes (only if flag is not set)
+            if (flag == null) {
               this.menus3 = [];
             }
-          } else {
-            this.menus3 = response.data.data;
+          } else if (request.tier === 3) {
+            this.menus3 = menuData;
           }
         });
     },
