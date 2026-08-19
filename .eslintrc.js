@@ -1,13 +1,13 @@
 module.exports = {
     extends: [
       'plugin:vue/base',
-      'plugin:vuetify/recommend'
+      'plugin:vuetify/recommended'
     ],
     plugins: [
       'vuetify'
     ],
-    rules: [
-      'vue/no-v-html:off',
-      'vue/no-v-text-v-html-on-component:off'
-    ],
+    rules: {
+      'vue/no-v-html': 'off',
+      'vue/valid-v-slot': 'error'
+    },
   }
