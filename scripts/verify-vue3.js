@@ -6,7 +6,10 @@ const root = path.resolve(__dirname, '..');
 const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), 'utf8');
 const packageJson = JSON.parse(read('package.json'));
 
-assert.ok(process.version.startsWith('v16.'), `Expected Node 16, received ${process.version}`);
+assert.ok(process.version.startsWith('v24.'), `Expected Node 24, received ${process.version}`);
+assert.strictEqual(packageJson.devDependencies.vite, '8.2.1');
+assert.strictEqual(packageJson.devDependencies['@vitejs/plugin-vue'], '6.0.8');
+assert.ok(!packageJson.devDependencies['@vue/cli-service'], 'Vue CLI must be removed after the Vite migration');
 assert.strictEqual(packageJson.dependencies.vue, '3.5.41');
 assert.strictEqual(require('vue/package.json').version, '3.5.41');
 assert.strictEqual(require('@vue/compiler-sfc/package.json').version, '3.5.41');
@@ -22,6 +25,7 @@ for (const route of ["path: '/'", "path: '/member'", "path: '/aspnAdmin'", "path
   assert.ok(router.includes(route), `Missing route declaration: ${route}`);
 }
 assert.ok(router.includes('createWebHistory'));
+assert.ok(router.includes('import.meta.env.BASE_URL'));
 assert.ok(router.includes("localStorage.getItem('Authorization')"));
 assert.ok(router.includes("next('/signIn')"));
 

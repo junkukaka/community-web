@@ -23,3 +23,14 @@
 - `src/views/admin/authority/AuthorityManage.vue`
 - `src/views/admin/authority/Department.vue`
 - `src/views/member/user/SignUp.vue`
+
+## Stage 5: Node.js 24 and Vite 8.2
+
+- Runtime: Node.js `24.19.0` LTS with npm `11.17.0`.
+- Build tool: Vite `8.2.1` with `@vitejs/plugin-vue` `6.0.8`.
+- Preserved behavior: port `8888`, `dist` output, `@` alias, public static assets, HTML5 history routing, existing API base URL, authentication, and business fields.
+- Removed build chain: Vue CLI service/plugins, Babel loader, Sass loader, `vue.config.js`, and `babel.config.js`.
+- Compatibility work: converted i18n dictionaries from CommonJS to ESM, migrated the router base URL to `import.meta.env.BASE_URL`, and retained the legacy global Lodash binding expected by existing components.
+- Verification: clean `npm ci` succeeded on Node.js 24; lint passed; Vue 3 static verification passed; Vite development server started; production build and production preview succeeded; direct `/signIn` loading worked with CSS and fonts; browser console was clean after the final build.
+- Known warnings: the main JavaScript chunk is larger than Vite's 500 kB recommendation; npm reports 21 dependency vulnerabilities. Both are deferred to the dependency cleanup stage rather than changing business libraries during the build-tool migration.
+- Known limitation: authenticated Wiki/admin flows remain subject to the visual-verification exception accepted before this stage.

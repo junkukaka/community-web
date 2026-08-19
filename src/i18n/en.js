@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   wiki: "wiki",
   community: "community",
   report: "report",

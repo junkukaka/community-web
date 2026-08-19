@@ -1,9 +1,12 @@
 import { createI18n } from 'vue-i18n';
+import ch from './ch.js';
+import en from './en.js';
+import ko from './ko.js';
 
 const messages = {
-    ch: require('./ch.js'),
-    en: require('./en.js'),
-    ko: require('./ko.js')
+    ch,
+    en,
+    ko
 };
 const i18n = createI18n({
     legacy: true,

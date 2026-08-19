@@ -28,7 +28,7 @@ import createHighlightLinesPlugin from '@kangc/v-md-editor/lib/plugins/highlight
 // import '@kangc/v-md-editor/lib/plugins/mermaid/mermaid.css';
 // import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn';
 
-import "mdi-icons/css/materialdesignicons.min.css";
+import "@mdi/font/css/materialdesignicons.css";
 import "@fontsource/roboto"; 
 
 import './components/language/prism-abap.min.js'
@@ -62,6 +62,7 @@ const app = createApp(App)
 app.use(VueMarkdownEditor)
 app.config.globalProperties.$http = http
 app.config.globalProperties._ = _
+globalThis._ = _
 
 //全局注册时间格式化
 app.config.globalProperties.$dateFormat = function(input, pattern = '') {

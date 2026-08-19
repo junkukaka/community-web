@@ -1,48 +1,44 @@
 # community-web
-node js 16 
+
+Runtime: Node.js 24 LTS. The pinned local version is recorded in `.nvmrc`.
 
 ## Project setup
-```
-npm install --legacy-peer-deps
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+```bash
+npm ci
 ```
 
-### Compiles and minifies for production
+### Development server
+
+```bash
+npm run dev
 ```
+
+### Production build
+
+```bash
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
+### Preview the production build
+
+```bash
+npm run preview
 ```
 
-### Lints and fixes files
-```
+### Verification
+
+```bash
 npm run lint
+npm run test:vue3
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+The development and preview server use port `8888`. Production files are written to `dist`.
+Deployment servers must fall back unknown application routes to `index.html` because the router uses HTML5 history mode.
 
 
 ### 查看过期版本
 ```
 npm outdated
 ```
-### 清除缓存
-```
-npm cache clean --force
-```
-### 如果 NPM 包被官方下架，可以尝试在 package.json 里调整依赖版本，然后运行
-```
-npm install --legacy-peer-deps
-```
-
 ### markdown 
 https://code-farmer-i.github.io/vue-markdown-editor/quick-start.html#install
