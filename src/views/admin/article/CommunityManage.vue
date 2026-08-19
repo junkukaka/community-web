@@ -14,7 +14,7 @@
           hide-details
           class="mb-3"
           v-model="searchTitle"
-          @keyup.native.enter="initialize"
+          @keyup.enter="initialize"
         ></v-text-field>
 
         <v-autocomplete
@@ -23,7 +23,7 @@
           item-text="memberName"
           item-value="id"
           no-data-text="검색된 회원이 없습니다."
-          :search-input.sync="search"
+          v-model:search-input="search"
           chips
           multiple
           label="닉네임"

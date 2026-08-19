@@ -89,8 +89,8 @@
             </thead>
             <tbody>
               <tr
-                v-for="item in ratingDetail"
-                
+                v-for="(item, index) in ratingDetail"
+                :key="item.id || index"
               >
                 <td>{{ item.member_name }}</td>
                 <td>{{ item.rating }}</td>

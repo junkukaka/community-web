@@ -115,7 +115,7 @@
               hoverable
               class="my-3 font-weight-medium"
             >
-              <template slot="label" slot-scope="props">
+              <template #label="props">
                     <div style="color: #000000"  @click="changeMenu(props.item)">
                       {{ props.item.name }} 
                     </div>

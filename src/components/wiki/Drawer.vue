@@ -42,9 +42,9 @@
           hoverable
           :search="search"
           :filter="filter"
-          :open.sync="open"
+          v-model:opened="open"
         >
-          <template slot="label" slot-scope="props">
+          <template #label="props">
             <router-link
               :to="'/wiki/wikiList?menuId=' + props.item.id+ '&menuName='+ props.item.name "
               class="v-list-item"
@@ -68,17 +68,10 @@ export default {
     menu: [],
     search: null,
     open: [],
-    filter: null,
   }),
 
   created: function () {
     // this.initialize();
-  },
-
-  computed: {
-    filter () {
-      (item, search, textKey) => item[textKey].indexOf(search) > -1
-    },
   },
 
   methods: {
@@ -96,6 +89,9 @@ export default {
   },
 
   computed: {
+    filter() {
+      return (item, search, textKey) => item[textKey].indexOf(search) > -1;
+    },
     drawer: {
       get() {
         return this.$store.state.drawer;

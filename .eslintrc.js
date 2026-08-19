@@ -9,6 +9,9 @@ module.exports = {
     ],
     rules: {
       'vue/no-v-html': 'off',
-      'vue/valid-v-slot': 'error'
+      'vue/valid-v-slot': 'error',
+      'vue/multi-word-component-names': 'off',
+      'vue/no-reserved-component-names': 'off',
+      'vue/no-v-text-v-html-on-component': 'off'
     },
   }

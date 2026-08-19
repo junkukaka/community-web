@@ -37,9 +37,9 @@
         class="my-3"
         :search="search"
         :filter="filter"
-        :open.sync="open"
+        v-model:opened="open"
       >
-        <template slot="label" slot-scope="props">
+        <template #label="props">
           <router-link
             :to="'/community/communityList?menuId=' + props.item.id + '&menuName='+ props.item.name "
             class="v-list-item"
@@ -93,7 +93,7 @@ export default {
     },
 
     filter() {
-      (item, search, textKey) => item[textKey].indexOf(search) > -1;
+      return (item, search, textKey) => item[textKey].indexOf(search) > -1;
     },
   },
 };

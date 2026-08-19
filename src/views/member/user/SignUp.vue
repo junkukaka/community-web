@@ -12,7 +12,7 @@
               :rules="nameRules"
               :label="$t('userName')"
               required
-              @keyup.native.enter="validate"
+              @keyup.enter="validate"
             ></v-text-field>
           </template>
           <span>{{$t('realNameTip')}}</span>
@@ -24,7 +24,7 @@
           :rules="loginRules"
           :label="$t('id')"
           required
-          @keyup.native.enter="validate"
+          @keyup.enter="validate"
         ></v-text-field>
 
         <v-text-field
@@ -36,7 +36,7 @@
           required
           :rules="passwordRules"
           @click:append="showPassword = !showPassword"
-          @keyup.native.enter="validate"
+          @keyup.enter="validate"
         ></v-text-field>
 
         <v-text-field
@@ -47,14 +47,14 @@
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           required
           @click:append="showPassword = !showPassword"
-          @keyup.native.enter="validate"
+          @keyup.enter="validate"
         ></v-text-field>
 
         <v-text-field
           v-model="member.email"
           :rules="emailRules"
           :label="$t('mail')"
-          @keyup.native.enter="validate"
+          @keyup.enter="validate"
           required
         ></v-text-field>
 
@@ -80,7 +80,7 @@
           class="mt-5"
           @click="validate"
           depressed
-          @keyup.native.enter="validate"
+          @keyup.enter="validate"
           >{{$t('ok')}}</v-btn
         >
       </v-form>

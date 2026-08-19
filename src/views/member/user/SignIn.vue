@@ -8,7 +8,7 @@
           :counter="20"
           required
           :rules="loginRules"
-          @keyup.native.enter="validate"
+          @keyup.enter="validate"
           color="indigo"
         ></v-text-field>
 
@@ -21,7 +21,7 @@
           required
           :rules="passwordRules"
           @click:append="showPassword = !showPassword"
-          @keyup.native.enter="validate"
+          @keyup.enter="validate"
           color="indigo"
         ></v-text-field>
 
@@ -32,7 +32,7 @@
           class="mt-5 white--text"
           @click="validate"
           depressed
-          @keyup.native.enter="validate"
+          @keyup.enter="validate"
           >{{$t('login')}}</v-btn
         >
         <v-btn

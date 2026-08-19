@@ -15,7 +15,7 @@
           hide-details
           class="mb-3 pb-3"
           v-model="searchMemberName"
-          @keyup.native.enter="initialize"
+          @keyup.enter="initialize"
         ></v-text-field>
 
         <v-row>

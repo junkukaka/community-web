@@ -27,7 +27,7 @@
         v-model="model"
         :items="items"
         :loading="isLoading"
-        :search-input.sync="search"
+        v-model:search-input="search"
         hide-no-data
         hide-selected
         item-text="content"
@@ -36,7 +36,7 @@
         placeholder="Start typing to Search"
         prepend-icon="mdi-database-search"
         return-object
-        @keyup.native.enter="searching"
+        @keyup.enter="searching"
       ></v-autocomplete>
     </v-card-text>
     <v-divider></v-divider>

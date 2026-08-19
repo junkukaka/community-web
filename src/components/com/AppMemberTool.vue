@@ -9,7 +9,7 @@
       color = "indigo"
       class="mr-3 ml-3 pt-2"
       style="max-width: 60%"
-      @keyup.native.enter="searching"
+      @keyup.enter="searching"
     ></v-text-field>
       <v-btn icon class="mr-1" @click="toMemberProfile">
         <v-badge
@@ -71,7 +71,7 @@ export default {
     this.timer = setInterval(this.getMyCommunityCommentCount,1800000)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     clearInterval(this.timer);
   },
 

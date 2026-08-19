@@ -141,7 +141,6 @@
 </template>
 
 <script>
-import AppMemberTool from "./AppMemberTool";
 export default {
   data: () => ({
     toFtpDialog: false,
@@ -152,10 +151,6 @@ export default {
     ],
     lang: "English"
   }),
-  components: {
-    AppMemberTool,
-  },
-
   created(){
     //设置语言
     if(this.$store.state.lang && this.$store.state.lang.code){

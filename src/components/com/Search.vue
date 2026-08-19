@@ -52,7 +52,7 @@
             item-text="memberName"
             item-value="id"
             :no-data-text="$t('userName')"
-            :search-input.sync="searchMemberName"
+            v-model:search-input="searchMemberName"
             chips
             multiple
             :label="$t('userName')"
@@ -117,7 +117,7 @@
             outlined
             hide-details
             color="indigo"
-            @keyup.native.enter="searchingRuslt"
+            @keyup.enter="searchingRuslt"
           ></v-text-field>
 
            <v-btn

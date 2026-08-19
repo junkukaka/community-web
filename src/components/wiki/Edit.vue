@@ -111,7 +111,7 @@
               hoverable
               class="my-3 font-weight-medium"
             >
-              <template slot="label" slot-scope="props">
+              <template #label="props">
                     <div style="color: #000000"  @click="changeMenu(props.item)">
                       {{ props.item.name }} 
                     </div>
@@ -319,12 +319,6 @@ export default {
         this.updateError(this.$t('msgCannotPick01'));
       }
       this.menuDialog = false;
-    },
-
-    updateError(error){
-      this.popMsg.dialog = true;
-      this.popMsg.title = this.$t('warningMessage');
-      this.popMsg.content = error;
     },
 
     //增加内容

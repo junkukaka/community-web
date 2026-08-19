@@ -8,7 +8,7 @@
           :counter="20"
           required
           disabled
-          @keyup.native.enter="validate"
+          @keyup.enter="validate"
         ></v-text-field>
 
         <v-text-field
@@ -20,7 +20,7 @@
           required
           :rules="passwordRules"
           @click:append="showPassword = !showPassword"
-          @keyup.native.enter="validate"
+          @keyup.enter="validate"
         ></v-text-field>
 
         <v-text-field
@@ -32,7 +32,7 @@
           required
           :rules="passwordRules"
           @click:append="showPassword = !showPassword"
-          @keyup.native.enter="validate"
+          @keyup.enter="validate"
         ></v-text-field>
 
         <v-btn
@@ -42,7 +42,7 @@
           class="mt-5"
           @click="validate"
           depressed
-          @keyup.native.enter="validate"
+          @keyup.enter="validate"
           >{{$t('changeSomeThing',{0:$t('pw')})}}</v-btn
         >
       </v-form>
