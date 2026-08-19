@@ -3,10 +3,9 @@
     <v-card class="pa-12 mx-lg-auto boxShadow" style="max-width: 900px">
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-tooltip top>
-          <template v-slot:activator="{ on, attrs }">
+          <template v-slot:activator="{ props }">
             <v-text-field
-              v-on="on"
-              v-bind="attrs"
+              v-bind="props"
               v-model="member.memberName"
               :counter="30"
               :rules="nameRules"

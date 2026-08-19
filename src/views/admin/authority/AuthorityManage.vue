@@ -19,13 +19,12 @@
 
               <!-- new authory dialog start  -->
               <v-dialog v-model="authorityDialog" max-width="500px">
-                <template v-slot:activator="{ on, attrs }">
+                <template v-slot:activator="{ props }">
                   <v-btn
                     color="indigo"
                     dark
                     class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
+                    v-bind="props"
                     @click="authorityNew"
                   >
                     New Authority
@@ -143,13 +142,12 @@
 
               <!-- new authory dialog start  -->
               <v-dialog v-model="authorityItemDialog" max-width="800px">
-                <template v-slot:activator="{ on, attrs }">
+                <template v-slot:activator="{ props }">
                   <v-btn
                     color="indigo"
                     dark
                     class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
+                    v-bind="props"
                     @click="authorityItemNew"
                   >
                     New 권한 아이템

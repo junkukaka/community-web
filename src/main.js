@@ -17,7 +17,6 @@ import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
 import createLineNumbertPlugin from '@kangc/v-md-editor/lib/plugins/line-number/index';
 import createEmojiPlugin from '@kangc/v-md-editor/lib/plugins/emoji/index';
 import '@kangc/v-md-editor/lib/plugins/emoji/emoji.css';
-import createTipPlugin from '@kangc/v-md-editor/lib/plugins/tip/index';
 import '@kangc/v-md-editor/lib/plugins/tip/tip.css';
 import createTodoListPlugin from '@kangc/v-md-editor/lib/plugins/todo-list/index';
 import '@kangc/v-md-editor/lib/plugins/todo-list/todo-list.css';
@@ -49,17 +48,16 @@ import i18n from './i18n';
 
 
 
+VueMarkdownEditor.use(vuepressTheme, {
+  Prism,
+});
 // VueMarkdownEditor.use(createMermaidPlugin());
 VueMarkdownEditor.use(createHighlightLinesPlugin());
 VueMarkdownEditor.use(createCopyCodePlugin());
 VueMarkdownEditor.use(createTodoListPlugin());
-VueMarkdownEditor.use(createTipPlugin());
 VueMarkdownEditor.use(createEmojiPlugin());
 VueMarkdownEditor.use(createLineNumbertPlugin());
 // VueMarkdownEditor.use(createKatexPlugin());
-VueMarkdownEditor.use(vuepressTheme, {
-  Prism,
-});
 const app = createApp(App)
 app.use(VueMarkdownEditor)
 app.config.globalProperties.$http = http

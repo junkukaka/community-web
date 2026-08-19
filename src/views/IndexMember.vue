@@ -24,11 +24,10 @@
                 style="cursor: pointer"
               >
                 <v-tooltip bottom  v-if="$store.state.member.picture != null">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template v-slot:activator="{ props }">
                     <img
                       :src="`${$store.state.member.picture}`"
-                      v-bind="attrs"
-                      v-on="on"
+                      v-bind="props"
                       :alt="`photo`"
                     />
                   </template>

@@ -3,6 +3,8 @@
     color="indigo"
     height="30"
     fixed
+    absolute
+    style="position: fixed"
     class="d-flex justify-space-between"
   >
     <!-- <div class="pl-3 pt-4 white--text" v-show="$vuetify.breakpoint.xs">
@@ -22,7 +24,7 @@
     </div>
     <v-card flat class="white--text pa-0 ma-0">
       <v-tabs
-        background-color="indigo"
+        bg-color="indigo"
         show-arrows
         
       >
@@ -90,10 +92,9 @@
 
         <v-tab>
           <v-menu offset-y>
-              <template v-slot:activator="{ on, attrs }">
+              <template v-slot:activator="{ props }">
                 <v-btn
-                  v-bind="attrs"
-                  v-on="on"
+                  v-bind="props"
                   depressed
                   class="white--text v-icon notranslate"
                   color="indigo"                >

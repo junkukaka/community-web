@@ -94,16 +94,14 @@
           <v-list-item-avatar  v-for="(member,id) in wikiHisMembers" :key="id">
             <router-link :to="'/targetMember?memberId=' + member.id">
               <v-tooltip bottom>
-                <template v-slot:activator="{ on, attr }">
+                <template v-slot:activator="{ props }">
                   <v-avatar size="41" v-if="member.picture"
-                    v-bind="attr"
-                    v-on="on"
+                    v-bind="props"
                   >
                     <img :src="member.picture" :alt="`photo`" />
                   </v-avatar>
                   <v-avatar size="41" color="indigo" v-if="!member.picture" 
-                    v-bind="attr"
-                    v-on="on"
+                    v-bind="props"
                   >
                     <v-icon dark>
                       mdi-account-circle 

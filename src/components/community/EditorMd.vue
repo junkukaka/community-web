@@ -16,14 +16,13 @@
         <v-row no-gutters>
           <v-col sm="6" md="3">
             <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
+              <template v-slot:activator="{ props }">
                 <v-btn
                   class="mt-2"
                   outlined
                   color="indigo"
                   @click="openMenu"
-                  v-bind="attrs"
-                  v-on="on"
+                  v-bind="props"
                 >
                   <v-icon class="mr-1">
                     mdi-menu-open

@@ -16,13 +16,12 @@
 
           <!-- new dialog start  -->
           <v-dialog v-model="dialog" max-width="500px">
-            <template v-slot:activator="{ on, attrs }">
+            <template v-slot:activator="{ props }">
               <v-btn
                 color="indigo"
                 dark
                 class="mb-2"
-                v-bind="attrs"
-                v-on="on"
+                v-bind="props"
                 @click="newItem"
               >
                 New Item

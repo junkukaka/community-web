@@ -1,7 +1,12 @@
 <template>
   <v-footer background-color="white" style="padding: 0">
     <v-card flat tile class="text-center" width="100%">
-      <v-bottom-navigation color="indigo" :v-mode="activeBtn" horizontal style="box-shadow:none">
+      <v-bottom-navigation
+        color="indigo"
+        :v-mode="activeBtn"
+        horizontal
+        style="box-shadow: none; position: static !important; transform: none !important"
+      >
         <v-btn to="/main">
           <span>{{$t('home')}}</span>
           <v-icon>mdi-home</v-icon>
