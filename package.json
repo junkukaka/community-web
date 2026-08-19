@@ -30,6 +30,7 @@
     "@vue/cli-service": "5.0.9",
     "@vue/compiler-sfc": "3.5.41",
     "@babel/eslint-parser": "7.28.6",
+    "babel-loader": "8.4.1",
     "eslint": "8.57.1",
     "eslint-plugin-vue": "9.33.0",
     "sass": "1.77.8",
