@@ -34,3 +34,17 @@
 - Verification: clean `npm ci` succeeded on Node.js 24; lint passed; Vue 3 static verification passed; Vite development server started; production build and production preview succeeded; direct `/signIn` loading worked with CSS and fonts; browser console was clean after the final build.
 - Known warnings: the main JavaScript chunk is larger than Vite's 500 kB recommendation; npm reports 21 dependency vulnerabilities. Both are deferred to the dependency cleanup stage rather than changing business libraries during the build-tool migration.
 - Known limitation: authenticated Wiki/admin flows remain subject to the visual-verification exception accepted before this stage.
+
+## Stage 6: third-party dependency upgrade and cleanup
+
+- Upgraded direct runtime dependencies: Axios `0.21.4` to `1.19.0`, Lodash `4.17.21` to `4.18.1`, and Vue I18n `10.0.8` to `11.4.8`.
+- Upgraded development dependencies: Sass `1.77.8` to `1.102.0`, ESLint `8.57.1` to `10.8.1`, ESLint Plugin Vue `9.33.0` to `10.10.0`, and Vue ESLint Parser to `10.4.1`.
+- Removed unused direct dependencies `jspdf` and `core-js`; repository searches found no source imports or calls.
+- Migrated ESLint to the supported flat configuration format while preserving the existing Vue essential-rule baseline. No unrelated business-code modernization was introduced.
+- Applied compatible transitive security overrides for `brace-expansion`, `braces`, `js-yaml`, `minimatch`, and `prismjs`.
+- Security result: npm audit findings decreased from 21 (9 moderate, 10 high, 2 critical) to 9 (7 moderate, 2 high, 0 critical).
+- Remaining audit findings are all in the `@kangc/v-md-editor` dependency chain (`@vuepress/markdown`, `markdown-it`, `linkify-it`, `katex`, and related packages). npm provides no compatible automatic fix. Replacing the editor is deferred because it can change Markdown rendering, editing behavior, and page appearance and requires authenticated visual and functional acceptance.
+- Intentionally retained current major versions of Vue Router, Vuetify, and Roboto font assets. Their available next majors carry routing, component-DOM/style, or visual changes outside this stage's safe scope.
+- Verification: ordinary Node.js 24 `npm ci` succeeded without `--force` or legacy peer flags; lint passed; Vue 3 auth/HTTP/route/key-page verification passed; Vite development server and production build passed; `/signIn` rendered with loaded fonts, registered controls, and no broken images.
+- Known warnings: Vue I18n 11 reports that legacy API mode is deprecated; it remains enabled to preserve existing Options API behavior. The production main chunk remains above Vite's 500 kB recommendation. Both require separately scoped work.
+- Known limitation: authenticated Wiki editor, upload/download, and administration flows remain subject to the visual-verification exception accepted before stage 5.

@@ -82,9 +82,9 @@ export default {
     },
 
     iniSearchFlag(){
-      if(_.startsWith(this.path,"/community")){
+      if(this.path.startsWith("/community")){
         this.searchFlag = 'COMMUNITY'
-      }else if(_.startsWith(this.path,"/main")){
+      }else if(this.path.startsWith("/main")){
         this.searchFlag = 'WC'
       }
     },

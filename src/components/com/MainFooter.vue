@@ -50,9 +50,9 @@ export default {
    data: () => ({ activeBtn:null}),
     methods: {
       toFtp(){
-        // console.log(_.words("http://192.168.0.116:9000","192").length)
+        // console.log("http://192.168.0.116:9000".includes("192"))
         let url = window.location.href;
-        if(_.words(url,"192").length > 0){
+        if(url.includes("192")){
           window.open('http://192.168.0.116:9000/', '_blank');
         }else{
           window.open('http://36.97.142.103:9000/', '_blank');

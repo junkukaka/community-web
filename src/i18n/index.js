@@ -13,6 +13,7 @@ const i18n = createI18n({
     locale: 'ko',
     fallbackLocale: 'en',
     messages: messages,
-    silentFallbackWarn: true
+    missingWarn: false,
+    fallbackWarn: false
 });
 export default i18n;
