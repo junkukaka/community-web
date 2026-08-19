@@ -7,7 +7,7 @@
         <tbody>
           <tr v-for="item in filesList" :key="item.name">
             <td width="70%">
-              <a :href="item.filePath" target="_blank" :download="item.originalName">
+              <a :href="item.filePath" target="_blank" rel="noopener noreferrer" :download="item.originalName">
                 {{ item.originalName }}
               </a>
             </td>
@@ -19,6 +19,7 @@
                 color="indigo"
                 :href="item.filePath"
                 target="_blank"
+                rel="noopener noreferrer"
                 depressed
               >
                 <v-icon>mdi-cloud-download</v-icon>

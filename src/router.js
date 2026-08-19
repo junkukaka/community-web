@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { getAuthToken, savePreviousUrl } from './auth.js'
 
 //2.路由的规则定义数组
 const routes = [
@@ -308,10 +309,10 @@ router.beforeEach((to, from, next) => {
     if (arrJPath.find(element => element == to.path)) {
         next();
     } else {
-        let token = localStorage.getItem('Authorization');
-        if (token === null || token === '') {
+        const token = getAuthToken();
+        if (!token) {
             // console.log(`token is ${token}`);
-            localStorage.setItem('PreUrl', to.fullPath);
+            savePreviousUrl(to.fullPath);
             next('/signIn');
         } else {
             //community & wiki Edite 저장 확인

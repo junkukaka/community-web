@@ -89,9 +89,7 @@
                   />
                 </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-title
-                    v-html="data.item.memberName"
-                  ></v-list-item-title>
+                  <v-list-item-title>{{ data.item.memberName }}</v-list-item-title>
                 </v-list-item-content>
               </template>
             </template>

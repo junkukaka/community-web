@@ -94,6 +94,7 @@ export default {
       this.$store.state.member = null;
       //退出登录，清空token
       localStorage.removeItem("Authorization");
+      localStorage.removeItem("token");
       localStorage.removeItem("store");
       this.$router.push("/signIn");
     },

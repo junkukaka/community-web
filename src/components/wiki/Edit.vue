@@ -156,6 +156,7 @@
 
 <script>
 import PopMsgDialog from "../com/PopMsgDialog.vue";
+import { validateImageFile } from "@/utils/fileValidation.js";
 
 export default {
   components: {PopMsgDialog},
@@ -219,6 +220,9 @@ export default {
     //图片上传
     avatar: {
       handler(newVal) {
+        if (!newVal) {
+          return;
+        }
         if (this.isValidImageFile(newVal)) {
           const formData = new FormData();
           formData.append("image", newVal);
@@ -259,8 +263,7 @@ export default {
   methods: {
 
     isValidImageFile(file) {
-      const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-      return validTypes.includes(file.type);
+      return !validateImageFile(file);
     },
 
     updateError(error) {
@@ -361,6 +364,12 @@ export default {
 
     //v-md-edtor upload image
     handleUploadImage(event, insertImage, files) {
+      const validationError = validateImageFile(files?.[0]);
+      if (validationError) {
+        this.updateError(validationError);
+        return;
+      }
+
       // Get the files and upload them to the file server, then insert the corresponding content into the editor
       // debugger
       let formData = new FormData();

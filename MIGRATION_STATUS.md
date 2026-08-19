@@ -48,3 +48,18 @@
 - Verification: ordinary Node.js 24 `npm ci` succeeded without `--force` or legacy peer flags; lint passed; Vue 3 auth/HTTP/route/key-page verification passed; Vite development server and production build passed; `/signIn` rendered with loaded fonts, registered controls, and no broken images.
 - Known warnings: Vue I18n 11 reports that legacy API mode is deprecated; it remains enabled to preserve existing Options API behavior. The production main chunk remains above Vite's 500 kB recommendation. Both require separately scoped work.
 - Known limitation: authenticated Wiki editor, upload/download, and administration flows remain subject to the visual-verification exception accepted before stage 5.
+
+## Stage 7: critical business stability and security
+
+- Authentication storage is now centralized in `src/auth.js`. Login writes both legacy token keys for backend compatibility, while logout and HTTP 401 handling consistently clear `Authorization`, `token`, and the persisted Vuex state.
+- Protected-route redirects retain only safe application-relative paths. Protocol-relative values such as `//example.com` are rejected, and the saved redirect is consumed after a successful login.
+- Axios now reads the current token for every request instead of retaining a stale startup value. A 401 response clears the session and redirects to `/signIn`; 403 and network failures remain rejected to the calling page without incorrectly deleting a valid session.
+- The persisted Vuex state is restored inside a guarded JSON parse. Corrupt browser storage is cleared instead of preventing application startup.
+- The API origin can be supplied through `VITE_API_BASE_URL`; omitting it preserves the existing production endpoint and backend protocol. `.env.example` documents the public configuration name without including credentials.
+- Removed five direct `v-html` render sites for member names and administration summaries. Vue interpolation now escapes server-provided text, while `white-space: pre-line` preserves summary line breaks.
+- Added shared client-side upload checks: attachments must have a valid filename, be non-empty, and be at most 50 MB; Markdown/avatar images must be JPEG, PNG, or GIF and at most 10 MB. Upload progress is now cleared after both success and failure.
+- File download links opened in a new tab now use `noopener noreferrer`.
+- Verification: Node.js 24 lint passed; the Vue 3 auth/HTTP/route/security verification passed; Vite production build passed; Vite development smoke testing confirmed an unauthenticated protected route redirects to `/signIn`, fonts load, and no broken images are present.
+- Known warning: Vue I18n legacy-mode and Vite large-chunk warnings remain unchanged.
+- Remaining security boundary: client-side file checks are bypassable and must also be enforced by the backend. `@kangc/v-md-editor` still renders through its legacy Markdown dependency chain; fully sanitizing or replacing that renderer requires authenticated content-compatibility acceptance and remains unresolved.
+- Known limitation: login success, logout against a live backend, 401/403 backend responses, authenticated editors, upload/download, and administration workflows could not be end-to-end tested without test credentials and an authenticated backend environment.

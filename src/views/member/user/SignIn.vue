@@ -67,6 +67,7 @@
 
 <script>
 import { mapMutations } from "vuex";
+import { takePreviousUrl } from "@/auth.js";
 
 export default {
   data: () => ({
@@ -156,12 +157,7 @@ export default {
     closeDialogMsg() {
       this.dialog = false;
       if (this.memberToken != "") {
-        let url = localStorage.getItem('PreUrl');
-        if(url != "" && url != null){
-          this.$router.push(url); 
-        } else {
-          this.$router.push("/"); 
-        } 
+        this.$router.push(takePreviousUrl("/"));
         
       }
     },

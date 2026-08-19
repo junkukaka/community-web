@@ -6,6 +6,7 @@
 import "./static/css/api.css";
 
 import { mapMutations } from "vuex";
+import { getAuthToken } from "./auth.js";
 
 export default {
   name: "App",
@@ -26,8 +27,6 @@ export default {
           this.$store.state.member = null;
           //退出登录，清空token
           this.dialog = false;
-          localStorage.removeItem("Authorization");
-          localStorage.removeItem("store");
           this.$router.push("/");
           this.removeLogin();
         } else {
@@ -42,13 +41,17 @@ export default {
   created() {
     //在页面加载时读取localStorage里的状态信息
     if (localStorage.getItem("store")) {
-      this.$store.replaceState(
-        Object.assign(
-          {},
-          this.$store.state,
-          JSON.parse(localStorage.getItem("store"))
-        )
-      );
+      try {
+        this.$store.replaceState(
+          Object.assign(
+            {},
+            this.$store.state,
+            JSON.parse(localStorage.getItem("store"))
+          )
+        );
+      } catch {
+        this.removeLogin();
+      }
     }
 
     this.checkSession();
@@ -102,7 +105,11 @@ export default {
     },
 
     checkSession() {
-      const token = localStorage.getItem("token");
+      const token = getAuthToken();
+      if (!token) {
+        return;
+      }
+
       this.$http.get(`/member/memberVerify/${token}`).then((response) => {
         if (response.data.data < 1 || response.data.code == "50000") {
           this.logout();
@@ -129,10 +136,7 @@ export default {
     },
 
     logout() {
-      this.$store.state.member = null;
-      //退出登录，清空token
-      localStorage.removeItem("Authorization");
-      localStorage.removeItem("store");
+      this.removeLogin();
       this.$router.push("/");
     },
   },

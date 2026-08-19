@@ -157,6 +157,7 @@
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import PopMsgDialog from "../com/PopMsgDialog.vue";
+import { validateAttachmentFiles } from "@/utils/fileValidation.js";
 
 export default {
   components: { QuillEditor, PopMsgDialog },
@@ -214,15 +215,13 @@ export default {
   watch: {
     files: {
       handler(newVal,oldVal){
-        for (const file of newVal) {
-          if(file.size > 50000000){
-            this.updateError(this.$t('fileLessThan',{0:"50M"}));
-            this.files = [];
-            this.updateYn = false;
-            return false;
-          }
+        const validationError = validateAttachmentFiles(newVal);
+        if(validationError){
+          this.updateError(validationError);
+          this.files = [];
+          return;
         }
-        if(this.updateYn){
+        if(newVal.length){
           this.uploadFiles(newVal);
         }
       }
@@ -326,6 +325,9 @@ export default {
         const result = response.data.data;
         this.community.docId = result[0].docId;
         this.selectFilesList(); //回显
+      }).catch((error) => {
+        this.updateError(error.message);
+      }).finally(() => {
         this.progress = false;
       });
     },

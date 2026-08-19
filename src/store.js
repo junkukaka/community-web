@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import { clearAuthStorage, getAuthToken, setAuthToken } from './auth.js'
 
 //注意这里创建的是store对象，不是vuex对象
 const store = createStore({
@@ -17,7 +18,7 @@ const store = createStore({
     lang: {},
     memberAlert:0,
     // 存储token
-    Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : ''
+    Authorization: getAuthToken()
   },
   mutations: {
     SET_DRAWER(state, payload) {
@@ -26,12 +27,13 @@ const store = createStore({
     // 修改token，并将token存入localStorage
     changeLogin(state, member) {
       state.Authorization = member.Authorization;
-      localStorage.setItem('Authorization', member.Authorization);
-      localStorage.setItem('token', member.Authorization);
+      setAuthToken(member.Authorization);
     },
     // 删除 token
-    removeLogin(){
-      localStorage.removeItem('token');
+    removeLogin(state){
+      state.Authorization = '';
+      state.member = null;
+      clearAuthStorage();
     }
   },
   actions: {},

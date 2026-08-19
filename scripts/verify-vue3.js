@@ -26,18 +26,40 @@ for (const route of ["path: '/'", "path: '/member'", "path: '/aspnAdmin'", "path
 }
 assert.ok(router.includes('createWebHistory'));
 assert.ok(router.includes('import.meta.env.BASE_URL'));
-assert.ok(router.includes("localStorage.getItem('Authorization')"));
+assert.ok(router.includes('getAuthToken()'));
+assert.ok(router.includes('savePreviousUrl(to.fullPath)'));
 assert.ok(router.includes("next('/signIn')"));
 
 const store = read('src/store.js');
 assert.ok(store.includes('createStore'));
-assert.ok(store.includes("localStorage.setItem('Authorization'"));
+assert.ok(store.includes('setAuthToken(member.Authorization)'));
+assert.ok(store.includes('clearAuthStorage()'));
 assert.ok(store.includes('changeLogin'));
 
 const http = read('src/http.js');
-assert.ok(http.includes('baseURL: conf.url.prod'));
+assert.ok(http.includes('import.meta.env.VITE_API_BASE_URL || conf.url.prod'));
 assert.ok(http.includes('config.headers.Authorization'));
 assert.ok(http.includes('config.headers.token'));
+assert.ok(http.includes('error.response?.status === 401'));
+
+const auth = read('src/auth.js');
+for (const behavior of ['setAuthToken', 'clearAuthStorage', 'savePreviousUrl', 'takePreviousUrl']) {
+  assert.ok(auth.includes(`function ${behavior}`), `Missing auth behavior: ${behavior}`);
+}
+assert.ok(auth.includes("!path.startsWith('//')"), 'Previous URL must reject protocol-relative redirects');
+
+const fileValidation = read('src/utils/fileValidation.js');
+assert.ok(fileValidation.includes('MAX_ATTACHMENT_SIZE = 50_000_000'));
+assert.ok(fileValidation.includes('MAX_IMAGE_SIZE = 10_000_000'));
+assert.ok(fileValidation.includes("'image/jpeg', 'image/png', 'image/gif'"));
+
+for (const component of [
+  'src/components/com/Search.vue',
+  'src/views/admin/article/WikiManage.vue',
+  'src/views/admin/article/CommunityManage.vue',
+]) {
+  assert.ok(!read(component).includes('v-html'), `Unsafe v-html remains in ${component}`);
+}
 
 for (const component of [
   'src/views/member/user/SignIn.vue',

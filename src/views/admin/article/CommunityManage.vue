@@ -48,9 +48,7 @@
                 <img :src="data.item.picture != null ? data.item.picture : 'http://aspnc.com.cn:9000/community/2021/2021-11/2021-11-25/296c75a6-e897-4035-9b36-90c7fbc5ec6c.png'" />
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title
-                  v-html="data.item.memberName"
-                ></v-list-item-title>
+                <v-list-item-title>{{ data.item.memberName }}</v-list-item-title>
               </v-list-item-content>
             </template>
           </template>
@@ -152,9 +150,7 @@
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title>{{ item.member_name }}</v-list-item-title>
-                <v-list-item-subtitle
-                  v-html="`${item.content.replace(/\n/g, '<br/>')}`"
-                ></v-list-item-subtitle>
+                <v-list-item-subtitle style="white-space: pre-line">{{ item.content }}</v-list-item-subtitle>
               </v-list-item-content>
 
               <v-list-item-action>
