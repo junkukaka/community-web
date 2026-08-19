@@ -108,7 +108,7 @@
       </template>
 
       <template v-slot:[`item.registerTime`]="{ item }">
-        {{ item.registerTime |date-format('yyyy-mm-dd') }}
+        {{ $dateFormat(item.registerTime, 'yyyy-mm-dd') }}
       </template>
       <!-- {{ item.registerTime |date-format('yyyy-mm-dd') }} -->
       <template v-slot:[`item.actions`]="{ item }">
@@ -139,7 +139,7 @@
               :key="index"
               :inset="item.inset"
             ></v-divider>
-            <v-list-item v-else :key="index">
+            <v-list-item v-else :key="`item-${index}`">
               <v-list-item-avatar>
                 <v-avatar color="#E0E0E0" v-if="item.picture == ''">
                   <v-icon dark class="mr-2" size="52">
@@ -159,7 +159,7 @@
 
               <v-list-item-action>
                 <v-list-item-subtitle>
-                  {{ item.registerTime |date-format('yyyy-mm-dd') }}
+                  {{ $dateFormat(item.registerTime, 'yyyy-mm-dd') }}
                 </v-list-item-subtitle>
                 <v-list-item-subtitle>
                   <v-btn text @click="deleteComment(item.id)" v-if="item.activeYn == 0">

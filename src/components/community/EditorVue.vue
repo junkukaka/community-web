@@ -46,7 +46,12 @@
     </v-row>
     
 
-    <vue-editor id="Editor" v-model.lazy="community.content"> </vue-editor>
+    <QuillEditor
+      id="Editor"
+      v-model:content="community.content"
+      content-type="html"
+      theme="snow"
+    />
 
     <v-file-input
       v-model="files"
@@ -150,11 +155,12 @@
 </template>
 
 <script>
-import { VueEditor, Quill } from "vue2-editor";
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import PopMsgDialog from "../com/PopMsgDialog.vue";
 
 export default {
-  components: { VueEditor, Quill, PopMsgDialog },
+  components: { QuillEditor, PopMsgDialog },
   props: ["parent"],
   data: () => ({
     community: {

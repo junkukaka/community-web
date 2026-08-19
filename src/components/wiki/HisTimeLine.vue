@@ -25,7 +25,7 @@
           </v-chip>
           <span>{{item.memberName}} </span>
         </div>
-        <div>{{ item.updateTime | date-format('yyyy-mm-dd hh:mi:ss') }}</div>
+        <div>{{ $dateFormat(item.updateTime, 'yyyy-mm-dd hh:mi:ss') }}</div>
       </template>
       <v-card class="elevation-2" @click="hisReview(item.wikiHisId)">
         <v-card-title class="text-subtitle-2">

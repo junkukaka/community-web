@@ -1,13 +1,12 @@
-import Vue from 'vue';
-import VueI18n from 'vue-i18n';
-Vue.use(VueI18n);
+import { createI18n } from 'vue-i18n';
 
 const messages = {
     ch: require('./ch.js'),
     en: require('./en.js'),
     ko: require('./ko.js')
 };
-const i18n = new VueI18n({
+const i18n = createI18n({
+    legacy: true,
     locale: 'ko',
     fallbackLocale: 'en',
     messages: messages,

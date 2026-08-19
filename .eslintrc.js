@@ -1,10 +1,11 @@
 module.exports = {
+    root: true,
+    parserOptions: {
+      parser: '@babel/eslint-parser',
+      requireConfigFile: false
+    },
     extends: [
-      'plugin:vue/base',
-      'plugin:vuetify/recommended'
-    ],
-    plugins: [
-      'vuetify'
+      'plugin:vue/vue3-essential'
     ],
     rules: {
       'vue/no-v-html': 'off',

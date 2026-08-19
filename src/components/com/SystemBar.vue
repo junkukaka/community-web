@@ -13,9 +13,9 @@
     <div
       class="pl-3 pt-4 white--text"
       v-show="
-        $vuetify.breakpoint.md ||
-        $vuetify.breakpoint.lg ||
-        $vuetify.breakpoint.xl
+        $vuetify.display.md ||
+        $vuetify.display.lg ||
+        $vuetify.display.xl
       "
     >
       <p class="font-weight-medium white--text">{{$t('sysMsg')}}</p>
@@ -158,7 +158,7 @@ export default {
 
   created(){
     //设置语言
-    if(this.$store.state.lang != null){
+    if(this.$store.state.lang && this.$store.state.lang.code){
       this.selectLanguage(this.$store.state.lang.code,this.$store.state.lang.name)
     }
   },

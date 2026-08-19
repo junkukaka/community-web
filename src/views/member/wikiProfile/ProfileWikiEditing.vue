@@ -39,7 +39,7 @@
       </template>
 
       <template v-slot:[`item.date`]="{ item }">
-        {{ item.date |date-format('yyyy-mm-dd hh:mi:ss') }}
+        {{ $dateFormat(item.date, 'yyyy-mm-dd hh:mi:ss') }}
       </template>
 
       <template v-slot:[`item.actions`]="{ item }">

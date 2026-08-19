@@ -6,7 +6,7 @@
           <template v-for="(item, index) in items">
             <v-divider
               v-if="item.divider"
-              :key="index"
+              :key="`item-${index}`"
               :inset="item.inset"
             ></v-divider>
             <v-list-item
@@ -34,7 +34,7 @@
                   <v-chip x-small color="indigo" outlined>new</v-chip>
                 </v-list-item-subtitle>
                 <v-list-item-subtitle>
-                  {{item.registerTime|date-format('yyyy-mm-dd hh:mi:ss')}}
+                  {{$dateFormat(item.registerTime, 'yyyy-mm-dd hh:mi:ss')}}
                 </v-list-item-subtitle>
               </v-list-item-action>
             </v-list-item>

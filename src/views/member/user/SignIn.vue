@@ -66,7 +66,6 @@
 </template>
 
 <script>
-import { el } from "vuetify/lib/locale";
 import { mapMutations } from "vuex";
 
 export default {

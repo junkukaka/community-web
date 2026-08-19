@@ -21,7 +21,7 @@
         <v-list-item-content>
           <div class="text-overline font-weight-light">
             {{
-              community.registerTime | date-format("yyyy-mm-dd hh:mi:ss")
+              $dateFormat(community.registerTime, "yyyy-mm-dd hh:mi:ss")
             }}
           </div>
           <v-list-item-title class="headline mb-3 text-h3">{{
@@ -138,7 +138,7 @@
             :key="index"
             :inset="item.inset"
           ></v-divider>
-          <v-list-item v-else :key="index">
+          <v-list-item v-else :key="`item-${index}`">
             <v-list-item-avatar>
               <v-avatar color="#E0E0E0" v-if="item.picture == ''">
                 <v-icon dark class="mr-2" size="52">
@@ -159,7 +159,7 @@
 
             <v-list-item-action>
               <v-list-item-subtitle style="max-height:19px">
-                {{ item.register_time | date-format("yyyy-mm-dd") }}
+                {{ $dateFormat(item.register_time, "yyyy-mm-dd") }}
               </v-list-item-subtitle>
           
               <v-list-item-subtitle v-if="item.memberId == member.id">

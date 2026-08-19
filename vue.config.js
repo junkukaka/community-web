@@ -1,5 +1,10 @@
 module.exports = {
-    parallel: false,    // Vue 2.7 compiler objects are not serializable by the legacy thread-loader
+    parallel: false,
+    transpileDependencies: [
+        'vuetify',
+        '@vueup/vue-quill',
+        'quill'
+    ],
     devServer: {
         port: 8888,     // 端口
     },

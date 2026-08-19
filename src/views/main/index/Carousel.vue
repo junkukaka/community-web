@@ -5,7 +5,7 @@
         <div class="text-h2 white--text" >
           {{ item.title }} 
         </div>
-        <p class="font-weight-light pt-2 pl-1 white--text" style="width:60%" v-show="!$vuetify.breakpoint.xs">
+        <p class="font-weight-light pt-2 pl-1 white--text" style="width:60%" v-show="!$vuetify.display.xs">
           {{ item.content }} 
         </p>
       </div>
@@ -44,7 +44,7 @@ export default {
   },
 
   created(){
-    this.layout = this.$vuetify.breakpoint.xs
+    this.layout = this.$vuetify.display.xs
     if(this.layout){
       this.margin = "110px auto",
       this.align = "center"

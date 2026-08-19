@@ -11,7 +11,7 @@
       padding: 0px !important;
     "
   >
-    <router-link to="/" v-show="!$vuetify.breakpoint.xs">
+    <router-link to="/" v-show="!$vuetify.display.xs">
       <h2 class="fontGray">
         ASPN
         <span class="font-weight-medium" style="font-size: 16px"
@@ -20,7 +20,7 @@
       </h2>
     </router-link>
 
-    <v-app-bar-nav-icon v-show="$vuetify.breakpoint.xs" @click="showNavi"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon v-show="$vuetify.display.xs" @click="showNavi"></v-app-bar-nav-icon>
 
     <v-dialog v-model="naviDialog" width="260">
         <v-card class="text-center">
@@ -39,7 +39,7 @@
         </v-card>
       </v-dialog>
 
-    <v-row class="pt-1 textCenter" v-show="!$vuetify.breakpoint.xs">
+    <v-row class="pt-1 textCenter" v-show="!$vuetify.display.xs">
       <v-col>
         <router-link to="/wiki/wikiMain">
           <h3 class="font-weight-medium fontGray">{{$t('wiki')}}</h3>

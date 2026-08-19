@@ -1,14 +1,4 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-
-//1.引入router 插件
-Vue.use(VueRouter)
-
-const originalPush = VueRouter.prototype.push
-
-VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err)
-}
+import { createRouter, createWebHistory } from 'vue-router'
 
 //2.路由的规则定义数组
 const routes = [
@@ -306,9 +296,9 @@ const routes = [
 
 
 //3.vuerouter 对象
-const router = new VueRouter({
+const router = createRouter({
     routes,
-    mode: "history"
+    history: createWebHistory(process.env.BASE_URL)
 });
 
 

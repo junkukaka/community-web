@@ -1,14 +1,10 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import http from './http';
 import vuetify from './plugins/vuetify';
 import router from './router'
 import store from './store'
 import _ from 'lodash'
-
-import VuetifyConfirm from 'vuetify-confirm'
-
-
 
 import 'prismjs'; // Core library
 import 'prismjs/components/prism-markup'; // Example: Markup (HTML, XML) - often needed
@@ -64,17 +60,13 @@ VueMarkdownEditor.use(createLineNumbertPlugin());
 VueMarkdownEditor.use(vuepressTheme, {
   Prism,
 });
-Vue.use(VueMarkdownEditor);
-
-Vue.use(VuetifyConfirm, { vuetify })
-
-Vue.config.productionTip = false
-Vue.prototype.$http= http
-Vue.prototype.$store = store
-Vue.prototype._ = _
+const app = createApp(App)
+app.use(VueMarkdownEditor)
+app.config.globalProperties.$http = http
+app.config.globalProperties._ = _
 
 //全局注册时间格式化
-Vue.filter('date-format',function(input, pattern = '') {
+app.config.globalProperties.$dateFormat = function(input, pattern = '') {
   let dt = new Date(input);
   //获取年月日
   let y = dt.getFullYear();
@@ -91,12 +83,11 @@ Vue.filter('date-format',function(input, pattern = '') {
     return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
   }
 
-});
+}
 
 
-new Vue({
-  vuetify,
-  router,
-  i18n,
-  render: h => h(App),
-}).$mount('#app')
+app.use(vuetify)
+app.use(router)
+app.use(store)
+app.use(i18n)
+app.mount('#app')

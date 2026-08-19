@@ -11,7 +11,7 @@
           <template v-for="(item, index) in items">
             <v-divider
               v-if="item.divider"
-              :key="index"
+              :key="`item-${index}`"
               :inset="item.inset"
             ></v-divider>
             <v-list-item
@@ -36,7 +36,7 @@
 
               <v-list-item-action>
                 <v-list-item-subtitle>
-                  {{item.registerTime|date-format('yyyy-mm-dd hh:mi:ss')}}
+                  {{$dateFormat(item.registerTime, 'yyyy-mm-dd hh:mi:ss')}}
                 </v-list-item-subtitle>
                 <v-list-item-subtitle>
                   {{$t('views')}} : {{item.hitsCount}} ; {{$t('likes')}} : {{item.likesCount}} ; {{$t('comments')}} : {{item.commentCount}}

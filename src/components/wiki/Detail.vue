@@ -18,7 +18,7 @@
        <div class="text-overline font-weight-light pl-5 pt-2">
           {{$t('lastUpdate')}}
           {{
-            wikiHis.registerTime | date-format("yyyy-mm-dd hh:mi:ss")
+            $dateFormat(wikiHis.registerTime, "yyyy-mm-dd hh:mi:ss")
           }}
         </div>
       <v-card-title class="text-h3 font-weight-medium pt-1 pb-1">
