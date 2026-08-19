@@ -63,3 +63,14 @@
 - Known warning: Vue I18n legacy-mode and Vite large-chunk warnings remain unchanged.
 - Remaining security boundary: client-side file checks are bypassable and must also be enforced by the backend. `@kangc/v-md-editor` still renders through its legacy Markdown dependency chain; fully sanitizing or replacing that renderer requires authenticated content-compatibility acceptance and remains unresolved.
 - Known limitation: login success, logout against a live backend, 401/403 backend responses, authenticated editors, upload/download, and administration workflows could not be end-to-end tested without test credentials and an authenticated backend environment.
+
+## Stage 8: final acceptance
+
+- Acceptance runtime: Node.js `24.19.0` LTS with npm `11.17.0`, matching `.nvmrc` and `packageManager`.
+- Clean install: `npm ci` completed successfully from the committed lockfile and installed 463 packages. No lockfile update was required.
+- Automated checks: ESLint passed; `scripts/verify-vue3.js` passed its dependency, plugin, authentication, HTTP, route, security, and key-page assertions under Node.js 24.
+- Production build: Vite `8.2.1` transformed 1,506 modules and generated `dist` successfully.
+- Development smoke test: Vite started successfully; `/`, `/signIn`, and a deep history route all returned the application HTML with HTTP 200, confirming development history fallback.
+- Port note: port `8888` was already occupied by an unrelated Express process during acceptance, so Vite selected `8889`. The configured application port remains `8888`; the unrelated process was not modified.
+- Known warnings: the production entry chunk is about 1.27 MB (420 kB gzip), above Vite's 500 kB warning threshold. `npm ci` reports 9 dependency vulnerabilities (7 moderate, 2 high), unchanged from stage 6 and confined to the Markdown editor dependency boundary documented there.
+- Environment-limited acceptance: no backend credentials or authenticated test environment were available. Live login success/failure, logout, backend 401/403 behavior, role-specific Wiki/Community/Member/Admin workflows, editor round trips, PDF output, upload/download, and authenticated three-language/viewport visual comparisons remain manual acceptance items. The repository-level route, token, HTTP, upload-validation, language registration, and key-page contracts are covered by the automated verifier.
