@@ -9,7 +9,8 @@ const messages = {
     ko
 };
 const i18n = createI18n({
-    legacy: true,
+    legacy: false,
+    globalInjection: true,
     locale: 'ko',
     fallbackLocale: 'en',
     messages: messages,

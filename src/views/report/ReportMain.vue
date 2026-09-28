@@ -1,18 +1,18 @@
 <template>
   <v-card class="mt-12 boxShadow pa-5">
-    <v-tabs align-with-title v-model="tabs">
+    <v-tabs align-tabs="title" v-model="tabs">
       <v-tab v-for="itme in tabItems" :key="itme">
         {{ itme }}
       </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tabs">
+    <v-window v-model="tabs">
       <!-- 글통계 -->
-      <v-tab-item>
+      <v-window-item>
         <report-c-w-member-cnt />
-      </v-tab-item>
+      </v-window-item>
 
-    </v-tabs-items>
+    </v-window>
   </v-card>
 </template>
 <script>

@@ -1,14 +1,13 @@
 <template>
   <v-card flat>
     <!-- 권한관리 메세지  -->
-    <v-alert
-      shaped
+    <v-alert rounded="shaped"
       prominent
       type="error"
       v-if="authorityView"
     >
       {{$t('authorityBanMSG')}}
-    </v-alert> 
+    </v-alert>
 
 
     <div style="margin: -10px 0 0">
@@ -17,45 +16,45 @@
     </div>
 
     <v-card flat>
-      <v-list-item three-line>
-        <v-list-item-content>
-          <div class="text-overline font-weight-light">
+      <v-list-item lines="three">
+
+          <div class="text-label-small font-weight-light">
             {{
               $dateFormat(community.registerTime, "yyyy-mm-dd hh:mi:ss")
             }}
           </div>
-          <v-list-item-title class="headline mb-3 text-h3">{{
+          <v-list-item-title class="headline mb-3 text-display-small">{{
             community.title
           }}</v-list-item-title>
-          <v-list-item-subtitle class="text-overline font-weight-regular">
+          <v-list-item-subtitle class="text-label-small font-weight-regular">
             <span class="mr-3"> {{ comInfoCount.hitsCount }} {{$t('views')}}</span>
             <span class="mr-3"> {{ comInfoCount.commentCount }} {{$t('comments')}} </span>
             <span class="mr-3"> {{ comInfoCount.likesCount }} {{$t('likes')}}</span>
             <span class="mr-3"> {{ comInfoCount.collectCount }} {{$t('collect')}}</span>
           </v-list-item-subtitle>
-        </v-list-item-content>
+
       </v-list-item>
       <v-card-actions style="padding: 0px">
         <v-list-item class="grow">
-          <v-list-item-avatar>
+          <div class="v-list-item__prepend">
 
             <router-link :to="'/targetMember?memberId=' + community.memberId">
               <v-avatar size="43" v-if="community.picture">
                 <img :src="community.picture" :alt="`photo`" />
               </v-avatar>
               <v-avatar color="#E0E0E0" v-if="!community.picture">
-                <v-icon dark class="mr-2" size="52"> mdi-account-circle </v-icon>
+                <v-icon class="mr-2" size="52"> mdi-account-circle </v-icon>
               </v-avatar>
             </router-link>
             <!-- <v-img class="elevation-6" alt="" :src="community.picture" v-if="community.picture != null"></v-img> -->
-          </v-list-item-avatar>
+          </div>
 
-          <v-list-item-content>
+
             <v-list-item-title>
               {{ community.memberName }}
             </v-list-item-title>
-          </v-list-item-content>
-          <v-row align="center" justify="end">
+
+          <v-row class="align-center justify-end">
             <span>
               <v-icon class="mr-2"> mdi-domain </v-icon>
               <span class="subheading mr-2">: {{ community.department }}</span>
@@ -78,7 +77,7 @@
         v-if="titles.length > 0"
         v-show="$store.state.ifMobile"
       >
-        <h6 class="text-h6 pb-1">{{$t('catalogue')}}</h6>
+        <h6 class="text-headline-small pb-1">{{$t('catalogue')}}</h6>
         <div style="" class="ml-3 anchorAreaBox">
           <div
             v-for="(anchor, i) in titles"
@@ -105,21 +104,21 @@
       <v-card>
         <v-card-title>{{$t('commentWrite')}}</v-card-title>
         <v-card-text style="padding-bottom: 0px">
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid">
             <v-textarea
-              outlined
+              variant="outlined"
               :label="$t('addComment')"
-              value=""
+              model-value=""
               v-model="comment.content"
               :rules="commentRules"
             ></v-textarea>
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="indigo" text @click="commentSave" :disabled = commentSaveFlag>
+          <v-btn color="indigo" variant="text" @click="commentSave" :disabled = commentSaveFlag>
             <v-icon>mdi-pencil</v-icon> {{$t('ok')}}
           </v-btn>
-          <v-btn color="orange" text @click="commentDialog"> {{$t('close')}} </v-btn>
+          <v-btn color="orange" variant="text" @click="commentDialog"> {{$t('close')}} </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -129,7 +128,7 @@
 
     <!-- comment list area -->
     <v-card flat>
-      <div class="transition-swing text-h5 mb-1 mt-10 ml-3">{{$t('commentsList')}}</div>
+      <div class="text-headline-medium mb-1 mt-10 ml-3">{{$t('commentsList')}}</div>
       <v-divider class="ml-3"></v-divider>
       <v-list>
         <template v-for="(item, index) in commentList">
@@ -139,45 +138,43 @@
             :inset="item.inset"
           ></v-divider>
           <v-list-item v-else :key="`item-${index}`">
-            <v-list-item-avatar>
+            <div class="v-list-item__prepend">
               <v-avatar color="#E0E0E0" v-if="item.picture == ''">
-                <v-icon dark class="mr-2" size="52">
+                <v-icon class="mr-2" size="52">
                   mdi-account-circle
                 </v-icon>
               </v-avatar>
               <v-avatar v-if="item.picture != ''">
                 <img :src="item.picture" :alt="`photo`" />
               </v-avatar>
-            </v-list-item-avatar>
+            </div>
 
-            <v-list-item-content>
+
               <v-list-item-title>{{ item.member_name }}</v-list-item-title>
               <v-list-item-subtitle>
                   {{ formatContent(item.content) }}
               </v-list-item-subtitle>
-            </v-list-item-content>
+
 
             <v-list-item-action>
               <v-list-item-subtitle style="max-height:19px">
                 {{ $dateFormat(item.register_time, "yyyy-mm-dd") }}
               </v-list-item-subtitle>
-          
+
               <v-list-item-subtitle v-if="item.memberId == member.id">
                  <v-btn
-                    x-small
+                    size="x-small"
                     color="indigo"
-                    dark
                     class="mr-1"
                     @click="editComment(item)"
                   >
-                     <v-icon x-small dark>
+                     <v-icon size="x-small">
                         mdi-wrench
                       </v-icon>
                   </v-btn>
                   <v-btn
-                    x-small
+                    size="x-small"
                     color="secondary"
-                    dark
                     @click="openDeleteCommentDialog(item.id)"
                   >
                     X
@@ -195,7 +192,7 @@
       max-width="290"
     >
       <v-card>
-        <v-card-title class="text-h5">
+        <v-card-title class="text-headline-medium">
            {{$t('deleteCommentTitle')}}
         </v-card-title>
         <v-card-text>
@@ -204,15 +201,15 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="green darken-1"
-            text
+            color="green-darken-1"
+            variant="text"
             @click="deleteComment"
           >
             {{$t('ok')}}
           </v-btn>
           <v-btn
             color="orange"
-            text
+            variant="text"
             @click="commentDeleteConfirmDialog = false"
           >
             {{$t('close')}}
@@ -232,19 +229,17 @@
       class="rightBottomArea"
     >
       <template v-slot:activator>
-        <v-btn v-model="fab" color="indigo" dark fab elevation = 0>
+        <v-btn v-model="fab" color="indigo" icon elevation = 0>
           <v-icon v-if="fab"> mdi-close </v-icon>
           <v-icon v-else> mdi-account-circle </v-icon>
         </v-btn>
       </template>
-      <v-btn fab dark small depressed color="green" @click="commentDialog">
+      <v-btn icon size="small" variant="flat" color="green" @click="commentDialog">
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
-      <v-btn
-        fab
-        dark
-        small
-        depressed
+      <v-btn icon
+        size="small"
+        variant="flat"
         :color="`${
           this.memberLikesAndCollect.memberCollectYn == 1 ? 'grey' : 'orange'
         }`"
@@ -252,11 +247,9 @@
       >
         <v-icon>mdi-star</v-icon>
       </v-btn>
-      <v-btn
-        fab
-        dark
-        small
-        depressed
+      <v-btn icon
+        size="small"
+        variant="flat"
         :color="`${
           this.memberLikesAndCollect.memberLikesYn == 1 ? 'grey' : 'red'
         }`"
@@ -266,11 +259,9 @@
       </v-btn>
 
       <v-btn
-        v-if="community.memberId === $store.state.member.id"
-        fab
-        dark
-        small
-        depressed
+        v-if="community.memberId === $store.state.member.id" icon
+        size="small"
+        variant="flat"
         color="indigo"
         @click="editMyCommunity"
       >
@@ -278,11 +269,9 @@
       </v-btn>
 
       <router-link target="_blank" :to="'/pdf/community?id=' + community.id">
-        <v-btn
-          fab
-          dark
-          small
-          depressed
+        <v-btn icon
+          size="small"
+          variant="flat"
           color="indigo"
         >
           <v-icon>mdi-file-pdf</v-icon>
@@ -575,14 +564,14 @@ export default {
     },
 
 
-    //권한관리 
+    //권한관리
     getMemberAuthority(){
       let data = this.$data;
       let request = {
         params: {
           menuId : data.community.menuId,
           authority : data.member.authority
-        } 
+        }
       }
       this.$nextTick(function(){
         this.$http.get("/authority/getMemberCommunityAuthority",request).then((response) => {
@@ -603,7 +592,7 @@ export default {
       })
     },
 
-    //댓글 삭제 확인 팝업 
+    //댓글 삭제 확인 팝업
     openDeleteCommentDialog(id){
       this.commentDeleteConfirmDialog = true;
       this.deleteCommentId = id;
@@ -622,7 +611,7 @@ export default {
       });
     },
 
-    //댓글 편집 
+    //댓글 편집
     editComment(item){
       console.log(item);
       this.dialog = true;

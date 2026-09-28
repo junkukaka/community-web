@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <v-card flat style="max-width: 1200px; margin: 0 auto">
-      <v-card-title class="text-h3 font-weight-bold pt-5 pb-5">
+      <v-card-title class="text-display-small font-weight-bold pt-5 pb-5">
         {{ wikiHis.title }}
       </v-card-title>
       <v-divider></v-divider>
@@ -33,7 +33,7 @@ export default {
       });
     },
   },
-  
+
 
   methods: {
     getWikiHisDetail() {

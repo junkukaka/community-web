@@ -5,14 +5,14 @@
         {{ itme }}
       </v-tab>
     </v-tabs>
-    <v-tabs-items v-model="tabs">
-       <v-tab-item>
+    <v-window v-model="tabs">
+       <v-window-item>
         <authority-manage />
-      </v-tab-item>
-      <v-tab-item>
+      </v-window-item>
+      <v-window-item>
         <department />
-      </v-tab-item>
-    </v-tabs-items>
+      </v-window-item>
+    </v-window>
   </v-card>
 </template>
 <script>

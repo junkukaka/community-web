@@ -5,25 +5,25 @@
         <v-combobox
           v-model="selectDepartments"
           :items="departments"
-          :item-text="departments.text"
+          :item-title="departments.text"
           :item-value="departments.value"
           label="권한구룹"
           multiple
-          outlined
-          dense
+          variant="outlined"
+          density="compact"
         ></v-combobox>
       </v-col>
       <v-col cols="12" lg="6" md="6">
-        <v-btn outlined color="indigo" class="ml-10" @click="pickStart">
+        <v-btn variant="outlined" color="indigo" class="ml-10" @click="pickStart">
           {{$t('startDate')}} : {{ startDate }}
         </v-btn>
-        <v-btn outlined color="indigo" class="ml-1" @click="pickEnd">
+        <v-btn variant="outlined" color="indigo" class="ml-1" @click="pickEnd">
           {{$t('endDate')}}: {{ endDate }}
         </v-btn>
         <v-btn
-          class="ml-1 white--text"
+          class="ml-1 text-white"
           color="indigo"
-          depressed
+          variant="flat"
           @click="reportWCMemberCount"
         >
           {{$t('search')}}
@@ -33,7 +33,7 @@
     <v-dialog v-model="pickDialog" width="290">
       <v-date-picker v-model="datePicker" class="mt-5"></v-date-picker>
     </v-dialog>
-    <v-simple-table fixed-header>
+    <v-table fixed-header>
       <template v-slot:default>
         <thead>
           <tr>
@@ -62,16 +62,16 @@
           </tr>
         </tbody>
       </template>
-    </v-simple-table>
+    </v-table>
 
      <v-snackbar
         v-model="snackbar"
         >
         {{ textSnackbar }}
-        <template v-slot:action="{ attrs }">
+        <template v-slot:actions="{ attrs }">
             <v-btn
             color="pink"
-            text
+            variant="text"
             v-bind="attrs"
             @click="snackbar = false"
             >
@@ -155,7 +155,7 @@ export default {
       for(const  department of this.selectDepartments){
         dept.push(department.value)
       }
-      
+
       let depts = _.toString(dept)
 
       let params = {
@@ -168,7 +168,7 @@ export default {
 
       this.$http.get("/member/reportWCMemberCount",params).then((response) => {
         this.report = response.data.data;
-      }) 
+      })
     },
 
     formatDate(date, formateStr) {

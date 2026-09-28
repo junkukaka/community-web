@@ -1,7 +1,7 @@
 <template>
   <div style="margin: 47px 0px 30px">
     <v-card class="pa-12 mx-lg-auto boxShadow" style="max-width:900px">
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" v-model="valid">
         <v-text-field
           v-model="member.loginId"
           :label="$t('id')"
@@ -16,10 +16,10 @@
           :counter="50"
           :label="$t('newPW')"
           :type="showPassword ? 'text' : 'password'"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           required
           :rules="passwordRules"
-          @click:append="showPassword = !showPassword"
+          @click:append-inner="showPassword = !showPassword"
           @keyup.enter="validate"
         ></v-text-field>
 
@@ -28,20 +28,20 @@
           :counter="50"
           :label="$t('confirmSomeThing',{0:$t('pw')})"
           :type="showPassword ? 'text' : 'password'"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           required
           :rules="passwordRules"
-          @click:append="showPassword = !showPassword"
+          @click:append-inner="showPassword = !showPassword"
           @keyup.enter="validate"
         ></v-text-field>
 
         <v-btn
           block
-          large
+          size="large"
           color="indigo"
           class="mt-5"
           @click="validate"
-          depressed
+          variant="flat"
           @keyup.enter="validate"
           >{{$t('changeSomeThing',{0:$t('pw')})}}</v-btn
         >
@@ -56,7 +56,7 @@
             <v-divider></v-divider>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="indigo" text @click="closeDialogMsg"> {{$t('ok')}} </v-btn>
+              <v-btn color="indigo" variant="text" @click="closeDialogMsg"> {{$t('ok')}} </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>

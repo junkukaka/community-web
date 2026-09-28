@@ -4,7 +4,7 @@
         <!-- dashboard -->
         <dashboard-vue/>
       </div>
-      
+
       <v-card flat>
         <v-divider class="ml-3"></v-divider>
         <v-list>
@@ -18,21 +18,21 @@
                v-else
               :key="index"
               link
-              :to ="`/community/communityDetail?id=${item.id}`" 
+              :to ="`/community/communityDetail?id=${item.id}`"
             >
-              <v-list-item-avatar>
+              <div class="v-list-item__prepend">
                 <v-avatar size="43" v-if="item.picture !== ''">
                   <img :src="item.picture" :alt="`photo`" />
                 </v-avatar>
                 <v-avatar color="#E0E0E0" v-if="item.picture === ''">
-                  <v-icon dark class="mr-2" size="52"> mdi-account-circle </v-icon>
+                  <v-icon class="mr-2" size="52"> mdi-account-circle </v-icon>
                 </v-avatar>
-              </v-list-item-avatar>
+              </div>
 
-              <v-list-item-content>
+
                 <v-list-item-title>{{item.title}}</v-list-item-title>
                 <v-list-item-subtitle>{{item.memberName}}</v-list-item-subtitle>
-              </v-list-item-content>
+
 
               <v-list-item-action>
                 <v-list-item-subtitle>
@@ -42,7 +42,7 @@
                   {{$t('views')}} : {{item.hitsCount}} ; {{$t('likes')}} : {{item.likesCount}} ; {{$t('comments')}} : {{item.commentCount}}
                 </v-list-item-subtitle>
               </v-list-item-action>
-              
+
             </v-list-item>
           </template>
         </v-list>
@@ -51,18 +51,17 @@
           <router-link :to="`/community/communityEdit?menuId=${menuId}`">
             <v-btn
               color="indigo"
-              large
-              fab
+              size="large" icon
               fixed
-              depressed
-              class="rightBottomArea white--text"
+              variant="flat"
+              class="rightBottomArea text-white"
             >
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </router-link>
         </v-fab-transition>
       </v-card>
-      
+
       <v-card flat class="mt-5">
         <template>
           <div class="text-center">
@@ -97,7 +96,7 @@ import DashboardVue from "../com/Dashboard.vue";
 
     created(){
       this.menuId = _.toNumber(this.$route.query.menuId);
-   
+
       if(this.$route.query.page != null){
         this.page = _.toNumber(this.$route.query.page);
       }
@@ -105,7 +104,7 @@ import DashboardVue from "../com/Dashboard.vue";
     },
 
     mounted: function(){
-      this.menuName = this.$route.query.menuName; 
+      this.menuName = this.$route.query.menuName;
       //console.log(this.menuName);
       document.title = this.menuName;
     },
@@ -114,7 +113,7 @@ import DashboardVue from "../com/Dashboard.vue";
       //使用监听跳转页面
       $route(){
         this.menuId = this.$route.query.menuId;
-        this.menuName = this.$route.query.menuName; 
+        this.menuName = this.$route.query.menuName;
         document.title = this.menuName;
       },
 
@@ -122,7 +121,7 @@ import DashboardVue from "../com/Dashboard.vue";
         this.initialize();
         this.getMemberAuthority();
       },
-      
+
       page: function(){
         this.$router.push(`/community/communityList?menuId=${this.menuId}&page=${this.page}`);
         this.initialize();
@@ -143,7 +142,7 @@ import DashboardVue from "../com/Dashboard.vue";
             page: data.page,
             itemsPerPage: data.itemsPerPage,
             authority: data.member.authority
-          } 
+          }
         }
         this.$nextTick(function(){
           this.$http.get("/community/communities/pageList",request)
@@ -166,7 +165,7 @@ import DashboardVue from "../com/Dashboard.vue";
           params: {
             menuId : data.menuId,
             authority : data.member.authority
-          } 
+          }
         }
         this.$nextTick(function () {
           this.$http.get("/authority/getMemberCommunityAuthority",request).then((response) => {

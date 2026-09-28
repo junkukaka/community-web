@@ -9,16 +9,16 @@
       </template>
     </v-toolbar>
 
-    <v-tabs-items v-model="tabs" class="pa-3 pt-5" >
+    <v-window v-model="tabs" class="pa-3 pt-5" >
       <!-- vue2Editor -->
-      <v-tab-item value="normalEditor">
+      <v-window-item value="normalEditor">
         <editor-vue v-bind:parent="community"/>
-      </v-tab-item>
+      </v-window-item>
       <!-- MdEditor -->
-      <v-tab-item value="makedowmEditor">
+      <v-window-item value="makedowmEditor">
         <editor-md v-bind:parent="community"/>
-      </v-tab-item>
-    </v-tabs-items>
+      </v-window-item>
+    </v-window>
   </v-card>
 </template>
 

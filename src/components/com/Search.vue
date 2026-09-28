@@ -4,9 +4,8 @@
       prominent
       type="error"
       v-if="alertFlag"
-      transition="scale-transition"
     >
-      <v-row align="center">
+      <v-row class="align-center">
         <v-col class="grow">
           {{$t('msgNoSearch')}}
         </v-col>
@@ -16,7 +15,7 @@
       </v-row>
     </v-alert>
     <v-card class="mx-lg-auto boxShadow" flat style="max-width: 1280px">
-      <v-card-title class="headline indigo">
+      <v-card-title class="headline bg-indigo">
         <span style="color: white"> {{$t('msgSearchTitle')}} </span>
       </v-card-title>
       <v-card-text class="pt-5">
@@ -24,24 +23,24 @@
           <v-select
             :items="selects"
             :label="$t('wikiAndCommunity')"
-            item-text="state"
+            item-title="state"
             item-value="abbr"
             v-model="searchObj.ty"
-            outlined
+            variant="outlined"
             color = "indigo"
             item-color = "indigo"
-            class="mr-5 white--text"
+            class="mr-5 text-white"
           ></v-select>
           <v-select
             :items="selectOptions"
             :label="$t('titleAndContent')"
-            item-text="state"
+            item-title="state"
             item-value="abbr"
             v-model="searchObj.option"
-            outlined
+            variant="outlined"
             color = "indigo"
             item-color = "indigo"
-            @change="searchingRuslt"
+            @update:model-value="searchingRuslt"
           ></v-select>
         </v-card>
 
@@ -49,7 +48,7 @@
           <v-autocomplete
             v-model="memberSelect"
             :items="members"
-            item-text="memberName"
+            item-title="memberName"
             item-value="id"
             :no-data-text="$t('userName')"
             v-model:search-input="searchMemberName"
@@ -57,15 +56,15 @@
             multiple
             :label="$t('userName')"
           >
-            <template v-slot:selection="data">
+            <template v-slot:chip="data">
               <v-chip
                 v-bind="data.attrs"
-                :input-value="data.selected"
-                close
+                :model-value="data.selected"
+                closable
                 @click="data.select"
                 @click:close="remove(data.item)"
               >
-                <v-avatar left>
+                <v-avatar start>
                   <v-img
                     :src="
                       data.item.picture != null
@@ -79,7 +78,7 @@
             </template>
             <template v-slot:item="data">
               <template>
-                <v-list-item-avatar>
+                <div class="v-list-item__prepend">
                   <img
                     :src="
                       data.item.picture != null
@@ -87,18 +86,18 @@
                         : 'http://aspnc.com.cn:9000/community/2021/2021-11/2021-11-25/296c75a6-e897-4035-9b36-90c7fbc5ec6c.png'
                     "
                   />
-                </v-list-item-avatar>
-                <v-list-item-content>
+                </div>
+
                   <v-list-item-title>{{ data.item.memberName }}</v-list-item-title>
-                </v-list-item-content>
+
               </template>
             </template>
           </v-autocomplete>
 
           <v-btn
-            class="ml-5 mt-3 white--text"
-            depressed
-            large
+            class="ml-5 mt-3 text-white"
+            variant="flat"
+            size="large"
             color="indigo"
             @click="menusDialog"
             v-if="menuShowYn"
@@ -110,18 +109,18 @@
         <v-card flat class="pt-3 d-flex justify-space-between">
           <v-text-field
             v-model="searchObj.content"
-            append-icon="mdi-magnify"
+            append-inner-icon="mdi-magnify"
             :label="$t('search')"
-            outlined
+            variant="outlined"
             hide-details
             color="indigo"
             @keyup.enter="searchingRuslt"
           ></v-text-field>
 
            <v-btn
-            class="ml-5 mt-2 white--text"
-            depressed
-            large
+            class="ml-5 mt-2 text-white"
+            variant="flat"
+            size="large"
             color="indigo"
             @click="searchingRuslt"
           >
@@ -136,8 +135,8 @@
           flat
           :headers="headers"
           :items="results"
-          item-key ="index"
-          :disable-pagination="disablePagination"
+          item-value="index"
+          items-per-page="-1"
           class="elevation-1 mytable"
           hide-default-footer
           :loading="loadingFlag"
@@ -184,7 +183,7 @@
         <div style="width: 80%; margin: 15px auto" v-if="morePage">
           <v-btn
             class="pa-5"
-            outlined
+            variant="outlined"
             block
             @click="morePageAction"
             color="indigo"
@@ -192,9 +191,9 @@
             {{$t('more')}}
           </v-btn>
         </div>
-        <v-btn :disabled="!results" color="indigo" @click="results = []" class="white--text">
+        <v-btn :disabled="!results" color="indigo" @click="results = []" class="text-white">
           {{$t('clear')}}
-          <v-icon right> mdi-close-circle </v-icon>
+          <v-icon end> mdi-close-circle </v-icon>
         </v-btn>
       </v-card-actions>
 
@@ -202,19 +201,19 @@
       <v-dialog
         v-model="wikiMenusDialog"
         fullscreen
-        hide-overlay
+        :scrim="false"
         transition="dialog-bottom-transition"
       >
         <v-card>
-          <v-toolbar dark color="indigo">
-            <v-btn icon dark @click="wikiMenusDialog = false">
+          <v-toolbar color="indigo">
+            <v-btn icon @click="wikiMenusDialog = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title>{{$t('wikiMenu')}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-              <v-btn dark text @click="wikiTree = []"> {{$t('reset')}} </v-btn>
-              <v-btn dark text @click="wikiMenusDialog = false"> {{$t('ok')}} </v-btn>
+              <v-btn variant="text" @click="wikiTree = []"> {{$t('reset')}} </v-btn>
+              <v-btn variant="text" @click="wikiMenusDialog = false"> {{$t('ok')}} </v-btn>
             </v-toolbar-items>
           </v-toolbar>
 
@@ -242,7 +241,7 @@
                 <div
                   v-if="wikiTree.length === 0"
                   key="title"
-                  class="text-h6 font-weight-light grey--text text-center"
+                  class="text-headline-small font-weight-light text-grey text-center"
                 >
                   {{$t('msgSelectMenu',{0:$t('wiki'),1:$t('menu')})}}
                 </div>
@@ -252,11 +251,10 @@
                     v-for="(selection, f) in wikiTree"
                     :key="f"
                     color="grey"
-                    dark
-                    small
+                    size="small"
                     class="ma-1"
                   >
-                    <v-icon left small> mdi-beer </v-icon>
+                    <v-icon start size="small"> mdi-beer </v-icon>
                     {{ selection.name }}
                   </v-chip>
                 </v-scroll-x-transition>
@@ -270,19 +268,19 @@
       <v-dialog
         v-model="communityMenusDialog"
         fullscreen
-        hide-overlay
+        :scrim="false"
         transition="dialog-bottom-transition"
       >
         <v-card>
-          <v-toolbar dark color="indigo">
-            <v-btn icon dark @click="communityMenusDialog = false">
+          <v-toolbar color="indigo">
+            <v-btn icon @click="communityMenusDialog = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title>{{$t('communityMenu')}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-              <v-btn dark text @click="communityTree = []"> {{$t('reset')}} </v-btn>
-              <v-btn dark text @click="communityMenusDialog = false">
+              <v-btn variant="text" @click="communityTree = []"> {{$t('reset')}} </v-btn>
+              <v-btn variant="text" @click="communityMenusDialog = false">
                 {{$t('ok')}}
               </v-btn>
             </v-toolbar-items>
@@ -312,7 +310,7 @@
                 <div
                   v-if="communityTree.length === 0"
                   key="title"
-                  class="text-h6 font-weight-light grey--text text-center"
+                  class="text-headline-small font-weight-light text-grey text-center"
                 >
                   {{$t('msgSelectMenu',{0:$t('community'),1:$t('menu')})}}
                 </div>
@@ -322,11 +320,10 @@
                     v-for="(selection, i) in communityTree"
                     :key="i"
                     color="grey"
-                    dark
-                    small
+                    size="small"
                     class="ma-1"
                   >
-                    <v-icon left small> mdi-beer </v-icon>
+                    <v-icon start size="small"> mdi-beer </v-icon>
                     {{ selection.name }}
                   </v-chip>
                 </v-scroll-x-transition>
@@ -369,7 +366,6 @@ export default {
     communityTree: [],
     communityMenu: [],
     menuShowYn: true,
-    disablePagination: true,
     alertFlag: false,
     pageNum: 1,
     morePage: true,
@@ -390,9 +386,9 @@ export default {
 
     headers() {
       return [
-        { text: this.$t('title') , align: "start", value: "title" },
-        { text: this.$t('menu') , value: "menuName", align: "start" },
-        { text: this.$t('wikiAndCommunity'), value: "ty", align: "start" },
+        { title: this.$t('title') , align: "start", key: "title" },
+        { title: this.$t('menu') , key: "menuName", align: "start" },
+        { title: this.$t('wikiAndCommunity'), key: "ty", align: "start" },
       ]
     },
 
@@ -410,7 +406,7 @@ export default {
         { state: this.$t('Content'), abbr: "C" },
         { state: this.$t('titleAndContent'), abbr: "TC" },
       ]
-     } 
+     }
 
   },
 
@@ -460,7 +456,7 @@ export default {
       this.morePage = true;
       this.loadingFlag = true;
       this.searching();
-      
+
     },
 
     searching() {

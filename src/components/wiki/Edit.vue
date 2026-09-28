@@ -7,7 +7,7 @@
           :hint="$t('titleHint')"
           persistent-hint
           :rules="titleRules"
-          outlined
+          variant="outlined"
           style="border-radius: 0"
           v-model.lazy="wikiHis.title"
         ></v-text-field>
@@ -15,11 +15,11 @@
       <v-col cols="12" sm="12" md="4">
         <v-row no-gutters>
           <v-col sm="6" md="3">
-            <v-tooltip bottom>
+            <v-tooltip location="bottom">
               <template v-slot:activator="{ props }">
                 <v-btn
                   class="mt-2"
-                  outlined
+                  variant="outlined"
                   color="indigo"
                   @click="openMenu"
                   v-bind="props"
@@ -78,7 +78,7 @@
     <v-textarea
       class="mt-5"
       :label="$t('historyComment')"
-      outlined
+      variant="outlined"
       :rules="commentRules"
       persistent-hint
       style="border-radius: 0"
@@ -86,21 +86,21 @@
     ></v-textarea>
 
     <v-btn
-      large
-      depressed
+      size="large"
+      variant="flat"
       block
       color="indigo"
-      class="mt-3 white--text"
+      class="mt-3 text-white"
       @click="saveDialog = true"
     >
       {{$t('save')}}
-      <v-icon right dark> mdi-content-save </v-icon>
+      <v-icon end> mdi-content-save </v-icon>
     </v-btn>
 
     <!-- menus dialog start-->
     <v-dialog v-model="menuDialog" max-width="700">
       <v-card flat>
-        <v-card-title class="text-h5">
+        <v-card-title class="text-headline-medium">
           {{$t('menu')}}
         </v-card-title>
         <v-card-text>
@@ -112,7 +112,7 @@
             >
               <template #label="props">
                     <div style="color: #000000"  @click="changeMenu(props.item)">
-                      {{ props.item.name }} 
+                      {{ props.item.name }}
                     </div>
               </template>
             </v-treeview>
@@ -120,8 +120,8 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="green darken-1"
-            text
+            color="green-darken-1"
+            variant="text"
             @click="menuDialog = false"
           >
             {{$t('close')}}
@@ -139,11 +139,11 @@
         >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red darken-1" text @click="saveDialog = false">
+          <v-btn color="red-darken-1" variant="text" @click="saveDialog = false">
             {{$t('cancel')}}
           </v-btn>
-          <v-btn color="green darken-1" text @click="wikiHis.active = false; save();"> {{$t('save')}} </v-btn>
-          <v-btn color="indigo darken-1" text @click="wikiHis.active = true; save();">
+          <v-btn color="green-darken-1" variant="text" @click="wikiHis.active = false; save();"> {{$t('save')}} </v-btn>
+          <v-btn color="indigo-darken-1" variant="text" @click="wikiHis.active = true; save();">
             {{$t('active')}}
           </v-btn>
         </v-card-actions>
@@ -316,7 +316,7 @@ export default {
       if(!(_.has(item,'children'))){
         this.wikiHis.menuId = item.id;
         this.menu.id = item.id;
-        this.menu.name = item.name; 
+        this.menu.name = item.name;
       }else{
         this.updateError(this.$t('msgCannotPick01'));
       }
@@ -351,7 +351,7 @@ export default {
 
     afterSave() {
       let router = this.$router;
-      this.wikiHis.memberId = this.memberId; 
+      this.wikiHis.memberId = this.memberId;
       let data = this.wikiHis;
       this.$nextTick(function () {
         this.$http.post("/wiki/wikiHis", data).then((response) => {

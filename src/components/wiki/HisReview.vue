@@ -1,7 +1,7 @@
 <template>
   <v-card flat color="#F5F5F5">
     <v-card flat style="background-color: #F5F5F5">
-        <v-card-title class="text-h2 font-weight-medium">
+        <v-card-title class="text-display-medium font-weight-medium">
             {{wikiHis.title}}
         </v-card-title>
         <v-divider></v-divider>
@@ -10,7 +10,7 @@
         </div>
          <!-- anchor -->
         <div class="anchorArea" v-if="titles.length > 0" v-show="$store.state.ifMobile">
-          <h6 class="text-h6 pb-1">Contents</h6>
+          <h6 class="text-headline-small pb-1">Contents</h6>
           <div style="" class="d-none ml-5 d-lg-block">
             <div
               v-for="(anchor, i) in titles"
@@ -33,12 +33,11 @@
     <v-fab-transition>
         <v-btn
           color="indigo"
-          large
-          fab
+          size="large" icon
           fixed
-          depressed
+          variant="flat"
           @click="compareHis"
-          class="white--text"
+          class="text-white"
           style="right:30px;bottom:30px">
           <v-icon>mdi-format-list-bulleted-square</v-icon>
         </v-btn>
@@ -49,29 +48,29 @@
     <v-dialog
       v-model="dialog"
       fullscreen
-      hide-overlay
+      :scrim="false"
       transition="dialog-bottom-transition"
     >
       <v-card>
-        <v-toolbar dark color="indigo">
-          <v-btn icon dark @click="dialog = false">
+        <v-toolbar color="indigo">
+          <v-btn icon @click="dialog = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
           <v-toolbar-title>{{$t('setting')}}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark text @click="confrimDialog = true">
+            <v-btn variant="text" @click="confrimDialog = true">
                 <v-icon class="mr-3">mdi-clock-time-ten-outline</v-icon>
-                 {{$t('backToPast')}} 
+                 {{$t('backToPast')}}
             </v-btn>
           </v-toolbar-items>
         </v-toolbar>
 
-        <v-row class="mt-1"> 
+        <v-row class="mt-1">
             <!-- history -->
             <v-col cols="12" md="6">
                 <v-card flat style="background-color: #F5F5F5" >
-                    <v-card-title class="text-h3 font-weight-medium">
+                    <v-card-title class="text-display-small font-weight-medium">
                         History : {{wikiHis.title}}
                     </v-card-title>
                     <div class="hisReview">
@@ -83,7 +82,7 @@
             <!-- right now -->
             <v-col cols="12" md="6">
                 <v-card flat>
-                    <v-card-title class="text-h3 font-weight-medium">
+                    <v-card-title class="text-display-small font-weight-medium">
                         Current : {{wikiNow.title}}
                     </v-card-title>
                     <v-md-editor v-model="wikiNow.content" mode="preview" ref="editor"/>
@@ -102,11 +101,11 @@
         >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red darken-1" text @click="confrimDialog = false">
+          <v-btn color="red-darken-1" variant="text" @click="confrimDialog = false">
             {{$t('cancel')}}
           </v-btn>
-          <v-btn color="indigo darken-1" text @click="backToThePast()">
-            {{$t('ok')}} 
+          <v-btn color="indigo-darken-1" variant="text" @click="backToThePast()">
+            {{$t('ok')}}
           </v-btn>
         </v-card-actions>
       </v-card>

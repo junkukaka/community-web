@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <div class="transition-swing text-h6 ml-3">{{$t('newCommunity')}}</div>
+    <div class="text-headline-small ml-3">{{$t('newCommunity')}}</div>
     <v-divider class="ml-3"></v-divider>
     <v-list class="mb-4">
       <template v-for="(item, index) in items">
@@ -15,23 +15,23 @@
           link
           :to="`/community/communityDetail?id=${item.id}`"
         >
-          <v-list-item-avatar>
+          <div class="v-list-item__prepend">
             <v-avatar size="43" v-if="item.picture !== ''">
               <img :src="item.picture" :alt="`photo`" />
             </v-avatar>
             <v-avatar color="#E0E0E0" v-if="item.picture === ''">
-              <v-icon dark class="mr-2" size="52"> mdi-account-circle </v-icon>
+              <v-icon class="mr-2" size="52"> mdi-account-circle </v-icon>
             </v-avatar>
-          </v-list-item-avatar>
+          </div>
 
-          <v-list-item-content>
+
             <v-list-item-title>{{ item.title }}</v-list-item-title>
             <v-list-item-subtitle>{{ item.memberName }}</v-list-item-subtitle>
-          </v-list-item-content>
+
 
           <v-list-item-action>
             <v-list-item-subtitle>
-              <v-chip x-small color="indigo" outlined>new</v-chip>
+              <v-chip size="x-small" color="indigo" variant="outlined">new</v-chip>
             </v-list-item-subtitle>
             <!-- {{item.registerTime|date-format('yyyy-mm-dd hh:mi:ss')}} -->
             <v-list-item-subtitle>

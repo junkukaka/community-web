@@ -5,7 +5,7 @@
     <!-- Sizes your content based upon application components -->
     <v-main class="bgColor">
       <!-- Provides the application the proper gutter -->
-      <v-container fluid color="grey lighten-4" class="" >
+      <v-container fluid color="grey-lighten-4" class="" >
         <!-- If using vue-router -->
         <div class="containerMaxWith">
           <router-view></router-view>

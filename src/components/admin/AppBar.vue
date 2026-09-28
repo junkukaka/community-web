@@ -1,19 +1,16 @@
 <template>
   <v-app-bar
-    app
-    fixed
     flat
-    elevate-on-scroll
+    scroll-behavior="elevate"
     elevation = 0
-    class="white"
+    class="bg-white"
     style="border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important"
-  > 
+  >
     <v-card flat to="/" class="pr-3 pl-3">
-      <v-btn color="indigo" class="mt-2" outlined>
+      <v-btn color="indigo" class="mt-2" variant="outlined">
         Home
         <v-icon
-          right
-          dark
+          end
         >
           mdi-home
         </v-icon>
@@ -22,29 +19,29 @@
     <v-card flat  clas="pa-0 ma-0">
       <v-tabs>
         <v-tab  @click="toLink(1)">
-           <span class="black--text pl-3 pr-3 pl-3 pr-3">회원 관리</span>
+           <span class="text-black pl-3 pr-3 pl-3 pr-3">회원 관리</span>
         </v-tab>
         <v-tab @click="toLink(2)">
-           <span class="black--text pl-3 pr-3 pl-3 pr-3">권한 관리</span>
+           <span class="text-black pl-3 pr-3 pl-3 pr-3">권한 관리</span>
         </v-tab>
         <v-tab @click="toLink(3)">
-           <span class="black--text pl-3 pr-3 pl-3 pr-3">커뮤니티 메뉴</span>
+           <span class="text-black pl-3 pr-3 pl-3 pr-3">커뮤니티 메뉴</span>
         </v-tab>
         <v-tab  @click="toLink(4)">
-           <span class="black--text pl-3 pr-3 pl-3 pr-3">위키 메뉴</span>
+           <span class="text-black pl-3 pr-3 pl-3 pr-3">위키 메뉴</span>
         </v-tab>
         <v-tab  @click="toLink(5)">
-           <span class="black--text pl-3 pr-3 pl-3 pr-3">커뮤니티 관리</span>
+           <span class="text-black pl-3 pr-3 pl-3 pr-3">커뮤니티 관리</span>
         </v-tab>
         <v-tab  @click="toLink(6)">
-           <span class="black--text pl-3 pr-3 pl-3 pr-3">위키 관리</span>
+           <span class="text-black pl-3 pr-3 pl-3 pr-3">위키 관리</span>
         </v-tab>
         <v-tab  @click="toLink(7)">
-           <span class="black--text pl-3 pr-3 pl-3 pr-3">레포트 관리</span>
+           <span class="text-black pl-3 pr-3 pl-3 pr-3">레포트 관리</span>
         </v-tab>
       </v-tabs>
     </v-card>
-   
+
   </v-app-bar>
 </template>
 
@@ -73,7 +70,7 @@ export default {
           break;
         case 2:
           this.$router.push(`/aspnAdmin/authorityComprehensive`);
-          break;  
+          break;
         case 3:
           this.$router.push(`/aspnAdmin/communityMenu`);
           break;
@@ -82,17 +79,17 @@ export default {
           break;
         case 5:
           this.$router.push(`/aspnAdmin/communityManage`);
-          break;  
+          break;
         case 6:
           this.$router.push(`/aspnAdmin/wikiManage`);
-          break;    
+          break;
         case 7:
           this.$router.push(`/aspnAdmin/adminReportMain`);
-          break;      
+          break;
       }
     },
 
-   
+
 
   },
 };

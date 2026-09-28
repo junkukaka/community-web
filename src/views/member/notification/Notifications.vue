@@ -6,13 +6,13 @@
       </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tabs">
+    <v-window v-model="tabs">
       <!-- community -->
-      <v-tab-item>
+      <v-window-item>
         <comment v-bind:parent="member" />
-      </v-tab-item>
+      </v-window-item>
 
-    </v-tabs-items>
+    </v-window>
   </v-card>
 </template>
 <script>

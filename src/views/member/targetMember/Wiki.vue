@@ -1,13 +1,13 @@
 <template>
   <v-card flat class="mx-auto pb-10">
-    <v-row dense>
+    <v-row density="compact">
       <v-col
         v-for="(item, i) in wikis"
         :key="i"
         cols="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"
         class="pa-1"
       >
-        <v-card flat class="grey lighten-5">
+        <v-card flat class="bg-grey-lighten-5">
           <v-hover>
             <template v-slot:default="{ hover }">
               <div
@@ -28,7 +28,7 @@
                   >
                     <div>
                       <v-card-title
-                        class="text-subtitle-1"
+                        class="text-body-large"
                         v-text="
                           `${
                             item.title.length < 37
@@ -41,7 +41,7 @@
                         {{$t('lastUpdate')}} {{ item.updateName }}
                       </v-card-subtitle> -->
                       <v-card-actions style="margin-top: -16px !important">
-                        <v-btn class="ml-1" outlined rounded small>
+                        <v-btn class="ml-1" variant="outlined" rounded size="small">
                           Wiki content
                         </v-btn>
                       </v-card-actions>
@@ -50,7 +50,6 @@
                       <v-img
                         :src="item.picture"
                         v-show="item.picture != null"
-                        contain
                       ></v-img>
                       <v-img
                         src="../../../assets/wiki.jpg"
@@ -71,7 +70,7 @@
 
 <script>
 export default {
-  props: ['memberId'],  
+  props: ['memberId'],
   data: () => ({
     wikis: [],
   }),

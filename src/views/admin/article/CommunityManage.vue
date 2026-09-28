@@ -1,14 +1,14 @@
 <template>
   <v-card flat class="pa-2">
-    <v-card flat color="grey lighten-4" class="mb-5">
+    <v-card flat color="grey-lighten-4" class="mb-5">
       <v-toolbar flat color="indigo">
-        <v-toolbar-title class="font-weight-light white--text">
+        <v-toolbar-title class="font-weight-light text-white">
           커뮤니티 관리
         </v-toolbar-title>
       </v-toolbar>
       <v-card-text>
         <v-text-field
-          append-icon="mdi-magnify"
+          append-inner-icon="mdi-magnify"
           label="Search Title"
           single-line
           hide-details
@@ -20,7 +20,7 @@
         <v-autocomplete
           v-model="memberSelect"
           :items="members"
-          item-text="memberName"
+          item-title="memberName"
           item-value="id"
           no-data-text="검색된 회원이 없습니다."
           v-model:search-input="search"
@@ -28,15 +28,15 @@
           multiple
           label="닉네임"
         >
-          <template v-slot:selection="data">
+          <template v-slot:chip="data">
             <v-chip
               v-bind="data.attrs"
-              :input-value="data.selected"
-              close
+              :model-value="data.selected"
+              closable
               @click="data.select"
               @click:close="remove(data.item)"
             >
-              <v-avatar left>
+              <v-avatar start>
                 <v-img :src="data.item.picture != null ? data.item.picture : 'http://aspnc.com.cn:9000/community/2021/2021-11/2021-11-25/296c75a6-e897-4035-9b36-90c7fbc5ec6c.png'"></v-img>
               </v-avatar>
               {{ data.item.memberName }}
@@ -44,20 +44,20 @@
           </template>
           <template v-slot:item="data">
             <template>
-              <v-list-item-avatar>
+              <div class="v-list-item__prepend">
                 <img :src="data.item.picture != null ? data.item.picture : 'http://aspnc.com.cn:9000/community/2021/2021-11/2021-11-25/296c75a6-e897-4035-9b36-90c7fbc5ec6c.png'" />
-              </v-list-item-avatar>
-              <v-list-item-content>
+              </div>
+
                 <v-list-item-title>{{ data.item.memberName }}</v-list-item-title>
-              </v-list-item-content>
+
             </template>
           </template>
         </v-autocomplete>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn depressed color="indigo" @click="initialize" class="white--text"> 
-            <v-icon left>
+          <v-btn variant="flat" color="indigo" @click="initialize" class="text-white">
+            <v-icon start>
               mdi-update
             </v-icon>
              Search Community
@@ -73,8 +73,8 @@
         >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+          <v-btn color="blue-darken-1" variant="text" @click="closeDelete">Cancel</v-btn>
+          <v-btn color="blue-darken-1" variant="text" @click="deleteItemConfirm"
             >OK</v-btn
           >
           <v-spacer></v-spacer>
@@ -85,7 +85,7 @@
       flat
       :headers="headers"
       :items="communities"
-      :disable-pagination="disablePagination"
+      items-per-page="-1"
       class="elevation-1 mytable"
       hide-default-footer
     >
@@ -110,12 +110,12 @@
       </template>
       <!-- {{ item.registerTime |date-format('yyyy-mm-dd') }} -->
       <template v-slot:[`item.actions`]="{ item }">
-        <v-btn text @click="showComment(item.id)">
-          <v-icon small class="mr-2"> mdi-pencil </v-icon>
+        <v-btn variant="text" @click="showComment(item.id)">
+          <v-icon size="small" class="mr-2"> mdi-pencil </v-icon>
           Comment
         </v-btn>
-        <v-btn text @click="deleteItem(item.id)">
-          <v-icon small> mdi-delete </v-icon>
+        <v-btn variant="text" @click="deleteItem(item.id)">
+          <v-icon size="small"> mdi-delete </v-icon>
           Delete
         </v-btn>
       </template>
@@ -126,7 +126,7 @@
       <v-card flat>
         <v-card-title
           v-text="commentList.length > 0 ? 'Comments list' : '댓글 없습니다.'"
-          class="indigo white--text"
+          class="bg-indigo text-white"
         >
         </v-card-title>
         <v-divider class="ml-3"></v-divider>
@@ -138,28 +138,28 @@
               :inset="item.inset"
             ></v-divider>
             <v-list-item v-else :key="`item-${index}`">
-              <v-list-item-avatar>
+              <div class="v-list-item__prepend">
                 <v-avatar color="#E0E0E0" v-if="item.picture == ''">
-                  <v-icon dark class="mr-2" size="52">
+                  <v-icon class="mr-2" size="52">
                     mdi-account-circle
                   </v-icon>
                 </v-avatar>
                 <v-avatar v-if="item.picture != ''">
                   <img :src="item.picture" :alt="`photo`" />
                 </v-avatar>
-              </v-list-item-avatar>
-              <v-list-item-content>
+              </div>
+
                 <v-list-item-title>{{ item.member_name }}</v-list-item-title>
                 <v-list-item-subtitle style="white-space: pre-line">{{ item.content }}</v-list-item-subtitle>
-              </v-list-item-content>
+
 
               <v-list-item-action>
                 <v-list-item-subtitle>
                   {{ $dateFormat(item.register_time, 'yyyy-mm-dd') }}
                 </v-list-item-subtitle>
                 <v-list-item-subtitle>
-                  <v-btn text @click="deleteComment(item.id)">
-                    <v-icon small> mdi-delete </v-icon>
+                  <v-btn variant="text" @click="deleteComment(item.id)">
+                    <v-icon size="small"> mdi-delete </v-icon>
                   </v-btn>
                 </v-list-item-subtitle>
               </v-list-item-action>
@@ -192,7 +192,6 @@ export default {
     pages: 1,
     communities: [],
     dialogDelete: false,
-    disablePagination: true,
     commmentDialog: false,
     commentList: [],
     members: [],
@@ -200,10 +199,10 @@ export default {
     search: null,
     searchTitle: null,
     headers: [
-      { text: "Title", align: "start", value: "title" },
-      { text: "Name", value: "memberName", align: "center" },
-      { text: "Date", value: "registerTime", align: "center" },
-      { text: "Actions", value: "actions", sortable: false, align: "center" },
+      { title: "Title", align: "start", key: "title" },
+      { title: "Name", key: "memberName", align: "center" },
+      { title: "Date", key: "registerTime", align: "center" },
+      { title: "Actions", key: "actions", sortable: false, align: "center" },
     ],
     deletedId: -1,
     EdittingCommuniy: -1,
@@ -217,7 +216,7 @@ export default {
     dialog(val) {
       val || this.close();
     },
-    
+
     dialogDelete(val) {
       val || this.closeDelete();
     },

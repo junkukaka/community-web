@@ -1,7 +1,7 @@
 <template>
   <div style="margin:47px 0px 30px">
     <v-card class="pa-12 mx-lg-auto boxShadow" style="max-width:900px">
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" v-model="valid">
         <v-row no-gutters>
           <v-col cols="12" sm="3" md="2" lg="1">
             <v-avatar size="62">
@@ -20,7 +20,7 @@
           </v-col>
 
           <v-col cols="12" sm="4" md="5" lg="6" class="pl-2 pt-2">
-            <v-btn outlined color="grey" to="/member/updatePassword">
+            <v-btn variant="outlined" color="grey" to="/member/updatePassword">
               비밀번호 수정
             </v-btn>
           </v-col>
@@ -66,11 +66,11 @@
         ></v-select>
         <v-btn
           block
-          large
+          size="large"
           color="indigo"
           class="mt-5"
           @click="validate"
-          depressed
+          variant="flat"
           >Update profile</v-btn
         >
       </v-form>
@@ -90,7 +90,7 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="indigo" text @click="closeDialogMsg"> Ok </v-btn>
+              <v-btn color="indigo" variant="text" @click="closeDialogMsg"> Ok </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>

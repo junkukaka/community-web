@@ -74,3 +74,31 @@
 - Port note: port `8888` was already occupied by an unrelated Express process during acceptance, so Vite selected `8889`. The configured application port remains `8888`; the unrelated process was not modified.
 - Known warnings: the production entry chunk is about 1.27 MB (420 kB gzip), above Vite's 500 kB warning threshold. `npm ci` reports 9 dependency vulnerabilities (7 moderate, 2 high), unchanged from stage 6 and confined to the Markdown editor dependency boundary documented there.
 - Environment-limited acceptance: no backend credentials or authenticated test environment were available. Live login success/failure, logout, backend 401/403 behavior, role-specific Wiki/Community/Member/Admin workflows, editor round trips, PDF output, upload/download, and authenticated three-language/viewport visual comparisons remain manual acceptance items. The repository-level route, token, HTTP, upload-validation, language registration, and key-page contracts are covered by the automated verifier.
+
+## Stage 9: Vuetify 4 and current stable frontend stack
+
+- Runtime verification: `node -v` returned `v24.19.0`, `npm -v` returned
+  `11.17.0`, and `C:\Program Files\nodejs` resolves to the nvm-managed
+  `C:\Users\A\AppData\Roaming\nvm\v24.19.0` installation.
+- Updated the stack to Vue `3.5.43`, Vue Router `5.3.1`, Vuetify `4.2.2`,
+  Vue I18n `11.4.12`, Vite `8.3.1`, and compatible current tooling. Ordinary
+  `npm install` updated the lockfile without force or legacy-peer flags.
+- Replaced removed Vuetify APIs across the application, enabled official
+  Vuetify auto-import/tree-shaking, removed the local component compatibility
+  adapters, retained the MD2 blueprint, and pinned the light theme to preserve
+  the intended layout.
+- Migrated the Router guard to its return-based API and Vue I18n to composition
+  mode with global injection. Existing business routes, API paths, fields,
+  Vuex state, and Options API components remain intact.
+- Verification passed: dependency tree, ESLint, the Vue migration verifier,
+  production build, and Git whitespace checks. Vite transformed 1,415 modules;
+  the entry bundle is 642.48 kB minified / 221.34 kB gzip.
+- Browser QA passed on the public login page at desktop and 390 x 844: password
+  visibility, English/Korean switching, unauthenticated protected-route
+  redirect, responsive layout, and the final console were clean.
+- Remaining warnings: Vite still reports the 500 kB entry-chunk warning.
+  `npm audit` reports 12 findings (7 moderate, 5 high, 0 critical) in the
+  `@kangc/v-md-editor` / VuePress Markdown dependency chain, for which npm
+  reports no compatible chain-level fix.
+- Authenticated backend workflows remain environment-limited as documented in
+  Stage 8.

@@ -2,7 +2,7 @@
   <div class="pt-5" v-if="filesList">
     <h3 class="font-weight-medium pl-3 pb-1">{{$t('fileList')}}</h3>
     <v-divider class=""></v-divider>
-    <v-simple-table>
+    <v-table>
       <template v-slot:default>
         <tbody>
           <tr v-for="item in filesList" :key="item.name">
@@ -14,13 +14,12 @@
             <td width="30%" style="text-align:right">
               <v-btn
                 class="mx-2"
-                dark
-                small
+                size="small"
                 color="indigo"
                 :href="item.filePath"
                 target="_blank"
                 rel="noopener noreferrer"
-                depressed
+                variant="flat"
               >
                 <v-icon>mdi-cloud-download</v-icon>
               </v-btn>
@@ -28,7 +27,7 @@
           </tr>
         </tbody>
       </template>
-    </v-simple-table>
+    </v-table>
   </div>
 </template>
 

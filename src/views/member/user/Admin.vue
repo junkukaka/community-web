@@ -10,16 +10,16 @@
       </template>
     </v-toolbar>
 
-    <v-tabs-items v-model="tabs">
-      
-      
+    <v-window v-model="tabs">
+
+
       <!-- member list -->
-      <v-tab-item>
+      <v-window-item>
         <admin-member-list/>
-      </v-tab-item>
+      </v-window-item>
 
 
-    </v-tabs-items>
+    </v-window>
   </v-card>
 </template>
 <script>

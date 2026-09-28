@@ -1,4 +1,5 @@
 import pluginVue from 'eslint-plugin-vue';
+import pluginVuetify from 'eslint-plugin-vuetify';
 import globals from 'globals';
 
 export default [
@@ -6,6 +7,7 @@ export default [
     ignores: ['dist/**', 'src/components/language/*.min.js']
   },
   ...pluginVue.configs['flat/essential'],
+  ...pluginVuetify.configs['flat/recommended-v4'],
   {
     files: ['**/*.{js,vue}'],
     languageOptions: {

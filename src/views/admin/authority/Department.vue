@@ -3,10 +3,9 @@
     <v-data-table
       :headers="headers"
       :items="departments"
-      sort-by="calories"
       class="elevation-1"
       hide-default-footer
-      disable-pagination="true"
+      items-per-page="-1"
     >
       <template v-slot:top>
         <v-toolbar flat>
@@ -19,7 +18,6 @@
             <template v-slot:activator="{ props }">
               <v-btn
                 color="indigo"
-                dark
                 class="mb-2"
                 v-bind="props"
                 @click="newItem"
@@ -30,7 +28,7 @@
 
             <v-card>
               <v-card-title>
-                <span class="text-h5">{{ formTitle }}</span>
+                <span class="text-headline-medium">{{ formTitle }}</span>
               </v-card-title>
 
               <v-card-text>
@@ -52,7 +50,7 @@
                         <v-select
                           v-model="editedItem.authority"
                           :items="authorities"
-                          item-text="name"
+                          item-title="name"
                           item-value="id"
                           label="권한"
                         ></v-select>
@@ -63,10 +61,10 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">
+                <v-btn color="blue-darken-1" variant="text" @click="close">
                   Cancel
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+                <v-btn color="blue-darken-1" variant="text" @click="save"> Save </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -75,15 +73,15 @@
           <!-- delete dialog start -->
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
-              <v-card-title class="text-h5"
+              <v-card-title class="text-headline-medium"
                 >Are you sure you want to delete this item?</v-card-title
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete"
+                <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
                   >Cancel</v-btn
                 >
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn color="blue-darken-1" variant="text" @click="deleteItemConfirm"
                   >OK</v-btn
                 >
                 <v-spacer></v-spacer>
@@ -95,8 +93,8 @@
       </template>
 
       <template v-slot:[`item.actions`]="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+        <v-icon size="small" class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+        <v-icon size="small" @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
       <template v-slot:no-data>
         <v-btn color="indigo" @click="initialize"> Reset </v-btn>
@@ -119,11 +117,11 @@ export default {
     dialogDelete: false,
     member: {},
     headers: [
-      { text: "id", align: "start", value: "id"},
-      { text: "name", value: "name" },
-      { text: "권한아이디", value: "authority" },
-      { text: "권한이름", value: "authorityName" },
-      { text: "Actions", value: "actions", sortable: false },
+      { title: "id", align: "start", key: "id"},
+      { title: "name", key: "name" },
+      { title: "권한아이디", key: "authority" },
+      { title: "권한이름", key: "authorityName" },
+      { title: "Actions", key: "actions", sortable: false },
     ],
     authorities: [],
     departments: [],

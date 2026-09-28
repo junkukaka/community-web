@@ -1,10 +1,10 @@
 <template>
   <v-card flat class="pa-2">
-    <v-data-table 
+    <v-data-table
       flat
       :headers="headers"
       :items="comments"
-      :disable-pagination="disablePagination"
+      items-per-page="-1"
       class="elevation-1 mytable"
       hide-default-footer
     >
@@ -21,10 +21,10 @@
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete"
+                <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
                   >{{$t('cancel')}}</v-btn
                 >
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn color="blue-darken-1" variant="text" @click="deleteItemConfirm"
                   >{{$t('ok')}}</v-btn
                 >
                 <v-spacer></v-spacer>
@@ -34,10 +34,10 @@
         </v-toolbar>
       </template>
 
- 
+
     <template v-slot:[`item.title`]="{ item }">
       <div style="width:300px;">
-      <router-link :to="`/community/communityDetail?id=${item.communityId}`" color="indigo" 
+      <router-link :to="`/community/communityDetail?id=${item.communityId}`" color="indigo"
           v-text="
             `${
               item.title.length < 20
@@ -57,7 +57,7 @@
                 : item.menuName.substring(0, 10) + '...'
             }`
       ">
-      </div>  
+      </div>
     </template>
 
     <template v-slot:[`item.content`]="{ item }">
@@ -68,7 +68,7 @@
                 : item.content.substring(0, 25) + '...'
             }`
       ">
-      </div>  
+      </div>
     </template>
 
     <template v-slot:[`item.date`]="{ item }">
@@ -76,9 +76,9 @@
     </template>
 
     <template v-slot:[`item.actions`]="{ item }">
-      <v-btn text @click="deleteItem(item.id)">
-        <v-icon small> mdi-delete </v-icon>
-        {{$t('delete')}} 
+      <v-btn variant="text" @click="deleteItem(item.id)">
+        <v-icon size="small"> mdi-delete </v-icon>
+        {{$t('delete')}}
       </v-btn>
     </template>
 
@@ -106,7 +106,6 @@ export default {
     itemsPerPage: 30,
     pages: 1,
     comments: [],
-    disablePagination: true,
     dialogDelete: false,
     deletedId: -1,
   }),
@@ -114,11 +113,11 @@ export default {
   computed: {
     headers(){
       return [
-        { text: this.$t('title'), align: "start", value: "title" },
-        { text: this.$t('menu'),  align: "start",value: "menuName" },
-        { text: this.$t('Content'), value: "content" },
-        { text: this.$t('date'),value: "date" ,align: "center"},
-        { text: this.$t('actions'),value: "actions", sortable: false ,align: "center"},
+        { title: this.$t('title'), align: "start", key: "title" },
+        { title: this.$t('menu'),  align: "start",key: "menuName" },
+        { title: this.$t('Content'), key: "content" },
+        { title: this.$t('date'),key: "date" ,align: "center"},
+        { title: this.$t('actions'),key: "actions", sortable: false ,align: "center"},
       ]
     }
   },
@@ -177,7 +176,7 @@ export default {
           this.closeDelete();
         }
       })
-      
+
     },
 
     close() {

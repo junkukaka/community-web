@@ -1,15 +1,15 @@
 <template>
   <v-card flat class="pa-2">
 
-    <v-card flat color="grey lighten-4" class="mb-5">
+    <v-card flat color="grey-lighten-4" class="mb-5">
       <v-toolbar flat color="indigo">
-        <v-toolbar-title class="font-weight-light white--text">
-          회원 검색 
+        <v-toolbar-title class="font-weight-light text-white">
+          회원 검색
         </v-toolbar-title>
       </v-toolbar>
       <v-card-text>
         <v-text-field
-          append-icon="mdi-magnify"
+          append-inner-icon="mdi-magnify"
           label="사용자 이름"
           single-line
           hide-details
@@ -27,11 +27,11 @@
             <v-select
               :items="authorities"
               label="권한"
-              outlined
-              item-text="name"
+              variant="outlined"
+              item-title="name"
               item-value="id"
               v-model="searchAuthority"
-              clearable 
+              clearable
             ></v-select>
           </v-col>
 
@@ -43,7 +43,7 @@
             <v-select
               :items="departments"
               label="departments"
-              outlined
+              variant="outlined"
               v-model="searchDepartment"
               clearable
             ></v-select>
@@ -52,8 +52,8 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn depressed color="indigo" @click="searchAllMemberByAdmin" class="white--text"> 
-            <v-icon left>
+          <v-btn variant="flat" color="indigo" @click="searchAllMemberByAdmin" class="text-white">
+            <v-icon start>
               mdi-update
             </v-icon>
              Search
@@ -66,7 +66,7 @@
       flat
       :headers="headers"
       :items="members"
-      :disable-pagination="disablePagination"
+      items-per-page="-1"
       class="elevation-1 mytable"
       hide-default-footer
     >
@@ -79,13 +79,13 @@
       </template> -->
 
       <template v-slot:[`item.memberName`]="{ item }">
-        <v-btn text color="indigo" @click="editMember(item)">
+        <v-btn variant="text" color="indigo" @click="editMember(item)">
           {{ item.memberName }}
         </v-btn>
       </template>
 
       <template v-slot:[`item.status`]="{ item }">
-        <v-btn text color="indigo" @click="editMember(item)">
+        <v-btn variant="text" color="indigo" @click="editMember(item)">
           {{ item.status }}
         </v-btn>
       </template>
@@ -118,7 +118,7 @@
                 <v-select
                   :items="departments"
                   label="departments"
-                  outlined
+                  variant="outlined"
                   v-model="member.department"
                 ></v-select>
               </v-col>
@@ -127,7 +127,7 @@
                 <v-select
                   :items="statuses"
                   label="status"
-                  outlined
+                  variant="outlined"
                   v-model="member.status"
                 ></v-select>
               </v-col>
@@ -135,9 +135,9 @@
                 <v-select
                   v-model="member.authority"
                   :items="authorities"
-                  item-text="name"
+                  item-title="name"
                   item-value="id"
-                  outlined
+                  variant="outlined"
                   label="권한 관린"
                 ></v-select>
               </v-col>
@@ -146,11 +146,11 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="iniPassword">
+          <v-btn color="blue-darken-1" variant="text" @click="iniPassword">
             비밀번호 초기화
           </v-btn>
-          <v-btn color="blue darken-1" text @click="updateMember"> Save </v-btn>
-          <v-btn color="blue darken-1" text @click="dialog = false">
+          <v-btn color="blue-darken-1" variant="text" @click="updateMember"> Save </v-btn>
+          <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
             Close</v-btn
           >
         </v-card-actions>
@@ -204,16 +204,15 @@ export default {
     pages: 1,
     members: [],
     dialog: false,
-    disablePagination: true,
     departments: [],
     headers: [
-      { text: "Name", align: "start", value: "memberName" },
-      { text: "상태", value: "status" },
-      { text: "login id", value: "loginId" },
-      { text: "권한", value: "authorityName" },
-      { text: "department", value: "departmentName" },
-      { text: "가입일자", value: "registerTime" },
-      { text: "등록일자", value: "updateTime" },
+      { title: "Name", align: "start", key: "memberName" },
+      { title: "상태", key: "status" },
+      { title: "login id", key: "loginId" },
+      { title: "권한", key: "authorityName" },
+      { title: "department", key: "departmentName" },
+      { title: "가입일자", key: "registerTime" },
+      { title: "등록일자", key: "updateTime" },
     ],
     popMsg: {
       dialog: false,
@@ -262,7 +261,7 @@ export default {
       this.getAllMemberByAdmin();
     },
 
-    //회원정보 전체 조회 
+    //회원정보 전체 조회
     getAllMemberByAdmin(){
       let request = {
         params: {

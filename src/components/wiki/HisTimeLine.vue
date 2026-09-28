@@ -3,7 +3,7 @@
     <v-timeline-item
       v-for="item in wikiHis"
       :key="item.wikiHisId"
-      large
+      size="large"
     >
       <template v-slot:icon>
         <v-avatar>
@@ -11,14 +11,13 @@
         </v-avatar>
       </template>
       <template v-slot:opposite>
-        <div> 
+        <div>
           <v-chip v-if="item.hisId == item.wikiHisId"
-            class="mr-3"
+            class="mr-3 text-white"
             color="green"
             label
-            text-color="white"
           >
-            <v-icon left>
+            <v-icon start>
               mdi-label
             </v-icon>
             Active
@@ -28,7 +27,7 @@
         <div>{{ $dateFormat(item.updateTime, 'yyyy-mm-dd hh:mi:ss') }}</div>
       </template>
       <v-card class="elevation-2" @click="hisReview(item.wikiHisId)">
-        <v-card-title class="text-subtitle-2">
+        <v-card-title class="text-label-large">
           {{item.information}}
         </v-card-title>
         <!-- <v-card-text>{{item.information}}</v-card-text> -->

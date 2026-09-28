@@ -16,8 +16,8 @@
           <v-spacer></v-spacer>
 
           <v-btn
-            color="green darken-1"
-            text
+            color="green-darken-1"
+            variant="text"
             @click="popMsg.dialog = false"
           >
             Close

@@ -4,9 +4,9 @@
       v-model="selected"
       :headers="headers"
       :items="memberApp"
-      :single-select="singleSelect"
+      :select-strategy="singleSelect ? 'single' : 'page'"
       hide-default-footer
-      item-key="id"
+      item-value="id"
       show-select
       class="elevation-1"
     >
@@ -22,25 +22,25 @@
     <v-card style="height:100px">
       <v-card flat style="position:fixed; bottom:70px; right: 30px">
         <v-btn
-          large
-          depressed
+          size="large"
+          variant="flat"
           color="indigo"
-          class="mt-3 white--text"
+          class="mt-3 text-white"
           @click="joinMember"
           :disabled="!joinDisabled"
         >
-          회원가입 
-          <v-icon right dark>mdi-account-check </v-icon>
+          회원가입
+          <v-icon end>mdi-account-check </v-icon>
         </v-btn>
         <v-btn
-          large
-          depressed
-          color="grey darken-3"
-          class="mt-3 ml-5 white--text"
+          size="large"
+          variant="flat"
+          color="grey-darken-3"
+          class="mt-3 ml-5 text-white"
           @click="deleteJoinMember"
         >
-          신청 삭제 
-          <v-icon right dark>mdi-account-cancel-outline </v-icon>
+          신청 삭제
+          <v-icon end>mdi-account-cancel-outline </v-icon>
         </v-btn>
       </v-card>
     </v-card>
@@ -62,15 +62,15 @@
         joinDisabled: true,
         headers: [
           {
-            text: 'Name',
+            title: 'Name',
             align: 'start',
-            value: 'memberName',
+            key: 'memberName',
           },
-          { text: 'Login Id', value: 'loginId' },
-          { text: '소속', value: 'department' },
-          { text: 'Email', value: 'email' },
-          { text: '신청일자', value: 'registerTime' },
-          { text: '신청사유', value: 'comment' },
+          { title: 'Login Id', key: 'loginId' },
+          { title: '소속', key: 'department' },
+          { title: 'Email', key: 'email' },
+          { title: '신청일자', key: 'registerTime' },
+          { title: '신청사유', key: 'comment' },
         ],
         memberApp: [],
         popMsg: {
@@ -100,7 +100,7 @@
             this.popMsg.dialog = true;
             this.popMsg.title = "에러 메세지";
             this.popMsg.content = "선택한 내용이 없습니다.";
-            return false; 
+            return false;
         }
         for(let select of this.selected){
           request.push(select.id);
@@ -124,7 +124,7 @@
             this.popMsg.dialog = true;
             this.popMsg.title = "에러 메세지";
             this.popMsg.content = "선택한 내용이 없습니다.";
-            return false; 
+            return false;
         }
         for(let select of this.selected){
           request.push(select.id);

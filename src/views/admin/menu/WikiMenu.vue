@@ -2,137 +2,137 @@
   <!-- Firset  Menu Start -->
   <v-card style="margin:0 auto;max-width:1600px">
     <v-card id="FirsetMenu" width="500" class="float-left ma-3" tile>
-      <v-list flat>
-        <v-subheader class="title">
+      <v-list>
+        <v-list-subheader class="title">
           <v-list-item-title> First Menu </v-list-item-title>
-          <v-btn depressed class="ma-2" @click="addFirstMenu(1)">
+          <v-btn variant="flat" class="ma-2" @click="addFirstMenu(1)">
             New<v-icon>mdi-plus-circle</v-icon>
           </v-btn>
-        </v-subheader>
-        <v-list-item-group color="indigo">
+        </v-list-subheader>
+        <div class="v-list-item-group">
           <v-list-item v-for="(item, sort) in menus" :key="sort">
-            <v-list-item-content @click="selectMenus(item)">
+            <div class="v-list-item__content" @click="selectMenus(item)">
               <v-list-item-title
                 v-text="item.name"
                 :class="{ MyGrey: item.useYn == 'N' }"
               ></v-list-item-title>
-            </v-list-item-content>
+            </div>
 
-            <v-list-item-icon @click="addChildren(item)">
+            <div class="v-list-item__append" @click="addChildren(item)">
               <v-icon>mdi-plus-circle</v-icon>
-            </v-list-item-icon>
+            </div>
 
-            <v-list-item-icon @click="editMenu(item)" style="margin-left: 16px">
+            <div class="v-list-item__append" @click="editMenu(item)" style="margin-left: 16px">
               <v-icon>mdi-wrench</v-icon>
-            </v-list-item-icon>
+            </div>
 
-            <v-list-item-icon
+            <div class="v-list-item__append"
               @click="sortMenu(item, -1)"
               style="margin-left: 16px"
             >
               <v-icon>mdi-menu-up-outline</v-icon>
-            </v-list-item-icon>
+            </div>
 
-            <v-list-item-icon
+            <div class="v-list-item__append"
               @click="sortMenu(item, 1)"
               style="margin-left: 16px"
             >
               <v-icon>mdi-menu-down-outline</v-icon>
-            </v-list-item-icon>
+            </div>
 
-            <!-- <v-list-item-icon @click="deleteMenu(item)">
+            <!-- <div class="v-list-item__append" @click="deleteMenu(item)">
               <v-icon>mdi-minus-circle</v-icon>
-            </v-list-item-icon> -->
+            </div> -->
           </v-list-item>
-        </v-list-item-group>
+        </div>
       </v-list>
     </v-card>
     <!-- Firset Menu End -->
 
     <!-- SecondMenu  Menu Start -->
     <v-card id="SecondMenu" width="500" class="float-left ma-3" tile>
-      <v-list flat>
-        <v-subheader class="title">
+      <v-list>
+        <v-list-subheader class="title">
           <v-list-item-title> Second Menu </v-list-item-title>
-        </v-subheader>
-        <v-list-item-group color="primary">
+        </v-list-subheader>
+        <div class="v-list-item-group">
           <v-list-item v-for="(item, id) in menus2" :key="id">
-            <v-list-item-content @click="selectMenus(item)">
+            <div class="v-list-item__content" @click="selectMenus(item)">
               <v-list-item-title
                 v-text="item.name"
                 :class="{ MyGrey: item.useYn == 'N' }"
               ></v-list-item-title>
-            </v-list-item-content>
+            </div>
 
-            <v-list-item-icon @click="addChildren(item)">
+            <div class="v-list-item__append" @click="addChildren(item)">
               <v-icon>mdi-plus-circle</v-icon>
-            </v-list-item-icon>
+            </div>
 
-            <v-list-item-icon @click="editMenu(item)" style="margin-left: 16px">
+            <div class="v-list-item__append" @click="editMenu(item)" style="margin-left: 16px">
               <v-icon>mdi-wrench</v-icon>
-            </v-list-item-icon>
+            </div>
 
-            <v-list-item-icon
+            <div class="v-list-item__append"
               @click="sortMenu(item, -1)"
               style="margin-left: 16px"
             >
               <v-icon>mdi-menu-up-outline</v-icon>
-            </v-list-item-icon>
+            </div>
 
-            <v-list-item-icon
+            <div class="v-list-item__append"
               @click="sortMenu(item, 1)"
               style="margin-left: 16px"
             >
               <v-icon>mdi-menu-down-outline</v-icon>
-            </v-list-item-icon>
+            </div>
 
-            <!-- <v-list-item-icon @click="deleteMenu(item)">
+            <!-- <div class="v-list-item__append" @click="deleteMenu(item)">
               <v-icon>mdi-minus-circle</v-icon>
-            </v-list-item-icon> -->
+            </div> -->
           </v-list-item>
-        </v-list-item-group>
+        </div>
       </v-list>
     </v-card>
     <!-- SecondMenu Menu End -->
 
     <!-- Third  Menu Start -->
     <v-card id="ThirdMenu" width="500" class="float-left ma-3" tile>
-      <v-list flat>
-        <v-subheader class="title">
+      <v-list>
+        <v-list-subheader class="title">
           <v-list-item-title> Third Menu </v-list-item-title>
-        </v-subheader>
-        <v-list-item-group color="indigo">
+        </v-list-subheader>
+        <div class="v-list-item-group">
           <v-list-item v-for="(item, id) in menus3" :key="id">
-            <v-list-item-content>
+
               <v-list-item-title
                 v-text="item.name"
                 :class="{ MyGrey: item.useYn == 'N' }"
               ></v-list-item-title>
-            </v-list-item-content>
 
-            <v-list-item-icon @click="editMenu(item)" style="margin-left: 16px">
+
+            <div class="v-list-item__append" @click="editMenu(item)" style="margin-left: 16px">
               <v-icon>mdi-wrench</v-icon>
-            </v-list-item-icon>
+            </div>
 
-            <v-list-item-icon
+            <div class="v-list-item__append"
               @click="sortMenu(item, -1)"
               style="margin-left: 16px"
             >
               <v-icon>mdi-menu-up-outline</v-icon>
-            </v-list-item-icon>
+            </div>
 
-            <v-list-item-icon
+            <div class="v-list-item__append"
               @click="sortMenu(item, 1)"
               style="margin-left: 16px"
             >
               <v-icon>mdi-menu-down-outline</v-icon>
-            </v-list-item-icon>
+            </div>
 
-            <!-- <v-list-item-icon @click="deleteMenu(item)">
+            <!-- <div class="v-list-item__append" @click="deleteMenu(item)">
               <v-icon>mdi-minus-circle</v-icon>
-            </v-list-item-icon> -->
+            </div> -->
           </v-list-item>
-        </v-list-item-group>
+        </div>
       </v-list>
     </v-card>
     <!-- Third Menu End -->
@@ -164,8 +164,8 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-          <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+          <v-btn color="blue-darken-1" variant="text" @click="close"> Cancel </v-btn>
+          <v-btn color="blue-darken-1" variant="text" @click="save"> Save </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -178,8 +178,8 @@
         >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+          <v-btn color="blue-darken-1" variant="text" @click="closeDelete">Cancel</v-btn>
+          <v-btn color="blue-darken-1" variant="text" @click="deleteItemConfirm"
             >OK</v-btn
           >
           <v-spacer></v-spacer>
@@ -334,19 +334,19 @@ export default {
         father: item.id,
         tier: item.tier + 1,
       };
-      
+
       // Update selected tier references
       if (request.tier === 2) {
         this.selectedTier2 = item;
       } else if (request.tier === 3) {
         this.selectedTier3 = item;
       }
-      
+
       this.$http
         .post("/wikiMenu/menus/condition", request)
         .then((response) => {
           const menuData = response.data.data;
-          
+
           if (request.tier === 2) {
             this.menus2 = menuData;
             // Clear third level menu when first level changes (only if flag is not set)

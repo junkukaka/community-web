@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app width="270" fixed v-model="drawer" style="top: 30px" elevation = 0>
+  <v-navigation-drawer width="270" v-model="drawer" style="top: 30px" elevation = 0>
     <template v-slot:prepend>
       <div
         style="padding: 16px 0px 14px 16px; border-right: none"
@@ -17,12 +17,12 @@
     </template>
 
     <v-card flat class="mt-2 pb-10">
-      <v-sheet class="pa-2 grey lighten-5">
+      <v-sheet class="pa-2 bg-grey-lighten-5">
         <v-text-field
           v-model="search"
           :label="$t('searchMenuName')"
           flat
-          solo-inverted
+          variant="solo-inverted"
           hide-details
           clearable
           clear-icon="mdi-close-circle-outline"

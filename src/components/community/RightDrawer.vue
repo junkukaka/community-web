@@ -1,16 +1,15 @@
 <template>
   <v-navigation-drawer
-    fixed
     open
     floating
-    right
+    location="right"
     v-model="drawer"
     :style="{
       top: `${this.$store.state.window.rightDrawerTop}px !important`,
       width: `256px !important`,
     }"
   >
-    <v-list dense>
+    <v-list density="compact">
       <!-- :to = "`${item.link}?id=${$store.state.user.id}`" -->
       <v-list-item
         v-for="item in items"
@@ -19,13 +18,13 @@
         link
         :to="`${item.link}?id=${$store.state.user.id}`"
       >
-        <v-list-item-icon>
+        <div class="v-list-item__append">
           <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
+        </div>
 
-        <v-list-item-content>
+
           <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item-content>
+
       </v-list-item>
     </v-list>
   </v-navigation-drawer>

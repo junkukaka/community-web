@@ -7,12 +7,42 @@ const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), 'u
 const packageJson = JSON.parse(read('package.json'));
 
 assert.ok(process.version.startsWith('v24.'), `Expected Node 24, received ${process.version}`);
-assert.strictEqual(packageJson.devDependencies.vite, '8.2.1');
-assert.strictEqual(packageJson.devDependencies['@vitejs/plugin-vue'], '6.0.8');
+assert.strictEqual(packageJson.devDependencies.vite, '8.3.1');
+assert.strictEqual(packageJson.devDependencies['@vitejs/plugin-vue'], '6.0.9');
+assert.strictEqual(packageJson.devDependencies['vite-plugin-vuetify'], '2.1.3');
 assert.ok(!packageJson.devDependencies['@vue/cli-service'], 'Vue CLI must be removed after the Vite migration');
-assert.strictEqual(packageJson.dependencies.vue, '3.5.41');
-assert.strictEqual(require('vue/package.json').version, '3.5.41');
-assert.strictEqual(require('@vue/compiler-sfc/package.json').version, '3.5.41');
+assert.strictEqual(packageJson.dependencies.vue, '3.5.43');
+assert.strictEqual(packageJson.dependencies.vuetify, '4.2.2');
+assert.strictEqual(packageJson.dependencies['vue-router'], '5.3.1');
+assert.strictEqual(require('vue/package.json').version, '3.5.43');
+assert.strictEqual(require('@vue/compiler-sfc/package.json').version, '3.5.43');
+
+const viteConfig = read('vite.config.mjs');
+assert.ok(viteConfig.includes("vuetify({ autoImport: true })"));
+
+const vuetifyPlugin = read('src/plugins/vuetify.js');
+assert.ok(!vuetifyPlugin.includes('legacyComponents'));
+assert.ok(!vuetifyPlugin.includes('vuetify/components'));
+
+const i18n = read('src/i18n/index.js');
+assert.ok(i18n.includes('legacy: false'));
+assert.ok(i18n.includes('globalInjection: true'));
+
+const vueFiles = [];
+function collectVueFiles(directory) {
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const fullPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) collectVueFiles(fullPath);
+    else if (entry.name.endsWith('.vue')) vueFiles.push(fullPath);
+  }
+}
+collectVueFiles(path.join(root, 'src'));
+const vueSource = vueFiles.map(file => fs.readFileSync(file, 'utf8')).join('\n');
+for (const removedTag of ['v-tabs-items', 'v-tab-item', 'v-simple-table', 'v-subheader', 'v-list-item-group', 'v-list-item-content', 'v-list-item-icon', 'v-list-item-avatar']) {
+  assert.ok(!vueSource.includes(`<${removedTag}`), `Removed Vuetify tag remains: ${removedTag}`);
+}
+assert.ok(!vueSource.includes('disable-pagination'), 'Removed Vuetify data-table pagination prop remains');
+assert.ok(!vueSource.includes('item-key='), 'Removed Vuetify data-table item-key prop remains');
 
 const main = read('src/main.js');
 assert.ok(main.includes('createApp(App)'));
@@ -28,7 +58,8 @@ assert.ok(router.includes('createWebHistory'));
 assert.ok(router.includes('import.meta.env.BASE_URL'));
 assert.ok(router.includes('getAuthToken()'));
 assert.ok(router.includes('savePreviousUrl(to.fullPath)'));
-assert.ok(router.includes("next('/signIn')"));
+assert.ok(router.includes("return '/signIn'"));
+assert.ok(!router.includes('(to, from, next)'));
 
 const store = read('src/store.js');
 assert.ok(store.includes('createStore'));

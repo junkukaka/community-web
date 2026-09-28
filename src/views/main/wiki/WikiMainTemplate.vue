@@ -1,10 +1,10 @@
 <template>
   <v-card flat class="mx-auto">
-    <div class="transition-swing text-h6 ml-3">{{$t('newWiki')}}</div>
+    <div class="text-headline-small ml-3">{{$t('newWiki')}}</div>
     <v-divider class="ml-3"></v-divider>
-    <v-row dense class="mt-2">
+    <v-row density="compact" class="mt-2">
       <v-col v-for="(item, i) in wikis" :key="i" cols="12" class="pa-1">
-        <v-card flat class="grey lighten-5">
+        <v-card flat class="bg-grey-lighten-5">
           <v-hover>
             <template v-slot:default="{ hover }">
               <div :style="`${hover ? 'background-color : white' : ''}`">
@@ -22,7 +22,7 @@
                   >
                     <div>
                       <v-card-title
-                        class="text-subtitle-1"
+                        class="text-body-large"
                         v-text="
                           `${
                             item.title.length < 37
@@ -31,14 +31,14 @@
                           }`
                         "
                       ></v-card-title>
-                      <v-card-subtitle class="text-subtitle-2">
+                      <v-card-subtitle class="text-label-large">
                         {{$t('lastUpdate')}} {{ item.updateName }}
                       </v-card-subtitle>
                       <v-card-actions style="margin-top: -16px !important">
                         <v-rating
-                            :value ="item.average_rating"   
-                            background-color="grey lighten-1"
-                            color="indigo accent-2"
+                            :model-value ="item.average_rating"
+                            color="grey-lighten-1"
+                            active-color="indigo-accent-2"
                             size="18"
                             length="10"
                             readonly
@@ -50,7 +50,6 @@
                       <v-img
                         :src="item.picture"
                         v-show="item.picture != null"
-                        contain
                       ></v-img>
                       <v-img
                         src="../../../assets/wiki.jpg"
@@ -69,8 +68,7 @@
       <router-link :to="`/wiki/wikiEdit?menuId=${menuId}`">
         <v-btn
           color="indigo"
-          large
-          fab
+          large icon
           fixed
           style="right:30px;bottom:30px"
         >

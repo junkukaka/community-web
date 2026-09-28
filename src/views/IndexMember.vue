@@ -2,8 +2,7 @@
   <v-app>
     <system-bar />
     <v-app-bar
-      app
-      class="white boxShadow"
+      class="bg-white boxShadow"
       flat
       style="
         border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
@@ -23,7 +22,7 @@
                 @click="myInfo"
                 style="cursor: pointer"
               >
-                <v-tooltip bottom  v-if="$store.state.member.picture != null">
+                <v-tooltip location="bottom"  v-if="$store.state.member.picture != null">
                   <template v-slot:activator="{ props }">
                     <img
                       :src="`${$store.state.member.picture}`"
@@ -41,39 +40,38 @@
           </v-card>
 
           <v-card flat to="/" class="pr-3 pl-3">
-           <v-btn color="indigo" class="mt-2" outlined>
+           <v-btn color="indigo" class="mt-2" variant="outlined">
              {{$t('home')}}
              <v-icon
-                right
-                dark
+                end
               >
                 mdi-home
               </v-icon>
-              
+
             </v-btn>
           </v-card>
 
           <v-card flat clas="pa-0 ma-0">
             <v-tabs>
               <v-tab @click="toLink(2)">
-                <span class="black--text pl-3 pr-3 pl-3 pr-3">
+                <span class="text-black pl-3 pr-3 pl-3 pr-3">
                   {{$t('wikiCollect')}}
                 </span>
               </v-tab>
               <v-tab @click="toLink(3)">
-                <span class="black--text pl-3 pr-3 pl-3 pr-3">
+                <span class="text-black pl-3 pr-3 pl-3 pr-3">
                   {{$t('wikiProfile')}}
                 </span>
               </v-tab>
               <v-tab @click="toLink(4)">
-                <span class="black--text pl-3 pr-3 pl-3 pr-3">
+                <span class="text-black pl-3 pr-3 pl-3 pr-3">
                   {{$t('communityProfile')}}
                 </span>
               </v-tab>
               <v-tab v-if="$store.state.memberAlert > 0" @click="toLink(5)">
                 <router-link
                   to="/member/notifications"
-                  class="black--text pl-3 pr-3"
+                  class="text-black pl-3 pr-3"
                 >
                   <v-badge color="green" :content="$store.state.memberAlert"
                     >{{$t('notifications')}}
@@ -86,7 +84,7 @@
       </v-container>
     </v-app-bar>
 
-    <v-main class="grey lighten-3 pb-10">
+    <v-main class="bg-grey-lighten-3 pb-10">
       <v-container>
         <!-- If using vue-router -->
         <div class="containerMaxWith">

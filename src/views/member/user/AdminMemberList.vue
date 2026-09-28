@@ -4,7 +4,7 @@
       flat
       :headers="headers"
       :items="communitys"
-      :disable-pagination="disablePagination"
+      items-per-page="-1"
       class="elevation-1 mytable"
       hide-default-footer
     >
@@ -21,10 +21,10 @@
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete"
+                <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
                   >Cancel</v-btn
                 >
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn color="blue-darken-1" variant="text" @click="deleteItemConfirm"
                   >OK</v-btn
                 >
                 <v-spacer></v-spacer>
@@ -35,18 +35,18 @@
       </template>
 
       <template v-slot:[`item.title`]="{ item }">
-        <v-btn text :to="`/community/communityDetail?id=${item.id}`" color="indigo">
+        <v-btn variant="text" :to="`/community/communityDetail?id=${item.id}`" color="indigo">
           {{ item.title }}
         </v-btn>
       </template>
 
       <template v-slot:[`item.actions`]="{ item }">
-        <v-btn text :to="`/community/communityEdit?&menuId=${item.menuId}&id=${item.id}`">
-          <v-icon small class="mr-2"> mdi-pencil </v-icon>
+        <v-btn variant="text" :to="`/community/communityEdit?&menuId=${item.menuId}&id=${item.id}`">
+          <v-icon size="small" class="mr-2"> mdi-pencil </v-icon>
           Edit
         </v-btn>
-        <v-btn text @click="deleteItem(item.id)">
-          <v-icon small> mdi-delete </v-icon>
+        <v-btn variant="text" @click="deleteItem(item.id)">
+          <v-icon size="small"> mdi-delete </v-icon>
           Delete
         </v-btn>
       </template>
@@ -75,14 +75,13 @@ export default {
     pages: 1,
     communitys: [],
     dialogDelete: false,
-    disablePagination: true,
     headers: [
-      { text: "Title", align: "start", value: "title" },
-      { text: "Likes", value: "likesCount" },
-      { text: "Hits", value: "hitsCount" },
-      { text: "Comment", value: "commentCount" },
-      { text: "Date", value: "registerTime" },
-      { text: "Actions", value: "actions", sortable: false },
+      { title: "Title", align: "start", key: "title" },
+      { title: "Likes", key: "likesCount" },
+      { title: "Hits", key: "hitsCount" },
+      { title: "Comment", key: "commentCount" },
+      { title: "Date", key: "registerTime" },
+      { title: "Actions", key: "actions", sortable: false },
     ],
     deletedId: -1,
   }),

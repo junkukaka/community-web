@@ -1,7 +1,7 @@
 <template>
   <v-card class="mt-12 boxShadow pa-5 mb-10">
     <v-card justify="space-around" flat>
-      <v-list-item-content class="justify-center">
+      <div class="v-list-item__content justify-center">
         <div class="mx-auto text-center">
           <v-avatar size="43" v-if="$store.state.member != null">
             <img
@@ -9,16 +9,16 @@
               v-if="member.picture != null"
               :alt="`photo`"
             />
-            <v-icon dark v-if="member.picture == null">
+            <v-icon v-if="member.picture == null">
               mdi-account-circle
             </v-icon>
           </v-avatar>
           <h3 class="mt-3">{{member.memberName}}</h3>
-          <p class="text-caption mt-2">
+          <p class="text-body-small mt-2">
             {{member.email}}
           </p>
         </div>
-      </v-list-item-content>
+      </div>
     </v-card>
     <v-tabs fixed-tabs v-model="tabs">
       <v-tab v-for="itme in tabItems" :key="itme">
@@ -26,17 +26,17 @@
       </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tabs" class="mt-5">
+    <v-window v-model="tabs" class="mt-5">
       <!-- wiki -->
-      <v-tab-item>
+      <v-window-item>
         <Wiki v-bind:memberId="memberId" />
-      </v-tab-item>
+      </v-window-item>
 
       <!-- community-->
-      <v-tab-item>
+      <v-window-item>
         <Community v-bind:memberId="memberId" />
-      </v-tab-item>
-    </v-tabs-items>
+      </v-window-item>
+    </v-window>
   </v-card>
 </template>
 <script>
@@ -72,13 +72,13 @@ export default {
 
   methods: {
     initialize () {
-      this.$nextTick(function () {  
+      this.$nextTick(function () {
         this.$http
           .get(`/member/members/${this.memberId}`)
           .then((response) => {
             this.member = response.data.data;
           });
-      }); 
+      });
     }
   }
 };

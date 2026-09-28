@@ -6,7 +6,7 @@
           :label="$t('title')"
           :hint="$t('titleHint')"
           persistent-hint
-          outlined
+          variant="outlined"
           :rules="titleRules"
           style="border-radius: 0"
           v-model.lazy="community.title"
@@ -15,11 +15,11 @@
       <v-col cols="12" sm="12" md="4">
         <v-row no-gutters>
           <v-col sm="6" md="3">
-            <v-tooltip bottom>
+            <v-tooltip location="bottom">
               <template v-slot:activator="{ props }">
                 <v-btn
                   class="mt-2"
-                  outlined
+                  variant="outlined"
                   color="indigo"
                   @click="openMenu"
                   v-bind="props"
@@ -58,7 +58,7 @@
 
     <v-file-input
       v-model="files"
-      color="deep-purple accent-4"
+      color="deep-purple-accent-4"
       counter
       :label="$t('fileUpload')"
       multiple
@@ -70,10 +70,9 @@
     >
       <template v-slot:selection="{text }">
         <v-chip
-          color="deep-purple accent-4"
-          dark
+          color="deep-purple-accent-4"
           label
-          small
+          size="small"
         >
           {{ text }}
         </v-chip>
@@ -89,7 +88,7 @@
      <!-- menus dialog start-->
     <v-dialog v-model="menuDialog" max-width="700">
       <v-card flat>
-        <v-card-title class="text-h5">
+        <v-card-title class="text-headline-medium">
           {{$t('menu')}}
         </v-card-title>
         <v-card-text>
@@ -101,7 +100,7 @@
             >
               <template #label="props">
                     <div style="color: #000000"  @click="changeMenu(props.item)">
-                      {{ props.item.name }} 
+                      {{ props.item.name }}
                     </div>
               </template>
             </v-treeview>
@@ -109,8 +108,8 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="green darken-1"
-            text
+            color="green-darken-1"
+            variant="text"
             @click="menuDialog = false"
           >
             close
@@ -122,34 +121,34 @@
 
     <!-- file list -->
     <div class="pb-3" v-if="filesList">
-      <v-simple-table>
+      <v-table>
         <template v-slot:default>
           <tbody>
             <tr v-for="item in filesList" :key="item.name">
-              <td width="70%">{{ item.originalName }}</td>            
+              <td width="70%">{{ item.originalName }}</td>
               <td width="30%" style="text-align:right">
-                <v-btn class="mx-2" dark small color="indigo" depressed @click="deleteFile(item.id)">
+                <v-btn class="mx-2" size="small" color="indigo" variant="flat" @click="deleteFile(item.id)">
                   <v-icon>mdi-delete-forever</v-icon>
                 </v-btn>
               </td>
             </tr>
           </tbody>
         </template>
-      </v-simple-table>
+      </v-table>
     </div>
     <!-- file list end-->
 
     <v-btn
-      large
-      depressed
+      size="large"
+      variant="flat"
       color="indigo"
       block
-      class="mt-3 white--text "
+      class="mt-3 text-white"
       @click="save"
       :disabled = progress
     >
       {{$t('save')}}
-      <v-icon right dark> mdi-content-save </v-icon>
+      <v-icon end> mdi-content-save </v-icon>
     </v-btn>
 
     <pop-msg-dialog v-bind:parent="popMsg"/>
@@ -239,7 +238,7 @@ export default {
           this.community = response.data.data;
            if(this.community.docId != ""){
               this.selectFilesList();
-            } 
+            }
         });
     },
 
@@ -276,7 +275,7 @@ export default {
       if(!(_.has(item,'children'))){
         this.community.menuId = item.id;
         this.menu.id = item.id;
-        this.menu.name = item.name; 
+        this.menu.name = item.name;
       }else{
         this.updateError(this.$t('msgCannotPick01'));
       }
@@ -365,7 +364,7 @@ export default {
       if(files.length > 0){
         this.progress = true;
       }
-      
+
       this.$http.post("/files/upload", formData).then((response) => {
         const result = response.data.data;
         this.community.docId = result[0].docId;
@@ -385,7 +384,7 @@ export default {
 
     deleteFile(id){
       this.$http.delete(`/files/delete/${id}`).then((response)=>{
-        this.filesList = response.data.data; 
+        this.filesList = response.data.data;
       })
     },
   },

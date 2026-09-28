@@ -6,22 +6,22 @@
       </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tabs">
+    <v-window v-model="tabs">
       <!-- wiki editing-->
-      <v-tab-item>
+      <v-window-item>
         <profile-wiki-editing v-bind:parent="member" />
-      </v-tab-item>
+      </v-window-item>
 
       <!-- wiki edited-->
-      <v-tab-item>
+      <v-window-item>
         <profile-wiki-edited v-bind:parent="member" />
-      </v-tab-item>
+      </v-window-item>
 
       <!-- wiki like-->
-      <v-tab-item>
+      <v-window-item>
         <profile-wiki-likes v-bind:parent="member" />
-      </v-tab-item>
-    </v-tabs-items>
+      </v-window-item>
+    </v-window>
   </v-card>
 </template>
 <script>
@@ -45,11 +45,11 @@ export default {
   computed: {
     tabItems(){
       return [
-          this.$t('editingOption',{0:this.$t('wiki')}), 
+          this.$t('editingOption',{0:this.$t('wiki')}),
           this.$t('editedOption',{0:this.$t('wiki')}),
           this.$t('likeOption',{0:this.$t('wiki')})
         ]
-    } 
+    }
   },
 
   created() {

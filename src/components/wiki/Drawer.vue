@@ -1,9 +1,7 @@
 <template>
   <v-navigation-drawer
-    app
     class=""
     width="270"
-    fixed
     v-model="drawer"
     style="top: 30px"
   >
@@ -23,12 +21,12 @@
       </div>
     </template>
     <v-card flat class="mt-2 pb-10">
-      <v-sheet class="pa-2 grey lighten-5">
+      <v-sheet class="pa-2 bg-grey-lighten-5">
         <v-text-field
           v-model="search"
           :label="$t('searchMenuName')"
           flat
-          solo-inverted
+          variant="solo-inverted"
           hide-details
           clearable
           clear-icon="mdi-close-circle-outline"
@@ -56,9 +54,9 @@
           </template>
         </v-treeview>
 
-      
+
     </v-card>
-    
+
   </v-navigation-drawer>
 </template>
 

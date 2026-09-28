@@ -303,27 +303,23 @@ const router = createRouter({
 });
 
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, from) => {
     //允许访问的路径
     const arrJPath = ['/main','/signIn','/signUp']
-    if (arrJPath.find(element => element == to.path)) {
-        next();
-    } else {
-        const token = getAuthToken();
-        if (!token) {
-            // console.log(`token is ${token}`);
-            savePreviousUrl(to.fullPath);
-            next('/signIn');
-        } else {
-            //community & wiki Edite 저장 확인
-            if(from.path == '/community/communityEdit' || from.path =='/wiki/wikiEdit'){
-                window.onbeforeunload = null;
-                next();
-            }else{
-                next();
-            }
-        }
+    if (arrJPath.includes(to.path)) return true;
+
+    const token = getAuthToken();
+    if (!token) {
+        savePreviousUrl(to.fullPath);
+        return '/signIn';
     }
+
+    //community & wiki Edite 저장 확인
+    if(from.path == '/community/communityEdit' || from.path =='/wiki/wikiEdit'){
+        window.onbeforeunload = null;
+    }
+
+    return true;
   });
 
 

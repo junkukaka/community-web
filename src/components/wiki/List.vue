@@ -5,14 +5,14 @@
       <dashboard-vue />
     </div>
     <v-card flat>
-      <v-row dense>
+      <v-row density="compact">
         <v-col
           v-for="(item, i) in wikis"
           :key="i"
           cols="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"
           class="pa-1"
         >
-          <v-card class="grey lighten-5" flat>
+          <v-card class="bg-grey-lighten-5" flat>
             <v-hover>
               <template v-slot:default="{ hover }">
                 <div :class="`elevation-${hover ? 24 : 0}`" :style="`${hover ? 'background-color : white' : '' }`">
@@ -30,7 +30,7 @@
                     >
                       <div>
                         <v-card-title
-                          class="text-subtitle-1"
+                          class="text-body-large"
                           v-text="
                             `${
                               item.title.length < 27
@@ -39,14 +39,14 @@
                             }`
                           "
                         ></v-card-title>
-                        <v-card-subtitle class="text-subtitle-2">
+                        <v-card-subtitle class="text-label-large">
                           {{$t('lastUpdate')}} {{ item.updateName }}
                         </v-card-subtitle>
                         <v-card-actions style="margin-top: -16px !important">
                           <v-rating
-                            :value ="item.average_rating"   
-                            background-color="grey lighten-1"
-                            color="indigo accent-2"
+                            :model-value ="item.average_rating"
+                            color="grey-lighten-1"
+                            active-color="indigo-accent-2"
                             size="18"
                             length="10"
                             readonly
@@ -57,9 +57,8 @@
                       <v-avatar class="ma-4" size="78" tile>
                         <v-img
                           :src="item.picture"
-                          contain
                           v-show="item.picture != null && item.picture != ''"
-                        ></v-img> 
+                        ></v-img>
                         <v-img
                           src="../../assets/wiki.jpg"
                           v-show="item.picture == null || item.picture == ''"
@@ -77,7 +76,7 @@
 
     <v-fab-transition v-if="memberAuthority.editYn === 1">
       <router-link :to="`/wiki/wikiEdit?menuId=${menuId}`">
-        <v-btn color="indigo" depressed large fab fixed class="rightBottomArea white--text">
+        <v-btn color="indigo" variant="flat" size="large" icon fixed class="rightBottomArea text-white">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </router-link>
@@ -97,7 +96,7 @@
       </v-card>
   </v-card>
 
-  
+
 </template>
 
 
@@ -123,20 +122,20 @@ export default {
       this.page = _.toNumber(this.$route.query.page);
     }
     this.member = this.$store.state.member;
-   
+
   },
-  
+
   mounted: function(){
-    this.menuName = this.$route.query.menuName; 
+    this.menuName = this.$route.query.menuName;
     //console.log(this.menuName);
     document.title = this.menuName;
   },
-  
+
   watch: {
     //使用监听跳转页面
     $route() {
       this.menuId = this.$route.query.menuId;
-      this.menuName = this.$route.query.menuName; 
+      this.menuName = this.$route.query.menuName;
       document.title = this.menuName;
     },
 
@@ -162,17 +161,17 @@ export default {
           page: data.page,
           itemsPerPage: data.itemsPerPage,
           authority: data.member.authority
-        } 
+        }
       }
-      
-     
+
+
       this.$http.get('/wiki/wikis/pageList',request).then((response) => {
           this.wikis = response.data.data.wikis;
           this.page = response.data.data.page; //当前页面
           this.pages = response.data.data.pages; //页数
-          
+
       });
-     
+
     },
 
     getMemberAuthority(){
@@ -181,7 +180,7 @@ export default {
         params: {
           menuId : data.menuId,
           authority : data.member.authority
-        } 
+        }
       }
       this.$nextTick(function () {
         this.$http.get("/authority/getMemberWikiAuthority",request).then((response) => {
@@ -192,7 +191,7 @@ export default {
         });
       });
     }
-    
+
   },
 };
 </script>

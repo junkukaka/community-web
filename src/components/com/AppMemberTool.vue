@@ -2,7 +2,7 @@
   <div class="pa-0 d-flex justify-end" style="padding-bottom: 0 !important">
     <v-text-field
       v-model="searchContent"
-      append-icon="mdi-magnify"
+      append-inner-icon="mdi-magnify"
       :label="$t('search')"
       single-line
       hide-details
@@ -14,8 +14,8 @@
       <v-btn icon class="mr-1" @click="toMemberProfile">
         <v-badge
           bordered
-          bottom
-          color="green accent-4"
+          location="bottom"
+          color="green-accent-4"
           dot
           :offset-x="$store.state.memberAlert > 0 ? 10 : 10000"
           offset-y="10"
@@ -26,13 +26,13 @@
               v-if="$store.state.member.picture != null"
               :alt="`photo`"
             />
-            <v-icon dark v-if="$store.state.member.picture == null">
+            <v-icon v-if="$store.state.member.picture == null">
               mdi-account-circle
             </v-icon>
           </v-avatar>
         </v-badge>
         <v-avatar color="#EEEEEE" v-if="$store.state.member == null">
-          <v-icon dark> mdi-account-circle </v-icon>
+          <v-icon> mdi-account-circle </v-icon>
         </v-avatar>
       </v-btn>
   </div>
@@ -104,8 +104,13 @@ export default {
     },
 
     getMyCommunityCommentCount(){
+      const memberId = this.$store.state.member?.id;
+      if (!memberId) {
+        this.$store.state.memberAlert = 0;
+        return;
+      }
       this.$http
-        .get(`/comment/getMyCommunityCommentCount/${this.member.id}`)
+        .get(`/comment/getMyCommunityCommentCount/${memberId}`)
         .then((response) => {
           this.$store.state.memberAlert = response.data.data;
         });

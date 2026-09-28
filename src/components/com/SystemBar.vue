@@ -2,7 +2,6 @@
   <v-system-bar
     color="indigo"
     height="30"
-    fixed
     absolute
     style="position: fixed"
     class="d-flex justify-space-between"
@@ -13,27 +12,27 @@
       </router-link>
     </div> -->
     <div
-      class="pl-3 pt-4 white--text"
+      class="pl-3 pt-4 text-white"
       v-show="
         $vuetify.display.md ||
         $vuetify.display.lg ||
         $vuetify.display.xl
       "
     >
-      <p class="font-weight-medium white--text">{{$t('sysMsg')}}</p>
+      <p class="font-weight-medium text-white">{{$t('sysMsg')}}</p>
     </div>
-    <v-card flat class="white--text pa-0 ma-0">
+    <v-card flat class="text-white pa-0 ma-0">
       <v-tabs
         bg-color="indigo"
         show-arrows
-        
+
       >
         <v-tab
           v-if="
             $store.state.member != null
           "
         >
-          <router-link class="white--text text-caption" to="/ReportMain">
+          <router-link class="text-white text-body-small" to="/ReportMain">
            {{$t('report')}}
           </router-link>
         </v-tab>
@@ -42,7 +41,7 @@
             href="http://csr.aspn.com.cn/"
             target="_blank"
             rel="noopener noreferrer"
-            class="white--text text-caption"
+            class="text-white text-body-small"
             >{{$t('csr')}}</a
           >
         </v-tab>
@@ -51,7 +50,7 @@
             href="http://gw.aspnc.com/"
             target="_blank"
             rel="noopener noreferrer"
-            class="white--text text-caption"
+            class="text-white text-body-small"
             >{{$t('groupware')}}</a
           >
         </v-tab>
@@ -60,7 +59,7 @@
             href="http://ftp.aspnc.com.cn:9000/"
             target="_blank"
             rel="noopener noreferrer"
-            class="white--text text-caption"
+            class="text-white text-body-small"
             >{{$t('ftp')}}</a
           >
           <!-- <a @click="toFtp" class="white--text text-caption text-caption">{{$t('ftp')}}</a> -->
@@ -70,7 +69,7 @@
             href="http://192.168.0.116:5000/"
             target="_blank"
             rel="noopener noreferrer"
-            class="white--text text-caption"
+            class="text-white text-body-small"
             >{{$t('books')}}</a
           >
           <!-- <a @click="toFtp" class="white--text text-caption text-caption">{{$t('ftp')}}</a> -->
@@ -80,26 +79,26 @@
             $store.state.member != null && $store.state.member.authority === 0
           "
         >
-          <a @click="toAdmin" class="white--text text-caption">{{$t('admin')}}</a>
+          <a @click="toAdmin" class="text-white text-body-small">{{$t('admin')}}</a>
         </v-tab>
          <v-tab v-if="$store.state.member != null">
-          <a @click="signOut" class="white--text text-caption">{{$t('logout')}}</a>
+          <a @click="signOut" class="text-white text-body-small">{{$t('logout')}}</a>
         </v-tab>
         <v-tab v-if="$store.state.member == null">
-          <a @click="signIn" class="white--text text-caption">{{$t('login')}}</a>
+          <a @click="signIn" class="text-white text-body-small">{{$t('login')}}</a>
         </v-tab>
 
 
         <v-tab>
-          <v-menu offset-y>
+          <v-menu location="bottom">
               <template v-slot:activator="{ props }">
                 <v-btn
                   v-bind="props"
-                  depressed
-                  class="white--text v-icon notranslate"
+                  variant="flat"
+                  class="text-white v-icon notranslate"
                   color="indigo"                >
-                <v-icon class="white--text v-icon notranslate"> mdi-translate </v-icon> 
-                <v-icon class="white--text v-icon notranslate">mdi-menu-down </v-icon> 
+                <v-icon class="text-white v-icon notranslate"> mdi-translate </v-icon>
+                <v-icon class="text-white v-icon notranslate">mdi-menu-down </v-icon>
                 </v-btn>
               </template>
               <v-list>
@@ -118,21 +117,21 @@
 
       <v-dialog v-model="toFtpDialog" width="260">
         <v-card class="text-center">
-          <v-card-title class="indigo white--text"> FTP LINK </v-card-title>
+          <v-card-title class="bg-indigo text-white"> FTP LINK </v-card-title>
           <v-card-text class="pt-4">
-            <v-btn class="ma-2" color="warning" depressed @click="toInteriorIp">
+            <v-btn class="ma-2" color="warning" variant="flat" @click="toInteriorIp">
               내부
-              <v-icon right dark> mdi-television </v-icon>
+              <v-icon end> mdi-television </v-icon>
             </v-btn>
 
             <v-btn
-              class="ma-2 white--text"
+              class="ma-2 text-white"
               color="success"
-              depressed
+              variant="flat"
               @click="toExternalIp"
             >
               외부
-              <v-icon right dark> mdi-cloud-upload </v-icon>
+              <v-icon end> mdi-cloud-upload </v-icon>
             </v-btn>
           </v-card-text>
         </v-card>

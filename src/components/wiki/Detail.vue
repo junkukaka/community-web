@@ -1,8 +1,7 @@
 <template>
   <v-card flat class="pb-12">
     <!-- 권한관리 메세지  -->
-    <v-alert
-      shaped
+    <v-alert rounded="shaped"
       prominent
       type="error"
       v-if="authorityView"
@@ -15,49 +14,49 @@
       <dashboard-vue/>
     </div>
     <v-card flat class="mt-n3">
-       <div class="text-overline font-weight-light pl-5 pt-2">
+       <div class="text-label-small font-weight-light pl-5 pt-2">
           {{$t('lastUpdate')}}
           {{
             $dateFormat(wikiHis.registerTime, "yyyy-mm-dd hh:mi:ss")
           }}
         </div>
-      <v-card-title class="text-h3 font-weight-medium pt-1 pb-1">
+      <v-card-title class="text-display-small font-weight-medium pt-1 pb-1">
         {{ wikiHis.title }}
       </v-card-title>
 
       <v-list-item>
-        <v-list-item-content>
-          <v-list-item-subtitle class="text-overline font-weight-regular">
+
+          <v-list-item-subtitle class="text-label-small font-weight-regular">
             <span class="mr-3"> {{ wikiInfoCount.hitsCount }}  {{$t('views')}} </span>
             <span class="mr-3"> {{ wikiInfoCount.likesCount }} {{$t('likes')}}</span>
             <span class="mr-3"> {{ wikiInfoCount.collectCount }} {{$t('collect')}}</span>
 <!-- <span class="mr-3"> {{ wikiInfoCount.collectCount }} collect</span> -->
           </v-list-item-subtitle>
-        </v-list-item-content>
+
       </v-list-item>
 
       <v-card-actions  style="padding: 0 8px 0;" >
         <div @click="alertScorePop">
           <v-rating
                   v-model="rating"
-                  background-color="indigo accent-1"
-                  color="indigo accent-2"
+                  color="indigo-accent-1"
+                  active-color="indigo-accent-2"
                   length = 10
                   :readonly = "ratingReadonly"
                   size="26"
                   hover
             ></v-rating>
         </div>
-        <span v-if="rating" class="font-weight-medium indigo--text pl-3" >  ( {{ $t('score') }}: {{ rating -2}} )  </span>    
+        <span v-if="rating" class="font-weight-medium text-indigo pl-3" >  ( {{ $t('score') }}: {{ rating -2}} )  </span>
       </v-card-actions>
-       
+
       <!-- 평점 팜업 start -->
       <v-dialog
           v-model="ratingDialog"
           max-width="400"
         >
           <v-card>
-            <v-card-title class="text-h5">
+            <v-card-title class="text-headline-medium">
               {{ $t('scoreConfirm',{0:rating-2}) }}
             </v-card-title>
             <v-card-text>
@@ -69,7 +68,7 @@
               <v-spacer></v-spacer>
               <v-btn
                 color="indigo"
-                text
+                variant="text"
                 @click="saveRating"
               >
                 <!-- 확인  -->
@@ -78,7 +77,7 @@
 
               <v-btn
                 color="grey"
-                text
+                variant="text"
                 @click="ratingDialog = false"
               >
                  <!-- 취소  -->
@@ -91,27 +90,27 @@
 
       <v-card-actions style="padding: 0px">
         <v-list-item class="grow" >
-          <v-list-item-avatar  v-for="(member,id) in wikiHisMembers" :key="id">
+          <div class="v-list-item__prepend"  v-for="(member,id) in wikiHisMembers" :key="id">
             <router-link :to="'/targetMember?memberId=' + member.id">
-              <v-tooltip bottom>
+              <v-tooltip location="bottom">
                 <template v-slot:activator="{ props }">
                   <v-avatar size="41" v-if="member.picture"
                     v-bind="props"
                   >
                     <img :src="member.picture" :alt="`photo`" />
                   </v-avatar>
-                  <v-avatar size="41" color="indigo" v-if="!member.picture" 
+                  <v-avatar size="41" color="indigo" v-if="!member.picture"
                     v-bind="props"
                   >
-                    <v-icon dark>
-                      mdi-account-circle 
+                    <v-icon>
+                      mdi-account-circle
                     </v-icon>
                   </v-avatar>
                 </template>
                 <span>{{member.member_name}}</span>
-              </v-tooltip>  
+              </v-tooltip>
             </router-link>
-          </v-list-item-avatar>
+          </div>
         </v-list-item>
       </v-card-actions>
       <v-divider></v-divider>
@@ -119,7 +118,7 @@
       <!-- anchor -->
 
       <div class="anchorArea d-none d-lg-block" v-if="titles.length > 0" v-show="$store.state.ifMobile">
-        <h6 class="text-h6 pb-1">{{$t('catalogue')}}</h6>
+        <h6 class="text-headline-small pb-1">{{$t('catalogue')}}</h6>
         <div class="ml-3 anchorAreaBox">
           <div
             v-for="(anchor, i) in titles"
@@ -136,7 +135,7 @@
         </div>
       </div>
       <!-- anchor  end -->
-      
+
     </v-card>
 
     <!-- icon dial -->
@@ -151,30 +150,26 @@
       v-if="this.memberAuthority.editYn == 1"
     >
       <template v-slot:activator>
-        <v-btn v-model="fab" color="indigo" dark fab elevation = 0>
+        <v-btn v-model="fab" color="indigo" icon elevation = 0>
           <v-icon v-if="fab"> mdi-close </v-icon>
           <v-icon v-else> mdi-format-list-bulleted-square </v-icon>
         </v-btn>
       </template>
-      <v-btn
-        fab
-        dark
-        small
-        depressed
+      <v-btn icon
+        size="small"
+        variant="flat"
         color="green"
         :to="`/wiki/wikiEdit?&menuId=${wikiHis.menuId}&id=${wikiHis.id}`"
       >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
-      <v-btn fab dark small depressed color="indigo" @click="timeLineDialog = true">
+      <v-btn icon size="small" variant="flat" color="indigo" @click="timeLineDialog = true">
         <v-icon>mdi-history</v-icon>
       </v-btn>
 
-      <v-btn
-        fab
-        dark
-        small
-        depressed
+      <v-btn icon
+        size="small"
+        variant="flat"
         :color="`${
           this.memberLikesAndCollect.memberCollectYn == 1 ? 'grey' : 'orange'
         }`"
@@ -183,11 +178,9 @@
         <v-icon>mdi-star</v-icon>
       </v-btn>
 
-      <v-btn
-        fab
-        dark
-        small
-        depressed
+      <v-btn icon
+        size="small"
+        variant="flat"
         :color="`${
           this.memberLikesAndCollect.memberLikesYn == 1 ? 'grey' : 'red'
         }`"
@@ -197,11 +190,9 @@
       </v-btn>
 
       <router-link target="_blank" :to="'/pdf/wiki?wikiId=' + wikiId">
-        <v-btn
-          fab
-          dark
-          small
-          depressed
+        <v-btn icon
+          size="small"
+          variant="flat"
           color="indigo"
         >
           <v-icon>mdi-file-pdf</v-icon>
@@ -210,7 +201,7 @@
     </v-speed-dial>
     <!-- icon dial -->
 
-    <v-row justify="center">
+    <v-row class="justify-center">
       <v-dialog v-model="timeLineDialog" width="700px">
         <v-card class="pa-3">
           <HisTimeLine v-bind:parent="wikiId" />
@@ -221,7 +212,7 @@
     <!-- wiki memeber collect  -->
     <v-dialog v-model="wikiMemberMenusDialog" width="500">
       <v-card>
-        <v-card-title class="text-h5 orange white--text" >
+        <v-card-title class="text-headline-medium bg-orange text-white" >
           {{$t('wikiCollectMenu')}}
         </v-card-title>
         <v-card-text class="mt-10 text-center">
@@ -229,22 +220,21 @@
             v-if="wikiMemberMenus.length > 0"
             :items="wikiMemberMenus"
             :label="$t('wikiCollectMenu')"
-            item-text="menuName"
+            item-title="menuName"
             item-value="id"
-            outlined
-            @change="saveCollect"
+            variant="outlined"
+            @update:model-value="saveCollect"
             v-model="selectWikiMenu"
           ></v-select>
           <v-btn
               v-if="wikiMemberMenus.length == 0"
-              x-large
+              size="x-large"
               color="success"
-              dark
-              depressed
+              variant="flat"
               to="/member/wikiCollect"
             >
               <v-icon>mdi-format-list-bulleted-square</v-icon>
-              즐겨찾기 메뉴 
+              즐겨찾기 메뉴
             </v-btn>
         </v-card-text>
       </v-card>
@@ -382,7 +372,7 @@ export default {
     },
 
     /**
-     * 평점 팝업 호출 
+     * 평점 팝업 호출
      */
     alertScorePop(){
       if(this.wikiInfoCount.wikiRegisterID != this.$store.state.member.id){
@@ -429,14 +419,14 @@ export default {
       });
     },
 
-    //권한관리 
+    //권한관리
     getMemberAuthority(){
       let data = this.$data;
       let request = {
         params: {
           menuId : data.wikiHis.menuId,
           authority : data.member.authority
-        } 
+        }
       }
       this.$nextTick(function(){
         this.$http.get("/authority/getMemberWikiAuthority",request).then((response) => {
@@ -464,7 +454,7 @@ export default {
           .get(`/wikiInfo/count/${this.wikiId}`)
           .then((response) => {
             this.wikiInfoCount = response.data.data;
-            //본인 wiki이면 평점 하지 못한다 
+            //본인 wiki이면 평점 하지 못한다
             if(this.wikiInfoCount.wikiRegisterID == this.$store.state.member.id){
               this.ratingReadonly = true;
             }

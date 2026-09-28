@@ -1,13 +1,13 @@
 <template>
   <v-card flat class="mx-auto pb-10">
-    <v-row dense>
+    <v-row density="compact">
       <v-col
         v-for="(item, i) in wikis"
         :key="i"
         cols="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"
         class="pa-1"
       >
-        <v-card flat class="grey lighten-5">
+        <v-card flat class="bg-grey-lighten-5">
           <v-hover>
             <template v-slot:default="{ hover }">
               <div
@@ -28,7 +28,7 @@
                   >
                     <div>
                       <v-card-title
-                        class="text-subtitle-1"
+                        class="text-body-large"
                         v-text="
                           `${
                             item.title.length < 37
@@ -37,14 +37,14 @@
                           }`
                         "
                       ></v-card-title>
-                      <v-card-subtitle class="text-subtitle-2">
+                      <v-card-subtitle class="text-label-large">
                         {{$t('lastUpdate')}} {{ item.updateName }}
                       </v-card-subtitle>
                       <v-card-actions style="margin-top: -16px !important">
                         <v-rating
-                            :value ="item.average_rating"   
-                            background-color="grey lighten-1"
-                            color="indigo accent-2"
+                            :model-value ="item.average_rating"
+                            color="grey-lighten-1"
+                            active-color="indigo-accent-2"
                             size="18"
                             length="10"
                             readonly
@@ -56,7 +56,6 @@
                       <v-img
                         :src="item.picture"
                         v-show="item.picture != null"
-                        contain
                       ></v-img>
                       <v-img
                         src="../../../assets/wiki.jpg"
@@ -72,9 +71,9 @@
       </v-col>
     </v-row>
     <div style="width:90%;margin:15px auto" v-if="moreViewYn">
-        <v-btn 
+        <v-btn
           class="pa-5 "
-          outlined
+          variant="outlined"
           block
           @click="selectMoreWiki"
           color="#BDBDBD">
@@ -136,7 +135,7 @@ export default {
           size: data.size,
           page: data.page,
           authority: data.member.authority
-        } 
+        }
       }
       this.$http.get(`/wiki/WikiTemplate`,request).then((response) => {
         for (const wiki of response.data.data) {
@@ -151,7 +150,7 @@ export default {
       if(this.page > this.total){
         this.page = this.total
       }
-      this.selectWikiTemplate(); 
+      this.selectWikiTemplate();
     },
 
     logout() {

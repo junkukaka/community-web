@@ -1,14 +1,12 @@
 <template>
   <v-app-bar
-    app
-    fixed
     class="boxShadow appBarDisplay"
     elevation = 0
   >
     <v-app-bar-nav-icon @click="setDrawer(!drawer)"></v-app-bar-nav-icon>
 
     <v-toolbar-title class="pl-2">
-      <v-btn to="/community/communityMain" text>
+      <v-btn to="/community/communityMain" variant="text">
         <v-icon>mdi-account-multiple</v-icon>
         <span style="padding-left: 7px">{{$t('community')}}</span>
       </v-btn>

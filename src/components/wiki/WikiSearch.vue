@@ -1,7 +1,7 @@
 <template>
   <v-card
     color="">
-    <v-card-title class="headline indigo lighten-1">
+    <v-card-title class="headline bg-indigo-lighten-1">
       <span style="color: white">
         Search for Public Contens
       </span>
@@ -9,7 +9,7 @@
     <v-card-text>
       Explore hundreds of free API's ready for consumption! For more information visit
      <router-link
-        class="grey--text text--lighten-3"
+        class="text-grey-lighten-3"
         to="/wiki"
         target="_blank"
       >wiki repository</router-link>
@@ -18,10 +18,10 @@
       <v-select
           :items="selects"
           label="Outlined style"
-          item-text="state"
+          item-title="state"
           item-value="abbr"
           v-model="searchObj.ty"
-          outlined
+          variant="outlined"
         ></v-select>
       <v-autocomplete
         v-model="model"
@@ -30,7 +30,7 @@
         v-model:search-input="search"
         hide-no-data
         hide-selected
-        item-text="content"
+        item-title="content"
         item-value="API"
         label="search content"
         placeholder="Start typing to Search"
@@ -50,9 +50,9 @@
           :key="i"
           :to="'/wiki/wikiDetail?wikiId=' + item.id"
         >
-          <v-list-item-content>
+
             <v-list-item-title v-text="item.title"></v-list-item-title>
-          </v-list-item-content>
+
         </v-list-item>
       </v-list>
     </v-expand-transition>
@@ -60,11 +60,11 @@
       <v-spacer></v-spacer>
       <v-btn
         :disabled="!model"
-        color="grey darken-3"
+        color="grey-darken-3"
         @click="model = null"
       >
         Clear
-        <v-icon right>
+        <v-icon end>
           mdi-close-circle
         </v-icon>
       </v-btn>

@@ -4,7 +4,7 @@
       flat
       :headers="headers"
       :items="wikiHis"
-      :disable-pagination="disablePagination"
+      items-per-page="-1"
       class="elevation-1 mytable"
       hide-default-footer
     >
@@ -19,10 +19,10 @@
       <template v-slot:[`item.title`]="{ item }">
           <router-link :to="`/wiki/wikiDetail?wikiId=${item.id}`" color="indigo"
              v-text="`${
-              item.title.length < 50 
-              ? item.title 
+              item.title.length < 50
+              ? item.title
               : item.title.substring(0, 50) + '...'
-          }`"/> 
+          }`"/>
       </template>
 
     </v-data-table>
@@ -35,15 +35,14 @@ export default {
   data: () => ({
     member: {},
     wikiHis: [],
-    disablePagination: true,
   }),
 
   computed: {
     headers(){
       return [
-        { text: this.$t('title'), align: "start", value: "title" },
-        { text: this.$t('menu'), value: "menuName" },
-        { text: this.$t('date'), value: "updateTime",align: "center" },
+        { title: this.$t('title'), align: "start", key: "title" },
+        { title: this.$t('menu'), key: "menuName" },
+        { title: this.$t('date'), key: "updateTime",align: "center" },
       ]
     }
   },

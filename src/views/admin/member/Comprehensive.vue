@@ -5,17 +5,17 @@
         {{ itme }}
         </v-tab>
     </v-tabs>
-    <v-tabs-items v-model="tabs">
+    <v-window v-model="tabs">
       <!-- member list -->
-      <v-tab-item>
+      <v-window-item>
         <member-list/>
-      </v-tab-item>
+      </v-window-item>
 
        <!-- member application -->
-      <v-tab-item>
+      <v-window-item>
         <application-member/>
-      </v-tab-item>  
-    </v-tabs-items>
+      </v-window-item>
+    </v-window>
   </v-card>
 </template>
 <script>
@@ -35,17 +35,17 @@ export default {
     };
   },
 
-  
+
 
   methods: {
     checkAdmin(){
         if(this.member.authority != 0) {
             this.$router.push("/");
         }
-    }  
-  }  
+    }
+  }
 
 
-  
+
 };
 </script>

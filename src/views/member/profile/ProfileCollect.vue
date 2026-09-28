@@ -1,11 +1,11 @@
 <template>
   <v-card flat class="pa-2">
-    <v-data-table 
+    <v-data-table
       flat
       :headers="headers"
       :items="collect"
       class="elevation-1 mytable"
-      :disable-pagination="disablePagination"
+      items-per-page="-1"
       hide-default-footer
     >
       <template v-slot:top>
@@ -21,10 +21,10 @@
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete"
+                <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
                   >{{$t('cancel')}}</v-btn
                 >
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn color="blue-darken-1" variant="text" @click="deleteItemConfirm"
                   >{{$t('ok')}}</v-btn
                 >
                 <v-spacer></v-spacer>
@@ -34,10 +34,10 @@
         </v-toolbar>
       </template>
 
- 
+
     <template v-slot:[`item.title`]="{ item }">
        <div>
-        <router-link :to="`/community/communityDetail?id=${item.communityId}`" color="indigo" 
+        <router-link :to="`/community/communityDetail?id=${item.communityId}`" color="indigo"
           v-text="
             `${
               item.title.length < 35
@@ -54,8 +54,8 @@
     </template>
 
     <template v-slot:[`item.actions`]="{ item }">
-      <v-btn text @click="deleteItem(item)">
-        <v-icon small> mdi-delete </v-icon>
+      <v-btn variant="text" @click="deleteItem(item)">
+        <v-icon size="small"> mdi-delete </v-icon>
         {{$t('delete')}}
       </v-btn>
     </template>
@@ -85,17 +85,16 @@ export default {
     pages: 1,
     collect: [],
     dialogDelete: false,
-    disablePagination: true,
     deleted: {},
   }),
 
   computed: {
     headers(){
       return [
-        { text: this.$t('title'), align: "start", value: "title" },
-        { text: this.$t('menu'),  align: "start",value: "menuName" },
-        { text: this.$t('date'),value: "date" ,align: "center"},
-        { text: this.$t('actions'),value: "actions", sortable: false ,align: "center"},
+        { title: this.$t('title'), align: "start", key: "title" },
+        { title: this.$t('menu'),  align: "start",key: "menuName" },
+        { title: this.$t('date'),key: "date" ,align: "center"},
+        { title: this.$t('actions'),key: "actions", sortable: false ,align: "center"},
       ]
     }
   },

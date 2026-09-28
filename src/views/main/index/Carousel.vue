@@ -1,14 +1,16 @@
 <template>
-  <v-carousel cycle show-arrows-on-hover height="300">
-    <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src" :href="item.href" target="_blank">
-      <div :style="{'margin': margin,'text-align': align}" >
-        <div class="text-h2 white--text" >
-          {{ item.title }} 
+  <v-carousel cycle show-arrows="hover" height="300">
+    <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src">
+      <a :href="item.href" target="_blank" rel="noopener noreferrer" class="carousel-link">
+        <div :style="{'margin': margin,'text-align': align}" >
+          <div class="text-display-medium text-white" >
+            {{ item.title }}
+          </div>
+          <p class="font-weight-light pt-2 pl-1 text-white" style="width:60%" v-show="!$vuetify.display.xs">
+            {{ item.content }}
+          </p>
         </div>
-        <p class="font-weight-light pt-2 pl-1 white--text" style="width:60%" v-show="!$vuetify.display.xs">
-          {{ item.content }} 
-        </p>
-      </div>
+      </a>
     </v-carousel-item>
   </v-carousel>
 </template>
@@ -52,3 +54,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.carousel-link {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+</style>

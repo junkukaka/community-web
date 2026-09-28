@@ -6,10 +6,9 @@
         <v-data-table
           :headers="authorityHeaders"
           :items="authority"
-          sort-by="calories"
           class="elevation-1"
           hide-default-footer
-           :disable-pagination=true
+           items-per-page="-1"
         >
           <template v-slot:top>
             <v-toolbar flat>
@@ -22,7 +21,6 @@
                 <template v-slot:activator="{ props }">
                   <v-btn
                     color="indigo"
-                    dark
                     class="mb-2"
                     v-bind="props"
                     @click="authorityNew"
@@ -33,7 +31,7 @@
 
                 <v-card>
                   <v-card-title>
-                    <span class="text-h5">{{ formTitle }}</span>
+                    <span class="text-headline-medium">{{ formTitle }}</span>
                   </v-card-title>
 
                   <v-card-text>
@@ -43,30 +41,30 @@
                           <v-select
                             v-model="authorityEdited.id"
                             :items="authorityIds"
-                            append-outer-icon="mdi-map"
+                            append-inner-icon="mdi-map"
                             menu-props="auto"
                             hide-details
                             label="Id"
                             single-line
                             :disabled="!authorityIdsEditFlag"
                           ></v-select>
-                        </v-col>  
+                        </v-col>
                         <v-col cols="12" sm="6" md="6">
                           <v-text-field
                             v-model="authorityEdited.name"
                             label="Name"
                           ></v-text-field>
-                        </v-col>  
+                        </v-col>
                       </v-row>
                     </v-container>
                   </v-card-text>
 
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="authorityClose">
+                    <v-btn color="blue-darken-1" variant="text" @click="authorityClose">
                       Cancel
                     </v-btn>
-                    <v-btn color="blue darken-1" text @click="authoritySave">
+                    <v-btn color="blue-darken-1" variant="text" @click="authoritySave">
                       Save
                     </v-btn>
                   </v-card-actions>
@@ -77,17 +75,17 @@
               <!-- delete dialog start -->
               <v-dialog v-model="dialogDelete" max-width="500px">
                 <v-card>
-                  <v-card-title class="text-h5"
+                  <v-card-title class="text-headline-medium"
                     >Are you sure you want to delete this item?</v-card-title
                   >
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="closeDelete"
+                    <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
                       >Cancel</v-btn
                     >
                     <v-btn
-                      color="blue darken-1"
-                      text
+                      color="blue-darken-1"
+                      variant="text"
                       @click="authorityDeleteItemConfirm"
                       >OK</v-btn
                     >
@@ -100,19 +98,19 @@
           </template>
 
           <template v-slot:[`item.actions`]="{ item }">
-            <v-btn outlined @click="authorityEditItem(item)" class="ma-2" color="success" small>
+            <v-btn variant="outlined" @click="authorityEditItem(item)" class="ma-2" color="success" size="small">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
 
-            <v-btn outlined @click="authorityDeleteItem(item)" class="ma-2" small color="blue-grey">
+            <v-btn variant="outlined" @click="authorityDeleteItem(item)" class="ma-2" size="small" color="blue-grey">
               <v-icon> mdi-delete</v-icon>
             </v-btn>
 
-            <v-btn class="ma-2" outlined small color="indigo" @click="communityItems(item)">
+            <v-btn class="ma-2" variant="outlined" size="small" color="indigo" @click="communityItems(item)">
               community
             </v-btn>
 
-            <v-btn class="ma-2" outlined small color="indigo" @click="wikiItems(item)"> wiki </v-btn>
+            <v-btn class="ma-2" variant="outlined" size="small" color="indigo" @click="wikiItems(item)"> wiki </v-btn>
           </template>
           <template v-slot:no-data>
             <v-btn color="indigo" @click="initialize"> Reset </v-btn>
@@ -129,10 +127,9 @@
         <v-data-table
           :headers="authorityItemHeaders"
           :items="authorityItems"
-          sort-by="calories"
           class="elevation-1"
           hide-default-footer
-          :disable-pagination=true
+          items-per-page="-1"
         >
           <template v-slot:top>
             <v-toolbar flat>
@@ -145,7 +142,6 @@
                 <template v-slot:activator="{ props }">
                   <v-btn
                     color="indigo"
-                    dark
                     class="mb-2"
                     v-bind="props"
                     @click="authorityItemNew"
@@ -156,7 +152,7 @@
 
                 <v-card>
                   <v-card-title>
-                    <span class="text-h5">{{ itemFormTitle }}</span>
+                    <span class="text-headline-medium">{{ itemFormTitle }}</span>
                   </v-card-title>
 
                   <v-card-text>
@@ -203,15 +199,15 @@
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn
-                      color="blue darken-1"
-                      text
+                      color="blue-darken-1"
+                      variant="text"
                       @click="authorityItemClose"
                     >
                       Cancel
                     </v-btn>
                     <v-btn
-                      color="blue darken-1"
-                      text
+                      color="blue-darken-1"
+                      variant="text"
                       @click="authorityItemSave"
                     >
                       Save
@@ -225,10 +221,10 @@
 
           <template v-slot:[`item.actions`]="{ item }">
             <v-btn
-              outlined
+              variant="outlined"
               @click="authorityItemDeleteItem(item)"
               class="ma-2"
-              small
+              size="small"
               color="blue-grey"
             >
               <v-icon> mdi-delete</v-icon>
@@ -270,9 +266,9 @@ export default {
     authorityDialog: false,
     dialogDelete: false,
     authorityHeaders: [
-      { text: "ID", align: "start", value: "id" },
-      { text: "name", value: "name" },
-      { text: "Actions", value: "actions", sortable: false, align: "center" },
+      { title: "ID", align: "start", key: "id" },
+      { title: "name", key: "name" },
+      { title: "Actions", key: "actions", sortable: false, align: "center" },
     ],
     authority: [],
     authorityEditedIndex: -1,
@@ -291,11 +287,11 @@ export default {
     },
     authorityItemDialog: false,
     authorityItemHeaders: [
-      { text: "authorityName", value: "authorityName" },
-      { text: "menuName", value: "menuName" },
-      { text: "view", align: "left", value: "viewYn" },
-      { text: "edit", align: "left", value: "editYn" },
-      { text: "Actions", value: "actions", align: "center", sortable: false },
+      { title: "authorityName", key: "authorityName" },
+      { title: "menuName", key: "menuName" },
+      { title: "view", align: "left", key: "viewYn" },
+      { title: "edit", align: "left", key: "editYn" },
+      { title: "Actions", key: "actions", align: "center", sortable: false },
     ],
     authorityItems: [],
     selectionType: 'independent',
@@ -419,7 +415,7 @@ export default {
       this.authorityClose();
     },
 
-     //list community list 
+     //list community list
     communityItems(item){
       this.authorityItems = [];
       this.authorityItemFlag.flag = "C";
@@ -481,7 +477,7 @@ export default {
 
 
 
-    //authority item 
+    //authority item
     authorityItemSave() {
       let request = {
         aId: null,

@@ -1,8 +1,6 @@
 <template>
   <v-app-bar
-    app
-    fixed
-    class="white"
+    class="bg-white"
     elevation = 0
     style="
       border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
@@ -24,16 +22,16 @@
 
     <v-dialog v-model="naviDialog" width="260">
         <v-card class="text-center">
-          <v-card-title class="indigo white--text"> Navigation </v-card-title>
+          <v-card-title class="bg-indigo text-white"> Navigation </v-card-title>
           <v-card-text class="pt-4">
-            <v-btn class="ma-2" color="warning" depressed to="/community/communityMain" width="150" @click="naviDialog =false">
+            <v-btn class="ma-2" color="warning" variant="flat" to="/community/communityMain" width="150" @click="naviDialog =false">
               {{$t('community')}}
-              <v-icon right dark> mdi-account-multiple </v-icon>
+              <v-icon end> mdi-account-multiple </v-icon>
             </v-btn>
 
-            <v-btn class="ma-2 white--text" color="success" depressed to="/wiki/wikiMain" width="150" @click="naviDialog =false">
+            <v-btn class="ma-2 text-white" color="success" variant="flat" to="/wiki/wikiMain" width="150" @click="naviDialog =false">
               {{$t('wiki')}}
-              <v-icon right dark> mdi-school </v-icon>
+              <v-icon end> mdi-school </v-icon>
             </v-btn>
           </v-card-text>
         </v-card>

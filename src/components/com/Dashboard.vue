@@ -1,6 +1,6 @@
 <template>
   <div class="pl-3 pt-5" style="position:relative">
-    <v-icon small color="black" style="position:absolute; left: 12px; top: 22px">
+    <v-icon size="small" color="black" style="position:absolute; left: 12px; top: 22px">
         mdi-chevron-double-right
     </v-icon>
     <v-breadcrumbs :items="items" style="padding: 0px 0 0 29px" id="dashBoardBox">
@@ -17,8 +17,8 @@
       dashboard: {
         flag: null,
         menuId: null,
-        detail: null 
-      },  
+        detail: null
+      },
       routeObj:{},
       menus: [],
       items: [],
@@ -31,7 +31,7 @@
         this.initialize();
       }
     },
-    
+
     created(){
       this.reset();
       this.routeObj = this.$route;
@@ -67,7 +67,7 @@
           }else if(this.dashboard.flag === "CommunityDetail" || this.dashboard.flag === "CommunityList"){
             m.href = `/community/communityList?menuId=${menu.menuId}&menuName=${menu.text}`;
           }
-          
+
           if(this.dashboard.menuId == menu.menuId && !this.dashboard.detail){
             m.disabled = true;
           }else{
@@ -82,7 +82,7 @@
       },
 
       getDashboard(){
-         //if WikiDetial 
+         //if WikiDetial
         if(this.dashboard.flag === "WikiDetail"){
           this.wikiDashboard();
         }

@@ -4,7 +4,7 @@
     <!-- Sizes your content based upon application components -->
     <v-main>
       <!-- Provides the application the proper gutter -->
-      <v-container fluid color="grey lighten-4" class="containerPadding">
+      <v-container fluid color="grey-lighten-4" class="containerPadding">
         <!-- If using vue-router -->
         <div style="margin:0 auto">
           <router-view></router-view>

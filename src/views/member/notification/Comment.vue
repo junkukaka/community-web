@@ -5,7 +5,7 @@
       :headers="headers"
       :items="notifications"
       class="elevation-1 mytable"
-      :disable-pagination="disablePagination"
+      items-per-page="-1"
       hide-default-footer
     >
       <template v-slot:top>
@@ -23,8 +23,8 @@
       </template>
 
       <template v-slot:[`item.actions`]="{ item }">
-        <v-btn text @click="deleteItem(item)">
-          <v-icon small>mdi-message-bulleted-off</v-icon>
+        <v-btn variant="text" @click="deleteItem(item)">
+          <v-icon size="small">mdi-message-bulleted-off</v-icon>
         </v-btn>
       </template>
     </v-data-table>
@@ -36,12 +36,11 @@ export default {
   props: ["parent"],
   data: () => ({
     member: {},
-    disablePagination: true,
     notifications: [],
     headers: [
-      { text: "Title", align: "start", value: "title" },
-      { text: "Count", value: "cnt" },
-      { text: "Actions", align: "center", value: "actions", sortable: false },
+      { title: "Title", align: "start", key: "title" },
+      { title: "Count", key: "cnt" },
+      { title: "Actions", align: "center", key: "actions", sortable: false },
     ],
   }),
 
@@ -52,13 +51,13 @@ export default {
 
   methods: {
     initialize() {
-      this.$nextTick(function () {  
+      this.$nextTick(function () {
         this.$http
           .get(`/comment/getMyCommunityComment/${this.member.id}`)
           .then((response) => {
             this.notifications = response.data.data;
           });
-      });    
+      });
     },
 
     deleteItem(item) {

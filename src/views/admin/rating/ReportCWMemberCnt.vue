@@ -5,25 +5,25 @@
         <v-combobox
           v-model="selectDepartments"
           :items="departments"
-          :item-text="departments.text"
+          :item-title="departments.text"
           :item-value="departments.value"
           label="권한구룹"
           multiple
-          outlined
-          dense
+          variant="outlined"
+          density="compact"
         ></v-combobox>
       </v-col>
       <v-col cols="12" lg="6" md="6">
-        <v-btn outlined color="indigo" class="ml-10" @click="pickStart">
+        <v-btn variant="outlined" color="indigo" class="ml-10" @click="pickStart">
           {{$t('startDate')}} : {{ startDate }}
         </v-btn>
-        <v-btn outlined color="indigo" class="ml-1" @click="pickEnd">
+        <v-btn variant="outlined" color="indigo" class="ml-1" @click="pickEnd">
           {{$t('endDate')}}: {{ endDate }}
         </v-btn>
         <v-btn
-          class="ml-1 white--text"
+          class="ml-1 text-white"
           color="indigo"
-          depressed
+          variant="flat"
           @click="reportWCMemberCount"
         >
           {{$t('search')}}
@@ -33,7 +33,7 @@
     <v-dialog v-model="pickDialog" width="290">
       <v-date-picker v-model="datePicker" class="mt-5"></v-date-picker>
     </v-dialog>
-    <v-simple-table fixed-header>
+    <v-table fixed-header>
       <template v-slot:default>
         <thead>
           <tr>
@@ -57,14 +57,14 @@
             <td class="text-center">{{ item.comment_cnt }}</td>
             <td class="text-center">{{ item.be_collect }}</td>
             <td class="text-center">{{ item.be_liked }}</td>
-            <td class="text-center"><a class="indigo--text" @click="ratingDialogOpen(item.id,item.member_name) ">{{ item.rating }}</a></td>
+            <td class="text-center"><a class="text-indigo" @click="ratingDialogOpen(item.id,item.member_name) ">{{ item.rating }}</a></td>
             <td class="text-center">{{ item.point }}</td>
           </tr>
         </tbody>
       </template>
-    </v-simple-table>
+    </v-table>
 
-    <v-dialog 
+    <v-dialog
       v-model="ratingDialog"
       max-width = "1000px"
       scrollable
@@ -72,7 +72,7 @@
       <v-card class="pa-3">
         <v-card-title>{{ targetRatingName }} 평점 상세</v-card-title>
         <v-divider></v-divider>
-        <v-simple-table class="pa-2">
+        <v-table class="pa-2">
           <template v-slot:default>
             <thead>
               <tr>
@@ -83,7 +83,7 @@
                   Rating
                 </th>
                 <th class="text-left">
-                  Title 
+                  Title
                 </th>
               </tr>
             </thead>
@@ -98,7 +98,7 @@
               </tr>
             </tbody>
           </template>
-        </v-simple-table>  
+        </v-table>
 
       </v-card>
     </v-dialog>
@@ -107,10 +107,10 @@
         v-model="snackbar"
         >
         {{ textSnackbar }}
-        <template v-slot:action="{ attrs }">
+        <template v-slot:actions="{ attrs }">
             <v-btn
             color="pink"
-            text
+            variant="text"
             v-bind="attrs"
             @click="snackbar = false"
             >
@@ -209,7 +209,7 @@ export default {
 
       this.$http.get("/member/getRatingDetail",params).then((response) => {
         this.ratingDetail = response.data.data;
-      }) 
+      })
     },
 
     reportWCMemberCount(){
@@ -217,7 +217,7 @@ export default {
       for(const  department of this.selectDepartments){
         dept.push(department.value)
       }
-      
+
       let depts = _.toString(dept)
 
       let params = {
@@ -230,7 +230,7 @@ export default {
 
       this.$http.get("/member/reportWCMemberCount",params).then((response) => {
         this.report = response.data.data;
-      }) 
+      })
     },
 
     formatDate(date, formateStr) {
