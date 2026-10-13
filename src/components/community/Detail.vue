@@ -69,7 +69,9 @@
       <!-- preview -->
 
       <v-card flat>
-        <v-md-editor v-model="community.content" mode="preview" ref="editor" />
+        <image-preview>
+          <v-md-editor v-model="community.content" mode="preview" ref="editor" />
+        </image-preview>
       </v-card>
 
       <!-- anchor -->
@@ -300,10 +302,11 @@ import { mapGetters } from "vuex";
 import DashboardVue from "../com/Dashboard";
 import FilesListVue from "../com/FilesList";
 import catalogue from "../com/catalogue";
+import ImagePreview from "../com/ImagePreview.vue";
 
 export default {
   mixins: [catalogue],
-  components: { DashboardVue, FilesListVue },
+  components: { DashboardVue, FilesListVue, ImagePreview },
 
   data: () => ({
     community: {},

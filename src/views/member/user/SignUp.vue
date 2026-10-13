@@ -67,17 +67,18 @@
         ></v-select>
 
         <v-textarea
+           class="mt-5"
           outlined
           :label="$t('reasonForSomeThing')"
           v-model="member.comment"
-          :rules="[(v) => !!v || $t('required',{0:$t('reasonForSomeThing')})]"
+          :rules="[(v) => !!v || $t('required',{0:$t('reasonForSomeThing2')})]"
         ></v-textarea>
 
         <v-btn
           block
           large
           color="indigo"
-          class="mt-5"
+          class="mt-5 white--text"
           @click="validate"
           depressed
           @keyup.native.enter="validate"

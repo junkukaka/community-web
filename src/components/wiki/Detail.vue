@@ -117,7 +117,9 @@
         </v-list-item>
       </v-card-actions>
       <v-divider></v-divider>
-      <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" />
+      <image-preview>
+        <v-md-editor v-model="wikiHis.content" mode="preview" ref="editor" />
+      </image-preview>
       <!-- anchor -->
 
       <div class="anchorArea d-none d-lg-block" v-if="titles.length > 0" v-show="$store.state.ifMobile">
@@ -258,12 +260,14 @@
 import HisTimeLine from "./HisTimeLine";
 import DashboardVue from "../com/Dashboard.vue";
 import catalogue from "../com/catalogue";
+import ImagePreview from "../com/ImagePreview.vue";
 
 export default {
   mixins: [catalogue],
   components: {
     DashboardVue,
     HisTimeLine,
+    ImagePreview,
   },
 
   data: () => ({

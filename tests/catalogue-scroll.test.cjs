@@ -48,7 +48,7 @@ for (const page of ['wiki', 'community']) {
   }
   const catalogue = load('src/components/com/catalogue.js', { window, document, MutationObserver });
   const component = load(`src/components/${page}/Detail.vue`, {
-    catalogue, HisTimeLine: {}, DashboardVue: {}, FilesListVue: {}, mapGetters: () => ({}),
+    catalogue, HisTimeLine: {}, DashboardVue: {}, FilesListVue: {}, ImagePreview: {}, mapGetters: () => ({}),
   });
   assert.strictEqual(component.mixins[0], catalogue);
   const context = {
