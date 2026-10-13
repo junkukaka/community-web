@@ -257,8 +257,10 @@
 <script>
 import HisTimeLine from "./HisTimeLine";
 import DashboardVue from "../com/Dashboard.vue";
+import catalogue from "../com/catalogue";
 
 export default {
+  mixins: [catalogue],
   components: {
     DashboardVue,
     HisTimeLine,
@@ -310,72 +312,9 @@ export default {
     this.getRating();
   },
 
-  mounted() {
-    let br;
-    let i = 0;
-    //try 10s
-    while (i < 7) {
-      br = this.$refs.editor.$el.querySelectorAll(
-        ".v-md-editor-preview h1,h2,h3,h4"
-      );
-      //加载导航
-      this.sleep(1000).then(() => {
-        // 这里写sleep之后需要去做的事情
-        const anchors = this.$refs.editor.$el.querySelectorAll(
-          ".v-md-editor-preview h1,h2,h3,h4,h5,h6"
-        );
-        const titles = Array.from(anchors).filter(
-          (title) => !!title.innerText.trim()
-        );
-
-        if (!titles.length) {
-          this.titles = [];
-          return;
-        }
-
-        const hTags = Array.from(
-          new Set(titles.map((title) => title.tagName))
-        ).sort();
-
-        this.titles = titles.map((el) => ({
-          title: el.innerText,
-          lineIndex: el.getAttribute("data-v-md-line"),
-          indent: hTags.indexOf(el.tagName)
-        }));
-      });
-
-      //由于网页加载可能有延迟，导航加载时间会出现延迟。
-      if (br.length > 0) {
-        // console.log(`${i} ---- ${br.length}`);
-        break;
-      }
-
-      i++;
-    }
-  },
 
 
   methods: {
-    sleep(time) {
-      return new Promise((resolve) => setTimeout(resolve, time));
-    },
-    //v-md-editor nav
-    handleAnchorClick(anchor) {
-      const { editor } = this.$refs;
-      const { lineIndex } = anchor;
-      this.contentsTitle = lineIndex;
-      const heading = editor.$el.querySelector(
-        `.v-md-editor-preview [data-v-md-line="${lineIndex}"]`
-      );
-
-      if (heading) {
-        editor.previewScrollToTarget({
-          target: heading,
-          scrollContainer: window,
-          top: 100,
-        });
-      }
-    },
 
     getRating(){
       this.$http.get(`/wiki/getWikiRating/${this.wikiId}`).then((response) => {

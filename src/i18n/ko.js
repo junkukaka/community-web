@@ -13,7 +13,7 @@ module.exports = {
   pw: "비밀번호",
   mail: "메일",
   department: "부서",
-  reasonForSomeThing: "식청사유 입력하세요",
+  reasonForSomeThing: "신청사유",
   confirmSomeThing: "{0} 확인하세요",
   ok: "확인",
   delete: "삭제",
