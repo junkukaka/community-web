@@ -32,6 +32,7 @@ const store = new Vuex.Store({
       state.Authorization = member.Authorization;
       localStorage.setItem('Authorization', member.Authorization);
       localStorage.setItem('token', member.Authorization);
+      localStorage.setItem('store', JSON.stringify(state));
     },
     // 删除 token
     removeLogin(){
@@ -46,5 +47,19 @@ const store = new Vuex.Store({
   },
   modules: {}
 })
+// 在路由和页面创建前恢复状态，支持已登录用户直接打开分享链接。
+const savedStore = localStorage.getItem('store');
+if (savedStore) {
+  try {
+    store.replaceState(Object.assign({}, store.state, JSON.parse(savedStore)));
+  } catch (error) {
+    localStorage.removeItem('store');
+  }
+}
+store.state.Authorization = localStorage.getItem('Authorization') || '';
+if (!store.state.Authorization) {
+  store.state.member = null;
+}
+
 //导出对象
 export default store

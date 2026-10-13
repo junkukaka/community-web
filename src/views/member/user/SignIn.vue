@@ -157,9 +157,13 @@ export default {
     closeDialogMsg() {
       this.dialog = false;
       if (this.memberToken != "") {
-        let url = localStorage.getItem('PreUrl');
-        if(url != "" && url != null){
-          this.$router.push(url); 
+        const url = this.$route.query.redirect;
+        const target = typeof url === 'string' && /^\/(?![\/\\])/.test(url)
+          ? this.$router.resolve(url).route
+          : null;
+        localStorage.removeItem('PreUrl');
+        if (target && target.matched.length > 0 && target.path !== '/signIn' && target.path !== '/signUp') {
+          this.$router.push(url);
         } else {
           this.$router.push("/"); 
         } 

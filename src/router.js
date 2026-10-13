@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './store'
 
 //1.引入router 插件
 Vue.use(VueRouter)
@@ -319,10 +320,9 @@ router.beforeEach((to, from, next) => {
         next();
     } else {
         let token = localStorage.getItem('Authorization');
-        if (token === null || token === '') {
+        if (token === null || token === '' || store.state.member == null) {
             // console.log(`token is ${token}`);
-            localStorage.setItem('PreUrl', to.fullPath);
-            next('/signIn');
+            next({ path: '/signIn', query: { redirect: to.fullPath } });
         } else {
             //community & wiki Edite 저장 확인
             if(from.path == '/community/communityEdit' || from.path =='/wiki/wikiEdit'){
